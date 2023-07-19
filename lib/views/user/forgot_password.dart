@@ -5,6 +5,8 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../view_models/controller/ForgotPasswordController/ForgotPasswordController.dart';
+
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
 
@@ -13,7 +15,9 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  TextEditingController emailmobilecontroller = TextEditingController();
+  ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPasswordController());
+
+  //TextEditingController emailmobilecontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(height: height * .01),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: emailmobilecontroller,
+                //controller: ForgotPasswordControllerInstanse.EmailController.value,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
@@ -90,6 +94,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: MyButton(
                   title: "Send",
                   onTap: () {
+                   // ForgotPasswordControllerInstanse.ForgotPasswordApiHit();
                     validation();
                   },
                 ),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pinput/new_pinput.dart';
 
+import '../../view_models/controller/ForgotPasswordController/ForgotPasswordController.dart';
+
 
 class Verification extends StatefulWidget {
   final Key formKey;
@@ -24,6 +26,7 @@ class Verification extends StatefulWidget {
 class _VerificationState extends State<Verification> {
 
   final FocusNode _pinPutFocusNode = FocusNode();
+
 
   // BoxDecoration get _pinPutDecoration {
   //   return BoxDecoration(
@@ -147,6 +150,7 @@ class _VerificationState extends State<Verification> {
                   followingPinTheme: defaultPinTheme,
                 ),
               ),
+
               SizedBox(height: height * .02),
               Center(
                 child: RichText(
