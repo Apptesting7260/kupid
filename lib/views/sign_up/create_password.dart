@@ -3,6 +3,8 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../view_models/controller/CreatePasswordController/CreatePasswordController.dart';
+
 class CreatePassword extends StatefulWidget {
   const CreatePassword({Key? key}) : super(key: key);
 
@@ -11,8 +13,7 @@ class CreatePassword extends StatefulWidget {
 }
 
 class _CreatePasswordState extends State<CreatePassword> {
-  final TextEditingController _pass = TextEditingController();
-  final TextEditingController _confirmPass = TextEditingController();
+  final CreatePasswordControllerInstance=Get.put(CreatePasswordController());
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -51,7 +52,7 @@ class _CreatePasswordState extends State<CreatePassword> {
               TextFormField(
                 obscureText: !_passwordVisible,
                 keyboardType: TextInputType.emailAddress,
-                controller: _pass,
+                controller: CreatePasswordControllerInstance.PasswordController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Password";
@@ -103,11 +104,11 @@ class _CreatePasswordState extends State<CreatePassword> {
               TextFormField(
                 obscureText: !_passwordVisiblee,
                 keyboardType: TextInputType.emailAddress,
-                controller: _confirmPass,
+                controller: CreatePasswordControllerInstance.ConfirmPasswordController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Password";
-                  } else if (value != _pass.text) {
+                  } else if (value !=CreatePasswordControllerInstance.PasswordController.value .text) {
                     return "Not Matched";
                   } else {
                     return null;
@@ -152,14 +153,14 @@ class _CreatePasswordState extends State<CreatePassword> {
                     fillColor: Colors.white),
               ),
               SizedBox(height: height * .02),
-              Center(
-                child: MyButton(
-                  title: "Continue",
-                  onTap: () {
-                    validate();
-                  },
-                ),
-              )
+            Obx(() => Center(
+              child: MyButton(loading: CreatePasswordControllerInstance.loading.value,
+                title: "Continue",
+                onTap: () {
+                  validate();
+                },
+              ),
+            ))
             ],
           ),
         ),
@@ -172,7 +173,7 @@ class _CreatePasswordState extends State<CreatePassword> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      Get.to(() => ChooseProfile());
+      CreatePasswordControllerInstance.CreatePasswordapiiHit();
     }
   }
 }

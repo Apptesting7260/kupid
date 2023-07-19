@@ -7,6 +7,8 @@ import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.da
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
+import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
+
 
 
 class AuthRepository {
@@ -26,4 +28,8 @@ int?abcd;
   }
 
 
+Future<CreatePasswordModel> CreatePasswordApi(var data) async{
+  dynamic response = await _apiService.postApi(data, AppUrl.CreatePasswordUrl);
+  return CreatePasswordModel.fromJson(response) ;
+}
 }
