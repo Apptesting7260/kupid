@@ -9,6 +9,7 @@ import 'package:cupid_match/res/app_url/app_url.dart';
 
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
 import '../../models/ResendOtpModel/ResendOtpModel.dart';
+import '../../models/SetRoleModel/SetRoleModel.dart';
 
 
 
@@ -38,5 +39,11 @@ Future<ResendOtpModel> ResendOtpApi(var data) async{
   dynamic response = await _apiService.postApi(data, AppUrl.ResendOtpUrl);
   return ResendOtpModel.fromJson(response) ;
 }
+
+Future<SetRoleModel> SetRoleApiApi(var data) async{
+  dynamic response = await _apiService.postApi(data, AppUrl.SetRoleUrl);
+  return SetRoleModel.fromJson(response) ;
+}
+
 
 }

@@ -7,6 +7,8 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../view_models/controller/SetRoleController/SetRoleController.dart';
+
 class ChooseProfile extends StatefulWidget {
   const ChooseProfile({Key? key}) : super(key: key);
 
@@ -16,6 +18,8 @@ class ChooseProfile extends StatefulWidget {
 
 class _ChooseProfileState extends State<ChooseProfile> {
   int _value = 1;
+
+  final SetRoleControllerInstanse =Get.put(SetRoleController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,7 @@ class _ChooseProfileState extends State<ChooseProfile> {
                   onChanged: (val) {
                     setState(() {
                       _value = val!;
+                      ProfileType=val;
                     });
                   },
                   activeColor: Color(0xffFE0091)),
@@ -91,6 +96,7 @@ class _ChooseProfileState extends State<ChooseProfile> {
                   onChanged: (val) {
                     setState(() {
                       _value = val!;
+                      ProfileType=val;
                     });
                   },
                   activeColor: Color(0xffFE0091)),
@@ -102,9 +108,8 @@ class _ChooseProfileState extends State<ChooseProfile> {
               child: MyButton(
                 title: "Next",
                 onTap: () {
-                  _value != 1
-                      ? Get.to(() => ProfileOneScreen())
-                      : Get.to(() => ProfileScreen());
+                  SetRoleControllerInstanse.SetRoleapiiHit();
+
                 },
               ),
             )
