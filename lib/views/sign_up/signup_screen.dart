@@ -1,3 +1,4 @@
+import 'package:cupid_match/view_models/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/views/sign_up/sign_up.dart';
 import 'package:cupid_match/views/user/login_Screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
@@ -13,6 +14,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

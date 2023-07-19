@@ -22,7 +22,7 @@ class Verification extends StatefulWidget {
 }
 
 class _VerificationState extends State<Verification> {
-  final TextEditingController _pinPutController = TextEditingController();
+
   final FocusNode _pinPutFocusNode = FocusNode();
 
   // BoxDecoration get _pinPutDecoration {
@@ -171,7 +171,7 @@ class _VerificationState extends State<Verification> {
                 child: MyButton(
                   title: "Verify",
                   onTap: () {
-                    Get.to(() => ResetPassword());
+                   
                   },
                 ),
               ),

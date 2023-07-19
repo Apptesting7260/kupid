@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MyButton extends StatelessWidget {
   final String title;
@@ -9,11 +10,13 @@ class MyButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? textColor;
   final Color? bgColor;
+  final bool loading ;
 
   const MyButton({
     Key? key,
     required this.title,
     required this.onTap,
+   this.loading = false ,
     this.style,
     this.width,
     this.height,
@@ -29,7 +32,10 @@ class MyButton extends StatelessWidget {
       height: height ?? 56,
       child: ElevatedButton(
         onPressed: onTap,
-        child: Center(child: Text(title)),
+        child: Center(child: loading==false? Text(title): LoadingAnimationWidget.inkDrop(
+          color: Colors.white,
+          size: 30,
+        )),
         style: ElevatedButton.styleFrom(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(

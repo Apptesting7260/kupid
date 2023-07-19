@@ -1,3 +1,4 @@
+import 'package:cupid_match/view_models/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:email_validator/email_validator.dart';
@@ -12,7 +13,7 @@ class Sign extends StatefulWidget {
 }
 
 class _SignState extends State<Sign> {
-  TextEditingController emailmobilecontroller = TextEditingController();
+ SignUpController SignUpControllerInstance=Get.put(SignUpController());
   final GlobalKey<FormState> _formKey = GlobalKey();
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -47,7 +48,7 @@ class _SignState extends State<Sign> {
               SizedBox(height: height * .03),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: emailmobilecontroller,
+                controller: SignUpControllerInstance.credentialsController.value,
                 validator: (value) {
                   if (!isEmail(value!) && !isPhone(value!)) {
                     return 'Please enter a valid email or phone number.';
@@ -76,14 +77,18 @@ class _SignState extends State<Sign> {
                     fillColor: Colors.white),
               ),
               SizedBox(height: height * .04),
-              Center(
-                child: MyButton(
+             Obx(() =>  Center(
+                child: 
+                
+                MyButton(
+                  loading: SignUpControllerInstance.loading.value,
                   title: "Continue",
                   onTap: () {
+                    print(SignUpControllerInstance.loading.value);
                     validation();
                   },
                 ),
-              )
+              ))
             ],
           ),
         ),
@@ -96,12 +101,8 @@ class _SignState extends State<Sign> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      Get.to(() => PinFields(
-            pinPutFocusNode: FocusNode(),
-            controller: TextEditingController(),
-            key: _formKey,
-            formKey: Key(" "),
-          ));
+      SignUpControllerInstance.SignUpapiHit();
+      
     }
   }
 }

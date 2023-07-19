@@ -51,6 +51,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_slot_machine: ^0.0.1
   new_pinput: ^1.0.1
+  fluttertoast: ^8.2.2
+  loading_animation_widget: ^1.2.0+4
 
 
 

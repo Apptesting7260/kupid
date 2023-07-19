@@ -1,3 +1,4 @@
+import 'package:cupid_match/view_models/controller/OtpVarificationController/OtpVarificationController.dart';
 import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,11 @@ import 'package:new_pinput/new_pinput.dart';
 class PinFields extends StatefulWidget {
   final Key formKey;
   final FocusNode pinPutFocusNode;
-  final TextEditingController controller;
+
   const PinFields(
       {Key? key,
       required this.formKey,
-      required this.controller,
+
       required this.pinPutFocusNode})
       : super(key: key);
 
@@ -21,7 +22,7 @@ class PinFields extends StatefulWidget {
 }
 
 class _PinFieldsState extends State<PinFields> {
-  final TextEditingController _pinPutController = TextEditingController();
+final OtpVarificationControllerinstace=Get.put(OtpVarificationController());
   final FocusNode _pinPutFocusNode = FocusNode();
 
   // BoxDecoration get _pinPutDecoration {
@@ -128,7 +129,7 @@ class _PinFieldsState extends State<PinFields> {
                   defaultPinTheme: defaultPinTheme,
                   onSubmitted: (String pin) => _showSnackBar(pin, context),
                   focusNode: _pinPutFocusNode,
-                  controller: widget.controller,
+                  controller: OtpVarificationControllerinstace.OtpController.value,
                   submittedPinTheme: PinTheme(
                       height: 56,
                       width: 56,
@@ -141,14 +142,16 @@ class _PinFieldsState extends State<PinFields> {
                 ),
               ),
               SizedBox(height: height * .05),
-              Center(
+            Obx(() => Center(
                 child: MyButton(
+                  loading: OtpVarificationControllerinstace.loading.value,
                   title: "Verify",
                   onTap: () {
-                    Get.to(() => CreatePassword());
+                    OtpVarificationControllerinstace.OtpVerificationapiiHit();
+                  
                   },
                 ),
-              ),
+              ),)  ,
               SizedBox(height: height * .45),
               Center(
                 child: Text(
