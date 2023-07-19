@@ -8,6 +8,7 @@ import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
+import '../../models/ResendOtpModel/ResendOtpModel.dart';
 
 
 
@@ -32,4 +33,10 @@ Future<CreatePasswordModel> CreatePasswordApi(var data) async{
   dynamic response = await _apiService.postApi(data, AppUrl.CreatePasswordUrl);
   return CreatePasswordModel.fromJson(response) ;
 }
+
+Future<ResendOtpModel> ResendOtpApi(var data) async{
+  dynamic response = await _apiService.postApi(data, AppUrl.ResendOtpUrl);
+  return ResendOtpModel.fromJson(response) ;
+}
+
 }

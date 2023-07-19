@@ -3,7 +3,10 @@ import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_pinput/new_pinput.dart';
+
+import '../../view_models/controller/ResendOtpController/ResendOtpController.dart';
 
 
 class PinFields extends StatefulWidget {
@@ -24,6 +27,7 @@ class PinFields extends StatefulWidget {
 class _PinFieldsState extends State<PinFields> {
 final OtpVarificationControllerinstace=Get.put(OtpVarificationController());
   final FocusNode _pinPutFocusNode = FocusNode();
+final ResendOtpControllerInstanse=Get.put(ResendOtpController());
 
   // BoxDecoration get _pinPutDecoration {
   //   return BoxDecoration(
@@ -153,15 +157,24 @@ final OtpVarificationControllerinstace=Get.put(OtpVarificationController());
                 ),
               ),)  ,
               SizedBox(height: height * .45),
-              Center(
-                child: Text(
-                  "send again",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Color(0xffFE0091)),
+              Obx(() =>  InkWell(
+                child: Center(
+                  child: ResendOtpControllerInstanse.loading.value==false? Text(
+                    "send again",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Color(0xffFE0091)),
+                  ):  LoadingAnimationWidget.inkDrop(
+                    color: Color(0xffFE0091),
+                    size: 20,
+                  ),
                 ),
-              ),
+                onTap: (){
+                  ResendOtpControllerInstanse.ResendOtpapiiHit();
+                },
+              ),)
+
             ],
           ),
         ),

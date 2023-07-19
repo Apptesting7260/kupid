@@ -6,7 +6,7 @@ class AppUrl {
   static const String SignUpUrl = '$baseUrl/signup-step1' ;
   static const String OtpvarificationUrl = '$baseUrl/otpverify-step2' ;
   static const String CreatePasswordUrl = '$baseUrl/setpassword-step3' ;
-
+  static const String ResendOtpUrl = '$baseUrl/otpresend-step2' ;
 
 
 }
