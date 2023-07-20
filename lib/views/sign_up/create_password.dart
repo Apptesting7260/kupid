@@ -3,7 +3,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view_models/controller/CreatePasswordController/CreatePasswordController.dart';
+import '../../controllers/controller/CreatePasswordController/CreatePasswordController.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({Key? key}) : super(key: key);

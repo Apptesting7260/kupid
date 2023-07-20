@@ -7,7 +7,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view_models/controller/SetRoleController/SetRoleController.dart';
+import '../../controllers/controller/SetRoleController/SetRoleController.dart';
 
 class ChooseProfile extends StatefulWidget {
   const ChooseProfile({Key? key}) : super(key: key);

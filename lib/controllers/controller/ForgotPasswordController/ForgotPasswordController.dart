@@ -1,6 +1,6 @@
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
-import 'package:cupid_match/view_models/controller/SignUpController/SignUpController.dart';
+import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/views/sign_up/choose_profile.dart';
 import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/views/user/otp.dart';

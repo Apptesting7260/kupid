@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pinput/new_pinput.dart';
 
-import '../../view_models/controller/ForgotPasswordController/ForgotPasswordController.dart';
+import '../../controllers/controller/ForgotPasswordController/ForgotPasswordController.dart';
 
 
 class Verification extends StatefulWidget {

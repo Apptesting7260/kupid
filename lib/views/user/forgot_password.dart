@@ -5,7 +5,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view_models/controller/ForgotPasswordController/ForgotPasswordController.dart';
+import '../../controllers/controller/ForgotPasswordController/ForgotPasswordController.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);

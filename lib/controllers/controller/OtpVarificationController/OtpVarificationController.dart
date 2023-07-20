@@ -1,37 +1,36 @@
-import 'package:cupid_match/match_maker/addbio_maker.dart';
-import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
-import 'package:cupid_match/view_models/controller/SignUpController/SignUpController.dart';
+import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-int ProfileType=1;
-class SetRoleController extends GetxController {
-  final SignUpControllerinstance=Get.put(SignUpController());
+
+class OtpVarificationController extends GetxController {
+final SignUpControllerinstance=Get.put(SignUpController());
   final _api = AuthRepository();
+
+  final OtpController = TextEditingController().obs ;
 
   RxBool loading = false.obs;
 
-  void SetRoleapiiHit(){
+  void OtpVerificationapiiHit(){
     loading.value = true ;
     print(loading.value);
     Map data = {
       'credentials' : SignUpControllerinstance.credentialsController.value.text,
-      'type' : ProfileType.toString()
+      'otp' : OtpController.value.text,
     };
     print(data);
-    _api.SetRoleApiApi(data).then((value){
+    _api.OtpVarificationApi(data).then((value){
       loading.value = false ;
-      print(value);
+print(value);
       Utils.snackBar( "Message",value.msg.toString());
-      ProfileType != 1
-          ? Get.to(() => ProfileOneScreen())
-          : Get.to(() => ProfileScreen());
+  Get.to(() => CreatePassword());
 
+    
     }).onError((error, stackTrace){
       print("error");
       loading.value = false ;

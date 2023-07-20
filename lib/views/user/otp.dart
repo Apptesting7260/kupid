@@ -1,4 +1,4 @@
-import 'package:cupid_match/view_models/controller/OtpVarificationController/OtpVarificationController.dart';
+import 'package:cupid_match/controllers/controller/OtpVarificationController/OtpVarificationController.dart';
 import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_pinput/new_pinput.dart';
 
-import '../../view_models/controller/ResendOtpController/ResendOtpController.dart';
+import '../../controllers/controller/ResendOtpController/ResendOtpController.dart';
 
 
 class PinFields extends StatefulWidget {
