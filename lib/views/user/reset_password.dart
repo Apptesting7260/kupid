@@ -2,6 +2,8 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/controller/ForgotPasswordResetController/ForgotPasswordResetController.dart';
+
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
 
@@ -10,8 +12,10 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final TextEditingController _pass = TextEditingController();
-  final TextEditingController _confirmPass = TextEditingController();
+  ForgotPasswordResetController ForgotPasswordResetControllerInstanse=Get.put(ForgotPasswordResetController());
+
+  // final TextEditingController _pass = TextEditingController();
+  // final TextEditingController _confirmPass = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -58,7 +62,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               TextFormField(
                 obscureText: !_passwordVisible,
                 keyboardType: TextInputType.emailAddress,
-                controller: _pass,
+                controller: ForgotPasswordResetControllerInstanse.PasswordController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Password";
@@ -110,11 +114,11 @@ class _ResetPasswordState extends State<ResetPassword> {
               TextFormField(
                 obscureText: !_passwordVisiblee,
                 keyboardType: TextInputType.emailAddress,
-                controller: _confirmPass,
+                controller: ForgotPasswordResetControllerInstanse.PasswordController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Password";
-                  } else if (value != _pass.text) {
+                  } else if (value != ForgotPasswordResetControllerInstanse.PasswordController.value.text) {
                     return "Not Matched";
                   } else {
                     return null;
@@ -162,7 +166,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               MyButton(
                 title: "Save",
                 onTap: () {
-                  validate();
+                  ForgotPasswordResetControllerInstanse.ForgotPasswordResetApiHit();
+                  //validate();
+
                 },
               )
             ],

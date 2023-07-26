@@ -422,458 +422,464 @@ class _CreateNewMatchesScreenState extends State<CreateNewMatchesScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: height * 1,
-                      width: width * .47,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: height * .7,
-                                decoration: BoxDecoration(
-                                    color: Color(0xffF4F4F4),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: height * .02),
-                                        child: Container(
-                                          height: height * .2,
-                                          width: width * .35,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      "https://images.unsplash.com/photo-1586907835000-f692bbd4c9e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGdpcmxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
-                                                  fit: BoxFit.cover)),
+                    Flexible(
+                      child: Container(
+                        height: height * 1,
+                        width: width * .48,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: height * .65,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffF4F4F4),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: height * .02),
+                                          child: Container(
+                                            height: height * .2,
+                                            width: width * .35,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "https://images.unsplash.com/photo-1586907835000-f692bbd4c9e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGdpcmxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
+                                                    fit: BoxFit.cover)),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: width * .02),
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name, 22",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleLarge,
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Text(
-                                                "Fashion Designer",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.copyWith(fontSize: 14),
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Text(
-                                                "Address",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                              ),
-                                              SizedBox(
-                                                height: height * .04,
-                                              ),
-                                              Text(
-                                                "Interest",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall,
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                      child: Text(
-                                                    "Travelling",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                            color: AppColors
-                                                                .subtitletextcolor,
-                                                            fontSize: 14),
-                                                  )),
-                                                  SizedBox(
-                                                    width: width * .01,
-                                                  ),
-                                                  Expanded(
-                                                      child: Text(
-                                                    "Books",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                            color: AppColors
-                                                                .subtitletextcolor,
-                                                            fontSize: 14),
-                                                  )),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: height * .02,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        "assets/icons/religon.png",
-                                                        height: height * .01),
-                                                    label: Text('Hindu',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 7,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                      "assets/icons/4013342 1 (2).png",
-                                                      height: height * .01,
+                                      Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: width * .02),
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Name, 22",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Text(
+                                                  "Fashion Designer",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(fontSize: 14),
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Text(
+                                                  "Address",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .04,
+                                                ),
+                                                Text(
+                                                  "Interest",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Travelling",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color: AppColors
+                                                                  .subtitletextcolor,
+                                                              fontSize: 14),
+                                                    )),
+                                                    SizedBox(
+                                                      width: width * .01,
                                                     ),
-                                                    label: Text('6 Feet',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 7,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                      "assets/icons/money.png",
-                                                      height: height * .02,
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Books",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color: AppColors
+                                                                  .subtitletextcolor,
+                                                              fontSize: 14),
+                                                    )),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: height * .02,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                          "assets/icons/religon.png",
+                                                          height: height * .01),
+                                                      label: Text('Hindu',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 7,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
                                                     ),
-                                                    label: Text('50k Monthly',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                  GestureDetector(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        'assets/icons/next.png',
-                                                        height: height * .04,
-                                                      )),
-                                                ],
-                                              )
-                                            ]))
-                                  ],
-                                ),
-                              ));
-                        },
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                        "assets/icons/4013342 1 (2).png",
+                                                        height: height * .01,
+                                                      ),
+                                                      label: Text('6 Feet',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 7,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                        "assets/icons/money.png",
+                                                        height: height * .02,
+                                                      ),
+                                                      label: Text('50k Monthly',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 8,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {},
+                                                        child: Image.asset(
+                                                          'assets/icons/next.png',
+                                                          height: height * .04,
+                                                        )),
+                                                  ],
+                                                )
+                                              ]))
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
                       ),
                     ),
-                    Container(
-                      height: height * 1,
-                      width: width * .47,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        physics: AlwaysScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: height * .7,
-                                decoration: BoxDecoration(
-                                    color: Color(0xffF4F4F4),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: height * .02),
-                                        child: Container(
-                                          height: height * .2,
-                                          width: width * .35,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      "https://images.unsplash.com/photo-1586907835000-f692bbd4c9e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGdpcmxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
-                                                  fit: BoxFit.cover)),
+                    
+                    Flexible(
+                      child: Container(
+                        height: height * 1,
+                        width: width * .48,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: height * .65,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffF4F4F4),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: height * .02),
+                                          child: Container(
+                                            height: height * .2,
+                                            width: width * .35,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "https://images.unsplash.com/photo-1586907835000-f692bbd4c9e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGdpcmxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
+                                                    fit: BoxFit.cover)),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: width * .02),
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name, 22",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleLarge,
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Text(
-                                                "Fashion Designer",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.copyWith(fontSize: 14),
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Text(
-                                                "Address",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                              ),
-                                              SizedBox(
-                                                height: height * .04,
-                                              ),
-                                              Text(
-                                                "Interest",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleSmall,
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                      child: Text(
-                                                    "Travelling",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                            color: AppColors
-                                                                .subtitletextcolor,
-                                                            fontSize: 14),
-                                                  )),
-                                                  SizedBox(
-                                                    width: width * .01,
-                                                  ),
-                                                  Expanded(
-                                                      child: Text(
-                                                    "Books",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                            color: AppColors
-                                                                .subtitletextcolor,
-                                                            fontSize: 14),
-                                                  )),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: height * .02,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                        "assets/icons/religon.png",
-                                                        height: height * .01),
-                                                    label: Text('Hindu',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 7,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                      "assets/icons/4013342 1 (2).png",
-                                                      height: height * .01,
+                                      Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: width * .02),
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Name, 22",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Text(
+                                                  "Fashion Designer",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(fontSize: 14),
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Text(
+                                                  "Address",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .04,
+                                                ),
+                                                Text(
+                                                  "Interest",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall,
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Travelling",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color: AppColors
+                                                                  .subtitletextcolor,
+                                                              fontSize: 14),
+                                                    )),
+                                                    SizedBox(
+                                                      width: width * .01,
                                                     ),
-                                                    label: Text('6 Feet',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 7,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: height * .01,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  OutlinedButton.icon(
-                                                    style: OutlinedButton.styleFrom(
-                                                        side: BorderSide(
-                                                            color: Color(
-                                                                0xff333333),
-                                                            width: 1),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        22))),
-                                                    onPressed: () {},
-                                                    icon: Image.asset(
-                                                      "assets/icons/money.png",
-                                                      height: height * .02,
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Books",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color: AppColors
+                                                                  .subtitletextcolor,
+                                                              fontSize: 14),
+                                                    )),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: height * .02,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                          "assets/icons/religon.png",
+                                                          height: height * .01),
+                                                      label: Text('Hindu',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 7,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
                                                     ),
-                                                    label: Text('50k Monthly',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                                color: Color(
-                                                                    0xff000000),
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                  ),
-                                                  GestureDetector(
-                                                      onTap: () {},
-                                                      child: Image.asset(
-                                                        'assets/icons/next.png',
-                                                        height: height * .04,
-                                                      )),
-                                                ],
-                                              )
-                                            ]))
-                                  ],
-                                ),
-                              ));
-                        },
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                        "assets/icons/4013342 1 (2).png",
+                                                        height: height * .01,
+                                                      ),
+                                                      label: Text('6 Feet',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 7,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: height * .01,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    OutlinedButton.icon(
+                                                      style: OutlinedButton.styleFrom(
+                                                          side: BorderSide(
+                                                              color: Color(
+                                                                  0xff333333),
+                                                              width: 1),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          22))),
+                                                      onPressed: () {},
+                                                      icon: Image.asset(
+                                                        "assets/icons/money.png",
+                                                        height: height * .02,
+                                                      ),
+                                                      label: Text('50k Monthly',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  color: Color(
+                                                                      0xff000000),
+                                                                  fontSize: 8,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400)),
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {},
+                                                        child: Image.asset(
+                                                          'assets/icons/next.png',
+                                                          height: height * .04,
+                                                        )),
+                                                  ],
+                                                )
+
+                                              ]))
+                                    ],
+                                  ),
+                                ));
+                          },
+                        ),
                       ),
                     ),
                   ],

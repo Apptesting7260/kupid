@@ -17,7 +17,7 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPasswordController());
 
-  //TextEditingController emailmobilecontroller = TextEditingController();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(height: height * .01),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                //controller: ForgotPasswordControllerInstanse.EmailController.value,
+                controller: ForgotPasswordControllerInstanse.EmailController.value,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
@@ -90,15 +90,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     fillColor: Colors.white),
               ),
               SizedBox(height: height * .03),
-              Center(
-                child: MyButton(
-                  title: "Send",
-                  onTap: () {
-                   // ForgotPasswordControllerInstanse.ForgotPasswordApiHit();
-                    validation();
-                  },
-                ),
-              ),
+             Obx(() => Center(
+               child: MyButton(
+                 loading: ForgotPasswordControllerInstanse.loading.value,
+                 title: "Send",
+                 onTap: () {
+
+                   ForgotPasswordControllerInstanse.ForgotPasswordApiHit();
+                 },
+               ),
+             ),) ,
               SizedBox(height: height * .02),
               GestureDetector(
                 onTap: () {
@@ -132,13 +133,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   validation() {
     print("send");
-    if (!_formKey.currentState!.validate()) {
+    if (!formKeyotp.currentState!.validate()) {
       return;
     } else {
-      Get.to(() => Verification(  pinPutFocusNode: FocusNode(),
-        controller: TextEditingController(),
-        key: _formKey,
-        formKey: Key(" "), ));
+
+
     }
   }
 }

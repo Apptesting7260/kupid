@@ -6,18 +6,11 @@ import 'package:get/get.dart';
 import 'package:new_pinput/new_pinput.dart';
 
 import '../../controllers/controller/ForgotPasswordController/ForgotPasswordController.dart';
+import '../../controllers/controller/OtpVarificationController/OtpVarificationController.dart';
 
-
+final GlobalKey<FormState> formKeyotp = GlobalKey();
 class Verification extends StatefulWidget {
-  final Key formKey;
-  final FocusNode pinPutFocusNode;
-  final TextEditingController controller;
-  const Verification(
-      {Key? key,
-      required this.formKey,
-      required this.controller,
-      required this.pinPutFocusNode})
-      : super(key: key);
+
 
   @override
   State<Verification> createState() => _VerificationState();
@@ -27,6 +20,7 @@ class _VerificationState extends State<Verification> {
 
   final FocusNode _pinPutFocusNode = FocusNode();
 
+  OtpVarificationController OtpVerificationInstanse=Get.put(OtpVarificationController());
 
   // BoxDecoration get _pinPutDecoration {
   //   return BoxDecoration(
@@ -62,7 +56,7 @@ class _VerificationState extends State<Verification> {
         centerTitle: true,
       ),
       body: Form(
-        key: widget.formKey,
+        key: formKeyotp,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
@@ -126,7 +120,8 @@ class _VerificationState extends State<Verification> {
                   },
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  length: 4,
+                  length: 6,
+
                   autofocus: true,
                   //
                   // validator: (s) {
@@ -138,7 +133,7 @@ class _VerificationState extends State<Verification> {
                   defaultPinTheme: defaultPinTheme,
                   onSubmitted: (String pin) => _showSnackBar(pin, context),
                   focusNode: _pinPutFocusNode,
-                  controller: widget.controller,
+                  controller: OtpVerificationInstanse.OtpController.value,
                   submittedPinTheme: PinTheme(
                       height: 56,
                       width: 56,
@@ -171,14 +166,16 @@ class _VerificationState extends State<Verification> {
                 ),
               ),
               SizedBox(height: height * .02),
-              Center(
+              Obx(() => Center(
                 child: MyButton(
+                  loading: OtpVerificationInstanse.loading.value,
                   title: "Verify",
                   onTap: () {
-                   
+                    OtpVerificationInstanse.OtpVerificationapiiHit();
+
                   },
                 ),
-              ),
+              ),)
             ],
           ),
         ),

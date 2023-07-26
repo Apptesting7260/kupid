@@ -8,7 +8,7 @@ import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
+String ?BarrierToken;
 int ProfileType=1;
 class SetRoleController extends GetxController {
   final SignUpControllerinstance=Get.put(SignUpController());
@@ -27,6 +27,10 @@ class SetRoleController extends GetxController {
     _api.SetRoleApiApi(data).then((value){
       loading.value = false ;
       print(value);
+      BarrierToken =value.token;
+      print(
+          BarrierToken
+      );
       Utils.snackBar( "Message",value.msg.toString());
       ProfileType != 1
           ? Get.to(() => ProfileOneScreen())

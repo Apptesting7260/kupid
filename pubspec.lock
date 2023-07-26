@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  date_time_picker:
+    dependency: "direct main"
+    description:
+      name: date_time_picker
+      sha256: "6923c568bcb67a66ab7e083708d0adbcae8214b41bb84d49febc17e89e06fc4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   dotted_border:
     dependency: "direct main"
     description:
@@ -260,10 +268,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.17.0"
   intl_phone_field:
     dependency: "direct main"
     description:
@@ -477,22 +485,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      sha256: "998d242c1f022eccf53f414a4343af34ab980700fee36cef8f78d94538ca749f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "21.2.6"
-  syncfusion_flutter_datepicker:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_datepicker
-      sha256: "93e2cad846282391bfa6cd769e0ac59f3fdf2d4ea75f09db75cd1545308696c9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "21.2.6"
   term_glyph:
     dependency: transitive
     description:

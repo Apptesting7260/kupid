@@ -6,6 +6,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart' ;
+import 'package:intl/intl.dart';
+
+import '../GlobalVariable/GlobalVariable.dart';
+import '../controllers/controller/MakerProfileController/MakerProfileController.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 enum SelectProfile {gender}
 class ProfileOneScreen extends StatefulWidget {
@@ -16,6 +21,10 @@ class ProfileOneScreen extends StatefulWidget {
 }
 
 class _ProfileOneScreenState extends State<ProfileOneScreen> {
+  //DateTime? startdate;
+  DateTime date = DateTime.now();
+
+  MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
 
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
@@ -58,31 +67,6 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     "4 Month experience",
     "5 Month experience"
   ];
-
-
-  // Future<void> showOptionDialog(BuildContext context) async {
-  // return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         //title: Center(child: Text("Choose")),
-  //         content: Row(
-  //           children: [
-  //            ListTile(
-  //              leading: Icon(Icons.photo_library),
-  //              title: Text("Photo Libraryy"),
-  //              onTap: () {},
-  //            ),
-  //             ListTile(
-  //               leading: Icon(Icons.photo_camera),
-  //               title: Text('Camera'),
-  //               onTap: () {},
-  //             )
-  //           ],
-  //         ),
-  //       );
-  //     });
-  //    }
 
   File? galleryFile;
   final picker = ImagePicker();
@@ -183,6 +167,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     assert(debugCheckHasMaterialLocalizations(context));
 
     Widget dialog = DatePickerDialog(
+
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
@@ -201,12 +186,12 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
       onDatePickerModeChange: onDatePickerModeChange,
     );
 
-    if (textDirection != null) {
-      dialog = Directionality(
-        textDirection: textDirection,
-        child: dialog,
-      );
-    }
+    // if (textDirection != null) {
+    //   dialog = Directionality(
+    //     textDirection: textDirection,
+    //     child: dialog,
+    //   );
+    // }
 
     if (locale != null) {
       dialog = Localizations.override(
@@ -376,16 +361,6 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                     ),
                   ),
 
-                  // Padding(padding: EdgeInsets.symmetric(
-                  //   vertical: height * 0.04,
-                  //   horizontal: width * 0.15,
-                  // ),
-                  //   child: GestureDetector(
-                  //       onTap: () {
-                  //         _showPicker(context: context);
-                  //       },
-                  //       child: Image.asset('assets/images/video.png')),
-                  // ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -394,6 +369,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   ),
                   SizedBox(height: height*.01,),
                   TextFormField(
+                    controller: MakerProfileControllerInstanse.NameController.value,
                     decoration: InputDecoration(
                       hintText: "Name",
                       contentPadding: EdgeInsets.all(20),
@@ -430,6 +406,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       )),
                   SizedBox(height: height*.01,),
                   TextFormField(
+                    controller: MakerProfileControllerInstanse.EmailController.value,
                     decoration: InputDecoration(
                       hintText: "example@gmail.com",
                       contentPadding: EdgeInsets.all(20),
@@ -468,7 +445,9 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       )),
                   SizedBox(height: height*.01,),
-                  TextFormField(keyboardType: TextInputType.number,
+                  TextFormField(
+                    controller: MakerProfileControllerInstanse.PhoneController.value,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: "Mobile number",
                       contentPadding: EdgeInsets.all(20),
@@ -508,7 +487,8 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                     ),
                   ),
                   SizedBox(height: height * 0.01,),
-                  DropdownButtonFormField(value: selectGender,
+                  DropdownButtonFormField(
+                      value: selectGender,
                       icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
                       style: Theme.of(context).textTheme.bodyLarge,
                       items: genderItems.map((String items) {
@@ -525,6 +505,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       onChanged: (String? newValue) {
                         setState(() {
                           selectGender = newValue!;
+                          SelectedGender=newValue;
                         });
                       },
                       decoration: InputDecoration(
@@ -545,6 +526,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       )
                   ),
                   SizedBox(height: height * 0.04,),
+
                   Container(
                     height: height*.09,
                     width: width,
@@ -557,15 +539,26 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: width*.05),
-                          child: Text("Choose birthday date",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000CAA),fontSize: 14,fontWeight: FontWeight.w800),),
+                          child:startdate==null? Text("Choose birthday date",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000CAA),fontSize: 14,fontWeight: FontWeight.w800),):Text(DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()))),
                         ),
                         Padding(
                           padding:  EdgeInsets.symmetric(horizontal: width*.05),
                           child: GestureDetector(
-                              onTap: () {
-                                showDatePicker(context: context, initialDate: DateTime(2000),
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(2100));
+                              onTap: ()  async {
+                                startdate  =
+                                    await showDatePicker(
+                                  context: context,
+                                  initialDate: date,
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime(2100),
+                                );
+                        print(startdate);
+                             datestring=DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()));
+                            print(datestring);
+
+                            setState(() {
+                              datestring;
+                            });
                               },
                               child: Image.asset('assets/icons/Calendar.png',height: 30,)),
                         ),
@@ -598,6 +591,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       onChanged: (String? newValue) {
                         setState(() {
                           selectLocationItems = newValue!;
+                          SelectedLocation=newValue;
                         });
                       },
                       decoration: InputDecoration(
@@ -643,6 +637,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       onChanged: (String? newValue) {
                         setState(() {
                           selectExperience = newValue!;
+                          SelectedMtachMakerExperience=newValue;
                         });
                       },
                       decoration: InputDecoration(
@@ -674,6 +669,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   ),
                   SizedBox(height: height*.01,),
                   TextFormField(
+                    controller: MakerProfileControllerInstanse.AboutMakerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
@@ -709,6 +705,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   ),
                   SizedBox(height: height*.01,),
                   TextFormField(
+                    controller: MakerProfileControllerInstanse.ExpectFromSeekerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
@@ -745,6 +742,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   ),
                   SizedBox(height: height*.01,),
                   TextFormField(
+                    controller: MakerProfileControllerInstanse.HandlingOfMakerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
@@ -774,17 +772,20 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   ),
                   SizedBox(height: height * 0.06,),
 
-                  MyButton(
-                    width: width * 0.8,
-                    title: 'Save',
-                    onTap: () {
-                      if(_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        _submit();
-                        Get.to(VerifyScreen());
-                      }
-                    },
-                  ),
+
+                 Obx(() => MyButton(
+                   loading: MakerProfileControllerInstanse.loading.value,
+                   width: width * 0.8,
+                   title: 'Save',
+                   onTap: () {
+                     if(_formKey.currentState!.validate()) {
+                       _formKey.currentState!.save();
+                       _submit();
+                       MakerProfileControllerInstanse.MakerProfileApiHit();
+
+                     }
+                   },
+                 ),) ,
                   SizedBox(height: height * 0.06,),
                 ],
               ),

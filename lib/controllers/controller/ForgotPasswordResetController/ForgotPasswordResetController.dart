@@ -9,35 +9,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../views/user/verification.dart';
+import '../ForgotPasswordController/ForgotPasswordController.dart';
+import '../OtpVarificationController/OtpVarificationController.dart';
 
-String?Verificationemail;
-class ForgotPasswordController extends GetxController {
+
+class ForgotPasswordResetController extends GetxController {
 
   final _api = AuthRepository();
 
-  final EmailController = TextEditingController().obs ;
-  final OtpControllerController = TextEditingController().obs ;
+  final PasswordController = TextEditingController().obs;
+  final ConPasswordController = TextEditingController().obs;
   RxBool loading = false.obs;
 
 
-  void ForgotPasswordApiHit(){
+  void ForgotPasswordResetApiHit(){
     loading.value = true ;
     print(loading.value);
     Map data = {
-      'credentials' : EmailController.value.text,
-
+      'credentials' : Verificationemail,
+      'otp' : Verificationotp,
+      'password' : PasswordController.value.text,
     };
     print(data);
-    _api.ForgotPasswordApi(data).then((value){
+    _api.ForgotPasswordResetApi(data).then((value){
       loading.value = false ;
-
-      Verificationemail=EmailController.value.text;
       print(value);
       Utils.snackBar( "Message",value.msg.toString());
-      // Get.to(() => ChooseProfile());
-      Get.to(() => Verification(
-
-      ));
+      //Get.to(() => Verification());
 
     }).onError((error, stackTrace){
       print("error");

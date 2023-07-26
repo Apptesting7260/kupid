@@ -9,4 +9,7 @@ class AppUrl {
   static const String ResendOtpUrl = '$baseUrl/otpresend-step2' ;
   static const String SetRoleUrl = '$baseUrl/chooserole-step4' ;
   static const String ForgotPasswordUrl = '$baseUrl/forgot-password' ;
+  static const String ForgotPasswordResetUrl = '$baseUrl/submit-reset-password' ;
+  static const String MakerProfileUrl = '$baseUrl/user-profile-update' ;
+  static const String SeekerProfileUrl = '$baseUrl/user-profile-update' ;
 }

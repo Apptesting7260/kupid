@@ -9,15 +9,11 @@ class SignUpController extends GetxController {
 
   final _api = AuthRepository();
 
-
-
   final credentialsController = TextEditingController().obs ;
   
   // final passwordController = TextEditingController().obs ;
 
-
   RxBool loading = false.obs;
-
 
   void SignUpapiHit(){
     loading.value = true ;

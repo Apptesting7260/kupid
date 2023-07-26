@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cupid_match/controllers/controller/SetRoleController/SetRoleController.dart';
 import 'package:cupid_match/data/network/base_api_services.dart';
 import 'package:flutter/foundation.dart';
 
@@ -49,9 +50,14 @@ class NetworkApiServices extends BaseApiServices {
     try {
 
       final response = await http.post(Uri.parse(url),
-        body: data
+        body: data,
+
       ).timeout( const Duration(seconds: 10));
+
+
+
       responseJson  = returnResponse(response) ;
+
     }on SocketException {
       throw InternetException('');
     }on RequestTimeOut {
@@ -65,6 +71,38 @@ class NetworkApiServices extends BaseApiServices {
 
   }
 
+  @override
+  Future<dynamic> postApi2(var data , String url)async{
+
+    if (kDebugMode) {
+      print(url);
+      print(data);
+    }
+
+    dynamic responseJson ;
+    try {
+      print(BarrierToken.toString());
+      final response = await http.post(Uri.parse(url),
+
+            headers: { "Authorization":"Bearer $BarrierToken"},
+
+
+          body: data
+      ).timeout( const Duration(seconds: 10));
+      responseJson  = returnResponse(response) ;
+      print(response.body);
+    }on SocketException {
+      throw InternetException('');
+    }on RequestTimeOut {
+      throw RequestTimeOut('');
+
+    }
+    if (kDebugMode) {
+      print(responseJson);
+    }
+    return responseJson ;
+
+  }
   dynamic returnResponse(http.Response response){
     switch(response.statusCode){
       case 200:

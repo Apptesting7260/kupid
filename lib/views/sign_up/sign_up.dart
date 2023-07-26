@@ -1,9 +1,11 @@
-import 'package:cupid_match/view_models/controller/SignUpController/SignUpController.dart';
+
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/controller/SignUpController/SignUpController.dart';
 
 class Sign extends StatefulWidget {
   const Sign({Key? key}) : super(key: key);
