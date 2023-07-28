@@ -32,7 +32,7 @@ class SetRoleController extends GetxController {
           BarrierToken
       );
       Utils.snackBar( "Message",value.msg.toString());
-      ProfileType != 1
+      ProfileType != 2
           ? Get.to(() => ProfileOneScreen())
           : Get.to(() => ProfileScreen());
 

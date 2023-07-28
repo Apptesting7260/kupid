@@ -54,6 +54,7 @@ dependencies:
   fluttertoast: ^8.2.2
   loading_animation_widget: ^1.2.0+4
   date_time_picker: ^2.1.0
+  file_picker: ^5.3.3
 
 
 

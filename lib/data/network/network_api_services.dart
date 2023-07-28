@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 import '../app_exceptions.dart';
 
 class NetworkApiServices extends BaseApiServices {
-
+var apiresponsehit;
 
   @override
   Future<dynamic> getApi(String url)async{
@@ -26,6 +26,7 @@ class NetworkApiServices extends BaseApiServices {
 
       final response = await http.get(Uri.parse(url)).timeout( const Duration(seconds: 10));
       responseJson  = returnResponse(response) ;
+      apiresponsehit=jsonDecode(response.body);
     }on SocketException {
       throw InternetException('');
     }on RequestTimeOut {
@@ -57,7 +58,7 @@ class NetworkApiServices extends BaseApiServices {
 
 
       responseJson  = returnResponse(response) ;
-
+apiresponsehit=jsonDecode(response.body);
     }on SocketException {
       throw InternetException('');
     }on RequestTimeOut {
@@ -91,6 +92,7 @@ class NetworkApiServices extends BaseApiServices {
       ).timeout( const Duration(seconds: 10));
       responseJson  = returnResponse(response) ;
       print(response.body);
+      apiresponsehit=jsonDecode(response.body);
     }on SocketException {
       throw InternetException('');
     }on RequestTimeOut {
@@ -104,6 +106,8 @@ class NetworkApiServices extends BaseApiServices {
 
   }
   dynamic returnResponse(http.Response response){
+
+ 
     switch(response.statusCode){
       case 200:
         dynamic responseJson = jsonDecode(response.body);

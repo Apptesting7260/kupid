@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cupid_match/match_maker/verify_identity.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ import '../controllers/controller/MakerProfileController/MakerProfileController.
 import 'package:date_time_picker/date_time_picker.dart';
 
 enum SelectProfile {gender}
+  File ?videoFile ;
 class ProfileOneScreen extends StatefulWidget {
   const ProfileOneScreen({Key? key}) : super(key: key);
 
@@ -68,6 +70,26 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     "5 Month experience"
   ];
 
+  Future<File?> pickVideo() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.video,
+    allowMultiple: false,
+  );
+
+  if (result != null) {
+     videoFile = File(result.files.single.path!);
+     setState(() {
+       videoFile;
+     });
+     print(videoFile);
+    return videoFile;
+  } else {
+    // User canceled the file picker
+    return null;
+  }
+}
+
+
   File? galleryFile;
   final picker = ImagePicker();
   void _showPicker({
@@ -120,100 +142,100 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     });
   }
 
-  Future<DateTime?> showDatePicker({
-    required BuildContext context,
-    required DateTime initialDate,
-    required DateTime firstDate,
-    required DateTime lastDate,
-    DateTime? currentDate,
-    DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar,
-    SelectableDayPredicate? selectableDayPredicate,
-    String? helpText,
-    String? cancelText,
-    String? confirmText,
-    Locale? locale,
-    bool useRootNavigator = true,
-    RouteSettings? routeSettings,
-    TextDirection? textDirection,
-    TransitionBuilder? builder,
-    DatePickerMode initialDatePickerMode = DatePickerMode.day,
-    String? errorFormatText,
-    String? errorInvalidText,
-    String? fieldHintText,
-    String? fieldLabelText,
-    TextInputType? keyboardType,
-    Offset? anchorPoint,
-    final ValueChanged<DatePickerEntryMode>? onDatePickerModeChange
-  }) async {
-    initialDate = DateUtils.dateOnly(initialDate);
-    firstDate = DateUtils.dateOnly(firstDate);
-    lastDate = DateUtils.dateOnly(lastDate);
-    assert(
-    !lastDate.isBefore(firstDate),
-    'lastDate $lastDate must be on or after firstDate $firstDate.',
-    );
-    assert(
-    !initialDate.isBefore(firstDate),
-    'initialDate $initialDate must be on or after firstDate $firstDate.',
-    );
-    assert(
-    !initialDate.isAfter(lastDate),
-    'initialDate $initialDate must be on or before lastDate $lastDate.',
-    );
-    assert(
-    selectableDayPredicate == null || selectableDayPredicate(initialDate),
-    'Provided initialDate $initialDate must satisfy provided selectableDayPredicate.',
-    );
-    assert(debugCheckHasMaterialLocalizations(context));
+  // Future<DateTime?> showDatePicker({
+  //   required BuildContext context,
+  //   required DateTime initialDate,
+  //   required DateTime firstDate,
+  //   required DateTime lastDate,
+  //   DateTime? currentDate,
+  //   DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar,
+  //   SelectableDayPredicate? selectableDayPredicate,
+  //   String? helpText,
+  //   String? cancelText,
+  //   String? confirmText,
+  //   Locale? locale,
+  //   bool useRootNavigator = true,
+  //   RouteSettings? routeSettings,
+  //   TextDirection? textDirection,
+  //   TransitionBuilder? builder,
+  //   DatePickerMode initialDatePickerMode = DatePickerMode.day,
+  //   String? errorFormatText,
+  //   String? errorInvalidText,
+  //   String? fieldHintText,
+  //   String? fieldLabelText,
+  //   TextInputType? keyboardType,
+  //   Offset? anchorPoint,
+  //   final ValueChanged<DatePickerEntryMode>? onDatePickerModeChange
+  // }) async {
+  //   initialDate = DateUtils.dateOnly(initialDate);
+  //   firstDate = DateUtils.dateOnly(firstDate);
+  //   lastDate = DateUtils.dateOnly(lastDate);
+  //   assert(
+  //   !lastDate.isBefore(firstDate),
+  //   'lastDate $lastDate must be on or after firstDate $firstDate.',
+  //   );
+  //   assert(
+  //   !initialDate.isBefore(firstDate),
+  //   'initialDate $initialDate must be on or after firstDate $firstDate.',
+  //   );
+  //   assert(
+  //   !initialDate.isAfter(lastDate),
+  //   'initialDate $initialDate must be on or before lastDate $lastDate.',
+  //   );
+  //   assert(
+  //   selectableDayPredicate == null || selectableDayPredicate(initialDate),
+  //   'Provided initialDate $initialDate must satisfy provided selectableDayPredicate.',
+  //   );
+  //   assert(debugCheckHasMaterialLocalizations(context));
 
-    Widget dialog = DatePickerDialog(
+  //   Widget dialog = DatePickerDialog(
 
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      currentDate: currentDate,
-      initialEntryMode: initialEntryMode,
-      selectableDayPredicate: selectableDayPredicate,
-      helpText: helpText,
-      cancelText: cancelText,
-      confirmText: confirmText,
-      initialCalendarMode: initialDatePickerMode,
-      errorFormatText: errorFormatText,
-      errorInvalidText: errorInvalidText,
-      fieldHintText: fieldHintText,
-      fieldLabelText: fieldLabelText,
-      keyboardType: keyboardType,
-      onDatePickerModeChange: onDatePickerModeChange,
-    );
+  //     initialDate: initialDate,
+  //     firstDate: firstDate,
+  //     lastDate: lastDate,
+  //     currentDate: currentDate,
+  //     initialEntryMode: initialEntryMode,
+  //     selectableDayPredicate: selectableDayPredicate,
+  //     helpText: helpText,
+  //     cancelText: cancelText,
+  //     confirmText: confirmText,
+  //     initialCalendarMode: initialDatePickerMode,
+  //     errorFormatText: errorFormatText,
+  //     errorInvalidText: errorInvalidText,
+  //     fieldHintText: fieldHintText,
+  //     fieldLabelText: fieldLabelText,
+  //     keyboardType: keyboardType,
+  //     onDatePickerModeChange: onDatePickerModeChange,
+  //   );
 
-    // if (textDirection != null) {
-    //   dialog = Directionality(
-    //     textDirection: textDirection,
-    //     child: dialog,
-    //   );
-    // }
+  //   // if (textDirection != null) {
+  //   //   dialog = Directionality(
+  //   //     textDirection: textDirection,
+  //   //     child: dialog,
+  //   //   );
+  //   // }
 
-    if (locale != null) {
-      dialog = Localizations.override(
-        context: context,
-        locale: locale,
-        child: dialog,
-      );
-    }
+  //   if (locale != null) {
+  //     dialog = Localizations.override(
+  //       context: context,
+  //       locale: locale,
+  //       child: dialog,
+  //     );
+  //   }
 
-    return showDialog<DateTime>(
-      context: context,
-      useRootNavigator: useRootNavigator,
-      routeSettings: routeSettings,
-      builder: (BuildContext context) {
-        return builder == null ? dialog : builder(context, dialog);
-      },
-      anchorPoint: anchorPoint,
-    );
-  }
+  //   return showDialog<DateTime>(
+  //     context: context,
+  //     useRootNavigator: useRootNavigator,
+  //     routeSettings: routeSettings,
+  //     builder: (BuildContext context) {
+  //       return builder == null ? dialog : builder(context, dialog);
+  //     },
+  //     anchorPoint: anchorPoint,
+  //   );
+  // }
 
 
-  File imgFile =File("");
+ 
   final imgPicker = ImagePicker();
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
@@ -247,6 +269,9 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     var imgCamera = await imgPicker.pickImage(source: abc);
     setState(() {
       imgFile = File(imgCamera!.path);
+
+      print(imgFile
+      );
     });
     Navigator.of(context).pop();
   }
@@ -257,6 +282,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+        resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: IconButton(onPressed: () {
           Navigator.pop(context);
@@ -286,9 +312,10 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                         children: [
                           CircleAvatar(
                             child: ClipOval(
-                              child: imgFile.path.isNotEmpty
-                                  ?Image.file(imgFile,height: height,width: width,fit:BoxFit.cover,)
-                                  :Image.network('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',height: 200,width: 200,fit:BoxFit.cover,),
+                              child: imgFile==null
+                              ?  Image.network('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',height: 200,width: 200,fit:BoxFit.cover,)
+                                  :Image.file(imgFile!,height: height,width: width,fit:BoxFit.cover,)
+                                
                             ),
                           ),
                           Positioned(
@@ -338,23 +365,58 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Upload Vedio",
+                          videoFile==null ? Text(
+                              "Upload Video",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(color: Colors.grey),
+                            ):Row(
+                              children: [
+                                Text(
+                                  " Video Uploaded ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(color: Colors.black),
+                                ),
+                                Icon(Icons.check_circle,size: 15,color:Colors.green,)
+                              ],
                             ),
-                            Container(
-                              height: height * .1,
-                              width: width * .1,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey.shade300,
+                            
+                            videoFile==null?  InkWell(
+                              child: Container(
+                                height: height * .1,
+                                width: width * .1,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey.shade300,
+                                ),
+                                child: Image.asset("assets/icons/vedio.png"),
+                                alignment: Alignment.center,
                               ),
-                              child: Image.asset("assets/icons/vedio.png"),
-                              alignment: Alignment.center,
-                            ),
+                              onTap: () {
+                                
+                                pickVideo();
+                              },
+                            ):InkWell(
+                              child: Container(
+                                height: height * .1,
+                                width: width * .1,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey.shade300,
+                                ),
+                                child: Icon(Icons.cancel,color:Colors.red,),
+                                alignment: Alignment.center,
+                              ),
+                              onTap: () {
+                                
+                                setState(() {
+                                  videoFile=null;
+                                });
+                              },
+                            ) 
                           ],
                         ),
                       ),

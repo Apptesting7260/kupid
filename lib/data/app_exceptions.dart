@@ -39,6 +39,6 @@ class InvalidUrlException extends AppExceptions {
 
 class FetchDataException extends AppExceptions {
 
-  FetchDataException([String? message]) : super(message, '') ;
+  FetchDataException([dynamic? message]) : super(message, '') ;
 
 }

@@ -50,12 +50,17 @@ class _ChooseProfileState extends State<ChooseProfile> {
                       : Border.all(color: Color(0xffFE0091)),
                   borderRadius: BorderRadius.circular(35)),
               child: RadioListTile(
-                  title: Text(
-                    "Match Seeker",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(color: Colors.black),
+                  title: GestureDetector(
+                    onTap: () {
+                      // Get.to(() => ProfileOneScreen());
+                    },
+                    child: Text(
+                      "Match Maker",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: Colors.black),
+                    ),
                   ),
                   value: 1,
                   groupValue: _value,
@@ -79,17 +84,12 @@ class _ChooseProfileState extends State<ChooseProfile> {
                       : Border.all(color: Color(0xffFE0091)),
                   borderRadius: BorderRadius.circular(35)),
               child: RadioListTile(
-                  title: GestureDetector(
-                    onTap: () {
-                      // Get.to(() => ProfileOneScreen());
-                    },
-                    child: Text(
-                      "Match Maker",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Colors.black),
-                    ),
+                  title: Text(
+                    "Match Seeker",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Colors.black),
                   ),
                   value: 2,
                   groupValue: _value,
@@ -104,13 +104,19 @@ class _ChooseProfileState extends State<ChooseProfile> {
             SizedBox(
               height: height * .02,
             ),
-            Center(
-              child: MyButton(
-                title: "Next",
-                onTap: () {
-                  SetRoleControllerInstanse.SetRoleapiiHit();
-
-                },
+            
+            Obx(
+              () =>Center(
+                child: MyButton(loading: SetRoleControllerInstanse.loading.value,
+                  title: "Next",
+                  onTap: () {
+                    setState(() {
+                      ProfileType=_value;
+                    });
+                    SetRoleControllerInstanse.SetRoleapiiHit();
+            
+                  },
+                ),
               ),
             )
           ],
