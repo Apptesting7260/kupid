@@ -84,7 +84,7 @@ Future<void> MakerProfileApiHit() async {
         filename: imgFile!.path.split('/').last);
     request.files.add(multipartFile);
 
-    // Add other text fields to the request
+    // Add other text fields to the request+
     request.fields['name'] = NameController.value.text;
     request.fields['email'] = EmailController.value.text;
     request.fields['phone'] = PhoneController.value.text;
