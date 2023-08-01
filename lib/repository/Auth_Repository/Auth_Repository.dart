@@ -3,6 +3,10 @@
 import 'dart:ui';
 
 import 'package:cupid_match/data/network/network_api_services.dart';
+import 'package:cupid_match/models/CreateMatchesPlanModel/CreateMatchesPlanModel.dart';
+import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel.dart';
+import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
+import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
@@ -64,12 +68,29 @@ Future<MakerProfileModel> MakerProfileApi(var data) async{
   print(response);
   return MakerProfileModel.fromJson(response) ;
 }
-
-Future<SeekerProfileModel> SeekerProfileApi(var data) async{
-  dynamic response = await _apiService.postApi2(data, AppUrl.SeekerProfileUrl);
+Future<MakerPaymentInfoModel> MakerPaymentInfoApi(var data) async{
+  dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/maker/update-additional-info");
   print(response);
-  return SeekerProfileModel.fromJson(response) ;
+  return MakerPaymentInfoModel.fromJson(response) ;
 }
 
+Future<FetchsubcriptionplanModel> FetchSubcriptionApi(var data) async{
+  // print("hited");
+  dynamic response = await _apiService.postApi2(data, AppUrl.FetchSubcriptionUrl);
+  print(response);
+  return FetchsubcriptionplanModel.fromJson(response) ;
+}
 
+Future<CreateMonthlyPlanModel> CreateMonhleyPlanApi(var data) async{
+  // print("hited");
+  dynamic response = await _apiService.postApi2(data, AppUrl.CreateMonthlyPlanUrl);
+  print(response);
+  return CreateMonthlyPlanModel.fromJson(response) ;
+}
+Future<CreateMatchesPlanModel> CreateMatchesPlanApi(var data) async{
+  // print("hited");
+  dynamic response = await _apiService.postApi2(data, AppUrl.CreateMatchesPlanUrl);
+  // print(response);
+  return CreateMatchesPlanModel.fromJson(response) ;
+}
 }

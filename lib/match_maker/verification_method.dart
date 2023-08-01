@@ -1,3 +1,6 @@
+import 'package:country_list_pick/country_list_pick.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_maker/photo_access.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -52,32 +55,39 @@ class _VerificationMethodState extends State<VerificationMethod> {
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * .02),
-            child: IntlPhoneField(
-              flagsButtonPadding: EdgeInsets.all(19.0),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color(0xffF9FAFB),
-                // hintText: "Phone Number",
-                // hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffFE0091)),
-                suffix: Column(
-                  children: [
-                    Text("Change",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w500)),
-                  ],
-                ),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xffFE008F))
-                ),
-              ),
-              dropdownTextStyle: Theme.of(context).textTheme.bodyLarge,
-              initialCountryCode: 'IN',
-              showDropdownIcon: false,
-              onChanged: (phone) {
-
-              },onCountryChanged: (country) {
-              print('Country changed to : ' + country.name);
-            },
+            child: CountryListPick(
+           
+            // if you need custom picker use this
+            // pickerBuilder: (context, CountryCode countryCode) {
+            //   return Row(
+            //     children: [
+            //       Image.asset(
+            //         countryCode.flagUri,
+            //         package: 'country_list_pick',
+            //       ),
+            //       Text(countryCode.code),
+            //       Text(countryCode.dialCode),
+            //     ],
+            //   );
+            // },
+            theme: CountryTheme(
+              isShowFlag: true,
+              isShowTitle: true,
+              isShowCode: false,
+              isDownIcon: true,
+              showEnglishName: true,
+              labelColor: Colors.blueAccent,
             ),
+            initialSelection: '+62',
+            // or
+            // initialSelection: 'US'
+            onChanged: ( code) {
+              // print(code.name);
+              nationality=code!.name;
+              print(nationality);
+              
+            },
+          ),
           ),
           SizedBox(height: height * 0.01,),
           Padding(
@@ -107,6 +117,9 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
+                      verification_method="Votor";
+
+                      print(verification_method);
                     });
                   },
                 ),
@@ -158,6 +171,8 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
+                      verification_method="Passport";
+                      print(verification_method);
                     });
                   },
                 ),
@@ -185,6 +200,9 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
+                      verification_method="Driver License";
+
+                      print(verification_method);
                     });
                   },
                 ),

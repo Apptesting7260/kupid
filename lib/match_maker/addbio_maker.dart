@@ -313,7 +313,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                           CircleAvatar(
                             child: ClipOval(
                               child: imgFile==null
-                              ?  Image.network('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',height: 200,width: 200,fit:BoxFit.cover,)
+                              ?  Image.asset('assets/images/profiler.png',height: 200,width: 200,fit:BoxFit.cover,)
                                   :Image.file(imgFile!,height: height,width: width,fit:BoxFit.cover,)
                                 
                             ),
@@ -566,8 +566,10 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                       },
                       onChanged: (String? newValue) {
                         setState(() {
+                          
                           selectGender = newValue!;
                           SelectedGender=newValue;
+                          print(SelectedGender);
                         });
                       },
                       decoration: InputDecoration(
@@ -825,7 +827,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                     ),
                     validator: (value) {
                       if(value!.isEmpty) {
-                        if(value!.isEmpty) {
+                        if(value.isEmpty) {
                           return "Please required";
                         }
                         return null;

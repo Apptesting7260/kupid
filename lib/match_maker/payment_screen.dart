@@ -1,4 +1,5 @@
-import 'package:cupid_match/match_maker/subscriptions.dart';
+import 'package:cupid_match/controllers/controller/MakerPaymentinfoController/MakerPaymentInfoController.dart';
+import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  final MakerPaymentInfoControllerinstance=Get.put(MakerPaymentInfoController());
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
@@ -46,6 +48,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04,vertical: height *0.03),
               child: TextFormField(
+                controller: MakerPaymentInfoControllerinstance.banknamecontroller.value,
+
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Enter Your Bank Name",
@@ -74,6 +78,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                controller: MakerPaymentInfoControllerinstance.fullnamecontroller.value,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Enter Your Full Name",
@@ -103,6 +108,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                controller: MakerPaymentInfoControllerinstance.account_nocontroller.value,
+
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Bank Account Number",
@@ -132,6 +139,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                controller: MakerPaymentInfoControllerinstance.raccount_nocontroller.value,
+
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(20),
                     hintText: "Re-Enter Bank Account Number",
@@ -161,6 +170,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04),
               child: TextFormField(
+                controller: MakerPaymentInfoControllerinstance.ifsc_codecontroller.value,
+
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Ifsc Code",
@@ -187,18 +198,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ),
             SizedBox(height: height*0.03,),
-            Center(
-              child: MyButton(
+           Obx(() => Center(
+              child: MyButton(loading: MakerPaymentInfoControllerinstance.loading.value,
                   width: width*0.8,
                   title: "Save",
                   onTap: (){
                     if(_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      _submit();
-                      Get.to(ChooseSubscriptions());
+           MakerPaymentInfoControllerinstance.MakerPaymentInfoapiiHit();
+
+                      // _submit();
+                      
                     }
                   }),
-            ),
+            ),) 
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:cupid_match/controllers/CreateMachesSubcriptionsController/CreateMatchesSubcreiptionsController.dart';
+import 'package:cupid_match/controllers/controller/FetchSubcriptionController/FetchSubcriptionController.dart';
 import 'package:cupid_match/match_maker/Tab_view.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/utils/app_colors.dart';
@@ -14,6 +16,8 @@ class ApplyMatchesPlan extends StatefulWidget {
 }
 
 class _ApplyMatchesPlanState extends State<ApplyMatchesPlan> {
+
+  final CreateMonthplanControllerinstance=Get.put(CreateMonthplanController());
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
@@ -24,6 +28,7 @@ class _ApplyMatchesPlanState extends State<ApplyMatchesPlan> {
     }
     _formKey.currentState!.save();
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -56,6 +61,7 @@ class _ApplyMatchesPlanState extends State<ApplyMatchesPlan> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04,vertical: height*0.02),
               child: TextFormField(
+                controller: CreateMonthplanControllerinstance.matchesController.value,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Enter Matches",
@@ -86,6 +92,8 @@ class _ApplyMatchesPlanState extends State<ApplyMatchesPlan> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04,vertical: height*0.01),
               child: TextFormField(
+                controller: CreateMonthplanControllerinstance.AmountController.value,
+
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Enter amount",
@@ -114,18 +122,19 @@ class _ApplyMatchesPlanState extends State<ApplyMatchesPlan> {
               ),
             ),
             SizedBox(height: height*0.02,),
-            Align(
+           Obx(() => Align(
               alignment: Alignment.center,
               child: MyButton(
+                loading: CreateMonthplanControllerinstance.loading.value,
                   width: width*.8,
                   title: "Apply", onTap: (){
                 if(_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   _submit();
-                  Get.to(()=>TabView(index: 0));
+                 CreateMonthplanControllerinstance.CreateMatchesPlanapiiHit();
                 }
               }),
-            ),
+            ),) 
           ],
         ),
       ),

@@ -8,7 +8,7 @@ import 'package:cupid_match/match_maker/profile_maker.dart';
 import 'package:cupid_match/match_maker/recent_conversations.dart';
 import 'package:cupid_match/match_maker/recent_matches.dart';
 import 'package:cupid_match/match_maker/request_matches.dart';
-import 'package:cupid_match/match_maker/subscriptions.dart';
+import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';

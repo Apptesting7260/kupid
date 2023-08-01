@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/controller/additionalinfoController/AdditonalInfoController.dart';
 import 'package:cupid_match/match_maker/payment_screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class GalleryAccess extends StatefulWidget {
   const GalleryAccess({super.key});
@@ -13,6 +16,48 @@ class GalleryAccess extends StatefulWidget {
 }
 
 class _GalleryAccessState extends State<GalleryAccess> {
+  final AdditonalInfpMakerControllerinstance=Get.put(AdditonalInfpMakerController());
+
+
+   final imgPicker = ImagePicker();
+  Future<void> showOptionsDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Choose",style: Theme.of(context).textTheme.titleLarge,),
+            //Image Picker
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: Text("Camera",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  onTap: () {
+                    openCamera(ImageSource.camera);
+                  },
+                ),
+                GestureDetector(
+                  child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  onTap: () {
+                    openCamera(ImageSource.gallery);
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void openCamera(abc) async {
+    var imgCamera = await imgPicker.pickImage(source: abc);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+
+      print(imgFile
+      );
+    });
+    Navigator.of(context).pop();
+  }
   File? galleryFile;
   final picker = ImagePicker();
   @override
@@ -65,30 +110,16 @@ class _GalleryAccessState extends State<GalleryAccess> {
               SizedBox(
                 height: height * 0.04,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(22))),
-                  child: Text(
-                    'Select Image',
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                  onPressed: () {
-                    _showPicker(context: context);
-                  },
-                ),
-              ),
+             
               const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 height: height * .4,
                 width: width,
-                child: galleryFile == null
-                    ? const Center(child: Text('Sorry nothing selected!!'))
-                    : Center(child: Image.file(galleryFile!)),
+                child: imgFile == null
+                    ?  Center(child: Container(height: Get.height*0.4,width: Get.width,decoration: BoxDecoration(image:DecorationImage(image: AssetImage("assets/images/Upload.png"))),),)
+                    : Center(child: Image.file(imgFile!)),
               ),
               SizedBox(
                 height: height * 0.04,
@@ -98,21 +129,39 @@ class _GalleryAccessState extends State<GalleryAccess> {
                 children: [
                   Column(
                     children: [
-                      MyButton(
-                          width: width * 0.4, title: "Try Again", onTap: () {})
+                    if(imgFile==null)  MyButton(
+                          width: width * 0.4, title: "Select", onTap: () {
+                            setState(() {
+                            // imgFile=null;
+                               showOptionsDialog(context);
+                            });
+                          }),
+                        if(imgFile!=null) MyButton(
+                          width: width * 0.4, title: "Replace", onTap: () {
+                            setState(() {
+                            imgFile=null;
+                               showOptionsDialog(context);
+                            });
+                          }),
                     ],
                   ),
                   Column(children: [
-                    OutlinedButton(
+                  Obx(() =>  OutlinedButton(
                       style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
                           side: BorderSide(color: Color(0xff000CAA), width: 2),
                           fixedSize: Size(150, 60)),
                       onPressed: () {
-                        Get.to(() => PaymentScreen());
+AdditonalInfpMakerControllerinstance.MakerAditonalApiHit();
+                    // Get.to(PaymentScreen());
                       },
-                      child: Text(
+                      child: AdditonalInfpMakerControllerinstance.loading.value==true?LoadingAnimationWidget.inkDrop(
+          color: Colors.pink,
+          size: 30,
+        ):
+                      
+                      Text(
 
 
 
@@ -123,7 +172,7 @@ class _GalleryAccessState extends State<GalleryAccess> {
                             .titleLarge
                             ?.copyWith(color: Color(0xff000CAA)),
                       ),
-                    ),
+                    ),) 
 
                     // OutlinedButton(onPressed: (){
                     //   Get.to(PaymentScreen());

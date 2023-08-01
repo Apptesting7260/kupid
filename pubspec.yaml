@@ -55,6 +55,8 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   date_time_picker: ^2.1.0
   file_picker: ^5.3.3
+  country_picker: ^2.0.20
+  country_list_pick: ^1.0.1+6
 
 
 

@@ -13,8 +13,7 @@ import 'package:get/get.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../views/user/verification.dart';
-import '../ForgotPasswordController/ForgotPasswordController.dart';
-import '../OtpVarificationController/OtpVarificationController.dart';
+
 import 'package:http/http.dart' as http;
 
 
@@ -31,15 +30,19 @@ class MakerProfileController extends GetxController {
   final PhoneController = TextEditingController().obs;
   final DobController = TextEditingController().obs;
 
-  final AboutMakerController = TextEditingController().obs;
-  final ExpectFromSeekerController = TextEditingController().obs;
-  final HandlingOfMakerController = TextEditingController().obs;
+
+  final feetcontroller = TextEditingController().obs;
+  final Inchescontroller = TextEditingController().obs;
+  final sikerQuestionController = TextEditingController().obs;    
+  final firstAnswercontroller = TextEditingController().obs;   
+  final SecondAnswercontroller = TextEditingController().obs;    
+  final thirdanswerAnswercontroller = TextEditingController().obs;
+  final CorrectAnswercontroller = TextEditingController().obs;
   final TypeController = TextEditingController().obs;
 
 
 
-Future<void> MakerProfileApiHit() async {
-   loading.value = true ;
+Future<void> SikerProfileApiHit() async {
   try {
     // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
     var url = Uri.parse('https://urlsdemo.xyz/kupid/api/user-profile-update');
@@ -60,12 +63,16 @@ Future<void> MakerProfileApiHit() async {
     request.fields['phone'] = PhoneController.value.text;
     request.fields['dob'] = datestring.toString();
     request.fields['location'] = SelectedLocation.toString();
-    request.fields['experience'] = SelectedMtachMakerExperience.toString();
-    request.fields['about_maker'] = AboutMakerController.value.text;
-    request.fields['expect_from_seeker'] = AboutMakerController.value.text;
-    request.fields['heading_of_maker'] = HandlingOfMakerController.value.text;
-    request.fields['gender'] = SelectedGender.toString();
-    request.fields['type'] = "1";
+    request.fields['occupation'] = Ocupasion.toString();
+    request.fields['height'] = feetcontroller.value.text+Inchescontroller.value.text;
+     request.fields['question'] = sikerQuestionController.value.text;
+     request.fields['first_answer'] = firstAnswercontroller.value.text;
+     request.fields['second_answer'] = SecondAnswercontroller.value.text;
+     request.fields['third_answer'] = thirdanswerAnswercontroller.value.text;
+     request.fields['correct_answer'] = CorrectAnswercontroller.value.text;
+     request.fields['gender'] = SelectedGender.toString();
+   
+    request.fields['type'] = "2";
     request.headers['Authorization'] = "Bearer $BarrierToken";
      var videoStream = http.ByteStream(videoFile!.openRead());
     var videoLength = await videoFile!.length();
@@ -80,14 +87,10 @@ print(responseBody);
     // Check the response status
     if (response.statusCode== 200) {
       print('File uploaded successfully!');
-      Get.to(VerifyScreen());
-       loading.value = false ;
     } else {
       print('Failed to upload file. Status code: ${response.statusCode}');
-     loading.value = false ;
     }
   } catch (e) {
-     loading.value = false ;
     print('Error occurred while uploading file: $e');
   }
 }

@@ -1,12 +1,12 @@
-class SikerCreateProfileModel {
-  SikerCreateProfileModel({
+class CreateMatchesPlanModel {
+  CreateMatchesPlanModel({
      this.status,
      this.msg,
   });
    String ?status;
-   String? msg;
+   String ?msg;
   
-  SikerCreateProfileModel.fromJson(Map<String, dynamic> json){
+  CreateMatchesPlanModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     msg = json['msg'];
   }

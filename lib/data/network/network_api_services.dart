@@ -73,7 +73,7 @@ apiresponsehit=jsonDecode(response.body);
   }
 
   @override
-  Future<dynamic> postApi2(var data , String url)async{
+  Future  postApi2(var data , String url)async{
 
     if (kDebugMode) {
       print(url);
@@ -83,16 +83,19 @@ apiresponsehit=jsonDecode(response.body);
     dynamic responseJson ;
     try {
       print(BarrierToken.toString());
-      final response = await http.post(Uri.parse(url),
+      var response = await http.post(Uri.parse(url),
 
             headers: { "Authorization":"Bearer $BarrierToken"},
 
 
           body: data
-      ).timeout( const Duration(seconds: 10));
+      );
+            // print(response.body);
+      // print("object");
       responseJson  = returnResponse(response) ;
-      print(response.body);
+
       apiresponsehit=jsonDecode(response.body);
+      // print(apiresponsehit);
     }on SocketException {
       throw InternetException('');
     }on RequestTimeOut {
@@ -100,7 +103,7 @@ apiresponsehit=jsonDecode(response.body);
 
     }
     if (kDebugMode) {
-      print(responseJson);
+      // print(responseJson);
     }
     return responseJson ;
 
@@ -113,6 +116,9 @@ apiresponsehit=jsonDecode(response.body);
         dynamic responseJson = jsonDecode(response.body);
         return responseJson ;
       case 400:
+        dynamic responseJson = jsonDecode(response.body);
+        return responseJson ;
+        case 404:
         dynamic responseJson = jsonDecode(response.body);
         return responseJson ;
 

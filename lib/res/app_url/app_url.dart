@@ -12,4 +12,9 @@ class AppUrl {
   static const String ForgotPasswordResetUrl = '$baseUrl/submit-reset-password' ;
   static const String MakerProfileUrl = '$baseUrl/user-profile-update' ;
   static const String SeekerProfileUrl = '$baseUrl/user-profile-update' ;
+  static const String FetchSubcriptionUrl = '$baseUrl/maker/getall-subscription' ;
+  static const String CreateMonthlyPlanUrl = '$baseUrl/maker/create-monthly-subscription' ;
+  static const String CreateMatchesPlanUrl = '$baseUrl/maker/create-matches-subscription' ;
+
+
 }

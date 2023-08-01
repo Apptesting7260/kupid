@@ -1,4 +1,10 @@
-import 'package:cupid_match/match_maker/subscription_plans.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/match_maker/MachesSubscriptionplan.dart';
+import 'package:cupid_match/match_maker/Tab_view.dart';
+import 'package:cupid_match/match_maker/create_plan_Monthly.dart';
+import 'package:cupid_match/match_maker/Monthly_subscription_plans.dart';
+import 'package:cupid_match/match_maker/home_screen_maker.dart';
+import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,6 +36,18 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
+
+        actions: [InkWell(
+          child: Padding(
+            padding: const EdgeInsets.only(top:12,right:20),
+            child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 20),),
+          ),
+          onTap: () {
+             Get.offAll(TabView(index: 1,));
+          },
+        )
+        
+        ],
       ),
       body: Column(
         children: [
@@ -54,6 +72,7 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
+                      print(selectProfile);
                     });
                   },
                 ),
@@ -81,6 +100,7 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
+                      print(selectProfile);
                     });
                   },
                 ),
@@ -91,8 +111,16 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
           MyButton(
               width: width*0.8,
               title: "Next", onTap: (){
-            Get.to(CreateMatchesPlan());
-            // Get.to(ApplyMonthlyPlan());
+                if(selectProfile==SelectProfile.Monthly){
+                  Subcriptiontype="Month";
+            Get.to(CreateMonthlySubcription());
+
+                }else{
+                  Subcriptiontype="Matches";
+
+            Get.to(MatchesSubcreiptionPlan());
+
+                }
           })
         ],
       ),
