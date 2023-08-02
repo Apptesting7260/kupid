@@ -592,10 +592,10 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                   SizedBox(height: height * 0.04,),
 
                   Container(
-                    height: height*.09,
+                    height: height*.08,
                     width: width,
                     decoration: BoxDecoration(
-                      color: Color(0xffCACACA),
+                      color: Color(0xffF3F3F3),
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(

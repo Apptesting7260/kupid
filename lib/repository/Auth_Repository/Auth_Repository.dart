@@ -68,6 +68,13 @@ Future<MakerProfileModel> MakerProfileApi(var data) async{
   print(response);
   return MakerProfileModel.fromJson(response) ;
 }
+
+Future<SikerCreateProfileModel> SeekerProfileApi(var data) async{
+  dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/user-profile-update");
+  print(response);
+  return SikerCreateProfileModel.fromJson(response) ;
+}
+
 Future<MakerPaymentInfoModel> MakerPaymentInfoApi(var data) async{
   dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/maker/update-additional-info");
   print(response);

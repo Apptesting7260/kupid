@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
 import '../../match_maker/addbio_maker.dart';
 
 File ?videoFile ;
@@ -21,6 +22,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  final SeekerProfileControllerInstanse=Get.put(SeekerProfileController());
 
   DateTime date = DateTime.now();
 
@@ -99,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   File? pickedImage;
   String? selectGender;
 
-  var choose = 1;
+
 
   var genderItems = ["Men", "Woman", "Other"];
 
@@ -289,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: height * .01),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
-              controller: namecontroller,
+              controller: SeekerProfileControllerInstanse.NameController.value,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Enter your name';
@@ -324,7 +327,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: height * .01),
             TextFormField(
               keyboardType: TextInputType.number,
-              controller: mobilecontroller,
+              controller: SeekerProfileControllerInstanse.PhoneController.value,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Phone Number";
@@ -367,7 +370,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: height * .01),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
-              controller: emailcontroller,
+              controller: SeekerProfileControllerInstanse.EmailController.value,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Email";
@@ -429,6 +432,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onChanged: (String? value) {
                 setState(() {
                   dropdownvalue = value!;
+                  Ocupasion = value;
                 });
               },
               decoration: InputDecoration(
@@ -488,7 +492,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: height * .01),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
-              // controller: addresscontroller,
+              controller: SeekerProfileControllerInstanse.AddressController.value,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Please Enter Address";
@@ -543,6 +547,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onChanged: (String? newValue) {
                   setState(() {
                     selectGender = newValue!;
+                    SelectedGender = newValue;
                   });
                 },
                 decoration: InputDecoration(
@@ -625,7 +630,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: width * .45,
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
-
+                      controller: SeekerProfileControllerInstanse.HeightController.value,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Please Enter Hieght";
@@ -662,7 +667,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: width * .45,
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
-
+                  controller: SeekerProfileControllerInstanse.InchesController.value,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Please Enter Height";
@@ -746,7 +751,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               width: width * .45,
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: questioncontroller,
+                controller: SeekerProfileControllerInstanse.QuestionController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please add question";
@@ -789,6 +794,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Flexible(
                   child: TextFormField(
+                    controller: SeekerProfileControllerInstanse.FirstanswerController.value,
                     decoration: InputDecoration(
                         hintText: "Enter",
                         fillColor: Colors.white,
@@ -815,6 +821,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(width: 10),
                 Flexible(
                   child: TextFormField(
+                    controller: SeekerProfileControllerInstanse.SecondanswerController.value,
                     decoration: InputDecoration(
                         hintText: "Enter",
                         fillColor: Colors.white,
@@ -841,6 +848,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(width: 10),
                 Flexible(
                   child: TextFormField(
+                    controller: SeekerProfileControllerInstanse.ThirdanswerController.value,
                     decoration: InputDecoration(
                         hintText: "Enter",
                         fillColor: Colors.white,
@@ -877,15 +885,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 20,
                     child: ElevatedButton(
                       onPressed: () {
-                        choose = 1;
+                        choose = SeekerProfileControllerInstanse.FirstanswerController.value.text;
                         setState(() {
                           // click = !click;
+                          print(choose);
                         });
                       },
                       child: null,
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              choose == 1 ? Color(0xffFE0091) : Colors.white,
+                              choose == SeekerProfileControllerInstanse.FirstanswerController.value.text ? Color(0xffFE0091) : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               side: BorderSide(
@@ -897,15 +906,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 20,
                     child: ElevatedButton(
                       onPressed: () {
-                        choose = 2;
+                        choose = SeekerProfileControllerInstanse.SecondanswerController.value.text;
                         setState(() {
                           // click = !click;
+                          print(choose);
                         });
                       },
                       child: null,
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              choose == 2 ? Color(0xffFE0091) : Colors.white,
+                              choose == SeekerProfileControllerInstanse.SecondanswerController.value.text ? Color(0xffFE0091) : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               side: BorderSide(
@@ -917,15 +927,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 20,
                     child: ElevatedButton(
                       onPressed: () {
-                        choose = 3;
+                        choose = SeekerProfileControllerInstanse.ThirdanswerController.value.text;
                         setState(() {
+                          print(choose);
                           // click = !click;
                         });
                       },
                       child: null,
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              choose == 3 ? Color(0xffFE0091) : Colors.white,
+                              choose == SeekerProfileControllerInstanse.ThirdanswerController.value.text ? Color(0xffFE0091) : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               side: BorderSide(
@@ -964,13 +975,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             //   ),
             // ),
             SizedBox(height: height * .03),
-            Center(
-                child: MyButton(
-              title: 'Confirm',
-              onTap: () {
-                Get.to(() => PhotosScreen());
-              },
-            ))
+           Obx(() => Center(
+               child: MyButton(
+                 loading: SeekerProfileControllerInstanse.loading.value,
+                 title: 'Confirm',
+                 onTap: () {
+                   SeekerProfileControllerInstanse.SeekerProfileApiHit();
+                   // Get.to(() => PhotosScreen());
+                 },
+               )
+           ))
           ],
         ),
       ),
