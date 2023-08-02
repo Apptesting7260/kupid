@@ -60,6 +60,17 @@ class _GalleryAccessState extends State<GalleryAccess> {
   }
   File? galleryFile;
   final picker = ImagePicker();
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+
+    setState(() {
+      imgFile=null;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
