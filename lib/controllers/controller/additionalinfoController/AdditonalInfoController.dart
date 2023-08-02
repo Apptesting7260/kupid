@@ -25,7 +25,6 @@ class AdditonalInfpMakerController extends GetxController {
 
   RxBool loading = false.obs;
 
-  
 
 
 Future<void> MakerAditonalApiHit() async {

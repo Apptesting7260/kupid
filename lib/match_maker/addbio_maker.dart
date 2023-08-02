@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cupid_match/match_maker/verify_identity.dart';
+import 'package:cupid_match/models/GoogleLocationModel/GoogleLocationModel.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +15,7 @@ import 'package:intl/intl.dart';
 import '../GlobalVariable/GlobalVariable.dart';
 import '../controllers/controller/MakerProfileController/MakerProfileController.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-
+import 'package:http/http.dart' as http ;
 enum SelectProfile {gender}
   File ?videoFile ;
 class ProfileOneScreen extends StatefulWidget {
@@ -24,10 +27,15 @@ class ProfileOneScreen extends StatefulWidget {
 
 class _ProfileOneScreenState extends State<ProfileOneScreen> {
   //DateTime? startdate;
+    List<Location> locations = [];
+  double? lat;
+  double? long;
+
   DateTime date = DateTime.now();
-
+  List<Predictions> searchPlace = [];
+final locationcntroller=TextEditingController();
   MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
-
+String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
@@ -638,44 +646,134 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
                     ),
                   ),
                   SizedBox(height: height*.01,),
-                  DropdownButtonFormField(value: selectLocationItems,
-                      icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      items: locationItems.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
+                  // DropdownButtonFormField(value: selectLocationItems,
+                  //     icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
+                  //     style: Theme.of(context).textTheme.bodyLarge,
+                  //     items: locationItems.map((String items) {
+                  //       return DropdownMenuItem(
+                  //         value: items,
+                  //         child: Text(items),
+                  //       );
+                  //     }).toList(),
+                  //     validator: (value) {
+                  //       if (value == null)
+                  //         return "select your location";
+                  //       return null;
+                  //     },
+                  //     onChanged: (String? newValue) {
+                  //       setState(() {
+                  //         selectLocationItems = newValue!;
+                  //         SelectedLocation=newValue;
+                  //       });
+                  //     },
+                  //     decoration: InputDecoration(
+                  //       contentPadding: EdgeInsets.all(20),
+                  //       hintText: "Select your location",
+                  //       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(30),
+                  //         borderSide: BorderSide(color: Color(0xffBABABA)),
+                  //       ),
+                  //       enabledBorder:  OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(30),
+                  //         borderSide: BorderSide(color: Color(0xffBABABA)),
+                  //       ),
+                  //       border: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(30),
+                  //           borderSide: BorderSide(color: Color(0xffBABABA))),
+                  //     )
+                  // ),
+
+                  TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: locationcntroller,
                       validator: (value) {
-                        if (value == null)
-                          return "select your location";
-                        return null;
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter PickUp Location';
+                        }
                       },
-                      onChanged: (String? newValue) {
+                      onChanged: (value) {
+                        print(value);
                         setState(() {
-                          selectLocationItems = newValue!;
-                          SelectedLocation=newValue;
+                          if (locationcntroller.text.isEmpty) {
+                            // searchPlace.clear();
+                          }
                         });
+                        searchAutocomplete(value);
                       },
+                      style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        hintText: "Select your location",
-                        hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        enabledBorder:  OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffBABABA))),
-                      )
-                  ),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 10, 10, 10),
+                          hintStyle: const TextStyle(fontSize: 12),
+                          hintText: "Enter PickUp Location",
+
+                          /*  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        dropController.clear();
+
+                      });
+                    },
+                    child: Icon(
+                      Icons.cancel,
+                      color: MyTheme.loginBorderColor,
+                      size: 30,
+                    ),
+                ),*/
+                          // fillColor: MyTheme.loginBackColor,
+                          border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: const BorderSide(
+                              // color: MyTheme.loginBorderColor,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                   width: 1),
+                              borderRadius: BorderRadius.circular(25.0)),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                 width: 1),
+                              borderRadius: BorderRadius.circular(25.0)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1),
+                              borderRadius: BorderRadius.circular(25.0))),
+                    ),
+              
+                Visibility(
+                visible: locationcntroller.text.isNotEmpty,
+                child: Container(
+                  width: double.infinity,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: searchPlace.length,
+                      itemBuilder: (context, index) => ListTile(
+                            onTap: () {
+                              setState(() {
+                                locationcntroller.text =
+                                    searchPlace[index].description ?? "";
+                                _getLatLang();
+SelectedLocation=locationcntroller.text;
+print(SelectedLocation);
+                                setState(() {
+                                  searchPlace.clear();
+                                });
+                              });
+                            },
+                            horizontalTitleGap: 0,
+                            title: Text(
+                              searchPlace[index].description ?? "",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )),
+                ),
+              ),
                   SizedBox(height:  height * 0.04,),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -858,5 +956,46 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
         ),
       ),
     );
+  }
+
+
+
+
+
+  //////////google location api method //////////////
+  
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": googleAPiKey});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      print(response.statusCode);
+      final parse = jsonDecode(response.body);
+      print(parse);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+
+          print(searchPlace.length);
+        });
+      }
+    } catch (err) {}
+  }
+
+  Future<void> _getLatLang() async {
+    final query = locationcntroller.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      print("*****lat ${lat} : ${long}**********long");
+    });
   }
 }

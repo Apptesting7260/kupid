@@ -113,12 +113,12 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
               title: "Next", onTap: (){
                 if(selectProfile==SelectProfile.Monthly){
                   Subcriptiontype="Month";
-            Get.to(CreateMonthlySubcription());
+            Get.off(CreateMonthlySubcription());
 
                 }else{
                   Subcriptiontype="Matches";
 
-            Get.to(MatchesSubcreiptionPlan());
+            Get.off(MatchesSubcreiptionPlan());
 
                 }
           })
