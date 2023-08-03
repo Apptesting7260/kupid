@@ -55,20 +55,20 @@ class SeekerAddistionInfoController extends GetxController {
 
       // Add the file to the request
       var fileStream2 = http.ByteStream(imageFiles[1]!.openRead());
-      var length2 = await imageFiles[1]!.length();
+      var length2 = await imageFiles[1].length();
       var multipartFile2 = http.MultipartFile('gallery[img1]', fileStream2, length2,
 
-          filename: imageFiles[1]!.path.split('/').last);
+          filename: imageFiles[1].path.split('/').last);
       request.files.add(multipartFile2);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream3 = http.ByteStream(imageFiles[2]!.openRead());
-      var length3 = await imageFiles[2]!.length();
+      var length3 = await imageFiles[2].length();
       var multipartFile3 = http.MultipartFile('gallery[img1]', fileStream3, length3,
 
-          filename: imageFiles[2]!.path.split('/').last);
+          filename: imageFiles[2].path.split('/').last);
       request.files.add(multipartFile3);
 
       ////////////////////////////////////////////
@@ -78,57 +78,57 @@ class SeekerAddistionInfoController extends GetxController {
       var length4 = await imageFiles[3]!.length();
       var multipartFile4 = http.MultipartFile('gallery[img1]', fileStream4, length4,
 
-          filename: imageFiles[3]!.path.split('/').last);
+          filename: imageFiles[3].path.split('/').last);
       request.files.add(multipartFile4);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream5 = http.ByteStream(imageFiles[4]!.openRead());
-      var length5 = await imageFiles[4]!.length();
+      var length5 = await imageFiles[4].length();
       var multipartFile5 = http.MultipartFile('gallery[img1]', fileStream5, length5,
 
-          filename: imageFiles[4]!.path.split('/').last);
+          filename: imageFiles[4].path.split('/').last);
       request.files.add(multipartFile5);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream6 = http.ByteStream(imageFiles[5]!.openRead());
-      var length6 = await imageFiles[5]!.length();
+      var length6 = await imageFiles[5].length();
       var multipartFile6 = http.MultipartFile('gallery[img1]', fileStream6, length6,
 
-          filename: imageFiles[5]!.path.split('/').last);
+          filename: imageFiles[5].path.split('/').last);
       request.files.add(multipartFile6);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream7 = http.ByteStream(imageFiles[6]!.openRead());
-      var length7 = await imageFiles[6]!.length();
+      var length7 = await imageFiles[6].length();
       var multipartFile7 = http.MultipartFile('gallery[img1]', fileStream7, length7,
 
-          filename: imageFiles[6]!.path.split('/').last);
+          filename: imageFiles[6].path.split('/').last);
       request.files.add(multipartFile7);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream8 = http.ByteStream(imageFiles[7]!.openRead());
-      var length8 = await imageFiles[7]!.length();
+      var length8 = await imageFiles[7].length();
       var multipartFile8 = http.MultipartFile('gallery[img1]', fileStream8, length8,
 
-          filename: imageFiles[7]!.path.split('/').last);
+          filename: imageFiles[7].path.split('/').last);
       request.files.add(multipartFile8);
 
       ////////////////////////////////////////////
 
       // Add the file to the request
       var fileStream9 = http.ByteStream(imageFiles[8]!.openRead());
-      var length9 = await imageFiles[8]!.length();
+      var length9 = await imageFiles[8].length();
       var multipartFile9 = http.MultipartFile('gallery[img1]', fileStream9, length9,
 
-          filename: imageFiles[8]!.path.split('/').last);
+          filename: imageFiles[8].path.split('/').last);
       request.files.add(multipartFile9);
 
       ////////////////////////////////////////////

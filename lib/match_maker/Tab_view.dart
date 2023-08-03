@@ -123,3 +123,5 @@ class _TabViewState extends State<TabView> {
         duration: const Duration(microseconds: 1), curve: Curves.ease);
   }
 }
+
+

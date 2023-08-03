@@ -1,3 +1,4 @@
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_seeker/profile/interest.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,8 @@ class _InterstedInState extends State<InterstedIn> {
               onTap: () {
                 setState(() {
                   _value = "Woman";
+                  IntrestedIn="Woman";
+                  print(IntrestedIn);
                 });
               },
               child: Container(
@@ -95,6 +98,8 @@ class _InterstedInState extends State<InterstedIn> {
               onTap: () {
                 setState(() {
                   _value = "Man";
+   IntrestedIn="Man";
+                  print(IntrestedIn);
                 });
               },
               child: Container(
@@ -149,6 +154,8 @@ class _InterstedInState extends State<InterstedIn> {
               onTap: () {
                setState(() {
                  _value = "Both";
+                   IntrestedIn="Both";
+                  print(IntrestedIn);
                });
               },
               child: Container(

@@ -91,115 +91,112 @@ class _PhotosScreenState extends State<PhotosScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: width * .04, vertical: height * .04),
-        child: ListView(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            if(Gallery1.isNotEmpty) GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: Gallery1.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 25,
-                  mainAxisSpacing: 25,
-                  childAspectRatio: 1,
-                  mainAxisExtent: 150),
-              itemBuilder: (context, index) {
-                return DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(15),
-                  dashPattern: [5, 5],
-                  color: Color(0xffC4C4C4),
-                  strokeWidth: 1,
-                  child: Stack(clipBehavior: Clip.none, children: [
-                    Container(
-                      height: height * .5,
-                      width: width * .3,
-                      decoration: BoxDecoration(
-                        color: Color(0xffC4C4C4),
-                        borderRadius: BorderRadius.circular(15),
-                        // image: DecorationImage(image: imgFile.path.isNotEmpty
-                        //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
-                      ),
-                      child:
-                      Image.file(
-                        Gallery1[index],
-                        height: height,
-                        width: width,
-                        fit: BoxFit.cover,
-                      )
-
-                    ),
-                    Positioned(
-                        bottom: -6,
-                        right: -6,
-                        child: GestureDetector(
-                            onTap: () {
-                              showOptionsDialog(context);
-                            },
-                            child: Image(
-                              image: AssetImage(
-                                  "assets/maker/Group 197.png"),
-                              height: height * .03,
+            if(Gallery1.isNotEmpty) Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: Gallery1.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 25,
+                      mainAxisSpacing: 25,
+                      childAspectRatio: 1,
+                      mainAxisExtent: 150),
+                  itemBuilder: (context, index) {
+                    return DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(15),
+                      dashPattern: [5, 5],
+                      color: Color(0xffC4C4C4),
+                      strokeWidth: 1,
+                      child: Stack(clipBehavior: Clip.none, children: [
+                        Container(
+                          height: height * .5,
+                          width: width * .3,
+                          decoration: BoxDecoration(
+                            color: Color(0xffC4C4C4),
+                            borderRadius: BorderRadius.circular(15),
+                            // image: DecorationImage(image: imgFile.path.isNotEmpty
+                            //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
+                          ),
+                          child:
+                          Image.file(
+                            Gallery1[index],
+                            height: height,
+                            width: width,
+                            fit: BoxFit.cover,
+                          )
+                    
+                        ),
+                        Positioned(
+                            bottom: -6,
+                            right: -6,
+                            child: GestureDetector(
+                                onTap: () {
+                                  Gallery1.removeAt(index);
+                                  setState(() {
+                                    Gallery1;
+                                  });
+                                },
+                                child:Center(child: Icon(Icons.cancel,color:Colors.pink,),)
                             )
                         )
-                    )
-                  ]),
-                );
-              },
+                      ]),
+                    );
+                  },
+                ),
+              ),
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: emptgrid-Gallery1.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 25,
-                  mainAxisSpacing: 25,
-                  childAspectRatio: 1,
-                  mainAxisExtent: 150),
-              itemBuilder: (context, index) {
-                return DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(15),
-                  dashPattern: [5, 5],
-                  color: Color(0xffC4C4C4),
-                  strokeWidth: 1,
-                  child: Stack(clipBehavior: Clip.none, children: [
-                    Container(
-                      height: height * .5,
-                      width: width * .3,
-                      decoration: BoxDecoration(
-                        color: Color(0xffC4C4C4),
-                        borderRadius: BorderRadius.circular(15),
-                        // image: DecorationImage(image: imgFile.path.isNotEmpty
-                        //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
-                      ),
-                      child:
-                          Image.asset("assets/maker/gellery.png"),
+            SizedBox(height:Get.height*.03,),
+          if(Gallery1.length<9)Container(
+            
+        width: width * .3,
+            child: Stack(
+              children: [DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(15),
+                      dashPattern: [5, 5],
+                      color: Color(0xffC4C4C4),
+                      // strokeWidth: 0.2,
+                      child: Stack(clipBehavior: Clip.antiAlias, children: [
+                        Container(
+                          height: height * .25,
+                          width: width * .3,
+                          decoration: BoxDecoration(
+                            color: Color(0xffC4C4C4),
+                            borderRadius: BorderRadius.circular(15),
+                            // image: DecorationImage(image: imgFile.path.isNotEmpty
+                            //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
+                          ),
+                          child:
+                              Image.asset("assets/maker/gellery.png"),
+                        ),
+                        
+                      ]),
                     ),
                     Positioned(
-                        bottom: -6,
-                        right: -6,
-                        child: GestureDetector(
-                            onTap: () {
-                              showOptionsDialog(context);
-                            },
-                            child: Image(
-                              image: AssetImage(
-                                  "assets/maker/Group 197.png"),
-                              height: height * .03,
-                            )))
-                  ]),
-                );
-              },
-            ),
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                              onTap: () {
+                                showOptionsDialog(context);
+                              },
+                              child: Image(
+                                image: AssetImage(
+                                    "assets/maker/Group 197.png"),
+                                height: height * .03,
+                              )))
+          ]),
+          ),
             SizedBox(
               height: height * .06,
             ),
-            Center(
+           if(Gallery1.length==9) Center(
                 child: Text(
               "You can only upload 9 Photos!",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
