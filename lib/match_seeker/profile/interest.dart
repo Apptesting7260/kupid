@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/SeekersAllInterests_Controller/SeekersAllInterests_Controller.dart';
 import 'package:cupid_match/match_seeker/profile/add_bio.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,16 @@ class Interest extends StatefulWidget {
 }
 
 class _InterestState extends State<Interest> {
+
+  final SeekersAllInterstsControllerInstanse=Get.put(SeekersAllInterstsController());
+
+
+  @override
+  void initState() {
+    SeekersAllInterstsControllerInstanse.SeekersAllInterestsApi();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -49,7 +60,7 @@ class _InterestState extends State<Interest> {
               child: GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 14,
+                itemCount: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests!.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 3,

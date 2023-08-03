@@ -15,6 +15,6 @@ class AppUrl {
   static const String FetchSubcriptionUrl = '$baseUrl/maker/getall-subscription' ;
   static const String CreateMonthlyPlanUrl = '$baseUrl/maker/create-monthly-subscription' ;
   static const String CreateMatchesPlanUrl = '$baseUrl/maker/create-matches-subscription' ;
-
+  static const String SeekersAllInterestsUrl = '$baseUrl/seeker/all-interests' ;
 
 }

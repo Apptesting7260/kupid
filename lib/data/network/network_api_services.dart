@@ -37,6 +37,34 @@ var apiresponsehit;
     return responseJson ;
 
   }
+@override
+Future<dynamic> getApi2(String url)async{
+
+  if (kDebugMode) {
+    print(url);
+  }
+
+  dynamic responseJson ;
+  try {
+
+
+    final response = await http.get(Uri.parse(url),
+      headers: { "Authorization":"Bearer $BarrierToken"},
+    ).timeout( const Duration(seconds: 20)
+
+    );
+    responseJson  = returnResponse(response) ;
+    apiresponsehit=jsonDecode(response.body);
+  }on SocketException {
+    throw InternetException('');
+  }on RequestTimeOut {
+    throw RequestTimeOut('');
+
+  }
+  print(responseJson);
+  return responseJson ;
+
+}
 
 
   @override
