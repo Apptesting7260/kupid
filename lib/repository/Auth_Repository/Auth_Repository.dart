@@ -8,6 +8,7 @@ import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
+import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
@@ -100,4 +101,12 @@ Future<CreateMatchesPlanModel> CreateMatchesPlanApi(var data) async{
   // print(response);
   return CreateMatchesPlanModel.fromJson(response) ;
 }
+
+Future<SeekersAllInterestsModel> SeekersAllInterestsApi() async{
+  // print("hited");
+  dynamic response = await _apiService.getApi2( AppUrl.SeekersAllInterestsUrl);
+  print(response);
+  return SeekersAllInterestsModel.fromJson(response) ;
+}
+
 }
