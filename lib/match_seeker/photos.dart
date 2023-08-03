@@ -1,3 +1,4 @@
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'dart:io';
+int emptgrid=9;
 
 class PhotosScreen extends StatefulWidget {
   const PhotosScreen({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class PhotosScreen extends StatefulWidget {
   @override
   State<PhotosScreen> createState() => _PhotosScreenState();
 }
-
+List<dynamic> galarylength=["","2","3","4","5","6","7","8","9"];
 class _PhotosScreenState extends State<PhotosScreen> {
   File imgFile = File("");
   final imgPicker = ImagePicker();
@@ -62,9 +64,13 @@ class _PhotosScreenState extends State<PhotosScreen> {
 
   void openCamera(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
-    setState(() {
-      imgFile = File(imgCamera!.path);
-    });
+    if(imgCamera!=null){
+      Gallery1.add(File(imgCamera.path));
+      setState(() {
+        Gallery1;
+      });
+      print(Gallery1);
+    }
     Navigator.of(context).pop();
   }
 
@@ -90,10 +96,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
             horizontal: width * .04, vertical: height * .04),
         child: ListView(
           children: [
-            GridView.builder(
+            if(Gallery1.isNotEmpty) GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 9,
+              itemCount: Gallery1.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 25,
@@ -117,14 +123,62 @@ class _PhotosScreenState extends State<PhotosScreen> {
                         // image: DecorationImage(image: imgFile.path.isNotEmpty
                         //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
                       ),
-                      child: imgFile.path.isNotEmpty
-                          ? Image.file(
-                              imgFile,
-                              height: height,
-                              width: width,
-                              fit: BoxFit.cover,
+                      child:
+                      Image.file(
+                        Gallery1[index],
+                        height: height,
+                        width: width,
+                        fit: BoxFit.cover,
+                      )
+
+                    ),
+                    Positioned(
+                        bottom: -6,
+                        right: -6,
+                        child: GestureDetector(
+                            onTap: () {
+                              showOptionsDialog(context);
+                            },
+                            child: Image(
+                              image: AssetImage(
+                                  "assets/maker/Group 197.png"),
+                              height: height * .03,
                             )
-                          : Image.asset("assets/maker/gellery.png"),
+                        )
+                    )
+                  ]),
+                );
+              },
+            ),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: emptgrid-Gallery1.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 25,
+                  mainAxisSpacing: 25,
+                  childAspectRatio: 1,
+                  mainAxisExtent: 150),
+              itemBuilder: (context, index) {
+                return DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(15),
+                  dashPattern: [5, 5],
+                  color: Color(0xffC4C4C4),
+                  strokeWidth: 1,
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    Container(
+                      height: height * .5,
+                      width: width * .3,
+                      decoration: BoxDecoration(
+                        color: Color(0xffC4C4C4),
+                        borderRadius: BorderRadius.circular(15),
+                        // image: DecorationImage(image: imgFile.path.isNotEmpty
+                        //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
+                      ),
+                      child:
+                          Image.asset("assets/maker/gellery.png"),
                     ),
                     Positioned(
                         bottom: -6,

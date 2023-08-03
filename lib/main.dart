@@ -1,3 +1,4 @@
+import 'package:cupid_match/match_seeker/photos.dart';
 import 'package:cupid_match/utils/my_theme.dart';
 import 'package:cupid_match/views/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.light,
-      home: const SplashScreen(),
+      home: const PhotosScreen(),
     );
   }
 }

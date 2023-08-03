@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -18,12 +20,14 @@ import '../OtpVarificationController/OtpVarificationController.dart';
 import '../SetRoleController/SetRoleController.dart';
 import 'package:get/get.dart';
 
+
 var response;
 class SeekerProfileController extends GetxController {
 
   final _api = AuthRepository();
 
   RxBool loading = false.obs;
+
 
 
   final NameController = TextEditingController().obs;
