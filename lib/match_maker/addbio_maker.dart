@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:country_list_pick/country_list_pick.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:cupid_match/match_maker/verify_identity.dart';
 import 'package:cupid_match/models/GoogleLocationModel/GoogleLocationModel.dart';
 import 'package:cupid_match/utils/app_colors.dart';
@@ -8,14 +10,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
+// import 'package:country_picker/country_picker.dart';
 import 'package:image_picker/image_picker.dart' ;
 import 'package:intl/intl.dart';
+// import 'package:intl_phone_field/countries.dart';
 
 import '../GlobalVariable/GlobalVariable.dart';
 import '../controllers/controller/MakerProfileController/MakerProfileController.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+
 import 'package:http/http.dart' as http ;
+
 enum SelectProfile {gender}
   File ?videoFile ;
 class ProfileOneScreen extends StatefulWidget {
@@ -30,6 +34,7 @@ class _ProfileOneScreenState extends State<ProfileOneScreen> {
     List<Location> locations = [];
   double? lat;
   double? long;
+  String countryCode = 'Choose country';
 
   DateTime date = DateTime.now();
   List<Predictions> searchPlace = [];
@@ -250,23 +255,38 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Choose",style: Theme.of(context).textTheme.titleLarge,),
+
+            title: Center(child: Text("Choose",style: Theme.of(context).textTheme.titleLarge,)),
             //Image Picker
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 GestureDetector(
-                  child: Text("Camera",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Icon(Icons.camera_alt_outlined,color: Colors.pinkAccent,),
                   onTap: () {
                     openCamera(ImageSource.camera);
                   },
                 ),
+                // GestureDetector(
+                //   child: Text("Camera",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                //   onTap: () {
+                //     openCamera(ImageSource.camera);
+                //   },
+                // ),
+
                 GestureDetector(
-                  child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Icon(Icons.photo_library,color: Colors.pinkAccent,),
                   onTap: () {
                     openCamera(ImageSource.gallery);
                   },
                 ),
+                // GestureDetector(
+                //   child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                //   onTap: () {
+                //     openCamera(ImageSource.gallery);
+                //   },
+                // ),
               ],
             ),
           );
@@ -326,30 +346,41 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                                 
                             ),
                           ),
+
                           Positioned(
-                            bottom: -9,
-                            right: -8,
-                            child:
-                            Container(
-                              height: height*0.06,
-                              width: width*.12,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: AppColors.white),
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Color(0xff777777)
-                              ),
-                              child: IconButton(
-                                onPressed: (){
-                                  showOptionsDialog(context);
-                                },
-                                icon: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
+                              bottom: -9,
+                              right: -8,
+                              //right: 0,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    showOptionsDialog(context);
+                                  },
+                                  child: Image.asset("assets/icons/cameraa.png")))
+
+                          // Positioned(
+                          //   bottom: -9,
+                          //   right: -8,
+                          //   child:
+                          //   Container(
+                          //     height: height*0.06,
+                          //     width: width*.12,
+                          //     decoration: BoxDecoration(
+                          //         border: Border.all(
+                          //             color: AppColors.white),
+                          //         borderRadius: BorderRadius.circular(50),
+                          //         color: Color(0xff777777)
+                          //     ),
+                          //     child: IconButton(
+                          //       onPressed: (){
+                          //         showOptionsDialog(context);
+                          //       },
+                          //       icon: Icon(
+                          //         Icons.camera_alt,
+                          //         color: Colors.white,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -359,7 +390,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                     "Upload photo",
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),
                   ),
-                  SizedBox(height: height * 0.03),
+                  SizedBox(height: height * 0.05),
 
                   Center(
                     child: Container(
@@ -430,7 +461,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       ),
                     ),
                   ),
-
+                  SizedBox(height: height*.03,),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -446,11 +477,23 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                        borderSide: BorderSide(color: Colors.pinkAccent),
                       ),
                       enabledBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.pink),
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -481,14 +524,26 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       hintText: "example@gmail.com",
                       contentPadding: EdgeInsets.all(20),
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                      suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                      //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                        borderSide: BorderSide(color: Colors.pinkAccent),
                       ),
                       enabledBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.pink),
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -515,44 +570,102 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         style: Theme.of(context).textTheme.titleSmall,
                       )),
                   SizedBox(height: height*.01,),
-                  TextFormField(
-                    controller: MakerProfileControllerInstanse.PhoneController.value,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: "Mobile number",
-                      contentPadding: EdgeInsets.all(20),
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                      suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+
+
+
+                      Expanded(
+                        child: TextFormField(
+                          controller: MakerProfileControllerInstanse.PhoneController.value,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            prefixIcon:  CountryListPick(
+
+                              // if you need custom picker use this
+                              // pickerBuilder: (context, CountryCode countryCode) {
+                              //   return Row(
+                              //     children: [
+                              //       Image.asset(
+                              //         countryCode.flagUri,
+                              //         package: 'country_list_pick',
+                              //       ),
+                              //       Text(countryCode.code),
+                              //       Text(countryCode.dialCode),
+                              //     ],
+                              //   );
+                              // },
+                              theme: CountryTheme(
+                                initialSelection: '+91',
+                                isShowFlag: true,
+                                isShowTitle: false,
+                                isShowCode: true,
+                                isDownIcon: true,
+                                showEnglishName: true,
+                                labelColor: Colors.blueAccent,
+                              ),
+                              initialSelection: '+91',
+                              // or
+                              // initialSelection: 'US'
+                              onChanged: ( code) {
+                                // print(code.name);
+                                // nationality=code!.name;
+                                // print(nationality);
+
+                              },
+                            ),
+
+                            hintText: "Mobile number",
+                            contentPadding: EdgeInsets.all(20),
+                            hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                            //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(color: Colors.pinkAccent),
+                            ),
+                            enabledBorder:  OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide(color: Color(0xffBABABA)),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Colors.red),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Color(0xffBABABA)),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Colors.pink),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Color(0xffBABABA),
+                                )
+                            ),
+                          ),
+                          onFieldSubmitted: (value){},
+                          validator: (value) {
+                            if(value!.isEmpty){
+                              return "Please Enter a Phone Number";
+                            }else if(!RegExp(r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$').hasMatch(value)){
+                              return "Please Enter a Valid Phone Number";
+                            }
+                          },
+                        ),
                       ),
-                      enabledBorder:  OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Color(0xffBABABA),
-                          )
-                      ),
-                    ),
-                    onFieldSubmitted: (value){},
-                    validator: (value) {
-                      if(value!.isEmpty){
-                        return "Please Enter a Phone Number";
-                      }else if(!RegExp(r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$').hasMatch(value)){
-                        return "Please Enter a Valid Phone Number";
-                      }
-                    },
+                    ],
                   ),
 
                   SizedBox(height: height * 0.04,),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Sex",
+                      "Gender",
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -574,7 +687,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       },
                       onChanged: (String? newValue) {
                         setState(() {
-                          
+
                           selectGender = newValue!;
                           SelectedGender=newValue;
                           print(SelectedGender);
@@ -586,11 +699,23 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
+                          borderSide: BorderSide(color: Colors.pinkAccent),
                         ),
                         enabledBorder:  OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(color: Color(0xffBABABA)),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Color(0xffBABABA)),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Colors.pink),
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -617,12 +742,14 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                           padding:  EdgeInsets.symmetric(horizontal: width*.05),
                           child: GestureDetector(
                               onTap: ()  async {
+                                DateTime minimumDate = DateTime.now().subtract(Duration(days: 365* 18 )) ; // 18 years ago from today
+
                                 startdate  =
                                     await showDatePicker(
                                   context: context,
-                                  initialDate: date,
+                                  initialDate: minimumDate,
                                   firstDate: DateTime(1900),
-                                  lastDate: DateTime(2100),
+                                  lastDate: minimumDate,
                                 );
                         print(startdate);
                              datestring=DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()));
@@ -689,7 +816,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       controller: locationcntroller,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please Enter PickUp Location';
+                          return 'Please Enter your address';
                         }
                       },
                       onChanged: (value) {
@@ -701,46 +828,32 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         });
                         searchAutocomplete(value);
                       },
-                      style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                          hintStyle: const TextStyle(fontSize: 12),
-                          hintText: "Enter PickUp Location",
-
-                          /*  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        dropController.clear();
-
-                      });
-                    },
-                    child: Icon(
-                      Icons.cancel,
-                      color: MyTheme.loginBorderColor,
-                      size: 30,
-                    ),
-                ),*/
-                          // fillColor: MyTheme.loginBackColor,
-                          border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(20),
+                          hintText: "Jaipur, India",
+                          hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                          //border: InputBorder.none,
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            borderSide: const BorderSide(
-                              // color: MyTheme.loginBorderColor,
-                            ),
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(color: Colors.pinkAccent),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                   width: 1),
-                              borderRadius: BorderRadius.circular(25.0)),
+                          enabledBorder:  OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(color: Color(0xffBABABA)),
+                          ),
                           errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                 width: 1),
-                              borderRadius: BorderRadius.circular(25.0)),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                width: 1),
-                              borderRadius: BorderRadius.circular(25.0))),
+                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            borderSide: BorderSide(color: Color(0xffBABABA)),
+                          ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Colors.pink),
+                        ),
+                      ),
                     ),
               
                 Visibility(

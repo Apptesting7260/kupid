@@ -60,7 +60,7 @@ class _SignState extends State<Sign> {
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
+                        borderSide: BorderSide(color: Colors.pinkAccent)),
                     hintStyle:
                         TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                     contentPadding: EdgeInsets.all(18),
@@ -69,10 +69,15 @@ class _SignState extends State<Sign> {
                         borderSide: BorderSide(color: Color(0xffBABABA))),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
-                    focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red)
+                    ),
+                    disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
                       borderSide: BorderSide(color: Color(0xffBABABA)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                      borderSide: BorderSide(color: Colors.pink),
                     ),
                     hintText: "Enter email/Mobile no.",
                     filled: true,
