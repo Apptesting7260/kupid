@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/SeekerAddistionInfoController/Seeker_Addistion_InfoController.dart';
 import 'package:cupid_match/match_seeker/choose_one_second.dart';
 import 'package:cupid_match/match_seeker/profile/profile_page.dart';
 import 'package:cupid_match/widgets/my_button.dart';
@@ -12,6 +13,7 @@ class AddBio extends StatefulWidget {
 }
 
 class _AddBioState extends State<AddBio> {
+  final SeekerAddistionInfoControllerinstance= Get.put(SeekerAddistionInfoController());
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController biocontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -36,7 +38,7 @@ class _AddBioState extends State<AddBio> {
             children: [
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: titlecontroller,
+                controller: SeekerAddistionInfoControllerinstance.BioTitleController.value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Enter title';
@@ -69,7 +71,7 @@ class _AddBioState extends State<AddBio> {
                 style: TextStyle(color: Colors.black),
                 maxLines: 5,
                 keyboardType: TextInputType.name,
-                controller: biocontroller,
+                controller: SeekerAddistionInfoControllerinstance.BioDescriptionController.value,
                 textAlign: TextAlign.start,
                 textAlignVertical: TextAlignVertical.top,
                 validator: (value) {
@@ -115,14 +117,15 @@ class _AddBioState extends State<AddBio> {
                 ),
               ),
               SizedBox(height: height * .03),
-              Center(
-                child: MyButton(
+             Obx(() => Center(
+                child: MyButton(loading:SeekerAddistionInfoControllerinstance.loading.value ,
                   title: "Continue",
                   onTap: () {
-                    validate();
+                    SeekerAddistionInfoControllerinstance.SeekerProfileApiHit();
+              
                   },
                 ),
-              )
+              )) 
             ],
           ),
         ),

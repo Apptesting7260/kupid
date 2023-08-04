@@ -1,8 +1,13 @@
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/SeekersAllInterests_Controller/SeekersAllInterests_Controller.dart';
+import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/profile/add_bio.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/controller/SeekerAddistionInfoController/Seeker_Addistion_InfoController.dart';
 
 class Interest extends StatefulWidget {
   const Interest({Key? key}) : super(key: key);
@@ -34,7 +39,21 @@ class _InterestState extends State<Interest> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body:  Obx(() {
+          switch (SeekersAllInterstsControllerInstanse.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (SeekersAllInterstsControllerInstanse.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return Container();}
+                 case Status.COMPLETED:
+              return 
+              
+      Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,26 +86,49 @@ class _InterestState extends State<Interest> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
                 itemBuilder: (context, index) {
-                  return Container(
-                    height: height * .1,
-                    width: width * .5,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.asset("assets/icons/camera (1).png"),
-                          SizedBox(width: width * .02),
-                          Text(
-                            "Photography",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
-                        ],
+                  return InkWell(
+                    child: Container(
+                      height: height * .1,
+                      width: width * .5,
+                      decoration: BoxDecoration(
+                        color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Color(0xff000CAA):Colors.transparent,
+                          border: Border.all(color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white:Colors.grey),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==false) Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].unselectedIconPath.toString()),
+                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true)Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].selectedIconPath.toString()),
+                            SizedBox(width: width * .02),
+                            Text(
+                              SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString(),
+                              style: TextStyle(color:SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white:Color(0xff000CAA))
+                            )
+                          ],
+                        ),
                       ),
                     ),
+                    onTap: () {
+                       if(interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString())){
+                           interests.remove(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
+                             listAsString = interests.join(',');
+
+                      }else{
+interests.add(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
+  listAsString = interests.join(',');
+
+                      }
+                      // if(!interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString())){
+                           
+                      // }
+                   
+                      SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected=!SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected;
+                setState(() {
+                  print(listAsString);
+                });
+                    },
                   );
                 },
               ),
@@ -98,12 +140,16 @@ class _InterestState extends State<Interest> {
               child: MyButton(
                 title: "Continue",
                 onTap: () {
+            
                   Get.to(() => AddBio());
                 },
               ),
             )
           ],
         ),
+      );
+      }
+      }
       ),
     );
   }

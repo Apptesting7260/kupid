@@ -14,8 +14,9 @@ String verification_method="voter";
 String?nationality;
 String?Subcriptiontype;
 String?choose;
-
+String ?listAsString;
 List <File>  Gallery1=[];
+List <String>  interests=[];
 // File ? Gallery2;
 // File ? Gallery3;
 // File ? Gallery4;

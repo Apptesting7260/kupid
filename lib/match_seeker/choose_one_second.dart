@@ -99,9 +99,9 @@ class _ChooseSecondState extends State<ChooseSecond> {
               child: MyButton(
                 title: "Next",
                 onTap: () {
-                  _value != 1
-                      ? Get.to(() => LeverPull())
-                      : Get.to(() => Filter());
+                  // _value != 1
+                  //     ? Get.to(() => LeverPull())
+                  //     : Get.to(() => Filter());
                 },
               ),
             )

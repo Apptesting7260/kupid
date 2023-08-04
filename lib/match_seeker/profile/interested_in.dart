@@ -45,8 +45,8 @@ class _InterstedInState extends State<InterstedIn> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  _value = "Woman";
-                  IntrestedIn="Woman";
+                  _value = "Female";
+                  IntrestedIn="Female";
                   print(IntrestedIn);
                 });
               },
@@ -54,8 +54,8 @@ class _InterstedInState extends State<InterstedIn> {
                 height: height * .075,
                 width: width * 1,
                 decoration: BoxDecoration(
-                    color: _value != "Woman" ? Colors.white : Color(0xff000CAA),
-                    border: _value != "Woman"
+                    color: _value != "Female" ? Colors.white : Color(0xff000CAA),
+                    border: _value != "Female"
                         ? Border.all(color: Colors.grey)
                         : Border.all(color: Color(0xff000CAA)),
                     borderRadius: BorderRadius.circular(30)),
@@ -69,18 +69,18 @@ class _InterstedInState extends State<InterstedIn> {
                         children: [
                           Image.asset(
                             "assets/icons/woman.png",
-                            color: _value != "Woman "
+                            color: _value != "Female "
                                 ? Colors.black
                                 : Colors.white,
                           ),
                           SizedBox(width: width * .02),
                           Text(
-                            "Woman",
+                            "Female",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                    color: _value != "Woman"
+                                    color: _value != "Female"
                                         ? Colors.black
                                         : Colors.white),
                           ),
@@ -89,7 +89,7 @@ class _InterstedInState extends State<InterstedIn> {
                       Icon(
                         Icons.done,
                         size: 20,
-                        color: _value != "Woman" ? Colors.grey : Colors.white,
+                        color: _value != "Female" ? Colors.grey : Colors.white,
                       )
                     ],
                   ),
@@ -102,8 +102,8 @@ class _InterstedInState extends State<InterstedIn> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  _value = "Man";
-   IntrestedIn="Man";
+                  _value = "Male";
+   IntrestedIn="Male";
                   print(IntrestedIn);
                 });
               },
@@ -111,8 +111,8 @@ class _InterstedInState extends State<InterstedIn> {
                 height: height * .075,
                 width: width * 1,
                 decoration: BoxDecoration(
-                    color: _value != "Man" ? Colors.white : Color(0xff000CAA),
-                    border: _value != "Man"
+                    color: _value != "Male" ? Colors.white : Color(0xff000CAA),
+                    border: _value != "Male"
                         ? Border.all(color: Colors.grey)
                         : Border.all(color: Color(0xff000CAA)),
                     borderRadius: BorderRadius.circular(30)),
@@ -127,16 +127,16 @@ class _InterstedInState extends State<InterstedIn> {
                           Image.asset(
                             "assets/icons/man.png",
                             color:
-                                _value != "Man" ? Colors.black : Colors.white,
+                                _value != "Male" ? Colors.black : Colors.white,
                           ),
                           SizedBox(width: width * .02),
                           Text(
-                            "man",
+                            "Male",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
                                 .copyWith(
-                                    color: _value != "Man"
+                                    color: _value != "Male"
                                         ? Colors.black
                                         : Colors.white),
                           ),
@@ -145,7 +145,7 @@ class _InterstedInState extends State<InterstedIn> {
                       Icon(
                         Icons.done,
                         size: 20,
-                        color: _value != "Man" ? Colors.grey : Colors.white,
+                        color: _value != "Male" ? Colors.grey : Colors.white,
                       )
                     ],
                   ),

@@ -67,10 +67,16 @@ Future<void> MakerProfileApiHit() async {
     request.fields['gender'] = SelectedGender.toString();
     request.fields['type'] = "1";
     request.headers['Authorization'] = "Bearer $BarrierToken";
-     var videoStream = http.ByteStream(videoFile!.openRead());
+
+    if(videoFile==null){
+
+    }else{
+      var videoStream = http.ByteStream(videoFile!.openRead());
     var videoLength = await videoFile!.length();
       var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);
     request.files.add(videoFileField);
+    }
+     
 
 print(BarrierToken);
     // Send the request and get the response

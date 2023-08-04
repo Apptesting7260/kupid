@@ -38,6 +38,7 @@ class Interests {
     int ?status;
     String ?createdAt;
     String? updatedAt;
+    bool isselected=false;
     String ?selectedIconPath;
     String ?unselectedIconPath;
 

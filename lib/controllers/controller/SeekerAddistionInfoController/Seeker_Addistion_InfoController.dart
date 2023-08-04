@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cupid_match/match_seeker/choose_one_second.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -28,10 +29,17 @@ class SeekerAddistionInfoController extends GetxController {
 
   RxBool loading = false.obs;
 
-  RxList<File> imageFiles = RxList<File>([]);
+  // RxList<File> Gallery1 = RxList<File>([]);
 
   final BioTitleController = TextEditingController().obs;
   final BioDescriptionController = TextEditingController().obs;
+    RxString  intrustedin = "Male".obs;
+
+
+    changeintrustedin(RxString value){
+      intrustedin=value;
+      print(intrustedin);
+    }
 
 
   Future<void> SeekerProfileApiHit() async {
@@ -44,100 +52,127 @@ class SeekerAddistionInfoController extends GetxController {
       var request = http.MultipartRequest('POST', url);
 
       // Add the file to the request
-      var fileStream1 = http.ByteStream(imageFiles[0]!.openRead());
-      var length1 = await imageFiles[0]!.length();
-      var multipartFile1 = http.MultipartFile('gallery[img1]', fileStream1, length1,
+//       if(Gallery1.length<=0){
+//  var fileStream1 = http.ByteStream(Gallery1[0].openRead());
+//       var length1 = await Gallery1[0].length();
+//       var multipartFile1 = http.MultipartFile('gallery[img0]', fileStream1, length1,
 
-          filename: imageFiles[0]!.path.split('/').last);
-      request.files.add(multipartFile1);
+//           filename: Gallery1[0].path.split('/').last);
+//       request.files.add(multipartFile1);
+//       }
+     
 
-      ////////////////////////////////////////////
+//       ////////////////////////////////////////////
 
-      // Add the file to the request
-      var fileStream2 = http.ByteStream(imageFiles[1]!.openRead());
-      var length2 = await imageFiles[1].length();
-      var multipartFile2 = http.MultipartFile('gallery[img1]', fileStream2, length2,
+//       // Add the file to the request
+//       if(Gallery1.length<=1) {
+//         var fileStream2 = http.ByteStream(Gallery1[1].openRead());
+//       var length2 = await Gallery1[1].length();
+//       var multipartFile2 = http.MultipartFile('gallery[img1]', fileStream2, length2,
 
-          filename: imageFiles[1].path.split('/').last);
-      request.files.add(multipartFile2);
+//           filename: Gallery1[1].path.split('/').last);
+//       request.files.add(multipartFile2);
+//       }
+      
+    
+//       ////////////////////////////////////////////
 
-      ////////////////////////////////////////////
+//       // Add the file to the request
+//         if(Gallery1.length<=2) {
+//       var fileStream3 = http.ByteStream(Gallery1[2].openRead());
+//       var length3 = await Gallery1[2].length();
+//       var multipartFile3 = http.MultipartFile('gallery[img2]', fileStream3, length3,
 
-      // Add the file to the request
-      var fileStream3 = http.ByteStream(imageFiles[2]!.openRead());
-      var length3 = await imageFiles[2].length();
-      var multipartFile3 = http.MultipartFile('gallery[img1]', fileStream3, length3,
+//           filename: Gallery1[2].path.split('/').last);
+//       request.files.add(multipartFile3);
+//         }
+//       ////////////////////////////////////////////
 
-          filename: imageFiles[2].path.split('/').last);
-      request.files.add(multipartFile3);
+//   if(Gallery1.length<=3) {
+//       var fileStream4 = http.ByteStream(Gallery1[3].openRead());
+//       var length4 = await Gallery1[3].length();
+//       var multipartFile4 = http.MultipartFile('gallery[img3]', fileStream4, length4,
 
-      ////////////////////////////////////////////
+//           filename: Gallery1[3].path.split('/').last);
+//       request.files.add(multipartFile4);
+//   }
+//       ////////////////////////////////////////////
 
-      // Add the file to the request
-      var fileStream4 = http.ByteStream(imageFiles[3]!.openRead());
-      var length4 = await imageFiles[3]!.length();
-      var multipartFile4 = http.MultipartFile('gallery[img1]', fileStream4, length4,
+//       // Add the file to the request
+//         if(Gallery1.length<=4) {
+//       var fileStream5 = http.ByteStream(Gallery1[4].openRead());
+//       var length5 = await Gallery1[4].length();
+//       var multipartFile5 = http.MultipartFile('gallery[img5]', fileStream5, length5,
 
-          filename: imageFiles[3].path.split('/').last);
-      request.files.add(multipartFile4);
+//           filename: Gallery1[4].path.split('/').last);
+//       request.files.add(multipartFile5);
+//         }
+//       ////////////////////////////////////////////
 
-      ////////////////////////////////////////////
+//       // Add the file to the request
+//         if(Gallery1.length<=5) {
 
-      // Add the file to the request
-      var fileStream5 = http.ByteStream(imageFiles[4]!.openRead());
-      var length5 = await imageFiles[4].length();
-      var multipartFile5 = http.MultipartFile('gallery[img1]', fileStream5, length5,
+//       var fileStream6 = http.ByteStream(Gallery1[5].openRead());
+//       var length6 = await Gallery1[5].length();
+//       var multipartFile6 = http.MultipartFile('gallery[img1]', fileStream6, length6,
 
-          filename: imageFiles[4].path.split('/').last);
-      request.files.add(multipartFile5);
+//           filename: Gallery1[5].path.split('/').last);
+//       request.files.add(multipartFile6);
+//         }
+//       ////////////////////////////////////////////
 
-      ////////////////////////////////////////////
+//       // Add the file to the request
+//         if(Gallery1.length<=6) {
+//       var fileStream7 = http.ByteStream(Gallery1[6].openRead());
+//       var length7 = await Gallery1[6].length();
+//       var multipartFile7 = http.MultipartFile('gallery[img6]', fileStream7, length7,
 
-      // Add the file to the request
-      var fileStream6 = http.ByteStream(imageFiles[5]!.openRead());
-      var length6 = await imageFiles[5].length();
-      var multipartFile6 = http.MultipartFile('gallery[img1]', fileStream6, length6,
+//           filename: Gallery1[6].path.split('/').last);
+//       request.files.add(multipartFile7);
+//         }
+//       ////////////////////////////////////////////
 
-          filename: imageFiles[5].path.split('/').last);
-      request.files.add(multipartFile6);
+//       // Add the file to the request
+//         if(Gallery1.length<=7) {
+//       var fileStream8 = http.ByteStream(Gallery1[7].openRead());
+//       var length8 = await Gallery1[7].length();
+//       var multipartFile8 = http.MultipartFile('gallery[img7]', fileStream8, length8,
 
-      ////////////////////////////////////////////
+//           filename: Gallery1[7].path.split('/').last);
+//       request.files.add(multipartFile8);
+//         }
+//       ////////////////////////////////////////////
 
-      // Add the file to the request
-      var fileStream7 = http.ByteStream(imageFiles[6]!.openRead());
-      var length7 = await imageFiles[6].length();
-      var multipartFile7 = http.MultipartFile('gallery[img1]', fileStream7, length7,
+//       // Add the file to the request
+//         if(Gallery1.length<=8) {
+//       var fileStream9 = http.ByteStream(Gallery1[8].openRead());
+//       var length9 = await Gallery1[8].length();
+//       var multipartFile9 = http.MultipartFile('gallery[img8]', fileStream9, length9,
 
-          filename: imageFiles[6].path.split('/').last);
-      request.files.add(multipartFile7);
-
-      ////////////////////////////////////////////
-
-      // Add the file to the request
-      var fileStream8 = http.ByteStream(imageFiles[7]!.openRead());
-      var length8 = await imageFiles[7].length();
-      var multipartFile8 = http.MultipartFile('gallery[img1]', fileStream8, length8,
-
-          filename: imageFiles[7].path.split('/').last);
-      request.files.add(multipartFile8);
-
-      ////////////////////////////////////////////
-
-      // Add the file to the request
-      var fileStream9 = http.ByteStream(imageFiles[8]!.openRead());
-      var length9 = await imageFiles[8].length();
-      var multipartFile9 = http.MultipartFile('gallery[img1]', fileStream9, length9,
-
-          filename: imageFiles[8].path.split('/').last);
-      request.files.add(multipartFile9);
-
+//           filename: Gallery1[8].path.split('/').last);
+//       request.files.add(multipartFile9);
+//         }
+        
+        for (int i = 0; i < Gallery1.length; i++) {
+  if (i <= 8) {
+    var fileStream = http.ByteStream(Gallery1[i].openRead());
+    var length = await Gallery1[i].length();
+    var multipartFile = http.MultipartFile(
+      'gallery[img$i]',
+      fileStream,
+      length,
+      filename: Gallery1[i].path.split('/').last,
+    );
+    request.files.add(multipartFile);
+  }
+}
       ////////////////////////////////////////////
       print(imgFile);
       // Add other text fields to the request+
       request.fields['bio_title'] = BioTitleController.value.text;
       request.fields['bio_description'] = BioDescriptionController.value.text;
       request.fields['intrested_in'] = IntrestedIn.toString();
-      request.fields['interests'] = Interests.toString();
+      request.fields['interests'] = listAsString.toString();
       request.headers['Authorization'] = "Bearer $BarrierToken";
 //       var videoStream = http.ByteStream(videoFile!.openRead());
 //       var videoLength = await videoFile!.length();
@@ -153,7 +188,7 @@ class SeekerAddistionInfoController extends GetxController {
       // Check the response status
       if (response.statusCode== 200) {
         print('File uploaded successfully!');
-        Get.to(() => PhotosScreen());
+        Get.off(() => ChooseSecond());
         loading.value = false ;
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
