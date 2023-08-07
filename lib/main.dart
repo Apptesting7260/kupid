@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'match_maker/addbio_maker.dart';
+import 'match_seeker/profile/add_bio.dart';
+import 'match_seeker/profile/update_profile_details.dart';
+
 void main() {
   runApp(const MyApp());
 }

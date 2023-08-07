@@ -42,3 +42,15 @@ class FetchDataException extends AppExceptions {
   FetchDataException([dynamic? message]) : super(message, '') ;
 
 }
+
+// new exceptions ************************
+
+
+class BadRequestException extends AppExceptions {
+  BadRequestException([String? massage]) : super(massage, "");
+}
+
+class UnauthorisedException extends AppExceptions {
+  UnauthorisedException([String? massage])
+      : super(massage, "Unauthorised Request");
+}

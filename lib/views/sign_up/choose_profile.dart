@@ -1,7 +1,7 @@
 import 'package:cupid_match/match_maker/addbio_maker.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/match_seeker/profile/profile_details.dart';
-import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
+import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
 import 'package:cupid_match/match_seeker/tab_screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';

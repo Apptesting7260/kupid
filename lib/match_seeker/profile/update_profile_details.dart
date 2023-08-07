@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:geocoding/geocoding.dart';
+import 'package:http/http.dart' as http;
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_seeker/photos.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +16,7 @@ import 'package:intl/intl.dart';
 import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
 import '../../match_maker/addbio_maker.dart';
+import '../../models/GoogleLocationModel/GoogleLocationModel.dart';
 
 File ?videoFile ;
 class SikerProfileDetails extends StatefulWidget {
@@ -23,11 +27,26 @@ class SikerProfileDetails extends StatefulWidget {
 }
 
 class _SikerProfileDetailsState extends State<SikerProfileDetails> {
+  FocusNode _dropdownFocus1 = FocusNode();
+  FocusNode _dropdownFocus2 = FocusNode();
+  FocusNode _dropdownFocus3 = FocusNode();
+  bool _isDropdownOpen1 = false;
+  bool _isDropdownOpen2 = false;
+  bool _isDropdownOpen3 = false;
+
+  final locationcntroller=TextEditingController();
 
   final SeekerProfileControllerInstanse=Get.put(SeekerProfileController());
   final GetAllOcupationsControllerInstanse=Get.put(GetAllOcupationsController());
-
+  String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   DateTime date = DateTime.now();
+  List<Predictions> searchPlace = [];
+  List<Location> locations = [];
+  double? lat;
+  double? long;
+  bool isDropdownExpanded = true;
+  bool selectedColor = false;
+
 
   Future<File?> pickVideo() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -94,15 +113,11 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   TextEditingController mobilecontroller = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController questioncontroller = TextEditingController();
-  // var items1 = [
-  //   'Electrician',
-  //   'Engineer',
-  //   'Doctor',
-  //   'Advocate',
-  // ];
+
   String? dropdownvalue ;
   File? pickedImage;
   String? selectGender;
+  String? selectOccupations;
 
 
 
@@ -115,11 +130,37 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
     "Muslims",
     "Sikhs"
   ];
+
+  void _onDropdownFocusChange1() {
+    setState(() {
+      _isDropdownOpen1 = _dropdownFocus1.hasFocus;
+
+      print(_isDropdownOpen1);
+    });
+  }
+
+  void _onDropdownFocusChange2() {
+    setState(() {
+      _isDropdownOpen2 = _dropdownFocus2.hasFocus;
+
+      print(_isDropdownOpen2);
+    });
+  }
+  void _onDropdownFocusChange3() {
+    setState(() {
+      _isDropdownOpen3 = _dropdownFocus3.hasFocus;
+
+      print(_isDropdownOpen3);
+    });
+  }
 @override
   void initState() {
     GetAllOcupationsControllerInstanse.GetAllOcupationsListApiHit();
     // TODO: implement initState
     super.initState();
+    _dropdownFocus1.addListener(_onDropdownFocusChange1);
+    _dropdownFocus2.addListener(_onDropdownFocusChange2);
+    _dropdownFocus3.addListener(_onDropdownFocusChange3);
   }
   @override
   Widget build(BuildContext context) {
@@ -139,7 +180,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body:
+      Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView(
           children: [
@@ -179,7 +221,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                         CircleAvatar(
                           child: ClipOval(
                               child: imgFile==null
-                                  ?  Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU',height: 200,width: 200,fit:BoxFit.cover,)
+                                  ?  Image.network('https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',height: 200,width: 200,fit:BoxFit.cover,)
                                   :Image.file(imgFile!,height: height,width: width,fit:BoxFit.cover,)
 
                           ),
@@ -237,7 +279,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                     videoFile == null ?  Text(
-                        "Upload Vedio",
+                        "Upload Video",
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -292,6 +334,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               ),
             ),
             SizedBox(height: height * .04),
+
+
             Text(
               "Name",
               style: Theme.of(context).textTheme.titleSmall,
@@ -309,7 +353,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
+                      borderSide: BorderSide(color: Color(0xffFE0091))),
                   hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                   contentPadding: EdgeInsets.all(18),
                   enabledBorder: OutlineInputBorder(
@@ -327,6 +371,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                   fillColor: Colors.white),
             ),
             SizedBox(height: height * .03),
+
+
             Text(
               "Phone Number",
               style: Theme.of(context).textTheme.titleSmall,
@@ -345,7 +391,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
+                      borderSide: BorderSide(color: Color(0xffFE0091))),
                   hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                   contentPadding: EdgeInsets.all(18),
                   enabledBorder: OutlineInputBorder(
@@ -369,6 +415,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                   filled: true,
                   fillColor: Colors.white),
             ),
+
             SizedBox(height: height * .03),
             Text(
               "Email Id",
@@ -388,7 +435,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
+                      borderSide: BorderSide(color: Color(0xffFE0091))),
                   hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                   contentPadding: EdgeInsets.all(18),
                   enabledBorder: OutlineInputBorder(
@@ -419,44 +466,84 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
-            // DropdownButtonFormField(
-            //   value: GetAllOcupationsControllerInstanse.Ocupations[0],
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please Enter Drop Points';
-            //     }
-            //   },
-            //   hint: Text(
-            //     "Electrician",
-            //     style: TextStyle(fontSize: 10),
-            //   ),
-            //   items: GetAllOcupationsControllerInstanse.Ocupations.map((String items) {
-            //     return DropdownMenuItem(
-            //       value: items,
-            //       child: Text(items),
-            //     );
-            //   }).toList(),
-            //   onChanged: (String? value) {
-            //     setState(() {
-            //       dropdownvalue = value!;
-            //       Ocupasion = value;
-            //       print(Ocupasion);
-            //     });
-            //   },
-            //   decoration: InputDecoration(
-            //     contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 22),
-            //     filled: true,
-            //     fillColor: Colors.white,
-            //     border: InputBorder.none,
-            //     focusedBorder: OutlineInputBorder(
-            //       borderRadius: BorderRadius.circular(35.0),
-            //       borderSide: BorderSide(color: Color(0xffBABABA)),
-            //     ),
-            //     enabledBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(color: Color(0xffBABABA)),
-            //         borderRadius: BorderRadius.circular(35.0)),
-            //   ),
-            // ),
+         if(GetAllOcupationsControllerInstanse.Ocupations.isNotEmpty)     Focus(
+                focusNode:_dropdownFocus3 ,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<String>(
+                    isExpanded: true,
+                    hint: Text("Select Occupation",style:TextStyle(color:Colors.black),),
+                    items: GetAllOcupationsControllerInstanse.Ocupations.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    value: dropdownvalue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownvalue = value!;
+                        Ocupasion = value;
+                        print(Ocupasion);
+                      });
+                    },
+                    buttonStyleData: ButtonStyleData(
+                      height: Get.height*0.07,
+                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color:_isDropdownOpen3==false? Colors.grey:Colors.pink,
+                        ),
+                        color: Colors.white,
+                      ),
+
+
+                    ),
+                    iconStyleData:selectGender==null
+                        ? IconStyleData(
+                      icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
+                      iconSize: 30,
+                      iconEnabledColor: Colors.black,
+                    )
+                        : IconStyleData(
+                      icon: InkWell(child: Icon(Icons.close),onTap: (){
+                        setState(() {
+                          selectGender=null;
+                        });
+                      },),  // Change to down arrow icon
+                      iconSize: 25,
+                      //iconEnabledColor: Colors.black,
+                    ),
+
+                    dropdownStyleData: DropdownStyleData(
+                      width: Get.width*0.89,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Colors.white,
+                      ),
+                      offset: const Offset(10, 0),
+                      scrollbarTheme: ScrollbarThemeData(
+                        radius: const Radius.circular(40),
+                        thickness: MaterialStateProperty.all<double>(6),
+                        thumbVisibility: MaterialStateProperty.all<bool>(true),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                      padding: EdgeInsets.only(left: 14, right: 14),
+                    ),
+                  ),
+                ),
+
+
+            ),
+
+
+           // ***************************   Occupation Pjdfgjdsfds ***************************
+
+
+
+
             SizedBox(height: height * .03),
             Text(
               "Salary",
@@ -475,7 +562,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
+                      borderSide: BorderSide(color: Color(0xffFE0091))),
                   hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                   contentPadding: EdgeInsets.all(18),
                   enabledBorder: OutlineInputBorder(
@@ -488,144 +575,277 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(color: Color(0xffBABABA)),
                   ),
-                  hintText: "25k monthly",
+                  hintText: "Salary",
                   filled: true,
                   fillColor: Colors.white),
             ),
+
+
             SizedBox(height: height * .03),
             Text(
               "Address",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
+            // TextFormField(
+            //   keyboardType: TextInputType.emailAddress,
+            //   controller: SeekerProfileControllerInstanse.AddressController.value,
+            //   validator: (value) {
+            //     if (value!.isEmpty) {
+            //       return "Please Enter Address";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   decoration: InputDecoration(
+            //       focusedBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffFE0091))),
+            //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+            //       contentPadding: EdgeInsets.all(18),
+            //       enabledBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+            //       errorBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+            //       focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //         borderSide: BorderSide(color: Color(0xffBABABA)),
+            //       ),
+            //       hintText: "Address",
+            //       filled: true,
+            //       fillColor: Colors.white),
+            // ),
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: SeekerProfileControllerInstanse.AddressController.value,
+              keyboardType: TextInputType.text,
+              controller: locationcntroller,
               validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please Enter Address";
-                } else {
-                  return null;
+                if (value == null || value.isEmpty) {
+                  return 'Please Enter your address';
                 }
               },
+              onChanged: (value) {
+                print(value);
+                setState(() {
+                  if (locationcntroller.text.isEmpty) {
+                    // searchPlace.clear();
+                  }
+                });
+                searchAutocomplete(value);
+              },
               decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
-                  contentPadding: EdgeInsets.all(18),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                  ),
-                  hintText: "Address",
-                  filled: true,
-                  fillColor: Colors.white),
+                contentPadding: EdgeInsets.all(20),
+                hintText: "Jaipur, India",
+                hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                //border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Colors.pinkAccent),
+                ),
+                enabledBorder:  OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: Color(0xffBABABA)),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  borderSide: BorderSide(color: Color(0xffBABABA)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  borderSide: BorderSide(color: Colors.pink),
+                ),
+              ),
+            ),
+            Visibility(
+              visible: locationcntroller.text.isNotEmpty,
+              child: Container(
+                width: double.infinity,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: searchPlace.length,
+                    itemBuilder: (context, index) => ListTile(
+                      onTap: () {
+                        setState(() {
+                          locationcntroller.text =
+                              searchPlace[index].description ?? "";
+                          _getLatLang();
+                          SelectedLocation=locationcntroller.text;
+                          print(SelectedLocation);
+                          setState(() {
+                            searchPlace.clear();
+                          });
+                        });
+                      },
+                      horizontalTitleGap: 0,
+                      title: Text(
+                        searchPlace[index].description ?? "",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )),
+              ),
             ),
             SizedBox(height: height * .03),
+
+
             Text(
               "Gender",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
-            DropdownButtonFormField(
-                value: selectGender,
-                icon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Color(0xff000000),
-                  size: 28,
-                ),
-                style: Theme.of(context).textTheme.bodyLarge,
-                items: genderItems.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                validator: (value) {
-                  if (value == null) return "Select your gender";
-                  return null;
-                },
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectGender = newValue!;
-                    SelectedGender = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: "Man",
-                  contentPadding: EdgeInsets.all(20),
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: AppColors.subtitletextcolor),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                  ),
-                  border: OutlineInputBorder(
+            // ****************  select gender dropdown ***********************
+            Focus(
+              focusNode:_dropdownFocus1 ,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  isExpanded: true,
+                  hint: Text("Select Gender"),
+                  items: genderItems.map((String items) {
+                    return DropdownMenuItem(
+                          value: items,
+                     child: Text(items),
+                    );
+                    }).toList(),
+                  value: selectGender,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectGender = value;
+                    });
+                  },
+                  buttonStyleData: ButtonStyleData(
+                    height: Get.height*0.07,
+                    padding: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                )),
+                      border: Border.all(
+                        color:_isDropdownOpen1==false? Colors.grey:Colors.pink,
+                      ),
+                      color: Colors.white,
+                    ),
+
+
+                  ),
+                  iconStyleData:selectGender==null
+                      ? IconStyleData(
+                    icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
+                    iconSize: 30,
+                    iconEnabledColor: Colors.black,
+                  )
+                      : IconStyleData(
+                    icon: InkWell(child: Icon(Icons.close),onTap: (){
+                      setState(() {
+                        selectGender=null;
+                      });
+                    },),  // Change to down arrow icon
+                    iconSize: 25,
+                    //iconEnabledColor: Colors.black,
+                  ),
+
+                  dropdownStyleData: DropdownStyleData(
+                    width: Get.width*0.89,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Colors.white,
+                    ),
+                    offset: const Offset(10, 0),
+                    scrollbarTheme: ScrollbarThemeData(
+                      radius: const Radius.circular(40),
+                      thickness: MaterialStateProperty.all<double>(6),
+                      thumbVisibility: MaterialStateProperty.all<bool>(true),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                    padding: EdgeInsets.only(left: 14, right: 14),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: height * .03),
+
+            // ****************  select Religion dropdown ***********************
             Text(
               "Religion",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
-            DropdownButtonFormField(
-                value: selectReligion,
-                icon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Color(0xff000000),
-                  size: 28,
-                ),
-                style: Theme.of(context).textTheme.bodyLarge,
-                items: religionItems.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                validator: (value) {
-                  if (value == null) return "Select your gender";
-                  return null;
-                },
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectReligion = newValue!;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: "Sikh",
-                  contentPadding: EdgeInsets.all(20),
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: AppColors.subtitletextcolor),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                  ),
-                  border: OutlineInputBorder(
+
+            Focus(
+              focusNode: _dropdownFocus2,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  isExpanded: true,
+                  hint: Text("Select Religion"),
+                  items: religionItems.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  value: selectReligion,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectReligion = value;
+                    });
+                  },
+                  buttonStyleData: ButtonStyleData(
+                    height: Get.height * 0.07,
+                    padding: const EdgeInsets.only(left: 14, right: 14),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                )),
+                      border: Border.all(
+                        color:_isDropdownOpen2==false ?Colors.grey:Colors.pink // Set border color based on selected state
+                      ),
+                      color: Colors.white,
+                    ),
+                  ),
+                  iconStyleData: selectReligion == null
+                      ? IconStyleData(
+                    icon: Icon(Icons.keyboard_arrow_down),
+                    iconSize: 30,
+                    iconEnabledColor: Colors.black,
+                  )
+                      : IconStyleData(
+                    icon: InkWell(
+                      child: Icon(Icons.close),
+                      onTap: () {
+                        setState(() {
+                          selectReligion = null;
+                        });
+                      },
+                    ),
+                    iconSize: 25,
+                    iconEnabledColor: Colors.black,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    width: Get.width * 0.89,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      color: Colors.white,
+                    ),
+                    offset: const Offset(10, 0),
+                    scrollbarTheme: ScrollbarThemeData(
+                      radius: const Radius.circular(40),
+                      thickness: MaterialStateProperty.all<double>(6),
+                      thumbVisibility: MaterialStateProperty.all<bool>(true),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                    padding: EdgeInsets.only(left: 14, right: 14),
+                  ),
+                ),
+              ),
+            ),
+
             SizedBox(height: height * .03),
+
+
             Text(
               "Height",
               style: Theme.of(context).textTheme.titleSmall,
@@ -650,7 +870,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                         focusedBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xffBABABA))),
+                            borderSide: BorderSide(color: Color(0xffFE0091))),
                         hintStyle:
                             TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                         contentPadding: EdgeInsets.all(18),
@@ -687,7 +907,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                         focusedBorder: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xffBABABA))),
+                            borderSide: BorderSide(color: Color(0xffFE0091))),
                         hintStyle:
                             TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                         contentPadding: EdgeInsets.all(18),
@@ -711,6 +931,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               ],
             ),
             SizedBox(height: height * .03),
+
+            //no changes **********************************
             Container(
               height: height*.08,
               width: width,
@@ -723,7 +945,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width*.05),
-                    child:startdate==null? Text("Choose birthday date",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000CAA),fontSize: 14,fontWeight: FontWeight.w800),):Text(DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()))),
+                    child:startdate==null? Text("Choose birthday date",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.pink,fontSize: 14,fontWeight: FontWeight.w800),):Text(DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString())),style: TextStyle(color:Colors.black),),
                   ),
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: width*.05),
@@ -744,12 +966,16 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             datestring;
                           });
                         },
-                        child: Image.asset('assets/icons/Calendar.png',height: 30,)),
+                        child: Image.asset('assets/icons/Calendar.png',height: 30,color:Colors.pink,)),
                   ),
                 ],
               ),
             ),
+
+
             SizedBox(height: height * .03),
+
+
             Text(
               "Add Question",
               style: Theme.of(context).textTheme.titleSmall,
@@ -770,7 +996,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
+                        borderSide: BorderSide(color: Color(0xffFE0091))),
                     hintStyle:
                         TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                     contentPadding: EdgeInsets.all(18),
@@ -813,7 +1039,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             borderSide: BorderSide(color: Color(0xffDCDCDC))),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            borderSide: BorderSide(color: Color(0xffFE0091))),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Color(0xffDCDCDC)))),
@@ -840,7 +1066,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             borderSide: BorderSide(color: Color(0xffDCDCDC))),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            borderSide: BorderSide(color: Color(0xffFE0091))),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Color(0xffDCDCDC)))),
@@ -867,7 +1093,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             borderSide: BorderSide(color: Color(0xffDCDCDC))),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            borderSide: BorderSide(color: Color(0xffFE0091))),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(color: Color(0xffDCDCDC)))),
@@ -883,6 +1109,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               ],
             ),
             SizedBox(height: 5),
+
+
             Padding(
               padding: const EdgeInsets.only(right: 40, left: 40),
               child: Row(
@@ -895,7 +1123,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       onPressed: () {
                         choose = SeekerProfileControllerInstanse.FirstanswerController.value.text;
                         setState(() {
-                          // click = !click;
+
                           print(choose);
                         });
                       },
@@ -954,7 +1182,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 ],
               ),
             ),
-
             // Container(
             //   height: height * .11,
             //   width: width * 1,
@@ -1006,7 +1233,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
         return AlertDialog(
             title: Text(
               'Choose Image',
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             actions: <Widget>[
               TextButton(
@@ -1041,5 +1268,38 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
     } catch (error) {
       debugPrint(error.toString());
     }
+  }
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": googleAPiKey});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      print(response.statusCode);
+      final parse = jsonDecode(response.body);
+      print(parse);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+
+          print(searchPlace.length);
+        });
+      }
+    } catch (err) {}
+  }
+  Future<void> _getLatLang() async {
+    final query = locationcntroller.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      print("*****lat ${lat} : ${long}**********long");
+    });
   }
 }

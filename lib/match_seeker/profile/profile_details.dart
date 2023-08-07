@@ -31,7 +31,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Profile Details",
+          "Profile Detail",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,

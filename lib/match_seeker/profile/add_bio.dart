@@ -59,7 +59,7 @@ class _AddBioState extends State<AddBio> {
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
+                        borderSide: BorderSide(color: Color(0xffFE0091))),
                     hintStyle:
                         TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                     contentPadding: EdgeInsets.all(18),
@@ -120,7 +120,7 @@ class _AddBioState extends State<AddBio> {
                   ),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
+                      borderSide: BorderSide(color: Color(0xffFE0091))),
                   hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                   hintText: "Enter your bio",
                   filled: true,

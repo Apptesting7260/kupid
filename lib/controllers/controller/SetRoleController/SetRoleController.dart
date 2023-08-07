@@ -1,5 +1,5 @@
 import 'package:cupid_match/match_maker/addbio_maker.dart';
-import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
+import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';

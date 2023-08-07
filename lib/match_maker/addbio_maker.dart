@@ -6,6 +6,7 @@ import 'package:cupid_match/match_maker/verify_identity.dart';
 import 'package:cupid_match/models/GoogleLocationModel/GoogleLocationModel.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,26 @@ class MakerProfileDetails extends StatefulWidget {
 
 class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   //DateTime? startdate;
+  FocusNode _dropdownFocus1 = FocusNode();
+  FocusNode _dropdownFocus2 = FocusNode();
+  bool _isDropdownOpen2 = false;
+  bool _isDropdownOpen1 = false;
+  void _onDropdownFocusChange1() {
+    setState(() {
+      _isDropdownOpen1 = _dropdownFocus1.hasFocus;
+
+      print(_isDropdownOpen1);
+    });
+  }
+  void _onDropdownFocusChange2() {
+    setState(() {
+      _isDropdownOpen2 = _dropdownFocus2.hasFocus;
+
+      print(_isDropdownOpen2);
+    });
+  }
+
+
     List<Location> locations = [];
   double? lat;
   double? long;
@@ -154,7 +175,13 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
       };
     });
   }
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _dropdownFocus1.addListener(_onDropdownFocusChange1);
+    _dropdownFocus2.addListener(_onDropdownFocusChange2);
+  }
   // Future<DateTime?> showDatePicker({
   //   required BuildContext context,
   //   required DateTime initialDate,
@@ -341,7 +368,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                           CircleAvatar(
                             child: ClipOval(
                               child: imgFile==null
-                              ?  Image.asset('assets/images/profiler.png',height: 200,width: 200,fit:BoxFit.cover,)
+                              ?  Image.network('https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691407400~exp=1691408000~hmac=50e7754305b51bd502a2e16302b93ac076a3b959f6944c407253738aaf65d357',height: 200,width: 200,fit:BoxFit.cover,)
                                   :Image.file(imgFile!,height: height,width: width,fit:BoxFit.cover,)
                                 
                             ),
@@ -670,57 +697,72 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                     ),
                   ),
                   SizedBox(height: height * 0.01,),
-                  DropdownButtonFormField(
-                      value: selectGender,
-                      icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      items: genderItems.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      validator: (value) {
-                        if(value == null)
-                          return "select your gender";
-                        return null;
-                      },
-                      onChanged: (String? newValue) {
-                        setState(() {
-
-                          selectGender = newValue!;
-                          SelectedGender=newValue;
-                          print(SelectedGender);
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Select your gender",
-                        contentPadding: EdgeInsets.all(20),
-                        hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.pinkAccent),
-                        ),
-                        enabledBorder:  OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                          borderSide: BorderSide(color: Colors.pink),
-                        ),
-                        border: OutlineInputBorder(
+                  Focus(
+                    focusNode:_dropdownFocus1 ,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text("Select Gender"),
+                        items: genderItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        value: selectGender,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectGender = value;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          height: Get.height*0.07,
+                          padding: const EdgeInsets.only(left: 14, right: 14),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffBABABA))),
-                      )
+                            border: Border.all(
+                              color:_isDropdownOpen1==false? Colors.grey:Colors.pink,
+                            ),
+                            color: Colors.white,
+                          ),
+
+
+                        ),
+                        iconStyleData:selectGender==null
+                            ? IconStyleData(
+                          icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
+                          iconSize: 30,
+                          iconEnabledColor: Colors.black,
+                        )
+                            : IconStyleData(
+                          icon: InkWell(child: Icon(Icons.close),onTap: (){
+                            setState(() {
+                              selectGender=null;
+                            });
+                          },),  // Change to down arrow icon
+                          iconSize: 25,
+                          //iconEnabledColor: Colors.black,
+                        ),
+
+                        dropdownStyleData: DropdownStyleData(
+                          width: Get.width*0.89,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.white,
+                          ),
+                          offset: const Offset(10, 0),
+                          scrollbarTheme: ScrollbarThemeData(
+                            radius: const Radius.circular(40),
+                            thickness: MaterialStateProperty.all<double>(6),
+                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                          padding: EdgeInsets.only(left: 14, right: 14),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: height * 0.04,),
 
@@ -855,8 +897,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         ),
                       ),
                     ),
-              
-                Visibility(
+                  Visibility(
                 visible: locationcntroller.text.isNotEmpty,
                 child: Container(
                   width: double.infinity,
@@ -895,42 +936,74 @@ print(SelectedLocation);
                     ),
                   ),
                   SizedBox(height: height*.01,),
-                  DropdownButtonFormField(value: selectExperience,
-                      icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      items: experienceItems.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      validator: (value) {
-                        if(value == null)
-                          return "select your experience";
-                        return null;
-                      },
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectExperience = newValue!;
-                          SelectedMtachMakerExperience=newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        hintText: "Select your experience",
-                        hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        enabledBorder:  OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Color(0xffBABABA)),
-                        ),
-                        border: OutlineInputBorder(
+
+                  //******************************************************
+                  Focus(
+                    focusNode:_dropdownFocus2 ,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text("Select Gender"),
+                        items: experienceItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        value: selectExperience,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectExperience = value;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          height: Get.height*0.07,
+                          padding: const EdgeInsets.only(left: 14, right: 14),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffBABABA))),
-                      )
+                            border: Border.all(
+                              color:_isDropdownOpen2==false? Colors.grey:Colors.pink,
+                            ),
+                            color: Colors.white,
+                          ),
+
+
+                        ),
+                        iconStyleData:selectExperience==null
+                            ? IconStyleData(
+                          icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
+                          iconSize: 30,
+                          iconEnabledColor: Colors.black,
+                        )
+                            : IconStyleData(
+                          icon: InkWell(child: Icon(Icons.close),onTap: (){
+                            setState(() {
+                              selectExperience=null;
+                            });
+                          },),  // Change to down arrow icon
+                          iconSize: 25,
+                          //iconEnabledColor: Colors.black,
+                        ),
+
+                        dropdownStyleData: DropdownStyleData(
+                          width: Get.width*0.89,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.white,
+                          ),
+                          offset: const Offset(10, 0),
+                          scrollbarTheme: ScrollbarThemeData(
+                            radius: const Radius.circular(40),
+                            thickness: MaterialStateProperty.all<double>(6),
+                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                          padding: EdgeInsets.only(left: 14, right: 14),
+                        ),
+                      ),
+                    ),
                   ),
 
 
@@ -948,11 +1021,11 @@ print(SelectedLocation);
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
-                      hintText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      hintText: "Type Something about the Match Maker",
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                          borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
                       enabledBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -984,12 +1057,12 @@ print(SelectedLocation);
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
-                      hintText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      hintText: "Type Something about the Match seekers",
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       //contentPadding: EdgeInsets.symmetric(vertical: height * 0.05,horizontal: width * 0.04),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
                       enabledBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -1021,11 +1094,11 @@ print(SelectedLocation);
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
-                      hintText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      hintText: "Type Something about the Match Maker Heading",
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
                       enabledBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
