@@ -39,40 +39,37 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.white,
-          onPressed: () {},
-          child: Icon(
-            Icons.add,
-            size: 30,
-            color: Color(0xffFE0091),
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: Color(0xffFE0091),
+        ),
+      ),
+      key: drawerKey,
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (index) => pageChanged(index),
+            children: [
+              HomeScreen(),
+              LikesSeeker(),
+              MessageScreen(),
+              ProfilePage(),
+            ],
           ),
         ),
-        key: drawerKey,
-        body: SafeArea(
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: PageView(
-              controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: (index) => pageChanged(index),
-              children: [
-                HomeScreen(),
-                LikesSeeker(),
-                MessageScreen(),
-                ProfilePage(),
-              ],
-            ),
-          ),
-        ),
-        bottomNavigationBar: Bottom(
-          bottomSelectedIndex: bottomSelectedIndex!,
-          bottomTapped: bottomTapped,
-        ),
+      ),
+      bottomNavigationBar: Bottom(
+        bottomSelectedIndex: bottomSelectedIndex!,
+        bottomTapped: bottomTapped,
       ),
     );
   }
@@ -112,6 +109,7 @@ class _TabScreenState extends State<TabScreen> {
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
       currentBackPressTime = now;
+        SystemNavigator.pop();
       return Future.value(false);
     } else {
       SystemNavigator.pop();

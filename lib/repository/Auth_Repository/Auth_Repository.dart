@@ -6,12 +6,16 @@ import 'package:cupid_match/data/network/network_api_services.dart';
 import 'package:cupid_match/models/CreateMatchesPlanModel/CreateMatchesPlanModel.dart';
 import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
+import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
+import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
+import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
+import '../../models/AllOcupationsModel/AllOcupationsModel.dart';
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
 import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
@@ -107,6 +111,37 @@ Future<SeekersAllInterestsModel> SeekersAllInterestsApi() async{
   dynamic response = await _apiService.getApi2( AppUrl.SeekersAllInterestsUrl);
   print(response);
   return SeekersAllInterestsModel.fromJson(response) ;
+}
+
+
+Future<MagicprofilesModel> MagicProfileApi() async{
+  // print("hited");
+  dynamic response = await _apiService.getApi2( AppUrl.MagicProfileUrl);
+  // print(response);
+  return MagicprofilesModel.fromJson(response) ;
+}
+
+
+Future<AllOcupationsModel> GetAllOcupationsApi() async{
+  // print("hited");
+  dynamic response = await _apiService.getApi2( AppUrl.GetAllOcupationsUrl);
+  print(response);
+  return AllOcupationsModel.fromJson(response) ;
+}
+
+
+Future<ViewProfileDetailsModel> ViewProfileDetailsapi() async{
+  // print("hited");
+  dynamic response = await _apiService.getApi2( AppUrl.ViewProfileDetailsUrl);
+  print(response);
+  return ViewProfileDetailsModel.fromJson(response) ;
+}
+
+Future<UserLoginModel> UserLoginapi( var data) async{
+  print("hited");
+  dynamic response = await _apiService.postApi(data, AppUrl.UserLoginUrl);
+  print(response);
+  return UserLoginModel.fromJson(response) ;
 }
 
 }

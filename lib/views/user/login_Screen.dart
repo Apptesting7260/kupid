@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/UserLoginController/UserLoginController.dart';
 import 'package:cupid_match/match_maker/Tab_view.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
@@ -21,6 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailmobilecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+final UserLoginControllerinstance=Get.put(UserLoginController());
+
   @override
   void initState() {
     _passwordVisible = false;
@@ -64,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: height * .04),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                controller: emailmobilecontroller,
+                controller: UserLoginControllerinstance.Email_Or_Phone_Controller.value,
                 validator: (value) {
                   if (!isEmail(value!) && !isPhone(value!)) {
                     return 'Please enter a valid email or phone number.';
@@ -96,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 obscureText: !_passwordVisible,
                 keyboardType: TextInputType.emailAddress,
-                controller: passwordcontroller,
+                controller:  UserLoginControllerinstance.PasswordController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter Password";
@@ -159,14 +163,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: height * .03),
-              Center(
+            Obx(() => Center(
                 child: MyButton(
+                  loading:UserLoginControllerinstance.loading.value ,
                   title: "Login",
                   onTap: () {
                     checkvalidate();
                   },
                 ),
-              ),
+              ),) , 
               SizedBox(height: height * .02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      Get.to(() => TabView(index: 0,));
+  UserLoginControllerinstance.UserLoginapiHit();
     }
   }
 }

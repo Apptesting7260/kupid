@@ -16,5 +16,9 @@ class AppUrl {
   static const String CreateMonthlyPlanUrl = '$baseUrl/maker/create-monthly-subscription' ;
   static const String CreateMatchesPlanUrl = '$baseUrl/maker/create-matches-subscription' ;
   static const String SeekersAllInterestsUrl = '$baseUrl/seeker/all-interests' ;
+  static const String MagicProfileUrl = '$baseUrl/seeker/magic-profiles' ;
+  static const String GetAllOcupationsUrl = '$baseUrl/seeker/all-occupation' ;
+  static const String ViewProfileDetailsUrl = '$baseUrl/view-user-profile' ;
+  static const String UserLoginUrl = '$baseUrl/user-login' ;
 
 }

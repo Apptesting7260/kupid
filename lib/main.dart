@@ -1,3 +1,4 @@
+import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/photos.dart';
 import 'package:cupid_match/utils/my_theme.dart';
 import 'package:cupid_match/views/splash_screen.dart';

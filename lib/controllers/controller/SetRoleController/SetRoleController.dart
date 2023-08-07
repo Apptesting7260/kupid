@@ -33,8 +33,8 @@ class SetRoleController extends GetxController {
       );
       Utils.snackBar( "Message",value.msg.toString());
       ProfileType != 2
-          ? Get.to(() => ProfileOneScreen())
-          : Get.to(() => ProfileScreen());
+          ? Get.to(() => MakerProfileDetails())
+          : Get.to(() => SikerProfileDetails());
 
     }).onError((error, stackTrace){
       print("error");

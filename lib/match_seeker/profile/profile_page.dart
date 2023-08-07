@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/ViewProfileDetailsController/ViewProfileDetailsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,16 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  final ViewProfileDetailsControllerinstance=Get.put(ViewProfileDetailsController());
+
+
+  @override
+  void initState() {
+    ViewProfileDetailsControllerinstance.ViewProfileDetailsApiHit();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -27,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: width * 1,
                     height: height * .4,
                     child: Image.network(
-                      "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg",
+                     ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -65,14 +76,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Henry Peterson, 28",
+                                    Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString()+",",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium),
                                     SizedBox(
                                       height: height * .01,
                                     ),
-                                    Text("Proffesional model",
+                                    Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.occupation.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -100,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     SizedBox(
                                       height: height * .01,
                                     ),
-                                    Text("Chicago, IL United States",
+                                    Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.address.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -140,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text("0987654321",
+                            Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -151,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text("Electrician",
+                            Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.occupation.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -162,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text("11 July",
+                            Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.dob.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!

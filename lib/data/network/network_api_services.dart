@@ -49,7 +49,7 @@ Future<dynamic> getApi2(String url)async{
 
 
     final response = await http.get(Uri.parse(url),
-      headers: { "Authorization":"Bearer $BarrierToken"},
+      headers: { "Authorization":"Bearer 201|NYX8AGXeBk9CVhHwmt8ncUVDLvJDYwhEUJ3xG8nE"},
     ).timeout( const Duration(seconds: 20)
 
     );
@@ -61,7 +61,7 @@ Future<dynamic> getApi2(String url)async{
     throw RequestTimeOut('');
 
   }
-  print(responseJson);
+  // print(responseJson);
   return responseJson ;
 
 }
@@ -77,7 +77,7 @@ Future<dynamic> getApi2(String url)async{
 
     dynamic responseJson ;
     try {
-
+print("yes");
       final response = await http.post(Uri.parse(url),
         body: data,
 

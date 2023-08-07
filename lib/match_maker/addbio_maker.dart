@@ -22,14 +22,14 @@ import 'package:http/http.dart' as http ;
 
 enum SelectProfile {gender}
   File ?videoFile ;
-class ProfileOneScreen extends StatefulWidget {
-  const ProfileOneScreen({Key? key}) : super(key: key);
+class MakerProfileDetails extends StatefulWidget {
+  const MakerProfileDetails({Key? key}) : super(key: key);
 
   @override
-  State<ProfileOneScreen> createState() => _ProfileOneScreenState();
+  State<MakerProfileDetails> createState() => _MakerProfileDetailsState();
 }
 
-class _ProfileOneScreenState extends State<ProfileOneScreen> {
+class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   //DateTime? startdate;
     List<Location> locations = [];
   double? lat;

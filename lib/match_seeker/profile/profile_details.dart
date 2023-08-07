@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,16 @@ class ProfileDetail extends StatefulWidget {
 
 class _ProfileDetailState extends State<ProfileDetail> {
   String _value = "Woman";
+
+    final GetAllOcupationsControllerinstance= Get.put(GetAllOcupationsController());
+
+    @override
+  void initState() {
+    print("object");
+        GetAllOcupationsControllerinstance.GetAllOcupationsListApiHit();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

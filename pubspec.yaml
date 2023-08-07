@@ -49,7 +49,7 @@ dependencies:
   intl_phone_field: any
   card_swiper: ^2.0.4
   dotted_border: ^2.0.0+3
-  flutter_slot_machine: ^0.0.1
+
   new_pinput: ^1.0.1
   fluttertoast: ^8.2.2
   loading_animation_widget: ^1.2.0+4
@@ -58,8 +58,9 @@ dependencies:
   country_picker: ^2.0.20
   country_list_pick: ^1.0.1+6
   geocoding: ^2.1.0
-
-
+  roller_list: ^1.0.2
+  shared_preferences: ^2.2.0
+  # flutter_slot_machine: ^0.0.2
 
 
 

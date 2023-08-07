@@ -1,4 +1,4 @@
-import 'package:cupid_match/match_seeker/choose_one_second.dart';
+import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +28,7 @@ class _ChooseOneState extends State<ChooseOne> {
             alignment: Alignment.topCenter,
             child: GestureDetector(
               onTap: () {
-                Get.to(()=>ChooseSecond());
+                Get.to(()=>Chose_Role_Type());
               },
               child: Container(
                   width: width * 1,

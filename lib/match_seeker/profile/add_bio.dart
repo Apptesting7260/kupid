@@ -1,5 +1,6 @@
+import 'package:cupid_match/controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import 'package:cupid_match/controllers/controller/SeekerAddistionInfoController/Seeker_Addistion_InfoController.dart';
-import 'package:cupid_match/match_seeker/choose_one_second.dart';
+import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/profile/profile_page.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,19 @@ class AddBio extends StatefulWidget {
 
 class _AddBioState extends State<AddBio> {
   final SeekerAddistionInfoControllerinstance= Get.put(SeekerAddistionInfoController());
+
+
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController biocontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+
+  @override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +149,7 @@ class _AddBioState extends State<AddBio> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      Get.to(() => ChooseSecond());
+      Get.to(() => Chose_Role_Type());
     }
 
   }

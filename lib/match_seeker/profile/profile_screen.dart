@@ -10,20 +10,22 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
 import '../../match_maker/addbio_maker.dart';
 
 File ?videoFile ;
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class SikerProfileDetails extends StatefulWidget {
+  const SikerProfileDetails({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<SikerProfileDetails> createState() => _SikerProfileDetailsState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _SikerProfileDetailsState extends State<SikerProfileDetails> {
 
   final SeekerProfileControllerInstanse=Get.put(SeekerProfileController());
+  final GetAllOcupationsControllerInstanse=Get.put(GetAllOcupationsController());
 
   DateTime date = DateTime.now();
 
@@ -92,13 +94,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController mobilecontroller = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
   TextEditingController questioncontroller = TextEditingController();
-  var items1 = [
-    'Electrician',
-    'Engineer',
-    'Doctor',
-    'Advocate',
-  ];
-  String dropdownvalue = 'Electrician';
+  // var items1 = [
+  //   'Electrician',
+  //   'Engineer',
+  //   'Doctor',
+  //   'Advocate',
+  // ];
+  String? dropdownvalue ;
   File? pickedImage;
   String? selectGender;
 
@@ -113,7 +115,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     "Muslims",
     "Sikhs"
   ];
-
+@override
+  void initState() {
+    GetAllOcupationsControllerInstanse.GetAllOcupationsListApiHit();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -412,43 +419,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
-            DropdownButtonFormField(
-              value: dropdownvalue,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please Enter Drop Points';
-                }
-              },
-              hint: Text(
-                "Electrician",
-                style: TextStyle(fontSize: 10),
-              ),
-              items: items1.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: (String? value) {
-                setState(() {
-                  dropdownvalue = value!;
-                  Ocupasion = value;
-                });
-              },
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 22),
-                filled: true,
-                fillColor: Colors.white,
-                border: InputBorder.none,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(35.0),
-                  borderSide: BorderSide(color: Color(0xffBABABA)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
-                    borderRadius: BorderRadius.circular(35.0)),
-              ),
-            ),
+            // DropdownButtonFormField(
+            //   value: GetAllOcupationsControllerInstanse.Ocupations[0],
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please Enter Drop Points';
+            //     }
+            //   },
+            //   hint: Text(
+            //     "Electrician",
+            //     style: TextStyle(fontSize: 10),
+            //   ),
+            //   items: GetAllOcupationsControllerInstanse.Ocupations.map((String items) {
+            //     return DropdownMenuItem(
+            //       value: items,
+            //       child: Text(items),
+            //     );
+            //   }).toList(),
+            //   onChanged: (String? value) {
+            //     setState(() {
+            //       dropdownvalue = value!;
+            //       Ocupasion = value;
+            //       print(Ocupasion);
+            //     });
+            //   },
+            //   decoration: InputDecoration(
+            //     contentPadding: const EdgeInsets.fromLTRB(20, 10, 10, 22),
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     border: InputBorder.none,
+            //     focusedBorder: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(35.0),
+            //       borderSide: BorderSide(color: Color(0xffBABABA)),
+            //     ),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(color: Color(0xffBABABA)),
+            //         borderRadius: BorderRadius.circular(35.0)),
+            //   ),
+            // ),
             SizedBox(height: height * .03),
             Text(
               "Salary",

@@ -268,7 +268,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             ListTile(
               onTap: () {
-                Get.to(() => ProfileScreen());
+                Get.to(() => SikerProfileDetails());
               },
               leading: Image.asset(
                 'assets/maker/Mask group (7).png',
