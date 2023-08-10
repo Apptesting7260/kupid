@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'match_maker/photo_access.dart';
+
 void main() {
   runApp(const MyApp());
 }

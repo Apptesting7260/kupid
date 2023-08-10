@@ -1,3 +1,4 @@
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
@@ -2261,6 +2262,7 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
       "flag_path": "https://urlsdemo.xyz/kupid/public/admin-assets/img/country_flags/SS-32.png"
     }
   ];
+  
   bool selectedField = true;
   bool isCountrySelected = false;
   String selectedCountry = '';
@@ -2327,7 +2329,8 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
                       ),
                     ),
                     suggestionsCallback: (pattern) {
-                      return countryData
+                      return
+                        countryData
                           .where((country) =>
                       country["name"]
                           .toLowerCase()
@@ -2356,10 +2359,13 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
                         ),
                       );
                     },
+
                     onSuggestionSelected: (suggestion) {
                       _typeAheadController.text = suggestion;
                       setState(() {
                         selectedCountry = suggestion;
+                        nationality=selectedCountry;
+                        print(selectedCountry);
                       });
                     },
                   ),

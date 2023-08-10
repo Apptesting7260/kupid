@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
 
+import '../country_name_with_flag_widget.dart';
+
 enum SelectProfile {National,Passport,Driver}
 
 class VerificationMethod extends StatefulWidget {
@@ -29,22 +31,14 @@ class _VerificationMethodState extends State<VerificationMethod> {
         },
             icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
         title: Text(
-          "Payment",
+          "Proof of Residency",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: ListView(
         children: [
-          SizedBox(height: height * 0.03,),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: width * 0.04,),
-            child: Text(
-              "Proof of Residency",
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ),
-          SizedBox(height: height * 0.05,),
+          SizedBox(height: Get.height*0.03,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.04),
             child: Text(
@@ -52,43 +46,14 @@ class _VerificationMethodState extends State<VerificationMethod> {
               style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600,fontSize: 14),
             ),
           ),
+          SizedBox(height: height * 0.01,),
+          Container(
+              height: Get.height*0.132,
+              child: CustomCountryNameFlag()),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * .02),
-            child: CountryListPick(
 
-            // if you need custom picker use this
-            // pickerBuilder: (context, CountryCode countryCode) {
-            //   return Row(
-            //     children: [
-            //       Image.asset(
-            //         countryCode.flagUri,
-            //         package: 'country_list_pick',
-            //       ),
-            //       Text(countryCode.code),
-            //       Text(countryCode.dialCode),
-            //     ],
-            //   );
-            // },
-            theme: CountryTheme(
-              isShowFlag: true,
-              isShowTitle: true,
-              isShowCode: false,
-              isDownIcon: true,
-              showEnglishName: true,
-              labelColor: Colors.blueAccent,
-            ),
-            initialSelection: '+62',
-            // or
-            // initialSelection: 'US'
-            onChanged: ( code) {
-              // print(code.name);
-              nationality=code!.name;
-              print(nationality);
 
-            },
-          ),
-          ),
+
           SizedBox(height: height * 0.01,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.04),
