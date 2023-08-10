@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -36,7 +38,7 @@ class CreatePasswordController extends GetxController {
       loading.value = false ;
       print(value);
       Utils.snackBar( "Message",value.msg.toString());
-      Get.to(() => ChooseProfile());
+      Timer(Duration(seconds: 2), () { Get.to(() => ChooseProfile());});
 
 
     }).onError((error, stackTrace){

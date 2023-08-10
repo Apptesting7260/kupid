@@ -12,17 +12,19 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 // import 'package:country_picker/country_picker.dart';
-import 'package:image_picker/image_picker.dart' ;
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 // import 'package:intl_phone_field/countries.dart';
 
 import '../GlobalVariable/GlobalVariable.dart';
 import '../controllers/controller/MakerProfileController/MakerProfileController.dart';
 
-import 'package:http/http.dart' as http ;
+import 'package:http/http.dart' as http;
 
-enum SelectProfile {gender}
-  File ?videoFile ;
+enum SelectProfile { gender }
+
+File? videoFile;
+
 class MakerProfileDetails extends StatefulWidget {
   const MakerProfileDetails({Key? key}) : super(key: key);
 
@@ -43,6 +45,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
       print(_isDropdownOpen1);
     });
   }
+
   void _onDropdownFocusChange2() {
     setState(() {
       _isDropdownOpen2 = _dropdownFocus2.hasFocus;
@@ -51,49 +54,36 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
     });
   }
 
-
-    List<Location> locations = [];
+  List<Location> locations = [];
   double? lat;
   double? long;
   String countryCode = 'Choose country';
 
   DateTime date = DateTime.now();
   List<Predictions> searchPlace = [];
-final locationcntroller=TextEditingController();
-  MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
-String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
+  final locationcntroller = TextEditingController();
+  MakerProfileController MakerProfileControllerInstanse =
+      Get.put(MakerProfileController());
+  String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
   void _submit() {
     final isValid = _formKey.currentState!.validate();
-    if(!isValid) {
+    if (!isValid) {
       return;
     }
     _formKey.currentState!.save();
   }
 
   String? selectedValue;
-  var items = [
-    '22',
-    '23',
-    '24',
-    '25',
-    '26'
-  ];
+  var items = ['22', '23', '24', '25', '26'];
 
   String? selectGender;
-  var genderItems = [
-    "Male",
-    "Female",
-    "Other"
-  ];
+  var genderItems = ["Male", "Female", "Other"];
 
   String? selectLocationItems;
-  var locationItems = [
-    "Jaipur, indian",
-    "Sikar"
-  ];
+  var locationItems = ["Jaipur, indian", "Sikar"];
 
   String? selectExperience;
   var experienceItems = [
@@ -105,24 +95,23 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   ];
 
   Future<File?> pickVideo() async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.video,
-    allowMultiple: false,
-  );
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+      allowMultiple: false,
+    );
 
-  if (result != null) {
-     videoFile = File(result.files.single.path!);
-     setState(() {
-       videoFile;
-     });
-     print(videoFile);
-    return videoFile;
-  } else {
-    // User canceled the file picker
-    return null;
+    if (result != null) {
+      videoFile = File(result.files.single.path!);
+      setState(() {
+        videoFile;
+      });
+      print(videoFile);
+      return videoFile;
+    } else {
+      // User canceled the file picker
+      return null;
+    }
   }
-}
-
 
   File? galleryFile;
   final picker = ImagePicker();
@@ -133,20 +122,36 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Choose',style: Theme.of(context).textTheme.titleLarge,),
+            title: Text(
+              'Choose',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             // Video Picker
-            content: Row(
+            content:
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child: Text('Camera',style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Text(
+                    'Camera',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(fontSize: 13),
+                  ),
                   onTap: () {
                     getVideo(ImageSource.camera);
                     Navigator.pop(context);
                   },
                 ),
                 GestureDetector(
-                  child: Text('Gallery',style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Text(
+                    'Gallery',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(fontSize: 13),
+                  ),
                   onTap: () {
                     getVideo(ImageSource.gallery);
                     Navigator.pop(context);
@@ -159,23 +164,26 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   }
 
   Future getVideo(
-      ImageSource img,
-      ) async {
-    final pickedFile = await picker.pickVideo(source: img,
+    ImageSource img,
+  ) async {
+    final pickedFile = await picker.pickVideo(
+        source: img,
         preferredCameraDevice: CameraDevice.front,
         maxDuration: Duration(minutes: 10));
     XFile? xfilePick = pickedFile;
     setState(() {
-          () {
+      () {
         if (xfilePick != null) {
           galleryFile = File(pickedFile!.path);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Nothing is selected')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Nothing is selected')));
         }
       };
     });
   }
-@override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -274,23 +282,26 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   //   );
   // }
 
-
- 
   final imgPicker = ImagePicker();
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-
-            title: Center(child: Text("Choose",style: Theme.of(context).textTheme.titleLarge,)),
+            title: Center(
+                child: Text(
+              "Choose",
+              style: Theme.of(context).textTheme.titleLarge,
+            )),
             //Image Picker
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 GestureDetector(
-                  child: Icon(Icons.camera_alt_outlined,color: Colors.pinkAccent,),
+                  child: Icon(
+                    Icons.camera_alt_outlined,
+                    color: Colors.pinkAccent,
+                  ),
                   onTap: () {
                     openCamera(ImageSource.camera);
                   },
@@ -303,7 +314,10 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                 // ),
 
                 GestureDetector(
-                  child: Icon(Icons.photo_library,color: Colors.pinkAccent,),
+                  child: Icon(
+                    Icons.photo_library,
+                    color: Colors.pinkAccent,
+                  ),
                   onTap: () {
                     openCamera(ImageSource.gallery);
                   },
@@ -325,8 +339,7 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
     setState(() {
       imgFile = File(imgCamera!.path);
 
-      print(imgFile
-      );
+      print(imgFile);
     });
     Navigator.of(context).pop();
   }
@@ -337,20 +350,29 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.pop(context);
-        },
-            icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
-        title: Text("Profile Details",style: Theme.of(context).textTheme.titleLarge,),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Color(0xff5A5A5A),
+              size: 27,
+            )),
+        title: Text(
+          "Profile Details",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         centerTitle: true,
         // actions: [
         //    Image(image: AssetImage("assets/images/menu (2) 1.png")),
         // ],
       ),
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: width*0.04,vertical: height*.02),
+        padding: EdgeInsets.symmetric(
+            horizontal: width * 0.04, vertical: height * .02),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -359,19 +381,27 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                 children: [
                   Center(
                     child: SizedBox(
-                      height: height*.14,
-                      width: width*.30,
+                      height: height * .14,
+                      width: width * .30,
                       child: Stack(
                         clipBehavior: Clip.none,
                         fit: StackFit.expand,
                         children: [
                           CircleAvatar(
                             child: ClipOval(
-                              child: imgFile==null
-                              ?  Image.network('https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691407400~exp=1691408000~hmac=50e7754305b51bd502a2e16302b93ac076a3b959f6944c407253738aaf65d357',height: 200,width: 200,fit:BoxFit.cover,)
-                                  :Image.file(imgFile!,height: height,width: width,fit:BoxFit.cover,)
-                                
-                            ),
+                                child: imgFile == null
+                                    ? Image.network(
+                                        'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691407400~exp=1691408000~hmac=50e7754305b51bd502a2e16302b93ac076a3b959f6944c407253738aaf65d357',
+                                        height: 200,
+                                        width: 200,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.file(
+                                        imgFile!,
+                                        height: height,
+                                        width: width,
+                                        fit: BoxFit.cover,
+                                      )),
                           ),
 
                           Positioned(
@@ -382,7 +412,8 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                                   onTap: () {
                                     showOptionsDialog(context);
                                   },
-                                  child: Image.asset("assets/icons/cameraa.png")))
+                                  child:
+                                      Image.asset("assets/icons/cameraa.png")))
 
                           // Positioned(
                           //   bottom: -9,
@@ -412,10 +443,15 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 0.05,),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
                   Text(
                     "Upload photo",
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: AppColors.black),
                   ),
                   SizedBox(height: height * 0.05),
 
@@ -431,82 +467,103 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                          videoFile==null ? Text(
-                              "Upload Video",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: Colors.grey),
-                            ):Row(
-                              children: [
-                                Text(
-                                  " Video Uploaded ",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(color: Colors.black),
-                                ),
-                                Icon(Icons.check_circle,size: 15,color:Colors.green,)
-                              ],
-                            ),
-                            
-                            videoFile==null?  InkWell(
-                              child: Container(
-                                height: height * .1,
-                                width: width * .1,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.shade300,
-                                ),
-                                child: Image.asset("assets/icons/vedio.png"),
-                                alignment: Alignment.center,
-                              ),
-                              onTap: () {
-                                
-                                pickVideo();
-                              },
-                            ):InkWell(
-                              child: Container(
-                                height: height * .1,
-                                width: width * .1,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.shade300,
-                                ),
-                                child: Icon(Icons.cancel,color:Colors.red,),
-                                alignment: Alignment.center,
-                              ),
-                              onTap: () {
-                                
-                                setState(() {
-                                  videoFile=null;
-                                });
-                              },
-                            ) 
+                            videoFile == null
+                                ? Text(
+                                    "Upload Video",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(color: Colors.grey),
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        " Video Uploaded ",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.black),
+                                      ),
+                                      Icon(
+                                        Icons.check_circle,
+                                        size: 15,
+                                        color: Colors.green,
+                                      )
+                                    ],
+                                  ),
+                            videoFile == null
+                                ? InkWell(
+                                    child: Container(
+                                      height: height * .1,
+                                      width: width * .1,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      child: Image.asset(
+                                        "assets/icons/vedio.png",
+                                        color: Colors.pink,
+                                      ),
+                                      alignment: Alignment.center,
+                                    ),
+                                    onTap: () {
+                                      pickVideo();
+                                    },
+                                  )
+                                : InkWell(
+                                    child: Container(
+                                      height: height * .1,
+                                      width: width * .1,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      child: Icon(
+                                        Icons.cancel,
+                                        color: Colors.red,
+                                      ),
+                                      alignment: Alignment.center,
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        videoFile = null;
+                                      });
+                                    },
+                                  )
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: height*.03,),
+                  SizedBox(
+                    height: height * .03,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                        "Name",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+                    child: Text("Name",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w600)),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   TextFormField(
-                    controller: MakerProfileControllerInstanse.NameController.value,
+                    controller:
+                        MakerProfileControllerInstanse.NameController.value,
                     decoration: InputDecoration(
                       hintText: "Name",
                       contentPadding: EdgeInsets.all(20),
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.pinkAccent),
                       ),
-                      enabledBorder:  OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
                       ),
@@ -529,34 +586,45 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onFieldSubmitted: (value){},
+                    onFieldSubmitted: (value) {},
                     validator: (value) {
-                      if(value!.isEmpty) {
+                      if (value!.isEmpty) {
                         return "Enter a valid name";
                       }
                       return null;
                     },
                   ),
-                  SizedBox(height: height * 0.03,),
+                  SizedBox(
+                    height: height * 0.03,
+                  ),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Email",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w600),
                       )),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   TextFormField(
-                    controller: MakerProfileControllerInstanse.EmailController.value,
+                    controller:
+                        MakerProfileControllerInstanse.EmailController.value,
                     decoration: InputDecoration(
                       hintText: "example@gmail.com",
                       contentPadding: EdgeInsets.all(20),
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
                       //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Colors.pinkAccent),
                       ),
-                      enabledBorder:  OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
                       ),
@@ -576,10 +644,9 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                             color: Color(0xffBABABA),
-                          )
-                      ),
+                          )),
                     ),
-                    onFieldSubmitted: (value){},
+                    onFieldSubmitted: (value) {},
                     validator: (value) {
                       if (value!.isEmpty ||
                           !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -589,41 +656,30 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       return null;
                     },
                   ),
-                  SizedBox(height: height * 0.03,),
+                  SizedBox(
+                    height: height * 0.03,
+                  ),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Phone Number",
                         style: Theme.of(context).textTheme.titleSmall,
                       )),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
 
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-
-
-
                       Expanded(
                         child: TextFormField(
-                          controller: MakerProfileControllerInstanse.PhoneController.value,
+                          maxLength: 15,
+                          controller: MakerProfileControllerInstanse
+                              .PhoneController.value,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            prefixIcon:  CountryListPick(
-
-                              // if you need custom picker use this
-                              // pickerBuilder: (context, CountryCode countryCode) {
-                              //   return Row(
-                              //     children: [
-                              //       Image.asset(
-                              //         countryCode.flagUri,
-                              //         package: 'country_list_pick',
-                              //       ),
-                              //       Text(countryCode.code),
-                              //       Text(countryCode.dialCode),
-                              //     ],
-                              //   );
-                              // },
+                            prefixIcon: CountryListPick(
                               theme: CountryTheme(
                                 initialSelection: '+91',
                                 isShowFlag: true,
@@ -634,52 +690,51 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                                 labelColor: Colors.blueAccent,
                               ),
                               initialSelection: '+91',
-                              // or
-                              // initialSelection: 'US'
-                              onChanged: ( code) {
-                                // print(code.name);
-                                // nationality=code!.name;
-                                // print(nationality);
-
-                              },
+                              onChanged: (code) {},
                             ),
-
                             hintText: "Mobile number",
                             contentPadding: EdgeInsets.all(20),
-                            hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: AppColors.subtitletextcolor),
                             //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide(color: Colors.pinkAccent),
                             ),
-                            enabledBorder:  OutlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide(color: Color(0xffBABABA)),
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
                               borderSide: BorderSide(color: Colors.red),
                             ),
                             disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
                               borderSide: BorderSide(color: Color(0xffBABABA)),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
                               borderSide: BorderSide(color: Colors.pink),
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide: BorderSide(
                                   color: Color(0xffBABABA),
-                                )
-                            ),
+                                )),
                           ),
-                          onFieldSubmitted: (value){},
+                          onFieldSubmitted: (value) {},
                           validator: (value) {
-                            if(value!.isEmpty){
+                            if (value!.isEmpty) {
                               return "Please Enter a Phone Number";
-                            }else if(!RegExp(r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$').hasMatch(value)){
+                            } else if (!RegExp(
+                                    r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                .hasMatch(value)) {
                               return "Please Enter a Valid Phone Number";
                             }
                           },
@@ -688,17 +743,24 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                     ],
                   ),
 
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Gender",
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(height: height * 0.01,),
+                  SizedBox(
+                    height: height * 0.01,
+                  ),
                   Focus(
-                    focusNode:_dropdownFocus1 ,
+                    focusNode: _dropdownFocus1,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
@@ -716,36 +778,39 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                           });
                         },
                         buttonStyleData: ButtonStyleData(
-                          height: Get.height*0.07,
+                          height: Get.height * 0.07,
                           padding: const EdgeInsets.only(left: 14, right: 14),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(
-                              color:_isDropdownOpen1==false? Colors.grey:Colors.pink,
+                              color: _isDropdownOpen1 == false
+                                  ? Colors.grey
+                                  : Colors.pink,
                             ),
                             color: Colors.white,
                           ),
-
-
                         ),
-                        iconStyleData:selectGender==null
+                        iconStyleData: selectGender == null
                             ? IconStyleData(
-                          icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
-                          iconSize: 30,
-                          iconEnabledColor: Colors.black,
-                        )
+                                icon: Icon(Icons
+                                    .keyboard_arrow_down), // Change to up arrow icon
+                                iconSize: 30,
+                                iconEnabledColor: Colors.black,
+                              )
                             : IconStyleData(
-                          icon: InkWell(child: Icon(Icons.close),onTap: (){
-                            setState(() {
-                              selectGender=null;
-                            });
-                          },),  // Change to down arrow icon
-                          iconSize: 25,
-                          //iconEnabledColor: Colors.black,
-                        ),
-
+                                icon: InkWell(
+                                  child: Icon(Icons.close),
+                                  onTap: () {
+                                    setState(() {
+                                      selectGender = null;
+                                    });
+                                  },
+                                ), // Change to down arrow icon
+                                iconSize: 25,
+                                //iconEnabledColor: Colors.black,
+                              ),
                         dropdownStyleData: DropdownStyleData(
-                          width: Get.width*0.89,
+                          width: Get.width * 0.89,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: Colors.white,
@@ -754,7 +819,8 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                           scrollbarTheme: ScrollbarThemeData(
                             radius: const Radius.circular(40),
                             thickness: MaterialStateProperty.all<double>(6),
-                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                            thumbVisibility:
+                                MaterialStateProperty.all<bool>(true),
                           ),
                         ),
                         menuItemStyleData: const MenuItemStyleData(
@@ -764,10 +830,12 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
 
                   Container(
-                    height: height*.08,
+                    height: height * .08,
                     width: width,
                     decoration: BoxDecoration(
                       color: Color(0xffF3F3F3),
@@ -777,36 +845,62 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: width*.05),
-                          child:startdate==null? Text("Choose birthday date",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000CAA),fontSize: 14,fontWeight: FontWeight.w800),):Text(DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()))),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: width * .05),
+                          child: startdate == null
+                              ? Text(
+                                  "Choose birthday date",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          color: Colors.pink,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w800),
+                                )
+                              : Text(
+                                  DateFormat('dd-MM-yyyy').format(
+                                      DateTime.parse(startdate.toString())),
+                                  style: TextStyle(color: Colors.pink),
+                                ),
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: width*.05),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: width * .05),
                           child: GestureDetector(
-                              onTap: ()  async {
-                                DateTime minimumDate = DateTime.now().subtract(Duration(days: 365* 18 )) ; // 18 years ago from today
+                              onTap: () async {
+                                DateTime minimumDate = DateTime.now().subtract(
+                                    Duration(
+                                        days: 365 *
+                                            18)); // 18 years ago from today
 
-                                startdate  =
-                                    await showDatePicker(
+                                startdate = await showDatePicker(
                                   context: context,
                                   initialDate: minimumDate,
                                   firstDate: DateTime(1900),
                                   lastDate: minimumDate,
                                 );
-                        print(startdate);
-                             datestring=DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()));
-                            print(datestring);
+                                print(startdate);
+                                datestring = DateFormat('dd-MM-yyyy').format(
+                                    DateTime.parse(startdate.toString()));
+                                print(datestring);
 
-                            setState(() {
-                              datestring;
-                            });
+                                setState(() {
+                                  datestring;
+                                });
                               },
-                              child: Image.asset('assets/icons/Calendar.png',height: 30,)),
+                              child: Image.asset(
+                                'assets/icons/Calendar.png',
+                                height: 30,
+                                color: Colors.pink,
+                              )),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -814,7 +908,9 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   // DropdownButtonFormField(value: selectLocationItems,
                   //     icon: const Icon(Icons.keyboard_arrow_down,color: Color(0xff000000),size: 28,),
                   //     style: Theme.of(context).textTheme.bodyLarge,
@@ -854,79 +950,84 @@ String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
                   // ),
 
                   TextFormField(
-                      keyboardType: TextInputType.text,
-                      controller: locationcntroller,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please Enter your address';
+                    keyboardType: TextInputType.text,
+                    controller: locationcntroller,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter your address';
+                      }
+                    },
+                    onChanged: (value) {
+                      print(value);
+                      setState(() {
+                        if (locationcntroller.text.isEmpty) {
+                          // searchPlace.clear();
                         }
-                      },
-                      onChanged: (value) {
-                        print(value);
-                        setState(() {
-                          if (locationcntroller.text.isEmpty) {
-                            // searchPlace.clear();
-                          }
-                        });
-                        searchAutocomplete(value);
-                      },
-                      decoration: InputDecoration(
+                      });
+                      searchAutocomplete(value);
+                    },
+                    decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
-                          hintText: "Jaipur, India",
-                          hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                          //border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.pinkAccent),
-                          ),
-                          enabledBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffBABABA)),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.red),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xffBABABA)),
-                          ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                          borderSide: BorderSide(color: Colors.pink),
-                        ),
+                      hintText: "Please Enter your address",
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
+                      //border: InputBorder.none,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Colors.pinkAccent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.pink),
                       ),
                     ),
+                  ),
                   Visibility(
-                visible: locationcntroller.text.isNotEmpty,
-                child: Container(
-                  width: double.infinity,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: searchPlace.length,
-                      itemBuilder: (context, index) => ListTile(
-                            onTap: () {
-                              setState(() {
-                                locationcntroller.text =
-                                    searchPlace[index].description ?? "";
-                                _getLatLang();
-SelectedLocation=locationcntroller.text;
-print(SelectedLocation);
-                                setState(() {
-                                  searchPlace.clear();
-                                });
-                              });
-                            },
-                            horizontalTitleGap: 0,
-                            title: Text(
-                              searchPlace[index].description ?? "",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
-                ),
-              ),
-                  SizedBox(height:  height * 0.04,),
+                    visible: locationcntroller.text.isNotEmpty,
+                    child: Container(
+                      width: double.infinity,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: searchPlace.length,
+                          itemBuilder: (context, index) => ListTile(
+                                onTap: () {
+                                  setState(() {
+                                    locationcntroller.text =
+                                        searchPlace[index].description ?? "";
+                                    _getLatLang();
+                                    SelectedLocation = locationcntroller.text;
+                                    print(SelectedLocation);
+                                    setState(() {
+                                      searchPlace.clear();
+                                    });
+                                  });
+                                },
+                                horizontalTitleGap: 0,
+                                title: Text(
+                                  searchPlace[index].description ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
 
                   Align(
                     alignment: Alignment.centerLeft,
@@ -935,11 +1036,13 @@ print(SelectedLocation);
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
 
                   //******************************************************
                   Focus(
-                    focusNode:_dropdownFocus2 ,
+                    focusNode: _dropdownFocus2,
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
@@ -957,36 +1060,39 @@ print(SelectedLocation);
                           });
                         },
                         buttonStyleData: ButtonStyleData(
-                          height: Get.height*0.07,
+                          height: Get.height * 0.07,
                           padding: const EdgeInsets.only(left: 14, right: 14),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(
-                              color:_isDropdownOpen2==false? Colors.grey:Colors.pink,
+                              color: _isDropdownOpen2 == false
+                                  ? Colors.grey
+                                  : Colors.pink,
                             ),
                             color: Colors.white,
                           ),
-
-
                         ),
-                        iconStyleData:selectExperience==null
+                        iconStyleData: selectExperience == null
                             ? IconStyleData(
-                          icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
-                          iconSize: 30,
-                          iconEnabledColor: Colors.black,
-                        )
+                                icon: Icon(Icons
+                                    .keyboard_arrow_down), // Change to up arrow icon
+                                iconSize: 30,
+                                iconEnabledColor: Colors.black,
+                              )
                             : IconStyleData(
-                          icon: InkWell(child: Icon(Icons.close),onTap: (){
-                            setState(() {
-                              selectExperience=null;
-                            });
-                          },),  // Change to down arrow icon
-                          iconSize: 25,
-                          //iconEnabledColor: Colors.black,
-                        ),
-
+                                icon: InkWell(
+                                  child: Icon(Icons.close),
+                                  onTap: () {
+                                    setState(() {
+                                      selectExperience = null;
+                                    });
+                                  },
+                                ), // Change to down arrow icon
+                                iconSize: 25,
+                                //iconEnabledColor: Colors.black,
+                              ),
                         dropdownStyleData: DropdownStyleData(
-                          width: Get.width*0.89,
+                          width: Get.width * 0.89,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             color: Colors.white,
@@ -995,7 +1101,8 @@ print(SelectedLocation);
                           scrollbarTheme: ScrollbarThemeData(
                             radius: const Radius.circular(40),
                             thickness: MaterialStateProperty.all<double>(6),
-                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                            thumbVisibility:
+                                MaterialStateProperty.all<bool>(true),
                           ),
                         ),
                         menuItemStyleData: const MenuItemStyleData(
@@ -1006,8 +1113,9 @@ print(SelectedLocation);
                     ),
                   ),
 
-
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -1015,19 +1123,25 @@ print(SelectedLocation);
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   TextFormField(
-                    controller: MakerProfileControllerInstanse.AboutMakerController.value,
+                    controller: MakerProfileControllerInstanse
+                        .AboutMakerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       hintText: "Type Something about the Match Maker",
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Color(0xffFE0091)),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
-                      enabledBorder:  OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
                       ),
@@ -1037,34 +1151,45 @@ print(SelectedLocation);
                       ),
                     ),
                     validator: (value) {
-                      if(value!.isEmpty) {
+                      if (value!.isEmpty) {
                         return "Please required";
                       }
                       return null;
                     },
                   ),
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "What do you expect from your match seekers",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.black),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: AppColors.black),
                     ),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   TextFormField(
-                    controller: MakerProfileControllerInstanse.ExpectFromSeekerController.value,
+                    controller: MakerProfileControllerInstanse
+                        .ExpectFromSeekerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       hintText: "Type Something about the Match seekers",
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
                       //contentPadding: EdgeInsets.symmetric(vertical: height * 0.05,horizontal: width * 0.04),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
-                      enabledBorder:  OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
                       ),
@@ -1074,67 +1199,81 @@ print(SelectedLocation);
                       ),
                     ),
                     validator: (value) {
-                      if(value!.isEmpty) {
+                      if (value!.isEmpty) {
                         return "Please required";
                       }
                       return null;
                     },
                   ),
-                  SizedBox(height: height * 0.04,),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Match Maker Heading that they want everyone to see:",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.black),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(color: AppColors.black),
                     ),
                   ),
-                  SizedBox(height: height*.01,),
+                  SizedBox(
+                    height: height * .01,
+                  ),
                   TextFormField(
-                    controller: MakerProfileControllerInstanse.HandlingOfMakerController.value,
+                    controller: MakerProfileControllerInstanse
+                        .HandlingOfMakerController.value,
                     maxLines: 4,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       hintText: "Type Something about the Match Maker Heading",
-                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Color(0xffFE0091)),
                       ),
-                      enabledBorder:  OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Color(0xffBABABA)),
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Color(0xffBABABA))
-                      ),
+                          borderSide: BorderSide(color: Color(0xffBABABA))),
                     ),
                     validator: (value) {
-                      if(value!.isEmpty) {
-                        if(value.isEmpty) {
+                      if (value!.isEmpty) {
+                        if (value.isEmpty) {
                           return "Please required";
                         }
                         return null;
                       }
                     },
                   ),
-                  SizedBox(height: height * 0.06,),
+                  SizedBox(
+                    height: height * 0.06,
+                  ),
 
-
-                 Obx(() => MyButton(
-                   loading: MakerProfileControllerInstanse.loading.value,
-                   width: width * 0.8,
-                   title: 'Save',
-                   onTap: () {
-                     if(_formKey.currentState!.validate()) {
-                       _formKey.currentState!.save();
-                       _submit();
-                       MakerProfileControllerInstanse.MakerProfileApiHit();
-
-                     }
-                   },
-                 ),) ,
-                  SizedBox(height: height * 0.06,),
+                  Obx(
+                    () => MyButton(
+                      loading: MakerProfileControllerInstanse.loading.value,
+                      width: width * 0.8,
+                      title: 'Save',
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          _submit();
+                          MakerProfileControllerInstanse.MakerProfileApiHit();
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.06,
+                  ),
                 ],
               ),
             ],
@@ -1144,12 +1283,8 @@ print(SelectedLocation);
     );
   }
 
-
-
-
-
   //////////google location api method //////////////
-  
+
   void searchAutocomplete(String query) async {
     print("calling");
     Uri uri = Uri.https(

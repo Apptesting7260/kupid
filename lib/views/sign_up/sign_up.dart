@@ -52,9 +52,11 @@ class _SignState extends State<Sign> {
                 keyboardType: TextInputType.emailAddress,
                 controller: SignUpControllerInstance.credentialsController.value,
                 validator: (value) {
-                  if (!isEmail(value!) && !isPhone(value!)) {
-                    return 'Please enter a valid email or phone number.';
-                  }
+                  if (!isEmail(value!) && !isPhone(value!) ) {
+                    return 'Please enter a valid email or phone number.';}
+                  // }else if (!value.toLowerCase().endsWith("@gmail.com".toLowerCase()) || !value.toLowerCase().endsWith("@mailinator.com".toLowerCase())) {
+                  //   return 'Valid mail no found Like @gmail.com';
+                  // }
                   return null;
                 },
                 decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
@@ -14,8 +15,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
+import '../../controllers/controller/MakerProfileController/MakerProfileController.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
-import '../../match_maker/addbio_maker.dart';
+import '../../match_maker/match_maker_profile_update.dart';
 import '../../models/GoogleLocationModel/GoogleLocationModel.dart';
 
 File ?videoFile ;
@@ -27,6 +29,7 @@ class SikerProfileDetails extends StatefulWidget {
 }
 
 class _SikerProfileDetailsState extends State<SikerProfileDetails> {
+  MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
   FocusNode _dropdownFocus1 = FocusNode();
   FocusNode _dropdownFocus2 = FocusNode();
   FocusNode _dropdownFocus3 = FocusNode();
@@ -304,7 +307,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             shape: BoxShape.circle,
                             color: Colors.grey.shade300,
                           ),
-                          child: Image.asset("assets/icons/vedio.png"),
+                          child: Image.asset("assets/icons/vedio.png",color: Colors.pink,),
                           alignment: Alignment.center,
                         ),
                         onTap: () {
@@ -378,42 +381,108 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              controller: SeekerProfileControllerInstanse.PhoneController.value,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please Enter Phone Number";
-                } else {
-                  return null;
-                }
-              },
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffFE0091))),
-                  hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
-                  contentPadding: EdgeInsets.all(18),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
+            // TextFormField(
+            //   keyboardType: TextInputType.number,
+            //   controller: SeekerProfileControllerInstanse.PhoneController.value,
+            //   validator: (value) {
+            //     if (value!.isEmpty) {
+            //       return "Please Enter Phone Number";
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   decoration: InputDecoration(
+            //       focusedBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffFE0091))),
+            //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+            //       contentPadding: EdgeInsets.all(18),
+            //       enabledBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+            //       errorBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+            //       focusedErrorBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+            //         borderSide: BorderSide(color: Color(0xffBABABA)),
+            //       ),
+            //       suffix: Text(
+            //         "verify",
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .bodySmall!
+            //             .copyWith(color: Color(0xffFE0091)),
+            //       ),
+            //       hintText: "Phone Number",
+            //       filled: true,
+            //       fillColor: Colors.white),
+            // ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    maxLength: 15,
+                    controller: MakerProfileControllerInstanse.PhoneController.value,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      prefixIcon:  CountryListPick(
+                        theme: CountryTheme(
+                          initialSelection: '+91',
+                          isShowFlag: true,
+                          isShowTitle: false,
+                          isShowCode: true,
+                          isDownIcon: true,
+                          showEnglishName: true,
+                          labelColor: Colors.blueAccent,
+                        ),
+                        initialSelection: '+91',
+                        onChanged: ( code) {
+                        },
+                      ),
+                      hintText: "Mobile number",
+                      contentPadding: EdgeInsets.all(20),
+                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Colors.pinkAccent),
+                      ),
+                      enabledBorder:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.pink),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Color(0xffBABABA),
+                          )
+                      ),
+                    ),
+                    onFieldSubmitted: (value){},
+                    validator: (value) {
+                      if(value!.isEmpty){
+                        return "Please Enter a Phone Number";
+                      }else if(!RegExp(r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$').hasMatch(value)){
+                        return "Please Enter a Valid Phone Number";
+                      }
+                    },
                   ),
-                  suffix: Text(
-                    "verify",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Color(0xffFE0091)),
-                  ),
-                  hintText: "Phone Number",
-                  filled: true,
-                  fillColor: Colors.white),
+                ),
+              ],
             ),
 
             SizedBox(height: height * .03),
@@ -448,13 +517,13 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(color: Color(0xffBABABA)),
                   ),
-                  suffix: Text(
-                    "verify",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(color: Color(0xffFE0091)),
-                  ),
+                  // suffix: Text(
+                  //   "verify",
+                  //   style: Theme.of(context)
+                  //       .textTheme
+                  //       .bodySmall!
+                  //       .copyWith(color: Color(0xffFE0091)),
+                  // ),
                   hintText: "Email",
                   filled: true,
                   fillColor: Colors.white),
@@ -636,7 +705,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               },
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(20),
-                hintText: "Jaipur, India",
+                hintText: "Please Enter your address",
                 hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                 //border: InputBorder.none,
                 focusedBorder: OutlineInputBorder(
@@ -1219,7 +1288,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                    // Get.to(() => PhotosScreen());
                  },
                )
-           ))
+           )),
+            SizedBox(height: Get.height*0.05)
           ],
         ),
       ),
