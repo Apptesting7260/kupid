@@ -1,15 +1,11 @@
-
-import 'package:http/http.dart' as http;
+import 'package:country_list_pick/country_list_pick.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_maker/photo_access.dart';
-import 'package:cupid_match/models/CountryModel/country_model.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
-
-import '../controllers/country_controller.dart';
-import '../country_name_with_flag_widget.dart';
-import '../utils/app_colors.dart';
 
 enum SelectProfile {National,Passport,Driver}
 
@@ -21,64 +17,7 @@ class VerificationMethod extends StatefulWidget {
 }
 
 class _VerificationMethodState extends State<VerificationMethod> {
-  CountryController countryController = Get.put(CountryController());
-  //*********************** country code method fake ***********************
-  void showCountryDropdown(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        List<String> countryNames = countryController.userList.value.countries!
-            .map((country) => country.name.toString())
-            .toList();
-
-        return AlertDialog(
-          content:
-          DropdownButton<String>(
-            icon: Icon(Icons.keyboard_arrow_down_outlined,color: Colors.pink,size: 20,),
-            isExpanded:true,
-            underline: Container(), // Hide the default underline
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-            ),
-            selectedItemBuilder: (BuildContext context) {
-              return countryNames.map((String value) {
-                return Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.pink,
-                  ),
-                );
-              }).toList();
-            },
-            items: countryNames.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700),),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              // Handle dropdown selection here
-              print(newValue);
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  final seachcountry =TextEditingController();
-  List<Countries> searchCountryList = [];
-
-
   SelectProfile selectProfile = SelectProfile.National;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    countryController.userListApi();
-  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -113,11 +52,44 @@ class _VerificationMethodState extends State<VerificationMethod> {
               style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600,fontSize: 14),
             ),
           ),
-          SizedBox(height: height * 0.022,),
-          ///********************** working on country code *(******************************
-          Container(
-              height: Get.height*0.134,
-              child: CustomCountryNameFlag()),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * .02),
+            child: CountryListPick(
+
+            // if you need custom picker use this
+            // pickerBuilder: (context, CountryCode countryCode) {
+            //   return Row(
+            //     children: [
+            //       Image.asset(
+            //         countryCode.flagUri,
+            //         package: 'country_list_pick',
+            //       ),
+            //       Text(countryCode.code),
+            //       Text(countryCode.dialCode),
+            //     ],
+            //   );
+            // },
+            theme: CountryTheme(
+              isShowFlag: true,
+              isShowTitle: true,
+              isShowCode: false,
+              isDownIcon: true,
+              showEnglishName: true,
+              labelColor: Colors.blueAccent,
+            ),
+            initialSelection: '+62',
+            // or
+            // initialSelection: 'US'
+            onChanged: ( code) {
+              // print(code.name);
+              nationality=code!.name;
+              print(nationality);
+
+            },
+          ),
+          ),
+          SizedBox(height: height * 0.01,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.04),
             child: Text(
