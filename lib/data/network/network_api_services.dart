@@ -11,36 +11,36 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_exceptions.dart';
-
+String? badresponseextrac;
+dynamic badresponse;
 class NetworkApiServices extends BaseApiServices {
-var apiresponsehit;
+
+  var apiresponsehit;
 
   @override
-  Future<dynamic> getApi(String url)async{
-
+  Future<dynamic> getApi(String url) async {
     if (kDebugMode) {
       print(url);
     }
 
-    dynamic responseJson ;
+    dynamic responseJson;
     try {
-
-      final response = await http.get(Uri.parse(url)).timeout( const Duration(seconds: 10));
-      responseJson  = returnResponse(response) ;
-      apiresponsehit=jsonDecode(response.body);
-    }on SocketException {
+      final response = await http.get(Uri.parse(url)).timeout(
+          const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+      apiresponsehit = jsonDecode(response.body);
+    } on SocketException {
       throw InternetException('');
-    }on RequestTimeOut {
+    } on RequestTimeOut {
       throw RequestTimeOut('');
-
     }
     print(responseJson);
-    return responseJson ;
-
+    return responseJson;
   }
 @override
 Future<dynamic> getApi2(String url)async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  final prefs=await SharedPreferences.getInstance();
   if (kDebugMode) {
     print(url);
   }
@@ -48,17 +48,15 @@ Future<dynamic> getApi2(String url)async{
   dynamic responseJson ;
   try {
 
-print(prefs.getString("BarearToken"));
+
     final response = await http.get(Uri.parse(url),
-      headers: {"Authorization":"Bearer "+prefs.getString("BarearToken").toString()},
+
+      headers: { "Authorization":"Bearer ${prefs.getString('BarearToken')}"},
     ).timeout( const Duration(seconds: 20)
 
     );
-
-    print(response.body);
     responseJson  = returnResponse(response) ;
     apiresponsehit=jsonDecode(response.body);
-    print(apiresponsehit);
   }on SocketException {
     throw InternetException('');
   }on RequestTimeOut {
@@ -72,91 +70,101 @@ print(prefs.getString("BarearToken"));
 
 
   @override
-  Future<dynamic> postApi(var data , String url)async{
-
+  Future<dynamic> postApi(var data, String url) async {
     if (kDebugMode) {
       print(url);
       print(data);
     }
 
-    dynamic responseJson ;
+    dynamic responseJson;
     try {
-print("yes");
+      print("yes");
       final response = await http.post(Uri.parse(url),
         body: data,
 
-      ).timeout( const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 10));
 
 
-
-      responseJson  = returnResponse(response) ;
-apiresponsehit=jsonDecode(response.body);
-    }on SocketException {
+      responseJson = returnResponse(response);
+      apiresponsehit = jsonDecode(response.body);
+    } on SocketException {
       throw InternetException('');
-    }on RequestTimeOut {
+    } on RequestTimeOut {
       throw RequestTimeOut('');
-
     }
     if (kDebugMode) {
       print(responseJson);
     }
-    return responseJson ;
-
+    return responseJson;
   }
 
   @override
-  Future  postApi2(var data , String url)async{
-
+  Future postApi2(var data, String url) async {
+      final prefs=await SharedPreferences.getInstance();
     if (kDebugMode) {
       print(url);
       print(data);
     }
 
-    dynamic responseJson ;
+    dynamic responseJson;
     try {
       print(BarrierToken.toString());
       var response = await http.post(Uri.parse(url),
 
-            headers: { "Authorization":"Bearer 292|S1KgjTAYIjIt4mKEt1nbczgzcFVBpFMstK06xNSw"},
+                headers: { "Authorization":"Bearer ${prefs.getString('BarearToken')}"},
 
 
           body: data
       );
-            // print(response.body);
+      // print(response.body);
       // print("object");
-      responseJson  = returnResponse(response) ;
+      responseJson = returnResponse(response);
 
-      apiresponsehit=jsonDecode(response.body);
+      apiresponsehit = jsonDecode(response.body);
       // print(apiresponsehit);
-    }on SocketException {
+    } on SocketException {
       throw InternetException('');
-    }on RequestTimeOut {
+    } on RequestTimeOut {
       throw RequestTimeOut('');
-
     }
     if (kDebugMode) {
       // print(responseJson);
     }
-    return responseJson ;
-
+    return responseJson;
   }
-  dynamic returnResponse(http.Response response){
 
- 
-    switch(response.statusCode){
+  dynamic returnResponse(http.Response response) {
+    switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
-        return responseJson ;
-      case 400:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson ;
-        case 404:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson ;
+        return responseJson;
 
-      default :
-        throw FetchDataException('Error accoured while communicating with server '+response.statusCode.toString()) ;
+      case 400:
+        badresponse=jsonDecode(response.body);
+
+        badresponseextrac=badresponse['msg'];
+
+
+
+        throw BadRequestException(badresponseextrac.toString());
+      case 404:
+        throw UnauthorisedException(response.body.toString());
+      default:
+        throw FetchDataException('error accured while communicating to server'
+            'with status code' +
+            response.statusCode.toString());
+
+      // case 400:
+      //   dynamic responseJson = jsonDecode(response.body);
+      //   return responseJson;
+      // case 404:
+      //   dynamic responseJson = jsonDecode(response.body);
+      //   return responseJson;
+      //
+      // default :
+      //   throw FetchDataException(
+      //       'Error accoured while communicating with server ' +
+      //           response.statusCode.toString());
     }
   }
-
 }

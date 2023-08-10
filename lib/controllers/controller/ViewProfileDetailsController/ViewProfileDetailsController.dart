@@ -32,9 +32,10 @@ class ViewProfileDetailsController extends GetxController {
       ViewProfileDetails(value);
       print(value);
 
-   
+         print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());
+      print(error.toString());
       setRxRequestStatus(Status.ERROR);
 
     });

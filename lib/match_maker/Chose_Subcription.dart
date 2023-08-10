@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-enum  SelectProfile  {Monthly,Matches}
+enum  SelectProfile  {Monthly,Matches, National}
 
 class ChooseSubscriptions extends StatefulWidget {
   const ChooseSubscriptions({Key? key}) : super(key: key);

@@ -15,8 +15,7 @@ class GetAllOcupationsController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs ;
   final OcupationsList =AllOcupationsModel().obs ;
   RxString error = ''.obs;
-
-List<String>Ocupations=[];
+  List<String> Ocupations=["Select Occupation"].obs;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setUserList(AllOcupationsModel _value) => OcupationsList.value = _value ;
@@ -24,7 +23,7 @@ List<String>Ocupations=[];
 
 
   void GetAllOcupationsListApiHit(){
-  //  setRxRequestStatus(Status.LOADING);
+    setRxRequestStatus(Status.LOADING);
 
     _api.GetAllOcupationsApi().then((value){
       setRxRequestStatus(Status.COMPLETED);

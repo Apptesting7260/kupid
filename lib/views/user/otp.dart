@@ -38,17 +38,29 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
   @override
   Widget build(BuildContext context) {
     final BoxDecoration _pinPutDecoration = BoxDecoration(
-        color: const Color.fromRGBO(235, 236, 237, 1),
+        color:  Colors.white,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all());
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
       textStyle: TextStyle(
-          fontSize: 20, color: Colors.grey, fontWeight: FontWeight.w600),
+          fontSize: 30, color: Colors.white, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(40),
+      ),
+    );
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      color: Color(0xffFE0091),
+      border: Border.all(color: Colors.green),
+      borderRadius: BorderRadius.circular(50),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration!.copyWith(
+          color: Color(0xffFE0091),
+          borderRadius: BorderRadius.circular(50)
       ),
     );
 
@@ -131,17 +143,19 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
                   useNativeKeyboard: true,
                   keyboardType: TextInputType.number,
                   defaultPinTheme: defaultPinTheme,
+                  focusedPinTheme: focusedPinTheme,
+                  submittedPinTheme: submittedPinTheme,
                   onSubmitted: (String pin) => _showSnackBar(pin, context),
                   focusNode: _pinPutFocusNode,
                   controller: OtpVarificationControllerinstace.OtpController.value,
-                  submittedPinTheme: PinTheme(
-                      height: 56,
-                      width: 56,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.0),
-                          border: Border.all(color: Color(0xffFE0091)),
-                          color: Color(0xffFe0091))),
-                  focusedPinTheme: defaultPinTheme,
+                  // submittedPinTheme: PinTheme(
+                  //     height: 56,
+                  //     width: 56,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(40.0),
+                  //         border: Border.all(color: Color(0xffFE0091)),
+                  //         color: Color(0xffFe0091))),
+                  // focusedPinTheme: defaultPinTheme,
                   followingPinTheme: defaultPinTheme,
                 ),
               ),

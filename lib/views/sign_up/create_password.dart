@@ -55,17 +55,20 @@ class _CreatePasswordState extends State<CreatePassword> {
                   keyboardType: TextInputType.emailAddress,
                   controller: CreatePasswordControllerInstance.PasswordController.value,
                   validator: (value) {
-                    RegExp regex =
-                    RegExp( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$',);
                     if (value!.isEmpty) {
-                      return 'Please enter password';
-                    } else {
-                      if (!regex.hasMatch(value)) {
-                        return 'Enter valid password';
-                      } else {
-                        return null;
-                      }
+                      return "Please Enter Password";
+                    } else if (value.length < 8) {
+                      return "Password must be at least 8 characters long";
+                    } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                      return "Password must contain at least one uppercase letter";
+                    } else if (!value.contains(RegExp(r'[a-z]'))) {
+                      return "Password must contain at least one lowercase letter";
+                    } else if (!value.contains(RegExp(r'[0-9]'))) {
+                      return "Password must contain at least one digit";
+                    } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                      return "Password must contain at least one special character";
                     }
+                    return null; // Return null if the password is valid
                   },
                   // validator: (value) {
                   //   if (value!.isEmpty) {
@@ -120,27 +123,22 @@ class _CreatePasswordState extends State<CreatePassword> {
                   keyboardType: TextInputType.emailAddress,
                   controller: CreatePasswordControllerInstance.ConfirmPasswordController.value,
                   validator: (value) {
-                    RegExp regex =
-                    RegExp( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$',);
                     if (value!.isEmpty) {
-                      return 'Please enter password';
-                    } else {
-                      if (!regex.hasMatch(value)) {
-                        return 'Enter valid password';
-                      } else {
-                        return null;
-                      }
+                      return "Please Enter Password";
+                    } else if (value.length < 8) {
+                      return "Password must be at least 8 characters long";
+                    } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                      return "Password must contain at least one uppercase letter";
+                    } else if (!value.contains(RegExp(r'[a-z]'))) {
+                      return "Password must contain at least one lowercase letter";
+                    } else if (!value.contains(RegExp(r'[0-9]'))) {
+                      return "Password must contain at least one digit";
+                    } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                      return "Password must contain at least one special character";
                     }
+                    return null; // Return null if the password is valid
                   },
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return "Please Enter Password";
-                  //   } else if (value !=CreatePasswordControllerInstance.PasswordController.value .text) {
-                  //     return "Not Matched";
-                  //   } else {
-                  //     return null;
-                  //   }
-                  // },
+
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(35.0)),
@@ -195,13 +193,32 @@ class _CreatePasswordState extends State<CreatePassword> {
       ),
     );
   }
-
   validate() {
-    print("send");
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
+      if (CreatePasswordControllerInstance.PasswordController.value.text !=
+          CreatePasswordControllerInstance.ConfirmPasswordController.value.text) {
+        // Passwords do not match
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Passwords do not match"),
+            duration: Duration(seconds: 2), // Adjust the duration as needed
+          ),
+        );
+        return;
+      }
       CreatePasswordControllerInstance.CreatePasswordapiiHit();
     }
   }
+
+
+// validate() {
+  //   print("send");
+  //   if (!_formKey.currentState!.validate()) {
+  //     return;
+  //   } else {
+  //     CreatePasswordControllerInstance.CreatePasswordapiiHit();
+  //   }
+  // }
 }

@@ -35,8 +35,11 @@ class UserLoginController extends GetxController {
       loading.value = false ;
 print(value);
 String Bearertoken=value.token.toString();
+String Tokernid=value.tokenId.toString();
 prefs.setString('BarearToken', Bearertoken);
+prefs.setString('Tokernid', Tokernid);
 print(prefs.getString('BarearToken'));
+print(prefs.getString('Tokernid'));
       Utils.snackBar( "Message",value.message.toString());
       if(value.userType=="1"){
 Get.offAll(Maker_TabView(index: 0,));

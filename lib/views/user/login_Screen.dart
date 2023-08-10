@@ -78,7 +78,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
+                        borderSide: BorderSide(color: Color(0xffFE0091))),
                     hintStyle:
                         TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                     contentPadding: EdgeInsets.all(18),
@@ -111,7 +111,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA))),
+                        borderSide: BorderSide(color: Color(0xffFE0091))),
                     hintStyle:
                         TextStyle(fontSize: 16, color: Color(0xffBABABA)),
                     contentPadding: EdgeInsets.all(18),

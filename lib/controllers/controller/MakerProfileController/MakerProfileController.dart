@@ -1,5 +1,5 @@
 import 'package:cupid_match/controllers/controller/SetRoleController/SetRoleController.dart';
-import 'package:cupid_match/match_maker/addbio_maker.dart';
+import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -41,18 +41,24 @@ class MakerProfileController extends GetxController {
 Future<void> MakerProfileApiHit() async {
    loading.value = true ;
   try {
-    // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
     var url = Uri.parse('https://urlsdemo.xyz/kupid/api/user-profile-update');
-
-    // Create the multipart request
     var request = http.MultipartRequest('POST', url);
+    // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
+
+    if(imgFile==null){
+
+    }else {
+      var fileStream = http.ByteStream(imgFile!.openRead());
+      var length = await imgFile!.length();
+      var multipartFile = http.MultipartFile('pro_img', fileStream, length,
+          filename: imgFile!.path.split('/').last);
+      request.files.add(multipartFile);
+    }
+    // Create the multipart request
+
 
     // Add the file to the request
-    var fileStream = http.ByteStream(imgFile!.openRead());
-    var length = await imgFile!.length();
-    var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-        filename: imgFile!.path.split('/').last);
-    request.files.add(multipartFile);
+
 
     // Add other text fields to the request+
     request.fields['name'] = NameController.value.text;

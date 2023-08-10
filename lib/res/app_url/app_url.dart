@@ -20,7 +20,9 @@ class AppUrl {
   static const String GetAllOcupationsUrl = '$baseUrl/seeker/all-occupation' ;
   static const String ViewProfileDetailsUrl = '$baseUrl/view-user-profile' ;
   static const String UserLoginUrl = '$baseUrl/user-login' ;
+  static const String CountryCodeUrl = '$baseUrl/maker/nationality' ;
   static const String ProfileScrollUrl = '$baseUrl/maker/profiles-scroll' ;
   static const String DoMatchesUrl = '$baseUrl/maker/do-matches' ;
+  static const String ViewMakerProfileDetailsUrl = '$baseUrl/maker/view-user-profile' ;
 
 }

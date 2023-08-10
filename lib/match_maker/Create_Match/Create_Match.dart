@@ -3,8 +3,11 @@ import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/DoMatchesController/DoMachesController.dart';
 import 'package:cupid_match/controllers/controller/ProfileScrollController.dart/ProfileScrollController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
+import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +17,7 @@ class MatchScreen extends StatefulWidget {
 }
 
 class _MatchScreenState extends State<MatchScreen> {
+  
 
 final DoMatchesControllerinstance=Get.put(DoMatchesController());
   final ProfileScrollControllerinstance=Get.put(ProfileScrollController());
@@ -148,7 +152,8 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
                       print('item 2nd ->  ' + '$_topItem2');
                       print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![_topItem2].name.toString());
 if(match_fromid!=null&&match_withid!=null){
-  DoMatchesControllerinstance.DoMatchesApiHit();
+  // DoMatchesControllerinstance.DoMatchesApiHit();
+  ShowDialog(context);
 }
                     },
                     child: Container(
@@ -478,6 +483,125 @@ if(match_fromid!=null&&match_withid!=null){
   }
 }
 
+
+
+ShowDialog(BuildContext context) {
+    List images = [
+    "https://images.unsplash.com/photo-1687076613219-fb4b3d94e75a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+    "https://images.unsplash.com/photo-1687076613219-fb4b3d94e75a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDl8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  ];
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color(0xffFFFFFF),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Image.asset(
+                        "assets/icons/cancel.png",
+                        height: MediaQuery.of(context).size.height * .03,
+                      )),
+                ),
+                Image.asset(
+                  'assets/maker/heart.png',
+                  height: MediaQuery.of(context).size.height * .1,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                Text(
+                  "Congratulations it's a",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
+                ),
+                Text(
+                  "Match!",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(color: Color(0xffFE0091)),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * .08,
+                  child: ListView.builder(
+                    // scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(8),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.25),
+                          leading: Container(
+                            width: MediaQuery.of(context).size.width * .09,
+                            height: MediaQuery.of(context).size.height * .07,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              reverse: true,
+                              itemCount: images.length >= 3 ? 3 : images.length,
+                              itemBuilder: (context, index) {
+                                return Align(
+                                  alignment: Alignment.center,
+                                  widthFactor: 0.4,
+                                  child: CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: AppColors.white,
+                                    child: CircleAvatar(
+                                      radius: 14,
+                                      backgroundImage:
+                                          NetworkImage(images[index]),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
+                ),
+                Text(
+                  "Name and Name, 22",
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: Color(0xff000CAA),
+                      ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .04,
+                ),
+                MyButton(
+                  height: MediaQuery.of(context).size.height * .05,
+                  width: MediaQuery.of(context).size.width * .63,
+                  title: 'Leave a note for both',
+                  onTap: () {
+                   Get.to(ChatScreen());
+                  },
+                )
+              ],
+            ),
+          );
+        });
+  }
 // Widget profileCard(int index) {
 //   return Container(
 //     padding: EdgeInsets.all(15),

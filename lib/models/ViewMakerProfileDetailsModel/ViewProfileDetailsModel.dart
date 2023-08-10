@@ -1,12 +1,12 @@
-class ViewProfileDetailsModel {
-  ViewProfileDetailsModel({
+class ViewMakerProfileModel {
+  ViewMakerProfileModel({
      this.status,
      this.ProfileDetail,
   });
-  dynamic status;
+   String ?status;
    ProfileDetails ?ProfileDetail;
   
-  ViewProfileDetailsModel.fromJson(Map<String, dynamic> json){
+  ViewMakerProfileModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     ProfileDetail = ProfileDetails.fromJson(json['ProfileDetails']);
   }
@@ -47,29 +47,29 @@ class ProfileDetails {
      this.details,
   });
    int ?id;
-  dynamic name;
-  dynamic email;
-  dynamic phone;
-  dynamic dob;
-  dynamic gender;
-  dynamic location;
-  dynamic profileImg;
-  dynamic profileVideo;
-  dynamic experience;
-  dynamic aboutMaker;
-  dynamic expectation;
-  dynamic headingOfMaker;
+   String ?name;
+   String ?email;
+   String ?phone;
+   String ?dob;
+   String ?gender;
+   String ?location;
+   String ?profileImg;
+   String ?profileVideo;
+   String ?experience;
+   String ?aboutMaker;
+   String ?expectation;
+   String? headingOfMaker;
    int ?status;
    int ?currentStep;
-  dynamic matchMade;
-  dynamic matchsSuccessfull;
-  dynamic matchsDeclined;
-  dynamic matchsCompleted;
-  dynamic makerExperience;
-  dynamic likedProfile;
-  dynamic imgPath;
-  dynamic videoPath;
-   Details? details;
+   String ?matchMade;
+   String ?matchsSuccessfull;
+   String ?matchsDeclined;
+   String ?matchsCompleted;
+   String ?makerExperience;
+   String ?likedProfile;
+   String ?imgPath;
+   String ?videoPath;
+   Details ?details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -144,17 +144,17 @@ class Details {
      this.updatedAt,
   });
    int? id;
-  dynamic makerId;
-  dynamic nationality;
-  dynamic verificationMethod;
-  dynamic idProof;
-  dynamic bankName;
-  dynamic makerFullName;
-  dynamic accountNumber;
-  dynamic ifscCode;
-  dynamic status;
-  dynamic createdAt;
-  dynamic updatedAt;
+   String ?makerId;
+   String ?nationality;
+   String ?verificationMethod;
+   String ?idProof;
+   String ?bankName;
+   String ?makerFullName;
+   String ?accountNumber;
+   String ?ifscCode;
+   String ?status;
+   String ?createdAt;
+   String ?updatedAt;
   
   Details.fromJson(Map<String, dynamic> json){
     id = json['id'];

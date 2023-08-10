@@ -1,5 +1,7 @@
-import 'package:cupid_match/match_maker/addbio_maker.dart';
-import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
+import 'dart:async';
+
+import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
+import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -32,9 +34,11 @@ class SetRoleController extends GetxController {
           BarrierToken
       );
       Utils.snackBar( "Message",value.msg.toString());
-      ProfileType != 2
-          ? Get.to(() => MakerProfileDetails())
-          : Get.to(() => SikerProfileDetails());
+     Timer(Duration(seconds: 2),(){
+       ProfileType != 2
+           ? Get.to(() => MakerProfileDetails())
+           : Get.to(() => SikerProfileDetails());
+     });
 
     }).onError((error, stackTrace){
       print("error");

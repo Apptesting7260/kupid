@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/views/user/otp.dart';
@@ -28,13 +30,15 @@ class SignUpController extends GetxController {
 print(value);
       Utils.snackBar( "Message",value.msg.toString());
 
+   Timer(Duration(seconds: 2),(){
      Get.to(() => PinFields(
-            pinPutFocusNode: FocusNode(),
-          
-            // key: _formKey,
-            formKey: Key(" "),
+       pinPutFocusNode: FocusNode(),
 
-          ));
+       // key: _formKey,
+       formKey: Key(" "),
+
+     ));
+   }) ;
     }).onError((error, stackTrace){
       print("error");
       loading.value = false ;

@@ -6,8 +6,9 @@ import 'package:cupid_match/match_seeker/payment_info.dart';
 import 'package:cupid_match/match_seeker/profile/filter.dart';
 import 'package:cupid_match/match_seeker/profile/interest.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
-import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
-import 'package:cupid_match/match_seeker/Siker_TabView.dart';
+
+import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
+
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
