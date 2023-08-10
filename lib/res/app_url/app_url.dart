@@ -20,5 +20,6 @@ class AppUrl {
   static const String GetAllOcupationsUrl = '$baseUrl/seeker/all-occupation' ;
   static const String ViewProfileDetailsUrl = '$baseUrl/view-user-profile' ;
   static const String UserLoginUrl = '$baseUrl/user-login' ;
+  static const String CountryCodeUrl = 'https://urlsdemo.xyz/kupid/api/maker/nationality';
 
 }

@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../../GlobalVariable/GlobalVariable.dart';
-import '../../../match_maker/addbio_maker.dart';
+import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../match_seeker/photos.dart';
 import '../../../views/user/verification.dart';

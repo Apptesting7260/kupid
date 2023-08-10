@@ -193,13 +193,32 @@ class _CreatePasswordState extends State<CreatePassword> {
       ),
     );
   }
-
   validate() {
-    print("send");
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
+      if (CreatePasswordControllerInstance.PasswordController.value.text !=
+          CreatePasswordControllerInstance.ConfirmPasswordController.value.text) {
+        // Passwords do not match
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Passwords do not match"),
+            duration: Duration(seconds: 2), // Adjust the duration as needed
+          ),
+        );
+        return;
+      }
       CreatePasswordControllerInstance.CreatePasswordapiiHit();
     }
   }
+
+
+// validate() {
+  //   print("send");
+  //   if (!_formKey.currentState!.validate()) {
+  //     return;
+  //   } else {
+  //     CreatePasswordControllerInstance.CreatePasswordapiiHit();
+  //   }
+  // }
 }

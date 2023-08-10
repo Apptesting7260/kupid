@@ -16,6 +16,7 @@ import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsMod
 import 'package:cupid_match/res/app_url/app_url.dart';
 
 import '../../models/AllOcupationsModel/AllOcupationsModel.dart';
+import '../../models/CountryModel/country_model.dart';
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
 import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
@@ -138,10 +139,17 @@ Future<ViewProfileDetailsModel> ViewProfileDetailsapi() async{
 }
 
 Future<UserLoginModel> UserLoginapi( var data) async{
-  print("hited");
+  print("hit");
   dynamic response = await _apiService.postApi(data, AppUrl.UserLoginUrl);
   print(response);
-  return UserLoginModel.fromJson(response) ;
+  return UserLoginModel.fromJson(response);
+}
+
+Future<CountryModel> CountryCodeapi()async{
+    print('fshdshsdhfafhsd');
+    dynamic response = await _apiService.getApi2(AppUrl.CountryCodeUrl);
+    print(response);
+    return CountryModel.fromJson(response);
 }
 
 }

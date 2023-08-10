@@ -1,15 +1,13 @@
-import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
-import 'package:cupid_match/match_seeker/photos.dart';
+
 import 'package:cupid_match/utils/my_theme.dart';
+import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'match_maker/addbio_maker.dart';
-import 'match_seeker/profile/add_bio.dart';
-import 'match_seeker/profile/update_profile_details.dart';
-
+import 'country_name_with_flag_widget.dart';
+import 'match_maker/verification_method.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.light,
-      home: const SplashScreen(),
+      home:  SplashScreen(),
     );
   }
 }

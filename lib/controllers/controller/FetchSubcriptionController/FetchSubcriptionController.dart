@@ -1,7 +1,7 @@
 
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/data/response/status.dart';
-import 'package:cupid_match/match_maker/addbio_maker.dart';
+import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:get/get.dart';
