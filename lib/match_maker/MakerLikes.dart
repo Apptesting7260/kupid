@@ -1,29 +1,44 @@
 import 'package:cupid_match/match_maker/invite_state.dart';
+import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-class Likes extends StatefulWidget {
-  const Likes({Key? key}) : super(key: key);
+class MakerLikes extends StatefulWidget {
+  const MakerLikes({Key? key}) : super(key: key);
 
   @override
-  State<Likes> createState() => _LikesState();
+  State<MakerLikes> createState() => _MakerLikesState();
 }
 
-class _LikesState extends State<Likes> {
+class _MakerLikesState extends State<MakerLikes> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Get.back();
-        }, icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
+  
         title: Text("Likes",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),),
         centerTitle: true,
+actions: [
+            Builder(
+              builder: (context) {
+                return GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                      MaterialLocalizations.of(context).openAppDrawerTooltip;
+                    },
+                    child: Image.asset("assets/icons/menu.png"));
+              },
+            )
+          ],
+        
       ),
+      endDrawer: Drawer(
+          child: MakerDrawer()
+        ),
       body: ListView(
         children: [
           SizedBox(height: height*.02,),

@@ -1,15 +1,22 @@
+import 'package:cupid_match/controllers/controller/ViewProfileDetailsController/ViewProfileDetailsController.dart';
+import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileTwoScreen extends StatefulWidget {
-  const ProfileTwoScreen({Key? key}) : super(key: key);
+class ViewProfileDetailsMaker extends StatefulWidget {
+  const ViewProfileDetailsMaker({Key? key}) : super(key: key);
 
   @override
-  State<ProfileTwoScreen> createState() => _ProfileTwoScreenState();
+  State<ViewProfileDetailsMaker> createState() => _ViewProfileDetailsMakerState();
 }
 
-class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
+class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
+
+  final ViewProfileDetailsControllerinstance=Get.put(ViewProfileDetailsController());
   var ListItem = [
     {"Name": "Matches Made","Age": "26","Image": "assets/maker/img_2.png"},
     {"Name": "Matches Sucessfull","Age": "26","Image": "assets/maker/img_3.png"},
@@ -18,6 +25,12 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
     {"Name": "Maker Experience:","Age": "26","Image": "assets/maker/img_6.png"},
     {"Name": "Liked Profile","Age": "26","Image": "assets/maker/img_7.png"},
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    ViewProfileDetailsControllerinstance.ViewProfileDetailsApiHit();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -25,12 +38,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
     return Scaffold(
         appBar: AppBar(
 
-          leading: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
-          backgroundColor: Color(0xffF3F3F3),
+          
           elevation: 0,
           title: Text(
             "Profile",
@@ -38,10 +46,35 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
           ),
           centerTitle: true,
           actions: [
-            Image(image: AssetImage("assets/icons/menu.png")),
+            Builder(
+              builder: (context) {
+                return GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                      MaterialLocalizations.of(context).openAppDrawerTooltip;
+                    },
+                    child: Image.asset("assets/icons/menu.png"));
+              },
+            )
           ],
         ),
-        body: SingleChildScrollView(
+        endDrawer: Drawer(
+          child: MakerDrawer()
+        ),
+        body: Obx(() {
+          switch (ViewProfileDetailsControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewProfileDetailsControllerinstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return SingleChildScrollView(
           child: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -57,15 +90,15 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   SizedBox( height: height *0.09,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text("Name,22",style: Theme.of(context).textTheme.displayMedium,)),
+                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
                   SizedBox(height: height * 0.01,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text("Address",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
                   SizedBox(height: height * 0.01,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text("Gender",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
                   SizedBox(height: height * 0.1,),
 
                   Padding(
@@ -77,7 +110,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                     child:  Text(
-                      "mailto:user123456@gmail.com",
+                      ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -92,7 +125,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                     child: Text(
-                      "+123456789",
+                      ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -131,7 +164,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                                 ),
                                 SizedBox(height: height * 0.01,),
                                 Text(ListItem[index]['Name'] ??"Name",style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Color(0xff777777),fontSize: 4),),
-                                Text(ListItem[index]['Age'] ??"Age",style: Theme.of(context).textTheme.titleLarge,),
+                                Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
                               ],
                             ),
                           );
@@ -148,7 +181,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                     ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -163,7 +196,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppColors.subtitletextcolor,
                       ),
@@ -180,7 +213,7 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height  *0.01),
                     child: Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                     ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -199,16 +232,36 @@ class _ProfileTwoScreenState extends State<ProfileTwoScreen> {
                     radius: 50,
                     child: CircleAvatar(
                       radius: 60,
-                      backgroundImage: NetworkImage('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80'),
+                      backgroundImage: NetworkImage( ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-        )
+              );}})
     );
   }
 }
 
 
+class DomatchesModel {
+  DomatchesModel({
+     this.status,
+     this.msg,
+  });
+   String? status;
+   String? msg;
+  
+  DomatchesModel.fromJson(Map<String, dynamic> json){
+    status = json['status'];
+    msg = json['msg'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['status'] = status;
+    _data['msg'] = msg;
+    return _data;
+  }
+}

@@ -1,6 +1,6 @@
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_maker/MachesSubscriptionplan.dart';
-import 'package:cupid_match/match_maker/Tab_view.dart';
+import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/create_plan_Monthly.dart';
 import 'package:cupid_match/match_maker/Monthly_subscription_plans.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
@@ -43,7 +43,7 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
             child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 20),),
           ),
           onTap: () {
-             Get.offAll(TabView(index: 1,));
+             Get.offAll(Maker_TabView(index: 1,));
           },
         )
         

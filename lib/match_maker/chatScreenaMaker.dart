@@ -3,19 +3,20 @@ import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_maker/premium.dart';
 import 'package:cupid_match/match_maker/premium_seeker.dart';
 import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 
-class Message extends StatefulWidget {
-  const Message({Key? key}) : super(key: key);
+class ChatScreenMaker extends StatefulWidget {
+  const ChatScreenMaker({Key? key}) : super(key: key);
 
   @override
-  State<Message> createState() => _MessageState();
+  State<ChatScreenMaker> createState() => _ChatScreenMakerState();
 }
 
-class _MessageState extends State<Message> {
+class _ChatScreenMakerState extends State<ChatScreenMaker> {
   List imagesList = [
     "https://images.unsplash.com/photo-1687076613219-fb4b3d94e75a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMzJ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
     "https://plus.unsplash.com/premium_photo-1686777550406-98c56a8bd590?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNzZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
@@ -27,13 +28,25 @@ class _MessageState extends State<Message> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: (){
-          Get.back();
-        },
-            icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A),size: 27,)),
+       
         title: Text("Message",style: Theme.of(context).textTheme.titleLarge,),
         centerTitle: true,
-      ),
+     actions: [
+            Builder(
+              builder: (context) {
+                return GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                      MaterialLocalizations.of(context).openAppDrawerTooltip;
+                    },
+                    child: Image.asset("assets/icons/menu.png"));
+              },
+            )
+          ],
+        ),
+        endDrawer: Drawer(
+          child: MakerDrawer()
+        ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width*.04),
         child: ListView(

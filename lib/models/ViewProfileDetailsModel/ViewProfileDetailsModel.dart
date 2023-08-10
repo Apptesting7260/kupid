@@ -3,8 +3,8 @@ class ViewProfileDetailsModel {
      this.status,
      this.ProfileDetail,
   });
-   String? status;
-   ProfileDetails? ProfileDetail;
+   String ?status;
+   ProfileDetails ?ProfileDetail;
   
   ViewProfileDetailsModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
@@ -25,56 +25,74 @@ class ProfileDetails {
      this.name,
      this.email,
      this.phone,
-     this.occupation,
-     this.salary,
-     this.address,
-     this.height,
      this.dob,
+     this.gender,
+     this.location,
      this.profileImg,
      this.profileVideo,
-     this.gender,
-     this.religion,
+     this.experience,
+     this.aboutMaker,
+     this.expectation,
+     this.headingOfMaker,
      this.status,
      this.currentStep,
+     this.matchMade,
+     this.matchsSuccessfull,
+     this.matchsDeclined,
+     this.matchsCompleted,
+     this.makerExperience,
+     this.likedProfile,
      this.imgPath,
      this.videoPath,
      this.details,
   });
-   int? id;
-   String? name;
+   int ?id;
+   String ?name;
    String ?email;
    String ?phone;
-   String ?occupation;
-   String ?salary;
-   String ?address;
-   String ?height;
    String ?dob;
+   String ?gender;
+   String ?location;
    String ?profileImg;
    String ?profileVideo;
-   String ?gender;
-  String ?religion;
+   String ?experience;
+   String ?aboutMaker;
+   String ?expectation;
+   String? headingOfMaker;
    int ?status;
    int ?currentStep;
+   String ?matchMade;
+   String ?matchsSuccessfull;
+   String ?matchsDeclined;
+   String ?matchsCompleted;
+   String ?makerExperience;
+   String ?likedProfile;
    String ?imgPath;
    String ?videoPath;
-   Details ?details;
+   Details? details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    phone = null;
-    occupation = json['occupation'];
-    salary = null;
-    address = json['address'];
-    height = json['height'];
+    phone = json['phone'];
     dob = json['dob'];
+    gender = json['gender'];
+    location = json['location'];
     profileImg = json['profile_img'];
     profileVideo = json['profile_video'];
-    gender = json['gender'];
-    religion = null;
+    experience = json['experience'];
+    aboutMaker = json['about_maker'];
+    expectation = json['expectation'];
+    headingOfMaker = json['heading_of_maker'];
     status = json['status'];
     currentStep = json['current_step'];
+    matchMade = json['match_made'];
+    matchsSuccessfull = json['matchs_successfull'];
+    matchsDeclined = json['matchs_declined'];
+    matchsCompleted = json['matchs_completed'];
+    makerExperience = json['maker_experience'];
+    likedProfile = json['liked_profile'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
     details = Details.fromJson(json['details']);
@@ -86,17 +104,23 @@ class ProfileDetails {
     _data['name'] = name;
     _data['email'] = email;
     _data['phone'] = phone;
-    _data['occupation'] = occupation;
-    _data['salary'] = salary;
-    _data['address'] = address;
-    _data['height'] = height;
     _data['dob'] = dob;
+    _data['gender'] = gender;
+    _data['location'] = location;
     _data['profile_img'] = profileImg;
     _data['profile_video'] = profileVideo;
-    _data['gender'] = gender;
-    _data['religion'] = religion;
+    _data['experience'] = experience;
+    _data['about_maker'] = aboutMaker;
+    _data['expectation'] = expectation;
+    _data['heading_of_maker'] = headingOfMaker;
     _data['status'] = status;
     _data['current_step'] = currentStep;
+    _data['match_made'] = matchMade;
+    _data['matchs_successfull'] = matchsSuccessfull;
+    _data['matchs_declined'] = matchsDeclined;
+    _data['matchs_completed'] = matchsCompleted;
+    _data['maker_experience'] = makerExperience;
+    _data['liked_profile'] = likedProfile;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
     _data['details'] = details!.toJson();
@@ -107,35 +131,41 @@ class ProfileDetails {
 class Details {
   Details({
      this.id,
-     this.seekerId,
-     this.profileGallery,
-     this.inInterested,
-     this.interest,
-     this.bioTitle,
-     this.bioDescription,
+     this.makerId,
+     this.nationality,
+     this.verificationMethod,
+     this.idProof,
+     this.bankName,
+     this.makerFullName,
+     this.accountNumber,
+     this.ifscCode,
      this.status,
      this.createdAt,
      this.updatedAt,
   });
-   int ?id;
-   int ?seekerId;
-   String? profileGallery;
-   String ?inInterested;
-   String ?interest;
-   String ?bioTitle;
-   String ?bioDescription;
-   int ?status;
-   String? createdAt;
+   int? id;
+   String ?makerId;
+   String ?nationality;
+   String ?verificationMethod;
+   String ?idProof;
+   String ?bankName;
+   String ?makerFullName;
+   String ?accountNumber;
+   String ?ifscCode;
+   String ?status;
+   String ?createdAt;
    String? updatedAt;
   
   Details.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    seekerId = json['seeker_id'];
-    profileGallery = json['profile_gallery'];
-    inInterested = json['in_interested'];
-    interest = json['interest'];
-    bioTitle = json['bio_title'];
-    bioDescription = json['bio_description'];
+    makerId = json['maker_id'];
+    nationality = json['nationality'];
+    verificationMethod = json['verification_method'];
+    idProof = json['id_proof'];
+    bankName = json['bank_name'];
+    makerFullName = json['maker_full_name'];
+    accountNumber = json['account_number'];
+    ifscCode = json['ifsc_code'];
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -144,12 +174,14 @@ class Details {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['id'] = id;
-    _data['seeker_id'] = seekerId;
-    _data['profile_gallery'] = profileGallery;
-    _data['in_interested'] = inInterested;
-    _data['interest'] = interest;
-    _data['bio_title'] = bioTitle;
-    _data['bio_description'] = bioDescription;
+    _data['maker_id'] = makerId;
+    _data['nationality'] = nationality;
+    _data['verification_method'] = verificationMethod;
+    _data['id_proof'] = idProof;
+    _data['bank_name'] = bankName;
+    _data['maker_full_name'] = makerFullName;
+    _data['account_number'] = accountNumber;
+    _data['ifsc_code'] = ifscCode;
     _data['status'] = status;
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;

@@ -1,4 +1,4 @@
-import 'package:cupid_match/match_maker/likes.dart';
+import 'package:cupid_match/match_maker/MakerLikes.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -170,7 +170,7 @@ class _PaymentInfoState extends State<PaymentInfo> {
                           if(_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             _submit();
-                            Get.to(() => Likes());
+                            Get.to(() => MakerLikes());
                           }
                         },
                         child: ListTile(

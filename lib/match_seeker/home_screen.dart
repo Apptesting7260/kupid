@@ -1,7 +1,7 @@
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/lever/new_liver.dart';
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/widgets/Spin_Will_Wigdet.dart';
 import 'package:cupid_match/widgets/drawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';

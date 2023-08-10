@@ -1,22 +1,24 @@
+import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/bottom_view.dart';
-import 'package:cupid_match/match_maker/group_message.dart';
+import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
-import 'package:cupid_match/match_maker/likes.dart';
+import 'package:cupid_match/match_maker/MakerLikes.dart';
 import 'package:cupid_match/match_maker/profile_maker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
-class TabView extends StatefulWidget {
+class Maker_TabView extends StatefulWidget {
   final int index;
 
-  const TabView({Key? key, required this.index}) : super(key: key);
+  const Maker_TabView({Key? key, required this.index}) : super(key: key);
 
   @override
-  _TabViewState createState() => _TabViewState();
+  _Maker_TabViewState createState() => _Maker_TabViewState();
 }
 
-class _TabViewState extends State<TabView> {
+class _Maker_TabViewState extends State<Maker_TabView> {
   int? bottomSelectedIndex;
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
@@ -44,7 +46,10 @@ class _TabViewState extends State<TabView> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+
+                   Get.to(MatchScreen());
+          },
           child: Icon(
             Icons.add,
             size: 30,
@@ -61,9 +66,10 @@ class _TabViewState extends State<TabView> {
               onPageChanged: (index) => pageChanged(index),
               children: [
                 HomePage(),
-                Likes(),
-                Message(),
-                ProfileTwoScreen(),
+                MakerLikes(),
+             
+                ChatScreenMaker(),
+                ViewProfileDetailsMaker(),
               ],
             ),
           ),

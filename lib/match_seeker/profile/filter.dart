@@ -1,4 +1,4 @@
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -224,7 +224,7 @@ class _FilterState extends State<Filter> {
               child: MyButton(
                 title: "Submit",
                 onTap: () {
-                  Get.to(() => TabScreen(index: 0));
+                  Get.to(() => Siker_Tab_View(index: 0));
                 },
               ),
             )

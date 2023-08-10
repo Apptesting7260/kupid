@@ -1,6 +1,6 @@
 import 'package:cupid_match/controllers/CreateMachesSubcriptionsController/CreateMatchesSubcreiptionsController.dart';
 import 'package:cupid_match/controllers/controller/FetchSubcriptionController/FetchSubcriptionController.dart';
-import 'package:cupid_match/match_maker/Tab_view.dart';
+import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';

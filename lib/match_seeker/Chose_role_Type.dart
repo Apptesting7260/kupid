@@ -7,7 +7,7 @@ import 'package:cupid_match/match_seeker/lever/new_liver.dart';
 import 'package:cupid_match/match_seeker/message_screen.dart';
 import 'package:cupid_match/match_seeker/profile/filter.dart';
 import 'package:cupid_match/match_seeker/profile/profile_details.dart';
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -142,7 +142,7 @@ selectedrole=prefs.getInt("roll");
 Get.off(
                   
                    
-                     TabScreen(index: 0)
+                     Siker_Tab_View(index: 0)
                      );
               }});
         

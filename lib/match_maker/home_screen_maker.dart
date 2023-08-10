@@ -1,3 +1,4 @@
+import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
 import 'package:cupid_match/match_maker/new_matches.dart';
@@ -10,6 +11,7 @@ import 'package:cupid_match/match_maker/recent_matches.dart';
 import 'package:cupid_match/match_maker/request_matches.dart';
 import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,12 +33,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Home",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+          centerTitle: true,
+          title: Text(
+            "Home",
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           actions: [
             Builder(
@@ -52,271 +52,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         endDrawer: Drawer(
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(color: Color(0xffF3F3F3)),
-                child: Column(
-                  children: [
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Image.asset(
-                              'assets/maker/Group 115 (1).png',
-                              height: 25,
-                            ))),
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                        backgroundColor: Colors.transparent,
-                      ),
-
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                          "Name jon deo, 22",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(right: 70, left: 0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(() => ProfileTwoScreen());
-                          },
-                          child: Container(
-                            width: 30,
-                            height: height * .03,
-                            decoration: BoxDecoration(
-                                color: Color(0xffF3F3F3),
-                                borderRadius: BorderRadius.circular(22),
-                                border: Border.all(
-                                    color: Color(0xff000CAA), width: 2)),
-                            child: Center(
-                                child: Text(
-                              "View Profile",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
-                                      fontSize: 10, color: Color(0xff000CAA)),
-                            )),
-                          ),
-                        ),
-                      ),
-                      // subtitle: OutlinedButton(
-                      //   style: OutlinedButton.styleFrom(
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(27),
-                      //     ),
-                      //     side: BorderSide(color: Color(0xff000CAA), width: 2),
-                      //   fixedSize: Size(30, 40)
-                      //   ),
-                      //   onPressed: () {},
-                      //   child: Text(
-                      //     "View Profile",
-                      //     style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000CAA),fontWeight: FontWeight.w700),
-                      //   ),
-                      // ),
-                    )
-                  ],
-                ),
-              ),
-              ListTile(
-                onTap: () {
-                  Get.back();
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (1).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Home',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => CreateNewMatchesScreen());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (2).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Create New Matches',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => ChooseSubscriptions());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (3).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Create Subsciption',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => PaymentInfo());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (4).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Payment Info',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => PremiumTab());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (5).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Premium & Free Seekers',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => PendingMatches());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (6).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Pending Matches',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(() => Invite());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (8).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Refer Friend',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                onTap: () {
-                  Get.to(()=>ProfileTwoScreen());
-                },
-                leading: Image.asset(
-                  'assets/maker/Mask group (7).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Update Profile',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              Divider(
-                height: 10,
-                color: Color(0xffBABABA),
-                thickness: .1,
-                endIndent: 20,
-                indent: 25,
-              ),
-              ListTile(
-                leading: Image.asset(
-                  'assets/maker/Mask group (10).png',
-                  width: 25,
-                ),
-                title: Text(
-                  'Update Additional Info',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
-              SizedBox(
-                height: height * .2,
-              ),
-              Center(
-                child: MyButton(
-                  width: width * .5,
-                  title: 'Log Out',
-                  onTap: () {},
-                ),
-              ),
-              SizedBox(
-                height: height * .1,
-              ),
-            ],
-          ),
+          child: MakerDrawer()
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(
@@ -329,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.center,
                       child: GestureDetector(
                           onTap: () {
-                            Get.to(CreateNewMatchesScreen());
+                            Get.to(MatchScreen());
                           },
                           child: Image.asset('assets/maker/Mask_group.png'))),
                   SizedBox(

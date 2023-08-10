@@ -5,10 +5,12 @@ import 'dart:ui';
 import 'package:cupid_match/data/network/network_api_services.dart';
 import 'package:cupid_match/models/CreateMatchesPlanModel/CreateMatchesPlanModel.dart';
 import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel.dart';
+import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
+import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
@@ -143,5 +145,16 @@ Future<UserLoginModel> UserLoginapi( var data) async{
   print(response);
   return UserLoginModel.fromJson(response) ;
 }
-
+Future<ProfilesScrollModel> ProfileScrollapi( ) async{
+  print("hited");
+  dynamic response = await _apiService.getApi2(AppUrl.ProfileScrollUrl);
+  print(response);
+  return ProfilesScrollModel.fromJson(response) ;
+}
+Future<DomatchesModel> DoMatcchesapi(var data ) async{
+  print("hited");
+  dynamic response = await _apiService.postApi2(data,AppUrl.DoMatchesUrl);
+  print(response);
+  return DomatchesModel.fromJson(response) ;
+}
 }

@@ -1,10 +1,13 @@
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/controllers/controller/SetRoleController/SetRoleController.dart';
+import 'package:cupid_match/match_maker/Maker_TabView.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class UserLoginController extends GetxController {
@@ -18,7 +21,8 @@ class UserLoginController extends GetxController {
 
   RxBool loading = false.obs;
 
-  void UserLoginapiHit(){
+  void UserLoginapiHit()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     loading.value = true ;
     print(loading.value);
     Map data = {
@@ -30,8 +34,16 @@ class UserLoginController extends GetxController {
     _api.UserLoginapi(data).then((value){
       loading.value = false ;
 print(value);
+String Bearertoken=value.token.toString();
+prefs.setString('BarearToken', Bearertoken);
+print(prefs.getString('BarearToken'));
       Utils.snackBar( "Message",value.message.toString());
-Get.off(TabScreen(index: 0,));
+      if(value.userType=="1"){
+Get.offAll(Maker_TabView(index: 0,));
+      }else{
+        Get.offAll(Siker_Tab_View(index: 0,));
+      }
+
    
     }).onError((error, stackTrace){
       print("error");

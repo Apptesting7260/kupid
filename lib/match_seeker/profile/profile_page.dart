@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     SizedBox(
                                       height: height * .01,
                                     ),
-                                    Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.occupation.toString(),
+                                    Text("ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.occupation.toString(),",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     SizedBox(
                                       height: height * .01,
                                     ),
-                                    Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.address.toString(),
+                                    Text("ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.address.toString()",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.occupation.toString(),
+                            Text("ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!..toString(),",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!

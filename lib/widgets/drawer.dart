@@ -1,3 +1,4 @@
+import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
 import 'package:cupid_match/match_seeker/dashboard.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
@@ -6,7 +7,7 @@ import 'package:cupid_match/match_seeker/profile/filter.dart';
 import 'package:cupid_match/match_seeker/profile/interest.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
 import 'package:cupid_match/match_seeker/profile/profile_screen.dart';
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -110,7 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             ListTile(
               onTap: () {
-                Get.to(() => TabScreen(index: 0));
+                Get.to(() => Maker_TabView(index: 0));
               },
               leading: Image.asset(
                 'assets/maker/Mask group (1).png',

@@ -60,6 +60,9 @@ dependencies:
   geocoding: ^2.1.0
   roller_list: ^1.0.2
   shared_preferences: ^2.2.0
+  cached_network_image: ^3.2.3
+  dropdown_button2: ^2.3.7
+  flutter_typeahead: ^4.6.2
   # flutter_slot_machine: ^0.0.2
 
 

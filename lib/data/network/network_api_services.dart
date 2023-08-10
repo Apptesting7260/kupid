@@ -8,6 +8,7 @@ import 'package:cupid_match/data/network/base_api_services.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_exceptions.dart';
 
@@ -39,7 +40,7 @@ var apiresponsehit;
   }
 @override
 Future<dynamic> getApi2(String url)async{
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
     print(url);
   }
@@ -47,14 +48,17 @@ Future<dynamic> getApi2(String url)async{
   dynamic responseJson ;
   try {
 
-
+print(prefs.getString("BarearToken"));
     final response = await http.get(Uri.parse(url),
-      headers: { "Authorization":"Bearer 201|NYX8AGXeBk9CVhHwmt8ncUVDLvJDYwhEUJ3xG8nE"},
+      headers: {"Authorization":"Bearer "+prefs.getString("BarearToken").toString()},
     ).timeout( const Duration(seconds: 20)
 
     );
+
+    print(response.body);
     responseJson  = returnResponse(response) ;
     apiresponsehit=jsonDecode(response.body);
+    print(apiresponsehit);
   }on SocketException {
     throw InternetException('');
   }on RequestTimeOut {
@@ -113,7 +117,7 @@ apiresponsehit=jsonDecode(response.body);
       print(BarrierToken.toString());
       var response = await http.post(Uri.parse(url),
 
-            headers: { "Authorization":"Bearer $BarrierToken"},
+            headers: { "Authorization":"Bearer 292|S1KgjTAYIjIt4mKEt1nbczgzcFVBpFMstK06xNSw"},
 
 
           body: data

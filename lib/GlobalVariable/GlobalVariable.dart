@@ -17,6 +17,10 @@ String?choose;
 String ?listAsString;
 List <File>  Gallery1=[];
 List <String>  interests=[];
+
+String ?match_fromid;
+String ?match_withid;
+String ?Makerid;
 // File ? Gallery2;
 // File ? Gallery3;
 // File ? Gallery4;

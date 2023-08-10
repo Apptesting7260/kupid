@@ -4,17 +4,20 @@ class UserLoginModel {
      this.message,
      this.token,
      this.currentStep,
+     this.userType,
   });
-   String ?status;
-   String ?message;
-   String ?token;
-   int ?currentStep;
+  dynamic status;
+ dynamic message;
+ dynamic token;
+   dynamic currentStep;
+  dynamic userType;
   
   UserLoginModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
     token = json['token'];
     currentStep = json['current_step'];
+    userType = json['user_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +26,7 @@ class UserLoginModel {
     _data['message'] = message;
     _data['token'] = token;
     _data['current_step'] = currentStep;
+    _data['user_type'] = userType;
     return _data;
   }
 }

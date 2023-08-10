@@ -1,4 +1,4 @@
-import 'package:cupid_match/match_maker/group_message.dart';
+import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
@@ -125,7 +125,7 @@ class _CreateNewMatchesScreenState extends State<CreateNewMatchesScreen> {
                   width: MediaQuery.of(context).size.width * .63,
                   title: 'Leave a note for both',
                   onTap: () {
-                    Get.to(Message());
+                    Get.to(());
                   },
                 )
               ],

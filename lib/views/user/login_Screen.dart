@@ -1,8 +1,8 @@
 import 'package:cupid_match/controllers/UserLoginController/UserLoginController.dart';
-import 'package:cupid_match/match_maker/Tab_view.dart';
+import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
-import 'package:cupid_match/match_seeker/tab_screen.dart';
+import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/views/sign_up/choose_profile.dart';
 import 'package:cupid_match/views/sign_up/signup_screen.dart';
 import 'package:cupid_match/views/user/forgot_password.dart';
