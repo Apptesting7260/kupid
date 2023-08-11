@@ -12,6 +12,7 @@ String? datestring;
  String?Ocupasion;
 String verification_method="voter";
 String?nationality;
+File? ImagetoUpload;
 String?Subcriptiontype;
 String?choose;
 String ?listAsString;

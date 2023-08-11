@@ -152,8 +152,9 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
                       print('item 2nd ->  ' + '$_topItem2');
                       print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![_topItem2].name.toString());
 if(match_fromid!=null&&match_withid!=null){
-  // DoMatchesControllerinstance.DoMatchesApiHit();
-  ShowDialog(context);
+  DoMatchesControllerinstance.DoMatchesApiHit();
+  if(DoMatchesControllerinstance.DoMatches.value.msg=="Match request sent Successfully") {
+    ShowDialog(context);}
 }
                     },
                     child: Container(

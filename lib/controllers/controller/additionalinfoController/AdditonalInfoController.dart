@@ -37,10 +37,10 @@ Future<void> MakerAditonalApiHit() async {
     var request = http.MultipartRequest('POST', url);
 
     // Add the file to the request
-    var fileStream = http.ByteStream(imgFile!.openRead());
-    var length = await imgFile!.length();
+    var fileStream = http.ByteStream(ImagetoUpload!.openRead());
+    var length = await ImagetoUpload!.length();
     var multipartFile = http.MultipartFile('proof_photo', fileStream, length,
-        filename: imgFile!.path.split('/').last);
+        filename: ImagetoUpload!.path.split('/').last);
     request.files.add(multipartFile);
 
     // Add other text fields to the request+

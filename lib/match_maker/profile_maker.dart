@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
 import 'package:cupid_match/controllers/controller/ViewProfileDetailsController/ViewProfileDetailsController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
@@ -16,7 +17,7 @@ class ViewProfileDetailsMaker extends StatefulWidget {
 
 class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
 
-  final ViewProfileDetailsControllerinstance=Get.put(ViewProfileDetailsController());
+  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
   var ListItem = [
     {"Name": "Matches Made","Age": "26","Image": "assets/maker/img_2.png"},
     {"Name": "Matches Sucessfull","Age": "26","Image": "assets/maker/img_3.png"},
@@ -29,7 +30,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
   @override
   void initState() {
     // TODO: implement initState
-    ViewProfileDetailsControllerinstance.ViewProfileDetailsApiHit();
+    ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
   }
   @override
   Widget build(BuildContext context) {
@@ -62,11 +63,11 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
           child: MakerDrawer()
         ),
         body: Obx(() {
-          switch (ViewProfileDetailsControllerinstance.rxRequestStatus.value) {
+          switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
               return const Center(child: CircularProgressIndicator());
             case Status.ERROR:
-              if (ViewProfileDetailsControllerinstance.error.value == 'No internet') {
+              if (ViewMakerProfileDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
                   onPress: () {},
                 );
@@ -90,15 +91,15 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   SizedBox( height: height *0.09,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
+                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
                   SizedBox(height: height * 0.01,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
                   SizedBox(height: height * 0.01,),
                   Align(
                       alignment: Alignment.center,
-                      child: Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
                   SizedBox(height: height * 0.1,),
 
                   Padding(
@@ -110,7 +111,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   ),
                   Padding(padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                     child:  Text(
-                      ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
+                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -125,7 +126,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                     child: Text(
-                      ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
+                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -164,7 +165,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                                 ),
                                 SizedBox(height: height * 0.01,),
                                 Text(ListItem[index]['Name'] ??"Name",style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Color(0xff777777),fontSize: 4),),
-                                Text(ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
+                                Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
                               ],
                             ),
                           );
@@ -181,7 +182,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                     child: Text(
-                     ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
+                     ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -196,7 +197,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                     child: Text(
-                    ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
+                    ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppColors.subtitletextcolor,
                       ),
@@ -213,7 +214,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height  *0.01),
                     child: Text(
-                     ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
+                     ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                     ),
                   ),
@@ -232,7 +233,7 @@ class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
                     radius: 50,
                     child: CircleAvatar(
                       radius: 60,
-                      backgroundImage: NetworkImage( ViewProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
+                      backgroundImage: NetworkImage( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
                     ),
                   ),
                 ),

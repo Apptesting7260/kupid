@@ -14,7 +14,7 @@ import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
-import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewProfileDetailsModel.dart';
+import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 

@@ -33,7 +33,7 @@ class DoMatchesController extends GetxController {
     _api.DoMatcchesapi(Data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       DoMatchesrequest(value);
-      print(value);
+      print(value.msg);
     }).onError((error, stackTrace){
       setError(error.toString());
       print("error");

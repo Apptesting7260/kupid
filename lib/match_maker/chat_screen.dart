@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const    ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();

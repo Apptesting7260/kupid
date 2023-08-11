@@ -4,6 +4,9 @@ import 'package:cupid_match/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import 'match_maker/photo_access.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.light,
-      home:  SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

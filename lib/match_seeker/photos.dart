@@ -2,10 +2,11 @@ import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:convert';
+import 'package:image/image.dart' as imgLib;
 import 'dart:io';
 int emptgrid=9;
 
@@ -17,8 +18,48 @@ class PhotosScreen extends StatefulWidget {
 }
 List<dynamic> galarylength=["","2","3","4","5","6","7","8","9"];
 class _PhotosScreenState extends State<PhotosScreen> {
+
+  final ImagePicker imgPicker = ImagePicker();
+
+
+  // File? imgFile;
+  // File? compressedFile;
+  // Future<void> openCamera(ImageSource source) async {
+  //   var imgCamera = await imgPicker.pickImage(source: source);
+  //
+  //   if (imgCamera != null) {
+  //     setState(() {
+  //       imgFile = File(imgCamera.path);
+  //     });
+  //
+  //     // Run compression in a background isolate
+  //     await compressImageInBackground(imgFile!);
+  //   }
+  // }
+  // Future<void> compressImageInBackground(File imageFile) async {
+  //   final compressedFile = await compute(compressImage, imageFile);
+  //   setState(() {
+  //     this.compressedFile = compressedFile;
+  //
+  //     ImagetoUpload=compressedFile;
+  //     print("${ImagetoUpload!.path}==========================");
+  //   });
+  // }
+  // static File compressImage(File imageFile) {
+  //   var image = imgLib.decodeImage(imageFile.readAsBytesSync())!;
+  //   var compressedImage = imgLib.encodeJpg(image, quality: 50);
+  //   File compressedFile = File(imageFile.path.replaceAll('.jpg', '_compressed.jpg'))
+  //     ..writeAsBytesSync(compressedImage);
+  //   print("Original image size: ${imageFile.lengthSync()} bytes");
+  //   print("Compressed image size: ${compressedFile.lengthSync()} bytes");
+  //   // print("Compressed image path: ${compressedFile.path}");
+  //
+  //   return compressedFile;
+  // }
+  //
+
   File imgFile = File("");
-  final imgPicker = ImagePicker();
+
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -33,25 +74,13 @@ class _PhotosScreenState extends State<PhotosScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child: Text(
-                    "Camera",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontSize: 13),
-                  ),
+                  child: Icon(Icons.camera_alt_outlined,color: Colors.pink,),
                   onTap: () {
                     openCamera(ImageSource.camera);
                   },
                 ),
                 GestureDetector(
-                  child: Text(
-                    "Gallery",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontSize: 13),
-                  ),
+                  child: Icon(Icons.photo_library,color: Colors.pink,),
                   onTap: () {
                     openCamera(ImageSource.gallery);
                   },

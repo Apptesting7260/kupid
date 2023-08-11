@@ -1,8 +1,12 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:flutter/foundation.dart';
+import 'package:image/image.dart' as imgLib; // Im
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/additionalinfoController/AdditonalInfoController.dart';
 import 'package:cupid_match/match_maker/payment_screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,30 +20,78 @@ class GalleryAccess extends StatefulWidget {
 }
 
 class _GalleryAccessState extends State<GalleryAccess> {
-  final AdditonalInfpMakerControllerinstance=Get.put(AdditonalInfpMakerController());
+  final AdditonalInfpMakerControllerinstance =
+      Get.put(AdditonalInfpMakerController());
+  final ImagePicker imgPicker = ImagePicker();
 
 
-   final imgPicker = ImagePicker();
+  File? imgFile;
+  File? compressedFile;
+  Future<void> openCamera(ImageSource source) async {
+    var imgCamera = await imgPicker.pickImage(source: source);
+
+    if (imgCamera != null) {
+      setState(() {
+        imgFile = File(imgCamera.path);
+      });
+
+      // Run compression in a background isolate
+      await compressImageInBackground(imgFile!);
+    }
+  }
+  Future<void> compressImageInBackground(File imageFile) async {
+    final compressedFile = await compute(compressImage, imageFile);
+    setState(() {
+      this.compressedFile = compressedFile;
+
+      ImagetoUpload=compressedFile;
+      print("${ImagetoUpload!.path}==========================");
+    });
+  }
+  static File compressImage(File imageFile) {
+    var image = imgLib.decodeImage(imageFile.readAsBytesSync())!;
+    var compressedImage = imgLib.encodeJpg(image, quality: 50);
+    File compressedFile = File(imageFile.path.replaceAll('.jpg', '_compressed.jpg'))
+      ..writeAsBytesSync(compressedImage);
+    print("Original image size: ${imageFile.lengthSync()} bytes");
+    print("Compressed image size: ${compressedFile.lengthSync()} bytes");
+    // print("Compressed image path: ${compressedFile.path}");
+
+    return compressedFile;
+  }
+
+
+  File? galleryFile;
+  final picker = ImagePicker();
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Choose",style: Theme.of(context).textTheme.titleLarge,),
+            title: Text(
+              "Choose",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             //Image Picker
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  child: Text("Camera",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Icon(
+                    Icons.camera_alt,
+
+                    color: Colors.pink,
+                  ),
                   onTap: () {
                     openCamera(ImageSource.camera);
+                    Navigator.of(context).pop();
                   },
                 ),
                 GestureDetector(
-                  child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+                  child: Icon(Icons.photo_library,color: Colors.pink,),
                   onTap: () {
                     openCamera(ImageSource.gallery);
+                    Navigator.of(context).pop();
                   },
                 ),
               ],
@@ -48,29 +100,16 @@ class _GalleryAccessState extends State<GalleryAccess> {
         });
   }
 
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
-    setState(() {
-      imgFile = File(imgCamera!.path);
-
-      print(imgFile
-      );
-    });
-    Navigator.of(context).pop();
-  }
-  File? galleryFile;
-  final picker = ImagePicker();
-
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
 
     setState(() {
-      imgFile=null;
+      imgFile = null;
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -121,15 +160,24 @@ class _GalleryAccessState extends State<GalleryAccess> {
               SizedBox(
                 height: height * 0.04,
               ),
-             
               const SizedBox(
                 height: 20,
               ),
               SizedBox(
                 height: height * .4,
                 width: width,
-                child: imgFile == null
-                    ?  Center(child: Container(height: Get.height*0.4,width: Get.width,decoration: BoxDecoration(image:DecorationImage(image: AssetImage("assets/images/Upload.png"))),),)
+                child:
+                imgFile == null
+                    ? Center(
+                        child: Container(
+                          height: Get.height * 0.4,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage("assets/images/Upload.png"))),
+                        ),
+                      )
                     : Center(child: Image.file(imgFile!)),
               ),
               SizedBox(
@@ -140,50 +188,58 @@ class _GalleryAccessState extends State<GalleryAccess> {
                 children: [
                   Column(
                     children: [
-                    if(imgFile==null)  MyButton(
-                          width: width * 0.4, title: "Select", onTap: () {
-                            setState(() {
-                            // imgFile=null;
-                               showOptionsDialog(context);
-                            });
-                          }),
-                        if(imgFile!=null) MyButton(
-                          width: width * 0.4, title: "Replace", onTap: () {
-                            setState(() {
-                            imgFile=null;
-                               showOptionsDialog(context);
-                            });
-                          }),
+                      if (imgFile == null)
+                        MyButton(
+                            width: width * 0.4,
+                            title: "Select",
+                            onTap: () {
+                              setState(() {
+                                // imgFile=null;
+                                showOptionsDialog(context);
+                              });
+                            }),
+                      if (imgFile != null)
+                        MyButton(
+                            width: width * 0.4,
+                            title: "Replace",
+                            onTap: () {
+                              setState(() {
+                                imgFile = null;
+                                showOptionsDialog(context);
+                              });
+                            }),
                     ],
                   ),
                   Column(children: [
-                  Obx(() =>  OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          side: BorderSide(color: Color(0xff000CAA), width: 2),
-                          fixedSize: Size(150, 60)),
-                      onPressed: () {
-AdditonalInfpMakerControllerinstance.MakerAditonalApiHit();
-                    // Get.to(PaymentScreen());
-                      },
-                      child: AdditonalInfpMakerControllerinstance.loading.value==true?LoadingAnimationWidget.inkDrop(
-          color: Colors.pink,
-          size: 30,
-        ):
-                      
-                      Text(
-
-
-
-                        "Continue",
-
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: Color(0xff000CAA)),
+                    Obx(
+                      () => OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            side:
+                                BorderSide(color: Color(0xff000CAA), width: 2),
+                            fixedSize: Size(150, 60)),
+                        onPressed: () {
+                          AdditonalInfpMakerControllerinstance
+                              .MakerAditonalApiHit();
+                          // Get.to(PaymentScreen());
+                        },
+                        child: AdditonalInfpMakerControllerinstance
+                                    .loading.value ==
+                                true
+                            ? LoadingAnimationWidget.inkDrop(
+                                color: Colors.pink,
+                                size: 30,
+                              )
+                            : Text(
+                                "Continue",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(color: Color(0xff000CAA)),
+                              ),
                       ),
-                    ),) 
+                    )
 
                     // OutlinedButton(onPressed: (){
                     //   Get.to(PaymentScreen());

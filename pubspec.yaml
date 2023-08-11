@@ -64,7 +64,10 @@ dependencies:
   shared_preferences: ^2.2.0
   flutter_typeahead: ^4.6.2
   cached_network_image: ^3.2.3
-  # flutter_slot_machine: ^0.0.2
+  image: ^4.0.17
+  flutter_image_compress: ^2.0.4
+  
+
 
 
 

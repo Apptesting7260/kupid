@@ -1,20 +1,13 @@
-import 'dart:convert';
-import 'dart:math';
-import 'package:http/http.dart' as http;
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/match_maker/photo_access.dart';
-import 'package:cupid_match/models/CountryModel/country_model.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:get/get.dart';
 
-import '../controllers/country_controller.dart';
-import '../data/response/status.dart';
-import '../example.dart';
-import '../utils/app_colors.dart';
+import '../country_name_with_flag_widget.dart';
 
 enum SelectProfile {National,Passport,Driver}
 
@@ -26,64 +19,7 @@ class VerificationMethod extends StatefulWidget {
 }
 
 class _VerificationMethodState extends State<VerificationMethod> {
-  CountryController countryController = Get.put(CountryController());
-  //*********************** country code method fake ***********************
-  void showCountryDropdown(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        List<String> countryNames = countryController.userList.value.countries!
-            .map((country) => country.name.toString())
-            .toList();
-
-        return AlertDialog(
-          content:
-          DropdownButton<String>(
-            icon: Icon(Icons.keyboard_arrow_down_outlined,color: Colors.pink,size: 20,),
-            isExpanded:true,
-            underline: Container(), // Hide the default underline
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-            ),
-            selectedItemBuilder: (BuildContext context) {
-              return countryNames.map((String value) {
-                return Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.pink,
-                  ),
-                );
-              }).toList();
-            },
-            items: countryNames.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700),),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              // Handle dropdown selection here
-              print(newValue);
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  final seachcountry =TextEditingController();
-  List<Countries> searchCountryList = [];
-
-
   SelectProfile selectProfile = SelectProfile.National;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    countryController.userListApi();
-  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -95,22 +31,14 @@ class _VerificationMethodState extends State<VerificationMethod> {
         },
             icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
         title: Text(
-          "Payment",
+          "Proof of Residency",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
       body: ListView(
         children: [
-          SizedBox(height: height * 0.03,),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: width * 0.04,),
-            child: Text(
-              "Proof of Residency",
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ),
-          SizedBox(height: height * 0.05,),
+          SizedBox(height: Get.height*0.03,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.04),
             child: Text(
@@ -118,57 +46,10 @@ class _VerificationMethodState extends State<VerificationMethod> {
               style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600,fontSize: 14),
             ),
           ),
-          SizedBox(height: height * 0.05,),
-          ///********************** working on country code *(******************************
-          // CustomCountryWidget(),
-
-
-
-
-
-          // Obx(() {
-          //   switch(countryController.rxRequestStatus.value){
-          //     case Status.LOADING:
-          //       return Center(child: CircularProgressIndicator(),);
-          //     case Status.ERROR:
-          //       return Center(child: Text("fdshfs"),);
-          //     case Status.COMPLETED:
-          //       return Padding(
-          //         padding: const EdgeInsets.symmetric(horizontal:12.0),
-          //         child: Container(
-          //           height: Get.height*0.072,
-          //           //width: Get.width*0.14,
-          //           decoration: BoxDecoration(
-          //               border: Border.all(
-          //                   color: Colors.grey,width: 1
-          //               ),
-          //               borderRadius: BorderRadius.circular(30)
-          //           ),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Padding(
-          //                 padding: const EdgeInsets.only(left: 18.0),
-          //                 child: GestureDetector(
-          //                     onTap: (){
-          //                       print(countryController.userList.value.countries![0].name.toString());
-          //                       showCountryDropdown(context);
-          //                     },
-          //                     child: Text("Select Country",style: TextStyle(fontSize: 18,color: Colors.black,))),
-          //               ),
-          //               Padding(
-          //                 padding: const EdgeInsets.only(right: 18.0),
-          //                 child: Text("Change",style: TextStyle(fontSize: 21,color: Colors.pink,fontFamily:FontWeight.w700.toString()),),
-          //               )
-          //             ],
-          //           ),
-          //         ),
-          //       );
-          //   }
-          // }),
-
-
-
+          SizedBox(height: height * 0.01,),
+          Container(
+              height: Get.height*0.132,
+              child: CustomCountryNameFlag()),
 
 
 

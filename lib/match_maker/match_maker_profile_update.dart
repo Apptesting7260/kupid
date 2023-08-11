@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:image/image.dart' as imgLib;
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:cupid_match/match_maker/verify_identity.dart';
@@ -8,6 +9,7 @@ import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -115,53 +117,42 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
 
   File? galleryFile;
   final picker = ImagePicker();
-  void _showPicker({
-    required BuildContext context,
-  }) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              'Choose',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            // Video Picker
-            content:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: Text(
-                    'Camera',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontSize: 13),
-                  ),
-                  onTap: () {
-                    getVideo(ImageSource.camera);
-                    Navigator.pop(context);
-                  },
-                ),
-                GestureDetector(
-                  child: Text(
-                    'Gallery',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontSize: 13),
-                  ),
-                  onTap: () {
-                    getVideo(ImageSource.gallery);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          );
-        });
+  File? compressedFile;
+  Future<void> openCamera(ImageSource source) async {
+    var imgCamera = await imgPicker.pickImage(source: source);
+
+    if (imgCamera != null) {
+      setState(() {
+        imgFile = File(imgCamera.path);
+      });
+
+      // Run compression in a background isolate
+      await compressImageInBackground(imgFile!);
+    }
   }
+  Future<void> compressImageInBackground(File imageFile) async {
+    final compressedFile = await compute(compressImage, imageFile);
+    setState(() {
+      this.compressedFile = compressedFile;
+
+      ImagetoUpload=compressedFile;
+      print("${ImagetoUpload!.path}==========================");
+    });
+  }
+
+  static File compressImage(File imageFile) {
+    var image = imgLib.decodeImage(imageFile.readAsBytesSync())!;
+    var compressedImage = imgLib.encodeJpg(image, quality: 50);
+    File compressedFile = File(imageFile.path.replaceAll('.jpg', '_compressed.jpg'))
+      ..writeAsBytesSync(compressedImage);
+    print("Original image size: ${imageFile.lengthSync()} bytes");
+    print("Compressed image size: ${compressedFile.lengthSync()} bytes");
+    // print("Compressed image path: ${compressedFile.path}");
+
+    return compressedFile;
+  }
+
+
 
   Future getVideo(
     ImageSource img,
@@ -190,97 +181,6 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
   }
-  // Future<DateTime?> showDatePicker({
-  //   required BuildContext context,
-  //   required DateTime initialDate,
-  //   required DateTime firstDate,
-  //   required DateTime lastDate,
-  //   DateTime? currentDate,
-  //   DatePickerEntryMode initialEntryMode = DatePickerEntryMode.calendar,
-  //   SelectableDayPredicate? selectableDayPredicate,
-  //   String? helpText,
-  //   String? cancelText,
-  //   String? confirmText,
-  //   Locale? locale,
-  //   bool useRootNavigator = true,
-  //   RouteSettings? routeSettings,
-  //   TextDirection? textDirection,
-  //   TransitionBuilder? builder,
-  //   DatePickerMode initialDatePickerMode = DatePickerMode.day,
-  //   String? errorFormatText,
-  //   String? errorInvalidText,
-  //   String? fieldHintText,
-  //   String? fieldLabelText,
-  //   TextInputType? keyboardType,
-  //   Offset? anchorPoint,
-  //   final ValueChanged<DatePickerEntryMode>? onDatePickerModeChange
-  // }) async {
-  //   initialDate = DateUtils.dateOnly(initialDate);
-  //   firstDate = DateUtils.dateOnly(firstDate);
-  //   lastDate = DateUtils.dateOnly(lastDate);
-  //   assert(
-  //   !lastDate.isBefore(firstDate),
-  //   'lastDate $lastDate must be on or after firstDate $firstDate.',
-  //   );
-  //   assert(
-  //   !initialDate.isBefore(firstDate),
-  //   'initialDate $initialDate must be on or after firstDate $firstDate.',
-  //   );
-  //   assert(
-  //   !initialDate.isAfter(lastDate),
-  //   'initialDate $initialDate must be on or before lastDate $lastDate.',
-  //   );
-  //   assert(
-  //   selectableDayPredicate == null || selectableDayPredicate(initialDate),
-  //   'Provided initialDate $initialDate must satisfy provided selectableDayPredicate.',
-  //   );
-  //   assert(debugCheckHasMaterialLocalizations(context));
-
-  //   Widget dialog = DatePickerDialog(
-
-  //     initialDate: initialDate,
-  //     firstDate: firstDate,
-  //     lastDate: lastDate,
-  //     currentDate: currentDate,
-  //     initialEntryMode: initialEntryMode,
-  //     selectableDayPredicate: selectableDayPredicate,
-  //     helpText: helpText,
-  //     cancelText: cancelText,
-  //     confirmText: confirmText,
-  //     initialCalendarMode: initialDatePickerMode,
-  //     errorFormatText: errorFormatText,
-  //     errorInvalidText: errorInvalidText,
-  //     fieldHintText: fieldHintText,
-  //     fieldLabelText: fieldLabelText,
-  //     keyboardType: keyboardType,
-  //     onDatePickerModeChange: onDatePickerModeChange,
-  //   );
-
-  //   // if (textDirection != null) {
-  //   //   dialog = Directionality(
-  //   //     textDirection: textDirection,
-  //   //     child: dialog,
-  //   //   );
-  //   // }
-
-  //   if (locale != null) {
-  //     dialog = Localizations.override(
-  //       context: context,
-  //       locale: locale,
-  //       child: dialog,
-  //     );
-  //   }
-
-  //   return showDialog<DateTime>(
-  //     context: context,
-  //     useRootNavigator: useRootNavigator,
-  //     routeSettings: routeSettings,
-  //     builder: (BuildContext context) {
-  //       return builder == null ? dialog : builder(context, dialog);
-  //     },
-  //     anchorPoint: anchorPoint,
-  //   );
-  // }
 
   final imgPicker = ImagePicker();
   Future<void> showOptionsDialog(BuildContext context) {
@@ -304,14 +204,9 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   ),
                   onTap: () {
                     openCamera(ImageSource.camera);
+                    Navigator.of(context).pop();
                   },
                 ),
-                // GestureDetector(
-                //   child: Text("Camera",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
-                //   onTap: () {
-                //     openCamera(ImageSource.camera);
-                //   },
-                // ),
 
                 GestureDetector(
                   child: Icon(
@@ -320,6 +215,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   ),
                   onTap: () {
                     openCamera(ImageSource.gallery);
+                    Navigator.of(context).pop();
                   },
                 ),
                 // GestureDetector(
@@ -334,15 +230,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
         });
   }
 
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
-    setState(() {
-      imgFile = File(imgCamera!.path);
 
-      print(imgFile);
-    });
-    Navigator.of(context).pop();
-  }
 
   SelectProfile selectProfile = SelectProfile.gender;
   @override
