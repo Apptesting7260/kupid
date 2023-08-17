@@ -10,6 +10,7 @@ import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
@@ -23,6 +24,7 @@ import 'package:get/get.dart';
 
 var response;
 class SeekerProfileController extends GetxController {
+  final SignUpControllerinstance=Get.put(SignUpController());
 
   final _api = AuthRepository();
 
@@ -43,8 +45,10 @@ class SeekerProfileController extends GetxController {
   final SecondanswerController = TextEditingController().obs;
   final ThirdanswerController = TextEditingController().obs;
    final CorrectanswerController = TextEditingController().obs;
+   final SalaryController = TextEditingController().obs;
 
   Future<void> SeekerProfileApiHit() async {
+    final sp= await SharedPreferences.getInstance();
     loading.value = true ;
     try {
       // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
@@ -54,17 +58,23 @@ class SeekerProfileController extends GetxController {
       var request = http.MultipartRequest('POST', url);
 
       // Add the file to the request
-      var fileStream = http.ByteStream(imgFile!.openRead());
-      var length = await imgFile!.length();
+      if(ImagetoUpload==null){
+
+      }else{
+        print("object");
+         var fileStream = http.ByteStream(ImagetoUpload!.openRead());
+      var length = await ImagetoUpload!.length();
       var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-          filename: imgFile!.path.split('/').last);
+          filename: ImagetoUpload!.path.split('/').last);
       request.files.add(multipartFile);
-  print(imgFile);
+  print(ImagetoUpload);
+      }
+     
       // Add other text fields to the request+
       request.fields['name'] = NameController.value.text;
-      request.fields['email'] = EmailController.value.text;
+      request.fields['email'] = SignUpControllerinstance.credentialsController.toString();
       request.fields['phone'] = PhoneController.value.text;
-      request.fields['address'] = AddressController.value.text;
+      request.fields['address'] = Sikeraddress.toString();
       request.fields['height'] = HeightController.value.text + "." + InchesController.value.text;
       request.fields['question'] = QuestionController.value.text;
       request.fields['first_answer'] = FirstanswerController.value.text;
@@ -74,15 +84,25 @@ class SeekerProfileController extends GetxController {
       request.fields['dob'] = datestring.toString();
       request.fields['location'] = SelectedLocation.toString();
       request.fields['occupation'] = Ocupasion.toString();
-      request.fields['gender'] = SelectedGender.toString();
+      request.fields['gender'] = selectGender.toString();
       request.fields['type'] = "2";
-      request.headers['Authorization'] = "Bearer $BarrierToken";
-//       var videoStream = http.ByteStream(videoFile!.openRead());
-//       var videoLength = await videoFile!.length();
-//       var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);
-//       request.files.add(videoFileField);
-// print(videoFile);
+      request.fields['salary'] =SalaryController.value.text;
+      request.fields['religion'] =SikerReligon.toString();
+
+      
+      request.headers['Authorization'] = "Bearer ${sp.getString("BarearToken")}";
+   if(videoFile==null){
+
+   } else{
+var videoStream = http.ByteStream(videoFile!.openRead());
+      var videoLength = await videoFile!.length();
+      var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);
+      request.files.add(videoFileField);
+print(videoFile);
       print(BarrierToken);
+
+   }  
+      print( request.fields['phone'] = PhoneController.value.text);
       // Send the request and get the response
        response = await request.send();
       var responseBody = await response.stream.bytesToString();

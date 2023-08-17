@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/ViewProfileDetailsController/ViewProfileDetailsController.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
@@ -9,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class SikerProfilePage extends StatefulWidget {
+  const SikerProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<SikerProfilePage> createState() => _SikerProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _SikerProfilePageState extends State<SikerProfilePage> {
 
   final ViewSikerProfileDetailsControllernstance=Get.put(ViewSikerProfileDetailsController());
 
@@ -24,10 +23,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
-
-    setState(() {
-      userIdsiker=null;
-    });
     // TODO: implement initState
     super.initState();
   }
@@ -106,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     SizedBox(
                                       height: height * .01,
                                     ),
-                                    Text(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation==null?"":ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation.toString(),
+                                    Text(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium!
@@ -185,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation==null?"":ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation.toString(),
+                            Text(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupation.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!

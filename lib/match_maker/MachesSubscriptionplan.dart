@@ -72,7 +72,7 @@ class _MatchesSubcreiptionPlanState extends State<MatchesSubcreiptionPlan> {
                             ),
                       Container(
                         height: Get.height*0.4,
-                        child: Center(child: Text("Data is Empty",style: TextStyle(color:Colors.black),)),),
+                        child: Center(child: Text("No Subscription Found",style: TextStyle(color:Colors.black),)),),
                       Center(
                         
                               child: MyButton(

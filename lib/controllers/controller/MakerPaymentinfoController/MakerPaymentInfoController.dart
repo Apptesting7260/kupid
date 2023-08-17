@@ -23,10 +23,10 @@ class MakerPaymentInfoController extends GetxController {
     loading.value = true ;
     print(loading.value);
     Map data = {
-      'fullname' : SignUpControllerinstance.credentialsController.value.text,
-      'bankname' : SignUpControllerinstance.credentialsController.value.text,
-      'account_no' : SignUpControllerinstance.credentialsController.value.text,
-      'ifsc_code' : SignUpControllerinstance.credentialsController.value.text,
+      'fullname' : fullnamecontroller.value.text,
+      'bankname' : banknamecontroller.value.text,
+      'account_no' :account_nocontroller.value.text,
+      'ifsc_code' : ifsc_codecontroller.value.text,
 
     
     };

@@ -34,7 +34,7 @@ class ForgotPasswordResetController extends GetxController {
     _api.ForgotPasswordResetApi(data).then((value){
       loading.value = false ;
       print(value);
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
       //Get.to(() => Verification());
 
     }).onError((error, stackTrace){

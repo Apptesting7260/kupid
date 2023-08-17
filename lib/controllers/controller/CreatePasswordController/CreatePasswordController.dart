@@ -37,8 +37,8 @@ class CreatePasswordController extends GetxController {
     _api.CreatePasswordApi(data).then((value){
       loading.value = false ;
       print(value);
-      Utils.snackBar( "Message",value.msg.toString());
-      Timer(Duration(seconds: 2), () { Get.to(() => ChooseProfile());});
+      // Utils.snackBar( "Message",value.msg.toString());
+    Get.to(() => ChooseProfile());
 
 
     }).onError((error, stackTrace){

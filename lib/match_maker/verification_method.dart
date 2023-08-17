@@ -82,7 +82,7 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
-                      verification_method="Votor";
+                      verification_method="nationality_identity_card";
 
                       print(verification_method);
                     });
@@ -136,7 +136,7 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
-                      verification_method="Passport";
+                      verification_method="passport";
                       print(verification_method);
                     });
                   },
@@ -165,7 +165,7 @@ class _VerificationMethodState extends State<VerificationMethod> {
                   onChanged: (value){
                     setState(() {
                       selectProfile = value!;
-                      verification_method="Driver License";
+                      verification_method="driver_license";
 
                       print(verification_method);
                     });

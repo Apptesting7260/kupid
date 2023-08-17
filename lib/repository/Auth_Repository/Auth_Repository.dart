@@ -16,6 +16,7 @@ import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
 import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
+import 'package:cupid_match/models/ViewSikerDetailsToMatchModel,.dart/ViewSikerDetailsModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
 import '../../models/AllOcupationsModel/AllOcupationsModel.dart';
@@ -85,7 +86,7 @@ Future<SikerCreateProfileModel> SeekerProfileApi(var data) async{
 }
 
 Future<MakerPaymentInfoModel> MakerPaymentInfoApi(var data) async{
-  dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/maker/update-additional-info");
+  dynamic response = await _apiService.postApi2(data, AppUrl.MakerPaymentUrl);
   print(response);
   return MakerPaymentInfoModel.fromJson(response) ;
 }
@@ -173,4 +174,16 @@ Future<ViewMakerProfileModel> ViewMakerProfileDetailsApi(var data ) async{
   print(response);
   return ViewMakerProfileModel.fromJson(response) ;
 }
+
+Future<ViewSikerDetailsToMatchModel> ViewSikerDetailsToMatchApi(var data ) async{
+  print("hited");
+  dynamic response = await _apiService.postApi2(data,AppUrl.viewuserprofileUrl);
+  print(response);
+  return ViewSikerDetailsToMatchModel.fromJson(response) ;
+}
+
+
+
+
+
 }

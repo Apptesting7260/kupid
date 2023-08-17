@@ -33,7 +33,7 @@ class ForgotPasswordController extends GetxController {
 
       Verificationemail=EmailController.value.text;
       print(value);
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
       // Get.to(() => ChooseProfile());
       Get.to(() => Verification(
 

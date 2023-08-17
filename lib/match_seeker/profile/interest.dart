@@ -91,7 +91,7 @@ class _InterestState extends State<Interest> {
                       height: height * .1,
                       width: width * .5,
                       decoration: BoxDecoration(
-                        color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Color(0xff000CAA):Colors.transparent,
+                        color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true? Colors.pink:Colors.transparent,
                           border: Border.all(color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white:Colors.grey),
                           borderRadius: BorderRadius.circular(30)),
                       child: Padding(
@@ -99,12 +99,12 @@ class _InterestState extends State<Interest> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==false) Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].unselectedIconPath.toString()),
+                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==false) Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].unselectedIconPath.toString(),color:  Colors.pink),
                            if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true)Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].selectedIconPath.toString()),
                             SizedBox(width: width * .02),
                             Text(
                               SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString(),
-                              style: TextStyle(color:SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white:Color(0xff000CAA))
+                              style: TextStyle(color:SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white: Colors.pink)
                             )
                           ],
                         ),

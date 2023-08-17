@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cupid_match/controllers/UserLoginController/UserLoginController.dart';
+import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
+import 'package:cupid_match/utils/utils.dart';
 import 'package:image/image.dart' as imgLib;
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:country_picker/country_picker.dart';
@@ -16,6 +19,7 @@ import 'package:flutter/material.dart';
 // import 'package:country_picker/country_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:video_player/video_player.dart';
 // import 'package:intl_phone_field/countries.dart';
 
 import '../GlobalVariable/GlobalVariable.dart';
@@ -25,8 +29,7 @@ import 'package:http/http.dart' as http;
 
 enum SelectProfile { gender }
 
-File? videoFile;
-
+String ?pachedemail;
 class MakerProfileDetails extends StatefulWidget {
   const MakerProfileDetails({Key? key}) : super(key: key);
 
@@ -35,6 +38,8 @@ class MakerProfileDetails extends StatefulWidget {
 }
 
 class _MakerProfileDetailsState extends State<MakerProfileDetails> {
+
+  final UserLoginControllerinstance=Get.put(UserLoginController());
   //DateTime? startdate;
   FocusNode _dropdownFocus1 = FocusNode();
   FocusNode _dropdownFocus2 = FocusNode();
@@ -66,6 +71,9 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   final locationcntroller = TextEditingController();
   MakerProfileController MakerProfileControllerInstanse =
       Get.put(MakerProfileController());
+
+        SignUpController SignUpControllerInstanse =
+      Get.put(SignUpController());
   String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
@@ -81,13 +89,13 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   String? selectedValue;
   var items = ['22', '23', '24', '25', '26'];
 
-  String? selectGender;
-  var genderItems = ["Male", "Female", "Other"];
+
+  var genderItems = ["male", "female", "other"];
 
   String? selectLocationItems;
   var locationItems = ["Jaipur, indian", "Sikar"];
 
-  String? selectExperience;
+
   var experienceItems = [
     "Bigginer",
     "Experience",
@@ -96,24 +104,68 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
     "5 Month experience"
   ];
 
-  Future<File?> pickVideo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowMultiple: false,
-    );
+  // Future<File?> pickVideo() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.video,
+  //     allowMultiple: false,
+  //   );
 
-    if (result != null) {
-      videoFile = File(result.files.single.path!);
+  //   if (result != null) {
+  //     videoFile = File(result.files.single.path!);
+  //     setState(() {
+  //       videoFile;
+  //     });
+  //     print(videoFile);
+  //     return videoFile;
+  //   } else {
+  //     // User canceled the file picker
+  //     return null;
+  //   }
+  // }
+Future<File?> pickVideo() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.video,
+    allowMultiple: false,
+  );
+
+  if (result != null) {
+     videoFile = File(result.files.single.path!);
+
+    // Validate video size
+    final videoSize = videoFile!.lengthSync(); // in bytes
+
+    if (videoSize > 5 * 1024 * 1024) {
+      print('Video size exceeds 5 MB');
+            Utils.snackBar( "Message","Video size exceeds It Should heighest 5 MB");
+      return null;
+    }
+
+    // Validate video duration
+    final VideoPlayerController controller = VideoPlayerController.file(videoFile!);
+    await controller.initialize();
+    final videoDuration = controller.value.duration;
+    await controller.dispose();
+
+    if (videoDuration <= Duration(seconds: 30)) {
+      print('Selected video duration: ${videoDuration.inSeconds} seconds');
+      print(videoFile!.path);
       setState(() {
         videoFile;
       });
-      print(videoFile);
+
       return videoFile;
     } else {
-      // User canceled the file picker
+      print('Video duration exceeds 30 seconds');
+            Utils.snackBar( "Message","Video duration exceeds 30 seconds");
+
       return null;
     }
+  } else {
+    // User canceled the file picker
+    print('User canceled file picking');
+    return null;
   }
+}
 
   File? galleryFile;
   final picker = ImagePicker();
@@ -177,7 +229,11 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   @override
   void initState() {
     // TODO: implement initState
+    setState(() {
+      pachedemail;
+    });
     super.initState();
+
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
   }
@@ -195,7 +251,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
             )),
             //Image Picker
             content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, 
               children: [
                 GestureDetector(
                   child: Icon(
@@ -497,11 +553,12 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   SizedBox(
                     height: height * .01,
                   ),
-                  TextFormField(
+                if(pachedemail==null)  TextFormField(
                     controller:
-                        MakerProfileControllerInstanse.EmailController.value,
+                        SignUpControllerInstanse.credentialsController.value,
+                        enabled: false,
                     decoration: InputDecoration(
-                      hintText: "example@gmail.com",
+                      hintText:pachedemail==null? "example@gmail.com":pachedemail,
                       contentPadding: EdgeInsets.all(20),
                       hintStyle: Theme.of(context)
                           .textTheme
@@ -534,16 +591,53 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                             color: Color(0xffBABABA),
                           )),
                     ),
-                    onFieldSubmitted: (value) {},
-                    validator: (value) {
-                      if (value!.isEmpty ||
-                          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value)) {
-                        return 'Enter a valid email!';
-                      }
-                      return null;
-                    },
+                    // onFieldSubmitted: (value) {},
+                    // validator: (value) {
+                    //   if (value!.isEmpty ||
+                    //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    //           .hasMatch(value)) {
+                    //     return 'Enter a valid email!';
+                    //   }
+                    //   return null;
+                    // },
                   ),
+                  // if(pachedemail!.isNotEmpty) TextFormField(
+                  
+                  //       enabled: false,
+                  //   decoration: InputDecoration(
+                  //     hintText:pachedemail,
+                  //     contentPadding: EdgeInsets.all(20),
+                  //     hintStyle: Theme.of(context)
+                  //         .textTheme
+                  //         .bodyLarge
+                  //         ?.copyWith(color: AppColors.subtitletextcolor),
+                  //     //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(30),
+                  //       borderSide: BorderSide(color: Colors.pinkAccent),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(30),
+                  //       borderSide: BorderSide(color: Color(0xffBABABA)),
+                  //     ),
+                  //     errorBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  //       borderSide: BorderSide(color: Colors.red),
+                  //     ),
+                  //     disabledBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  //       borderSide: BorderSide(color: Color(0xffBABABA)),
+                  //     ),
+                  //     focusedErrorBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  //       borderSide: BorderSide(color: Colors.pink),
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(30),
+                  //         borderSide: BorderSide(
+                  //           color: Color(0xffBABABA),
+                  //         )),
+                  //   ),),
                   SizedBox(
                     height: height * 0.03,
                   ),
@@ -663,6 +757,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                         onChanged: (String? value) {
                           setState(() {
                             selectGender = value;
+                            print(selectGender);
                           });
                         },
                         buttonStyleData: ButtonStyleData(
@@ -934,7 +1029,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
-                        hint: Text("Select Gender"),
+                        hint: Text("Select Experience"),
                         items: experienceItems.map((String items) {
                           return DropdownMenuItem(
                             value: items,
@@ -945,6 +1040,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                         onChanged: (String? value) {
                           setState(() {
                             selectExperience = value;
+                            print(selectExperience);
                           });
                         },
                         buttonStyleData: ButtonStyleData(

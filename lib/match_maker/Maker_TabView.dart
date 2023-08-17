@@ -40,51 +40,50 @@ class _Maker_TabViewState extends State<Maker_TabView> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.white,
-          onPressed: () {
-
-                   Get.to(MatchScreen());
-          },
-          child: Icon(
-            Icons.add,
-            size: 30,
-            color: Color(0xffFE0091),
-          ),
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {
+   Get.to(MatchScreen());
+        },
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: Color(0xffFE0091),
         ),
-        key: drawerKey,
-        body: SafeArea(
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: PageView(
-              controller: pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: (index) => pageChanged(index),
-              children: [
-                HomePage(),
+      ),
+      key: drawerKey,
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: PageView(
+            controller: pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (index) => pageChanged(index),
+            children: [
+ 
+
+
+        HomePage(),
                 MakerLikes(),
              
                 ChatScreenMaker(),
                 ViewProfileDetailsMaker(),
-              ],
-            ),
+            ],
           ),
         ),
-        bottomNavigationBar: Bottom(
-          bottomSelectedIndex: bottomSelectedIndex!,
-          bottomTapped: bottomTapped,
-        ),
+      ),
+      bottomNavigationBar: Bottom(
+        bottomSelectedIndex: bottomSelectedIndex!,
+        bottomTapped: bottomTapped,
       ),
     );
   }
 
   void bottomTapped(int index) {
     setState(
-          () {
+      () {
         bottomSelectedIndex = index;
         pageController!.animateToPage(index,
             duration: const Duration(microseconds: 1), curve: Curves.ease);
@@ -101,14 +100,14 @@ class _Maker_TabViewState extends State<Maker_TabView> {
   Future<bool> _onWillPop() {
     if (bottomSelectedIndex != 1) {
       setState(
-            () {
+        () {
           pageController!.jumpTo(0);
         },
       );
       return Future.value(false);
     } else if (bottomSelectedIndex == 1) {
       setState(
-            () {
+        () {
           pageController!.jumpTo(1);
         },
       );
@@ -117,6 +116,7 @@ class _Maker_TabViewState extends State<Maker_TabView> {
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
       currentBackPressTime = now;
+        SystemNavigator.pop();
       return Future.value(false);
     } else {
       SystemNavigator.pop();
@@ -129,5 +129,9 @@ class _Maker_TabViewState extends State<Maker_TabView> {
         duration: const Duration(microseconds: 1), curve: Curves.ease);
   }
 }
+
+
+
+
 
 

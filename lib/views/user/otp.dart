@@ -67,7 +67,7 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: Form(
         key: widget.formKey,
         child: Padding(
@@ -75,7 +75,7 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
           child: ListView(
             children: [
               SizedBox(
-                height: height * .05,
+                height: height * .15,
               ),
               Center(
                 child: Text(

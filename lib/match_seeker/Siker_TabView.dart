@@ -1,10 +1,12 @@
 import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/MakerLikes.dart';
+import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/invitation.dart';
 import 'package:cupid_match/match_seeker/likes_seeker.dart';
 import 'package:cupid_match/match_seeker/message_screen.dart';
 import 'package:cupid_match/match_seeker/profile/profile_page.dart';
+import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -46,7 +48,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {
-   
+   Get.to(Chose_Role_Type());
         },
         child: Icon(
           Icons.add,
@@ -63,7 +65,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
             physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (index) => pageChanged(index),
             children: [
-              HomeScreen(),
+              SikerHomeScreen(),
               LikesSeeker(),
               MessageScreen(),
               ProfilePage(),

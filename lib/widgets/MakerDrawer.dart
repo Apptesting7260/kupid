@@ -1,3 +1,5 @@
+import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
+import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
@@ -6,6 +8,8 @@ import 'package:cupid_match/match_maker/payment_info.dart';
 import 'package:cupid_match/match_maker/pending_matches.dart';
 import 'package:cupid_match/match_maker/premium.dart';
 import 'package:cupid_match/match_maker/profile_maker.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,12 +23,34 @@ class MakerDrawer extends StatefulWidget {
 }
 
 class _MakerDrawerState extends State<MakerDrawer> {
+final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+
+  @override
+  void initState() {
+ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
        final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return      ListView(
+    return   Obx(() {
+          switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewMakerProfileDetailsControllerinstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return   ListView(
             children: [
               DrawerHeader(
                 decoration: BoxDecoration(color: Color(0xffF3F3F3)),
@@ -44,14 +70,14 @@ class _MakerDrawerState extends State<MakerDrawer> {
                       leading: CircleAvatar(
                         radius: 30.0,
                         backgroundImage: NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                          ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
 
                       title: Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                          "Name jon deo, 22",
+                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall
@@ -291,4 +317,4 @@ class _MakerDrawerState extends State<MakerDrawer> {
           );    
 
   }
-}
+});}}

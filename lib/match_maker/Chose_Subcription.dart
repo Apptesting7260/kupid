@@ -40,10 +40,10 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
         actions: [InkWell(
           child: Padding(
             padding: const EdgeInsets.only(top:12,right:20),
-            child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 20),),
+            child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 15),),
           ),
           onTap: () {
-             Get.offAll(Maker_TabView(index: 1,));
+             Get.offAll(Maker_TabView(index: 0,));
           },
         )
         
@@ -113,12 +113,12 @@ class _ChooseSubscriptionsState extends State<ChooseSubscriptions> {
               title: "Next", onTap: (){
                 if(selectProfile==SelectProfile.Monthly){
                   Subcriptiontype="Month";
-            Get.off(CreateMonthlySubcription());
+            Get.to(CreateMonthlySubcription());
 
                 }else{
                   Subcriptiontype="Matches";
 
-            Get.off(MatchesSubcreiptionPlan());
+            Get.to(MatchesSubcreiptionPlan());
 
                 }
           })

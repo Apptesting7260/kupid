@@ -1,5 +1,6 @@
 import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
+import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/dashboard.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/payment_info.dart';
@@ -153,7 +154,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
             ListTile(
               onTap: () {
-                Get.to(() => Filter());
+                Get.to(() => Chose_Role_Type());
               },
               leading: Image.asset(
                 'assets/maker/Mask group (2).png',

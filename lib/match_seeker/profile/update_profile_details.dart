@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:country_list_pick/country_list_pick.dart';
+import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
+import 'package:cupid_match/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
@@ -16,13 +18,14 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:image/image.dart' as imgLib;
+import 'package:video_player/video_player.dart';
 import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import '../../controllers/controller/MakerProfileController/MakerProfileController.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
 import '../../match_maker/match_maker_profile_update.dart';
 import '../../models/GoogleLocationModel/GoogleLocationModel.dart';
 
-File ?videoFile ;
+
 class SikerProfileDetails extends StatefulWidget {
   const SikerProfileDetails({Key? key}) : super(key: key);
 
@@ -32,6 +35,8 @@ class SikerProfileDetails extends StatefulWidget {
 
 class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
+
+  final SignUpControllerinstance=Get.put(SignUpController());
   FocusNode _dropdownFocus1 = FocusNode();
   FocusNode _dropdownFocus2 = FocusNode();
   FocusNode _dropdownFocus3 = FocusNode();
@@ -52,25 +57,52 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   bool isDropdownExpanded = true;
   bool selectedColor = false;
 
+Future<File?> pickVideo() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.video,
+    allowMultiple: false,
+  );
 
-  Future<File?> pickVideo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-      allowMultiple: false,
-    );
+  if (result != null) {
+     videoFile = File(result.files.single.path!);
 
-    if (result != null) {
-      videoFile = File(result.files.single.path!);
+    // Validate video size
+    final videoSize = videoFile!.lengthSync(); // in bytes
+
+    if (videoSize > 5 * 1024 * 1024) {
+      print('Video size exceeds 5 MB');
+            Utils.snackBar( "Message","Video size exceeds It Should heighest 5 MB");
+      return null;
+    }
+
+    // Validate video duration
+    final VideoPlayerController controller = VideoPlayerController.file(videoFile!);
+    await controller.initialize();
+    final videoDuration = controller.value.duration;
+    await controller.dispose();
+
+    if (videoDuration <= Duration(seconds: 30)) {
+      print('Selected video duration: ${videoDuration.inSeconds} seconds');
+      print(videoFile!.path);
       setState(() {
         videoFile;
       });
-      print(videoFile);
+
       return videoFile;
     } else {
-      // User canceled the file picker
+      print('Video duration exceeds 30 seconds');
+            Utils.snackBar( "Message","Video duration exceeds 30 seconds");
+
       return null;
     }
+  } else {
+    // User canceled the file picker
+    print('User canceled file picking');
+    return null;
   }
+}
+
+
 
 
 
@@ -140,15 +172,10 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   }
 
 
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController mobilecontroller = TextEditingController();
-  TextEditingController addresscontroller = TextEditingController();
-  TextEditingController questioncontroller = TextEditingController();
 
   String? dropdownvalue ;
   File? pickedImage;
-  String? selectGender;
+
   String? selectOccupations;
 
 
@@ -453,7 +480,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 Expanded(
                   child: TextFormField(
                     maxLength: 15,
-                    controller: MakerProfileControllerInstanse.PhoneController.value,
+                    controller: SeekerProfileControllerInstanse.PhoneController.value,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       prefixIcon:  CountryListPick(
@@ -471,6 +498,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                         },
                       ),
                       hintText: "Mobile number",
+                      
                       contentPadding: EdgeInsets.all(20),
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
@@ -521,49 +549,60 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
             ),
             SizedBox(height: height * .01),
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: SeekerProfileControllerInstanse.EmailController.value,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please Enter Email";
-                } else {
-                  return null;
-                }
-              },
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffFE0091))),
-                  hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
-                  contentPadding: EdgeInsets.all(18),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      borderSide: BorderSide(color: Color(0xffBABABA))),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    borderSide: BorderSide(color: Color(0xffBABABA)),
+                    controller:
+                        SignUpControllerinstance.credentialsController.value,
+                        enabled: false,
+                    decoration: InputDecoration(
+                      hintText: "example@gmail.com",
+                      contentPadding: EdgeInsets.all(20),
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: AppColors.subtitletextcolor),
+                      //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Colors.pinkAccent),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Color(0xffBABABA)),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        borderSide: BorderSide(color: Colors.pink),
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Color(0xffBABABA),
+                          )),
+                    ),
+                    onFieldSubmitted: (value) {},
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(value)) {
+                        return 'Enter a valid email!';
+                      }
+                      return null;
+                    },
                   ),
-                  // suffix: Text(
-                  //   "verify",
-                  //   style: Theme.of(context)
-                  //       .textTheme
-                  //       .bodySmall!
-                  //       .copyWith(color: Color(0xffFE0091)),
-                  // ),
-                  hintText: "Email",
-                  filled: true,
-                  fillColor: Colors.white),
-            ),
-            SizedBox(height: height * .03),
-
-            Text(
+            SizedBox(height: height * .01),
+               Text(
               "Occupation",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
+
          if(GetAllOcupationsControllerInstanse.Ocupations.isNotEmpty)     Focus(
                 focusNode:_dropdownFocus3 ,
                 child: DropdownButtonHideUnderline(
@@ -657,6 +696,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                   return null;
                 }
               },
+              controller: SeekerProfileControllerInstanse.SalaryController.value,
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
@@ -681,7 +721,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
 
             SizedBox(height: height * .03),
             Text(
-              "Address",
+              "Location",
               style: Theme.of(context).textTheme.titleSmall,
             ),
             SizedBox(height: height * .01),
@@ -727,6 +767,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 print(value);
                 setState(() {
                   if (locationcntroller.text.isEmpty) {
+                    Sikeraddress=value;
                     // searchPlace.clear();
                   }
                 });
@@ -773,7 +814,9 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               searchPlace[index].description ?? "";
                           _getLatLang();
                           SelectedLocation=locationcntroller.text;
-                          print(SelectedLocation);
+                          // print(SelectedLocation);
+                             Sikeraddress=SelectedLocation;
+                             print("$Sikeraddress=============");
                           setState(() {
                             searchPlace.clear();
                           });
@@ -889,6 +932,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                   onChanged: (String? value) {
                     setState(() {
                       selectReligion = value;
+                      SikerReligon=value;
                     });
                   },
                   buttonStyleData: ButtonStyleData(

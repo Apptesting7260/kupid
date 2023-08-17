@@ -55,9 +55,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   hintText: "Enter Your Bank Name",
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff777777)),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xff777777)),
                     borderRadius: BorderRadius.circular(30),
@@ -84,9 +84,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   hintText: "Enter Your Full Name",
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff777777)),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xff777777)),
                     borderRadius: BorderRadius.circular(30),
@@ -109,15 +109,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
               padding: EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
                 controller: MakerPaymentInfoControllerinstance.account_nocontroller.value,
-
+keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Bank Account Number",
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff777777)),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xff777777)),
                     borderRadius: BorderRadius.circular(30),
@@ -140,15 +140,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
               padding:  EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
                 controller: MakerPaymentInfoControllerinstance.raccount_nocontroller.value,
-
+keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(20),
                     hintText: "Re-Enter Bank Account Number",
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xff777777)),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+                  focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
+                      ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff777777)),
                       borderRadius: BorderRadius.circular(30),
@@ -176,10 +176,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   contentPadding: EdgeInsets.all(20),
                   hintText: "Ifsc Code",
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff777777)),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                 focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Color(0xffFE0091)),
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xff777777)),
                     borderRadius: BorderRadius.circular(30),
