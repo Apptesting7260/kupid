@@ -697,8 +697,13 @@ var confirmItems =[
         .width;
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         leading: IconButton(onPressed: (){Get.back();},icon: Icon(Icons.arrow_back, size: 27, color: Color(0xff5A5A5A),),),
         title: Text("Request To Be Match", style: Theme
+=======
+        leading: Icon(Icons.arrow_back, size: 27, color: Color(0xff5A5A5A),),
+        title: Text("Incoming Requests", style: Theme
+>>>>>>> origin/main
             .of(context)
             .textTheme
             .titleMedium

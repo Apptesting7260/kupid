@@ -89,6 +89,7 @@ class SeekerProfileController extends GetxController {
       request.fields['salary'] =SalaryController.value.text;
       request.fields['religion'] =SikerReligon.toString();
 
+<<<<<<< HEAD
       print(request.fields['religion'] =SikerReligon.toString());
       print(request.fields['salary'] =SalaryController.value.text);
       print(request.fields['type'] = "2");
@@ -111,6 +112,9 @@ class SeekerProfileController extends GetxController {
 
 
 
+=======
+      
+>>>>>>> origin/main
       request.headers['Authorization'] = "Bearer ${sp.getString("BarearToken")}";
    if(videoFile==null){
 
