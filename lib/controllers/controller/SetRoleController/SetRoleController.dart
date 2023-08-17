@@ -10,6 +10,7 @@ import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 String ?BarrierToken;
 int ProfileType=1;
 class SetRoleController extends GetxController {
@@ -18,7 +19,9 @@ class SetRoleController extends GetxController {
 
   RxBool loading = false.obs;
 
-  void SetRoleapiiHit(){
+  void SetRoleapiiHit()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     loading.value = true ;
     print(loading.value);
     Map data = {
@@ -33,7 +36,13 @@ class SetRoleController extends GetxController {
       print(
           BarrierToken
       );
+
+
+// String Tokernid=value.tokenId.toString();
+prefs.setString('BarearToken', BarrierToken!);
+print(prefs.getString("BarearToken"));
       Utils.snackBar( "Message",value.msg.toString());
+
      Timer(Duration(seconds: 2),(){
        ProfileType != 2
            ? Get.to(() => MakerProfileDetails())

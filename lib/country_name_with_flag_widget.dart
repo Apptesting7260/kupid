@@ -2265,7 +2265,7 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
   
   bool selectedField = true;
   bool isCountrySelected = false;
-  String selectedCountry = '';
+
   TextEditingController _typeAheadController = TextEditingController();
   void _resetSelectedCountry() {
     _typeAheadController.clear();
@@ -2274,6 +2274,21 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
       isCountrySelected = false;
     });
   }
+
+  String findOfficialNameByCode(String code) {
+  Map<String, dynamic>? country = countryData.firstWhere((element) => element['name'] == code, );
+  if (country != null) {
+    print(country['id']);
+
+    setState(() {
+      nationality=country['id'].toString();
+      print(nationality);
+    });
+    return country['name_official'];
+  } else {
+    return 'Country not found';
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -2363,9 +2378,11 @@ class _CustomCountryNameFlagState extends State<CustomCountryNameFlag> {
                     onSuggestionSelected: (suggestion) {
                       _typeAheadController.text = suggestion;
                       setState(() {
+                        findOfficialNameByCode(suggestion);
                         selectedCountry = suggestion;
-                        nationality=selectedCountry;
-                        print(selectedCountry);
+                        // nationality=selectedCountry;
+                      
+                        // print(selectedCountry);
                       });
                     },
                   ),

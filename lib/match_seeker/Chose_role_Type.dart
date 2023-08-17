@@ -139,10 +139,10 @@ selectedrole=prefs.getInt("roll");
  ChoseRole();
  Timer(Duration(seconds: 2), () {       if(selectedrole!=null){
   isloadding=false;
-Get.off(
+Get.to(
                   
                    
-                     Siker_Tab_View(index: 0)
+                     DomatchscreenSiker()
                      );
               }});
         

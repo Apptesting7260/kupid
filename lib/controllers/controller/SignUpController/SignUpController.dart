@@ -31,13 +31,15 @@ print(value);
       Utils.snackBar( "Message",value.msg.toString());
 
    Timer(Duration(seconds: 2),(){
-     Get.to(() => PinFields(
+   if(value.msg!="User Already Exist") {
+Get.to(() => PinFields(
        pinPutFocusNode: FocusNode(),
 
        // key: _formKey,
        formKey: Key(" "),
 
      ));
+   } 
    }) ;
     }).onError((error, stackTrace){
       print("error");

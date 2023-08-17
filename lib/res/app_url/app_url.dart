@@ -24,5 +24,7 @@ class AppUrl {
   static const String ProfileScrollUrl = '$baseUrl/maker/profiles-scroll' ;
   static const String DoMatchesUrl = '$baseUrl/maker/do-matches' ;
   static const String ViewMakerProfileDetailsUrl = '$baseUrl/maker/view-user-profile' ;
-
+  static const String viewuserprofileUrl = '$baseUrl/seeker/view-user-profile' ;
+  static const String MakerPaymentUrl = '$baseUrl/maker/update-payment-info';
+ 
 }

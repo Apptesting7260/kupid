@@ -1,16 +1,26 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/DoMatchesController/DoMachesController.dart';
 import 'package:cupid_match/controllers/controller/ProfileScrollController.dart/ProfileScrollController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/ViewSikerProfileDetailtoMatch.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+String? name1;
+String ?name2;
+String ?img1;
+String ?im2;
+List images = [
+  ];
 class MatchScreen extends StatefulWidget {
   @override
   _MatchScreenState createState() => _MatchScreenState();
@@ -18,7 +28,7 @@ class MatchScreen extends StatefulWidget {
 
 class _MatchScreenState extends State<MatchScreen> {
   
-
+bool isloading=false;
 final DoMatchesControllerinstance=Get.put(DoMatchesController());
   final ProfileScrollControllerinstance=Get.put(ProfileScrollController());
   PageController _controller1 = PageController(viewportFraction: 0.6);
@@ -29,6 +39,10 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
   @override
   void initState() {
     ProfileScrollControllerinstance.ProfileScrollApiHit();
+    setState(() {
+      isloading=false;
+      print(isloading);
+    });
     super.initState();
   }
 
@@ -69,6 +83,10 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
               },
             )
           ],
+        ),
+
+         endDrawer: Drawer(
+          child: MakerDrawer()
         ),
         
         body:Obx(() {
@@ -137,35 +155,42 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
               left: 0,
               right: 0,
               child: Center(
-                child: Container(
+                child: isloading==false?Container(
                   decoration: BoxDecoration(),
                   height: MediaQuery.of(context).size.width * 0.29,
                   width: MediaQuery.of(context).size.width * 0.29,
                   child: FloatingActionButton(
                     onPressed: () {
-
+setState(() {
+  isloading=true;
+});
                       print('item 1st ->  ' + '$_topItem1');
-                      match_fromid=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![_topItem1].id.toString();
-                      print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![_topItem1].name.toString());
-
-          match_withid=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![_topItem2].id.toString();
+                      match_fromid=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_topItem1].id.toString();
+                      print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_topItem1].name.toString());
+name1=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_topItem1].name.toString();
+          match_withid=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem2].id.toString();
                       print('item 2nd ->  ' + '$_topItem2');
-                      print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![_topItem2].name.toString());
-if(match_fromid!=null&&match_withid!=null){
+                      print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem2].name.toString());
+name2=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem1].name.toString();
+im2=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem2].imgPath.toString();
   DoMatchesControllerinstance.DoMatchesApiHit();
-  if(DoMatchesControllerinstance.DoMatches.value.msg=="Match request sent Successfully") {
-    ShowDialog(context);}
-}
+
+  img1=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_topItem1].name.toString();
+  Timer(Duration(seconds: 2), () {if(DoMatchesControllerinstance.DoMatches.value.status=="success") {
+     ShowDialog(context);
+     setState(() {
+      name1;
+      name2;
+      images;
+       isloading=false;
+     });
+   } });
+  
+
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/images/Mask2.png", height: 30),
-                          Image.asset("assets/images/Mask1.png", height: 30),
-                        ],
-                      ),
+                      child: Center(child: Image.asset("assets/images/Group 238.png", height: 70)),
                     ),
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -178,7 +203,7 @@ if(match_fromid!=null&&match_withid!=null){
                       ),
                     ),
                   ),
-                ),
+                ):CircularProgressIndicator()
               ),
             ),
           ],
@@ -201,7 +226,7 @@ if(match_fromid!=null&&match_withid!=null){
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
           controller: controller,
-          itemCount: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList!.length,
+          itemCount: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               margin: EdgeInsets.all(10),
@@ -229,7 +254,7 @@ if(match_fromid!=null&&match_withid!=null){
               height: Get.height*0.25,
               width: Get.width*0.3,
               child: CachedNetworkImage(
-  imageUrl: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].imgPath.toString(),
+  imageUrl: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].imgPath.toString(),
   fit: BoxFit.cover,
   placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
   errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
@@ -249,21 +274,21 @@ if(match_fromid!=null&&match_withid!=null){
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-               ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].name.toString(),
+               ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].name.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19,color:Colors.black),
               ),
               SizedBox(
                  height: Get.height*0.001,
               ),
               Text(
-                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].occupation.toString(),
+                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].occupation.toString(),
                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12,color:Colors.black),
               ),
               SizedBox(
                 height: Get.height*0.001,
               ),
               Text(
-                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].address.toString(),
+                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].address.toString(),
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10),
               ),
               SizedBox(
@@ -298,9 +323,9 @@ if(match_fromid!=null&&match_withid!=null){
               Wrap(
                 direction: Axis.horizontal,
                 children: [
-                 iconText('assets/images/religion_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].religion.toString(),),
-                  iconText('assets/images/height_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].height.toString(),),
-                  iconText('assets/images/salary_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.femaleList![index].salary.toString(),),
+                 iconText('assets/images/religion_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].religion.toString(),),
+                  iconText('assets/images/height_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].height.toString(),),
+                  iconText('assets/images/salary_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].salary.toString(),),
                 ],
               ),
             ],
@@ -313,7 +338,11 @@ if(match_fromid!=null&&match_withid!=null){
                     bottom: 10,
                     right: 10,
                     child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+userIdsiker=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].id.toString();
+
+                           Get.to(SikerProfilePage());
+                        },
                         child: Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -350,7 +379,7 @@ if(match_fromid!=null&&match_withid!=null){
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
           controller: controller,
-            itemCount: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList!.length,
+            itemCount: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal!.length,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               margin: EdgeInsets.all(10),
@@ -381,7 +410,7 @@ if(match_fromid!=null&&match_withid!=null){
               
               
               CachedNetworkImage(
-  imageUrl: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].imgPath.toString(),
+  imageUrl: ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].imgPath.toString(),
   fit: BoxFit.cover,
   placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
   errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
@@ -396,7 +425,7 @@ if(match_fromid!=null&&match_withid!=null){
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].name.toString(),
+                ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].name.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19,color:Colors.black),
               ),
               SizedBox(
@@ -410,7 +439,7 @@ if(match_fromid!=null&&match_withid!=null){
                 height: Get.height*0.001,
               ),
               Text(
-              ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].address.toString(),
+              ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].address.toString(),
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 10,color:Colors.black),
               ),
               SizedBox(
@@ -445,9 +474,9 @@ if(match_fromid!=null&&match_withid!=null){
               Wrap(
                 direction: Axis.horizontal,
                 children: [
-                  iconText('assets/images/religion_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].religion.toString(),),
-                  iconText('assets/images/height_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].height.toString(),),
-                  iconText('assets/images/salary_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.maleList![index].salary.toString(),),
+                  iconText('assets/images/religion_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].religion.toString(),),
+                  iconText('assets/images/height_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].height.toString(),),
+                  iconText('assets/images/salary_icon.png', ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].salary.toString(),),
                 ],
               ),
             ],
@@ -460,7 +489,16 @@ if(match_fromid!=null&&match_withid!=null){
                     bottom: 10,
                     right: 10,
                     child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+userIdsiker=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![index].id.toString();
+
+if(userIdsiker!=null){
+  saveuserid();
+}
+
+print(userIdsiker);
+                          Get.to(SikerProfilePage());
+                        },
                         child: Container(
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
@@ -482,15 +520,20 @@ if(match_fromid!=null&&match_withid!=null){
       ),
     );
   }
+
+
+  saveuserid()async{
+    final prefs= await SharedPreferences.getInstance();
+    prefs.setString('Tokernid',userIdsiker!);
+    prefs.getString('Tokernid',);
+  }
 }
 
 
 
 ShowDialog(BuildContext context) {
-    List images = [
-    "https://images.unsplash.com/photo-1687076613219-fb4b3d94e75a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1687076613219-fb4b3d94e75a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMDl8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-  ];
+  final DoMatchesControllerinstance=Get.put(DoMatchesController());
+    
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -519,19 +562,24 @@ ShowDialog(BuildContext context) {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .02,
                 ),
-                Text(
+           if(DoMatchesControllerinstance.DoMatches.value.msg=="Match request sent Successfully")     Text(
                   "Congratulations it's a",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .01,
                 ),
-                Text(
+           if(DoMatchesControllerinstance.DoMatches.value.msg=="Match request sent Successfully")       Text(
                   "Match!",
                   style: Theme.of(context)
                       .textTheme
                       .titleSmall
                       ?.copyWith(color: Color(0xffFE0091)),
+                ),
+
+                if(DoMatchesControllerinstance.DoMatches.value.msg=="Already Matched")  Text(
+                 DoMatchesControllerinstance.DoMatches.value.msg.toString(),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -582,7 +630,7 @@ ShowDialog(BuildContext context) {
                   height: MediaQuery.of(context).size.height * .01,
                 ),
                 Text(
-                  "Name and Name, 22",
+                 name1.toString()+" and "+name2.toString() ,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Color(0xff000CAA),
                       ),
@@ -718,4 +766,7 @@ Widget iconText(String img, String text) {
       ],
     ),
   );
+
+
+
 }

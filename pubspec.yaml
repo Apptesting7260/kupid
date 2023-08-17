@@ -66,6 +66,15 @@ dependencies:
   cached_network_image: ^3.2.3
   image: ^4.0.17
   flutter_image_compress: ^2.0.4
+  video_player: ^2.7.0
+  chewie: ^1.7.0
+  youtube_player_flutter: ^8.1.2
+  multi_image_picker: any
+  path_provider: any
+  path: any
+  flutter_meedu_videoplayer: ^4.2.24
+  flutter_datetime_picker: any
+
   
 
 

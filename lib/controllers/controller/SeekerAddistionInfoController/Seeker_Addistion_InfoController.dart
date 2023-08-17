@@ -11,6 +11,7 @@ import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
@@ -43,6 +44,7 @@ class SeekerAddistionInfoController extends GetxController {
 
 
   Future<void> SeekerProfileApiHit() async {
+    final prefs= await SharedPreferences.getInstance();
     loading.value = true ;
     try {
       // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
@@ -153,15 +155,15 @@ class SeekerAddistionInfoController extends GetxController {
 //       request.files.add(multipartFile9);
 //         }
         
-        for (int i = 0; i < Gallery1.length; i++) {
+        for (int i = 0; i < galleryImageFiles.length; i++) {
   if (i <= 8) {
-    var fileStream = http.ByteStream(Gallery1[i].openRead());
-    var length = await Gallery1[i].length();
+    var fileStream = http.ByteStream(galleryImageFiles[i].openRead());
+    var length = await galleryImageFiles[i].length();
     var multipartFile = http.MultipartFile(
       'gallery[img$i]',
       fileStream,
       length,
-      filename: Gallery1[i].path.split('/').last,
+      filename: galleryImageFiles[i].path.split('/').last,
     );
     request.files.add(multipartFile);
   }
@@ -173,7 +175,7 @@ class SeekerAddistionInfoController extends GetxController {
       request.fields['bio_description'] = BioDescriptionController.value.text;
       request.fields['intrested_in'] = IntrestedIn.toString();
       request.fields['interests'] = listAsString.toString();
-      request.headers['Authorization'] = "Bearer $BarrierToken";
+      request.headers['Authorization'] = "Bearer ${prefs.getString("BarearToken")}";
 //       var videoStream = http.ByteStream(videoFile!.openRead());
 //       var videoLength = await videoFile!.length();
 //       var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);

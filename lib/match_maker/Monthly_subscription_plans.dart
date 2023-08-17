@@ -48,10 +48,10 @@ class _CreateMonthlySubcriptionState extends State<CreateMonthlySubcription> {
             icon: Icon(Icons.arrow_back, color: Color(0xff5A5A5A), size: 27)),
         title: Text("Subscriptions"),
         centerTitle: true,
-        actions: [Padding(
-          padding: const EdgeInsets.only(top: 20,right:20),
-          child: Text("Skip",style: TextStyle(color:Colors.pink),),
-        )],
+        // actions: [Padding(
+        //   padding: const EdgeInsets.only(top: 20,right:20),
+        //   child: Text("Skip",style: TextStyle(color:Colors.pink),),
+        // )],
       ),
       body: Obx(() {
           switch (FetchSubcriptionControllerinstance.rxRequestStatus.value) {
@@ -80,7 +80,7 @@ class _CreateMonthlySubcriptionState extends State<CreateMonthlySubcription> {
                             ),
                       Container(
                         height: Get.height*0.4,
-                        child: Center(child: Text("Data is Empty",style: TextStyle(color:Colors.black),)),),
+                        child: Center(child: Text("No Subscription Found",style: TextStyle(color:Colors.black),)),),
                       Center(
                         
                               child: MyButton(

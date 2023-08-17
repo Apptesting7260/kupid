@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'match_maker/photo_access.dart';
+import 'match_seeker/profile/update_profile_details.dart';
+import 'match_seeker/siker_Home_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.light,
-      home: const SplashScreen(),
+      home: const SikerHomeScreen(),
     );
   }
 }

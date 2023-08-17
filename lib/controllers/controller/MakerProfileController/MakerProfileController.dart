@@ -9,6 +9,7 @@ import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/verify_identity.dart';
@@ -39,19 +40,20 @@ class MakerProfileController extends GetxController {
 
 
 Future<void> MakerProfileApiHit() async {
+  final prefs=await SharedPreferences.getInstance();
    loading.value = true ;
   try {
     var url = Uri.parse('https://urlsdemo.xyz/kupid/api/user-profile-update');
     var request = http.MultipartRequest('POST', url);
     // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
 
-    if(imgFile==null){
+    if(ImagetoUpload==null){
 
     }else {
-      var fileStream = http.ByteStream(imgFile!.openRead());
-      var length = await imgFile!.length();
+      var fileStream = http.ByteStream(ImagetoUpload!.openRead());
+      var length = await ImagetoUpload!.length();
       var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-          filename: imgFile!.path.split('/').last);
+          filename: ImagetoUpload!.path.split('/').last);
       request.files.add(multipartFile);
     }
     // Create the multipart request
@@ -66,13 +68,13 @@ Future<void> MakerProfileApiHit() async {
     request.fields['phone'] = PhoneController.value.text;
     request.fields['dob'] = datestring.toString();
     request.fields['location'] = SelectedLocation.toString();
-    request.fields['experience'] = SelectedMtachMakerExperience.toString();
+    request.fields['experience'] = selectExperience.toString();
     request.fields['about_maker'] = AboutMakerController.value.text;
     request.fields['expect_from_seeker'] = AboutMakerController.value.text;
     request.fields['heading_of_maker'] = HandlingOfMakerController.value.text;
-    request.fields['gender'] = SelectedGender.toString();
+    request.fields['gender'] = selectGender.toString();
     request.fields['type'] = "1";
-    request.headers['Authorization'] = "Bearer $BarrierToken";
+    request.headers['Authorization'] = "Bearer ${prefs.getString('BarearToken')}";
 
     if(videoFile==null){
 

@@ -10,6 +10,7 @@ import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/verify_identity.dart';
@@ -28,6 +29,7 @@ class AdditonalInfpMakerController extends GetxController {
 
 
 Future<void> MakerAditonalApiHit() async {
+  final prefs=await SharedPreferences.getInstance();
    loading.value = true ;
   try {
     // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
@@ -46,8 +48,9 @@ Future<void> MakerAditonalApiHit() async {
     // Add other text fields to the request+
     request.fields['verification_method'] = verification_method.toString();
     request.fields['nationality'] = nationality.toString();
- 
-    request.headers['Authorization'] = "Bearer $BarrierToken";
+ print( request.fields['verification_method'] = verification_method.toString());
+ print(     request.fields['nationality'] = nationality.toString());
+    request.headers['Authorization'] = "Bearer ${prefs.getString("BarearToken")}";
    
 print(BarrierToken);
     // Send the request and get the response

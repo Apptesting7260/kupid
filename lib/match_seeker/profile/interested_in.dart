@@ -54,10 +54,10 @@ class _InterstedInState extends State<InterstedIn> {
                 height: height * .075,
                 width: width * 1,
                 decoration: BoxDecoration(
-                    color: _value != "Female" ? Colors.white : Color(0xff000CAA),
+                    color: _value != "Female" ? Colors.white :  Colors.pink,
                     border: _value != "Female"
                         ? Border.all(color: Colors.grey)
-                        : Border.all(color: Color(0xff000CAA)),
+                        : Border.all(color: Colors.pink),
                     borderRadius: BorderRadius.circular(30)),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -111,10 +111,10 @@ class _InterstedInState extends State<InterstedIn> {
                 height: height * .075,
                 width: width * 1,
                 decoration: BoxDecoration(
-                    color: _value != "Male" ? Colors.white : Color(0xff000CAA),
+                    color: _value != "Male" ? Colors.white :  Colors.pink,
                     border: _value != "Male"
                         ? Border.all(color: Colors.grey)
-                        : Border.all(color: Color(0xff000CAA)),
+                        : Border.all(color: Colors.pink),
                     borderRadius: BorderRadius.circular(30)),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -167,10 +167,10 @@ class _InterstedInState extends State<InterstedIn> {
                 height: height * .075,
                 width: width * 1,
                 decoration: BoxDecoration(
-                    color: _value != "Both" ? Colors.white : Color(0xff000CAA),
+                    color: _value != "Both" ? Colors.white :  Colors.pink,
                     border: _value != "Both"
                         ? Border.all(color: Colors.grey)
-                        : Border.all(color: Color(0xff000CAA)),
+                        : Border.all(color: Colors.pink),
                     borderRadius: BorderRadius.circular(30)),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),

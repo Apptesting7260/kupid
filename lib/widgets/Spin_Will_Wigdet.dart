@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
+import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
@@ -50,7 +52,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
   @override
   void initState() {
     print("object");
-
+    MagicProfileControllerinstance.MagicProfileApiHit();
     // TODO: implement initState
     super.initState();
     selectedRadioTile = 0;
@@ -96,24 +98,29 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
               SizedBox(
                 height: height * .03,
               ),
-      SizedBox(
-                height: 300,
-                child: FortuneWheel(
+
+              CircleAvatar(radius: 150,backgroundImage: AssetImage("assets/images/spinner2.PNG"),child: Center(child: CircleAvatar(radius: 130, child:
+              Obx(() {
+                return  FortuneWheel(
                   indicators: <FortuneIndicator>[
                     FortuneIndicator(
                         alignment: Alignment
                             .center, // <-- changing the position of the indicator
                         child: Stack(
                           children: [
-                            Container(),
+                            Container(
+                              height: Get.height*0.1,
+                              child: Image.asset("assets/images/pin.PNG"),),
+
+                              Positioned(
+                                top: 29,
+                                left: 11,
+                                child: CircleAvatar(radius: 21,))
                             // TriangleIndicator()
                           ],
                         )
 
-                        //  TriangleIndicator(
-                        //   color: Colors
-                        //       .green, // <-- changing the color of the indicator
-                        // ),
+                      
                         ),
                   ],
                   physics: NoPanPhysics(),
@@ -132,60 +139,32 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
                     print(rewards);
                   },
                   items: [
-                    // FortuneItem(
-                    //     child: Image.network(
-                    //         'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png')),
-                    // FortuneItem(
-                    //     child: Image.network(
-                    //         'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png')),
-                    // FortuneItem(
-                    //     child: Image.network(
-                    //         'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png')),
+                  
                     for (int i = 0; i < 4; i++) ...<FortuneItem>{
 FortuneItem(
-  child: Container(
-    width: double.infinity,
-    height: double.infinity,
-    decoration: BoxDecoration(
-    color: Colors.amber,
-      border: Border.all(
-        color: Colors.black, // Set your border color here
-        width: 2.0,          // Set your border width here
-      ),
-      // image: DecorationImage(
-      //   image: NetworkImage(
-      //     'YOUR_IMAGE_URL_HERE', // Replace with your image URL
-      //   ),
-      //   fit: BoxFit.cover,
-      // ),
-    ),
+  style: FortuneItemStyle(borderColor: Colors.amber,color:colorstwo[i]),
+  child:Row(
+    children: [
+
+      SizedBox(width:Get.width*0.15,),
+       
+      CircleAvatar(radius: 30,backgroundImage: NetworkImage(MagicProfileControllerinstance. slotImages[i]),),
+     
+    ],
+  )
    
-  ),
+
+
+
 ),
 
 
-           // : RotatedBox(
-
-                      //     quarterTurns: i == 1 ? 0 : 2,
-                      //     child: Column(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       crossAxisAlignment:
-                      //           CrossAxisAlignment.center,
-                      //       children: [
-                      //         ClipRRect(
-                      //           child: Image.network(
-                      //               height: 40,
-                      //               'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'),
-                      //         ),
-                      //         Text("Profile ${i + 1}")
-                      //       ],
-                      //     ),
-                      //   ))
-
-                      // FortuneItem(child: Text(items[i].toString()))
+       
                     }
-                  ]),
-              ),
+                  ]);
+              })
+              ,),),),
+     
               SizedBox(
                 height: height * .03,
               ),
@@ -525,7 +504,7 @@ FortuneItem(
                                                                     GestureDetector(
                                                                       onTap: () {
                                                                         Get.to(() =>
-                                                                            HomeScreen());
+                                                                            SikerHomeScreen());
                                                                       },
                                                                       child:
                                                                           Container(

@@ -4,10 +4,21 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as imgLib;
 import 'dart:io';
+
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+import 'dart:io';
+
 int emptgrid=9;
 
 class PhotosScreen extends StatefulWidget {
@@ -76,13 +87,15 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 GestureDetector(
                   child: Icon(Icons.camera_alt_outlined,color: Colors.pink,),
                   onTap: () {
-                    openCamera(ImageSource.camera);
+                    openCamera();
+                      Navigator.pop(context);
                   },
                 ),
                 GestureDetector(
                   child: Icon(Icons.photo_library,color: Colors.pink,),
                   onTap: () {
-                    openCamera(ImageSource.gallery);
+                    openCamera();
+                      Navigator.pop(context);
                   },
                 ),
               ],
@@ -91,18 +104,67 @@ class _PhotosScreenState extends State<PhotosScreen> {
         });
   }
 
-  void openCamera(abc) async {
-    var imgCamera = await imgPicker.pickImage(source: abc);
-    if(imgCamera!=null){
-      Gallery1.add(File(imgCamera.path));
-      setState(() {
-        Gallery1;
-      });
-      print(Gallery1);
+
+  void openCamera() async {
+    List<Asset> selectedImages = [];
+
+    try {
+      selectedImages = await MultiImagePicker.pickImages(
+        maxImages: 9-galleryImageFiles.length,
+        enableCamera: true,
+      );
+    } on Exception catch (e) {
+      print(e.toString());
     }
-    Navigator.of(context).pop();
+
+    if (!mounted) return;
+
+    await convertAssetsToFiles(selectedImages);
+
+    setState(() {
+      galleryImageFiles = selectedImagesFiles;
+    });
+
+    printCompressedImagePaths();
   }
 
+  List<File> selectedImagesFiles = [];
+
+  Future<void> convertAssetsToFiles(List<Asset> assets) async {
+    for (var asset in assets) {
+      final byteData = await asset.getByteData();
+      final buffer = byteData.buffer.asUint8List();
+
+      final compressedFile = await compressImage(buffer);
+
+      setState(() {
+        selectedImagesFiles.add(compressedFile);
+      });
+    }
+  }
+
+  Future<File> compressImage(Uint8List uint8List) async {
+    final tempDir = await getTemporaryDirectory();
+    final tempFile = File('${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+    final result = await FlutterImageCompress.compressWithList(
+      uint8List,
+      minHeight: 1920,
+      minWidth: 1080,
+      quality: 50,
+      rotate: 0,
+    );
+
+    await tempFile.writeAsBytes(result);
+
+    return tempFile;
+  }
+
+  void printCompressedImagePaths() {
+    for (var file in selectedImagesFiles) {
+      print(file.path);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -111,9 +173,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Get.back();
+             
             },
-            icon: Icon(Icons.arrow_back, color: Color(0xff5A5A5A), size: 27)),
+            icon: Icon(Icons.arrow_back, color: Colors.white, size: 27)),
         title: Text(
           "Photos",
           style: Theme.of(context).textTheme.titleLarge,
@@ -123,13 +185,13 @@ class _PhotosScreenState extends State<PhotosScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if(Gallery1.isNotEmpty) Padding(
+            if(selectedImagesFiles.isNotEmpty) Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: Gallery1.length,
+                  itemCount: selectedImagesFiles.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 25,
@@ -155,7 +217,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           ),
                           child:
                           Image.file(
-                            Gallery1[index],
+                            selectedImagesFiles[index],
                             height: height,
                             width: width,
                             fit: BoxFit.cover,
@@ -167,9 +229,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
                             right: -6,
                             child: GestureDetector(
                                 onTap: () {
-                                  Gallery1.removeAt(index);
+                                  selectedImagesFiles.removeAt(index);
                                   setState(() {
-                                    Gallery1;
+                                    selectedImagesFiles;
                                   });
                                 },
                                 child:Center(child: Icon(Icons.cancel,color:Colors.pink,),)
@@ -182,7 +244,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
               ),
             ),
             SizedBox(height:Get.height*.03,),
-          if(Gallery1.length<9)Container(
+          if(selectedImagesFiles.length<9)Container(
             
         width: width * .3,
             child: Stack(
@@ -225,7 +287,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
             SizedBox(
               height: height * .06,
             ),
-           if(Gallery1.length==9) Center(
+           if(selectedImagesFiles.length==9) Center(
                 child: Text(
               "You can only upload 9 Photos!",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(

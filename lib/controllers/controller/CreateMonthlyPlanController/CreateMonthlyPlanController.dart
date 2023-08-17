@@ -33,7 +33,7 @@ class CreateMontlyController extends GetxController {
       loading.value = false ;
    FetchSubcriptionControllerinstance.SubcriptionListApi();
 Get.to(CreateMonthlySubcription());
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
   
 
 
