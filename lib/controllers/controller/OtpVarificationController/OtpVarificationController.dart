@@ -30,7 +30,7 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
       loading.value = false ;
       Verificationotp=OtpController.value.text;
 print(value);
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
 
       if(value.msg=="OTP Verified"){
   Get.to(() => CreatePassword());

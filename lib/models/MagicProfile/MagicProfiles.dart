@@ -3,8 +3,8 @@ class MagicprofilesModel {
      this.status,
      this.requests,
   });
-   String? status;
-   List<Requests>? requests;
+   String ?status;
+   List<Requests> ?requests;
   
   MagicprofilesModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
@@ -34,44 +34,47 @@ class Requests {
      this.profileVideo,
      this.gender,
      this.religion,
-     this.status,
+     this.currentStep,
      this.imgPath,
      this.videoPath,
+     this.questions,
   });
    int? id;
-   String? name;
-   String? email;
+   String ?name;
+   String ?email;
    String? phone;
    String? occupation;
    String? salary;
    String? address;
-   String? height;
+   String ?height;
    String? dob;
-   String? profileImg;
+   String ?profileImg;
    String? profileVideo;
    String? gender;
    String? religion;
-   int? status;
-   String? imgPath;
+   int? currentStep;
+   String ?imgPath;
    String ?videoPath;
+   Questions? questions;
   
   Requests.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     email = json['email'];
     phone = json['phone'];
-    occupation = json['occupation'];
-    salary = json['salary'];
-    address = json['address'];
+    occupation = null;
+    salary = null;
+    address = null;
     height = json['height'];
-    dob = json['dob'];
-    profileImg = json['profileImg'];
-    profileVideo = json['profileVideo'];
+    dob = null;
+    profileImg = json['profile_img'];
+    profileVideo = null;
     gender = json['gender'];
-    religion = json['religion'];
-    status = json['status'];
+    religion = null;
+    currentStep = null;
     imgPath = json['img_path'];
     videoPath = json['video_path'];
+    questions = null;
   }
 
   Map<String, dynamic> toJson() {
@@ -89,9 +92,63 @@ class Requests {
     _data['profile_video'] = profileVideo;
     _data['gender'] = gender;
     _data['religion'] = religion;
-    _data['status'] = status;
+    _data['current_step'] = currentStep;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
+    _data['questions'] = questions;
+    return _data;
+  }
+}
+
+class Questions {
+  Questions({
+     this.id,
+     this.seekerId,
+     this.question,
+     this.firstAnswer,
+     this.secondAnswer,
+     this.thirdAnswer,
+     this.correctAnswer,
+     this.status,
+     this.createdAt,
+     this.updatedAt,
+  });
+   int ?id;
+   int? seekerId;
+   String? question;
+   String? firstAnswer;
+   String? secondAnswer;
+   String? thirdAnswer;
+   String? correctAnswer;
+   int ?status;
+   String? createdAt;
+   String? updatedAt;
+  
+  Questions.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    seekerId = json['seeker_id'];
+    question = null;
+    firstAnswer = null;
+    secondAnswer = null;
+    thirdAnswer = null;
+    correctAnswer = null;
+    status = json['status'];
+    createdAt = null;
+    updatedAt = null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['seeker_id'] = seekerId;
+    _data['question'] = question;
+    _data['first_answer'] = firstAnswer;
+    _data['second_answer'] = secondAnswer;
+    _data['third_answer'] = thirdAnswer;
+    _data['correct_answer'] = correctAnswer;
+    _data['status'] = status;
+    _data['created_at'] = createdAt;
+    _data['updated_at'] = updatedAt;
     return _data;
   }
 }

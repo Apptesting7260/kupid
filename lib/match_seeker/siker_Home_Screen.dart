@@ -12,10 +12,7 @@ import 'package:cupid_match/match_maker/request_matches.dart';
 import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/Requests/IncomingRequest.dart';
-<<<<<<< HEAD
 import 'package:cupid_match/match_seeker/Requests/outgoingRequest.dart';
-=======
->>>>>>> origin/main
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
@@ -232,102 +229,6 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                     ),
                   ),
 
-<<<<<<< HEAD
-                  // recent conversation and view all text ****************************
-
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text(
-                  //       "Recent Conversations",
-                  //       style: Theme.of(context).textTheme.titleLarge,
-                  //     ),
-                  //     TextButton(
-                  //         onPressed: () {
-                  //           Get.to(RecentConversations());
-                  //         },
-                  //         child: Text(
-                  //           'ViewAll',
-                  //           style: Theme.of(context).textTheme.bodySmall,
-                  //         )),
-                  //   ],
-                  // ),
-                  //
-                  // SizedBox(
-                  //   height: height * 0.02,
-                  // ),
-                  //
-                  // Container(
-                  //   width: width,
-                  //   height: height * .12,
-                  //   child: ListView.builder(
-                  //     scrollDirection: Axis.horizontal,
-                  //     physics: AlwaysScrollableScrollPhysics(),
-                  //     shrinkWrap: true,
-                  //     itemCount: 2,
-                  //     itemBuilder: (context, index) {
-                  //       return Padding(
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         child: Container(
-                  //             decoration: BoxDecoration(
-                  //                 color: AppColors.ratingcodeColor,
-                  //                 borderRadius: BorderRadius.circular(15)),
-                  //             width: width * .65,
-                  //             // height: 50,
-                  //             child: ListTile(
-                  //               leading: Container(
-                  //                 width: width * .08,
-                  //                 height: height * 0.05,
-                  //                 child: ListView.builder(
-                  //                   scrollDirection: Axis.horizontal,
-                  //                   itemCount:
-                  //                       images.length >= 3 ? 3 : images.length,
-                  //                   shrinkWrap: true,
-                  //                   reverse: true,
-                  //                   itemBuilder: (context, index) {
-                  //                     return Align(
-                  //                       alignment: Alignment.centerRight,
-                  //                       widthFactor: 0.3,
-                  //                       child: CircleAvatar(
-                  //                         radius: 18,
-                  //                         backgroundColor: AppColors.white,
-                  //                         child: CircleAvatar(
-                  //                           radius: 16,
-                  //                           backgroundImage:
-                  //                               NetworkImage(images[index]),
-                  //                         ),
-                  //                       ),
-                  //                     );
-                  //                   },
-                  //                 ),
-                  //               ),
-                  //               title: Text(
-                  //                 "Name",
-                  //                 style: Theme.of(context)
-                  //                     .textTheme
-                  //                     .bodyMedium
-                  //                     ?.copyWith(color: AppColors.black),
-                  //               ),
-                  //               subtitle: Text(
-                  //                 "25/05/2022",
-                  //                 style: Theme.of(context)
-                  //                     .textTheme
-                  //                     .bodyLarge
-                  //                     ?.copyWith(
-                  //                         fontSize: 10, color: AppColors.black),
-                  //               ),
-                  //               trailing: GestureDetector(
-                  //                   onTap: () => Get.to(() => ChatScreen()),
-                  //                   child: Image.asset(
-                  //                     "assets/maker/Group 221.png",
-                  //                     width: width * 0.09,
-                  //                   )),
-                  //             )),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
-=======
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -420,7 +321,6 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       },
                     ),
                   ),
->>>>>>> origin/main
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -490,29 +390,16 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                     ),
                   ),
 
-<<<<<<< HEAD
-
-                  Row(
+                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Request To Be Match",
-=======
-                    Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request To Accept",
->>>>>>> origin/main
+                        "Request To Match",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       TextButton(
                           onPressed: () {
-<<<<<<< HEAD
-                            Get.to(OutGoingRequest());
-=======
                             Get.to(IncomingRequests());
->>>>>>> origin/main
                           },
                           child: Text(
                             'View All',
@@ -520,7 +407,76 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                           )),
                     ],
                   ),
-<<<<<<< HEAD
+
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+
+                  Container(
+                    width: width,
+                    height: height * .12,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.ratingcodeColor,
+                                  borderRadius: BorderRadius.circular(15)),
+                              width: width * .65,
+                              height: 50,
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor: AppColors.white,
+                                    backgroundImage: NetworkImage(
+                                      "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+                                    )),
+                                title: Text(
+                                  "Name",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: AppColors.black),
+                                ),
+                                subtitle: Text(
+                                  "25/05/2022",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                      fontSize: 10, color: AppColors.black),
+                                ),
+                                //trailing: Image.asset("assets/images/Group 221.png",width: width*0.09,),
+                              )),
+                        );
+                      },
+                    ),
+                  ),
+
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Request To Be Match",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      TextButton(
+                          onPressed: () {
+
+                            Get.to(OutGoingRequest());
+                          },
+                          child: Text(
+                            'View All',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )),
+                    ],
+                  ),
                   SizedBox(
                     height: height * 0.02,
                   ),
@@ -568,13 +524,6 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                         );
                       },
                     ),
-                  ),
-
-=======
->>>>>>> origin/main
-
-                  SizedBox(
-                    height: height * 0.02,
                   ),
                 ]),
           ),

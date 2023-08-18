@@ -155,7 +155,10 @@ class SeekerAddistionInfoController extends GetxController {
 //       request.files.add(multipartFile9);
 //         }
         
-        for (int i = 0; i < galleryImageFiles.length; i++) {
+      if(galleryImageFiles.isEmpty){
+      
+      }  else{
+          for (int i = 0; i < galleryImageFiles.length; i++) {
   if (i <= 8) {
     var fileStream = http.ByteStream(galleryImageFiles[i].openRead());
     var length = await galleryImageFiles[i].length();
@@ -168,6 +171,7 @@ class SeekerAddistionInfoController extends GetxController {
     request.files.add(multipartFile);
   }
 }
+      }
       ////////////////////////////////////////////
       print(imgFile);
       // Add other text fields to the request+

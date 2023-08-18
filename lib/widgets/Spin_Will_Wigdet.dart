@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
+import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
@@ -30,6 +34,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
     Color(0xff7ED957),
 
   ];
+  List<Map<String, String>> imageUrlsList = []; // List to store key-value pairs
 
   final selected = BehaviorSubject<int>();
 
@@ -37,8 +42,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
 
 
 
-    bool isVisible = true;
-  bool isNotVisible = false;
+
 
 
 
@@ -53,6 +57,8 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
   void initState() {
     print("object");
     MagicProfileControllerinstance.MagicProfileApiHit();
+
+
     // TODO: implement initState
     super.initState();
     selectedRadioTile = 0;
@@ -76,7 +82,20 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
     MagicProfileControllerinstance.MagicProfileApiHit();
         final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Container(
+    return Obx(() {
+          switch (MagicProfileControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (MagicProfileControllerinstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return Container(
       child: Column(
             children: [
               
@@ -91,7 +110,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
                         style: Theme.of(context).textTheme.titleLarge,
                       )
                     : Text(
-                        "Select Your 2 Matches",
+                        "Select Your Perfect Match",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
               ),
@@ -100,70 +119,82 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
               ),
 
               CircleAvatar(radius: 150,backgroundImage: AssetImage("assets/images/spinner2.PNG"),child: Center(child: CircleAvatar(radius: 130, child:
-              Obx(() {
-                return  FortuneWheel(
-                  indicators: <FortuneIndicator>[
-                    FortuneIndicator(
-                        alignment: Alignment
-                            .center, // <-- changing the position of the indicator
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: Get.height*0.1,
-                              child: Image.asset("assets/images/pin.PNG"),),
+Obx(() {
 
-                              Positioned(
-                                top: 29,
-                                left: 11,
-                                child: CircleAvatar(radius: 21,))
-                            // TriangleIndicator()
-                          ],
-                        )
 
-                      
-                        ),
-                  ],
-                  physics: NoPanPhysics(),
-
-                  // duration: Duration(seconds: 200),
-                  // rotationCount: 1000000,
-                  // onFling: ,
-                  // styleStrategy: StyleStrategy
-                  selected: selected.stream,
-                  animateFirst: true,
-                  onAnimationEnd: () {
-                    setState(() {
-                      rewards = items[selected.value];
-                      print(selected.value);
-                    });
-                    print(rewards);
-                  },
-                  items: [
-                  
-                    for (int i = 0; i < 4; i++) ...<FortuneItem>{
-FortuneItem(
-  style: FortuneItemStyle(borderColor: Colors.amber,color:colorstwo[i]),
-  child:Row(
-    children: [
-
-      SizedBox(width:Get.width*0.15,),
-       
-      CircleAvatar(radius: 30,backgroundImage: NetworkImage(MagicProfileControllerinstance. slotImages[i]),),
-     
+  return FortuneWheel(
+    indicators: <FortuneIndicator>[
+      FortuneIndicator(
+        alignment: Alignment.center,
+        child: Stack(
+          children: [
+            // TriangleIndicator()
+          ],
+        ),
+      ),
     ],
-  )
-   
+    physics: NoPanPhysics(),
+    selected: selected.stream,
+    animateFirst: true,
+    onAnimationEnd: () {
+      setState(() {
+        rewards = items[selected.value];
+        print("${selected.value}==============");
+
+        // Clear the list before storing new key-value pairs
+        imageUrlsList.clear();
+        
+        // Store the image URLs in the list as key-value pairs
+        for (int i = 0; i < 4; i++) {
+          String itemId = MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString();
+          String imagepath=MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString();
+          String name=MagicProfileControllerinstance.MagicProfileList.value.requests![i].name.toString();
+          // String question=MagicProfileControllerinstance.MagicProfileList.value.requests![i].questions!.question.toString();
+          Map<String, String> keyValueMap = {"id": itemId,"name":name,"imagepath":imagepath};
+          imageUrlsList.add(keyValueMap);
+        }
+        
+        // Print the list of key-value pairs
+        print(imageUrlsList);
+      });
+      print(items);
+    },
+    items: [
+      for (int i = 0; i < 4; i++) ...<FortuneItem>[
+        FortuneItem(
+          style: FortuneItemStyle(borderColor: Colors.amber, color: colorstwo[i]),
+          child: Row(
+            children: [
+              SizedBox(width: Get.width * 0.15,),
+              InkWell(
+                child: Container(
+                  height: Get.height * 0.07,
+                  width: Get.width * 0.15,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Colors.green,
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                        MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString(),
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  print(MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString());
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    ],
+  );
+}),
 
 
-
-),
-
-
-       
-                    }
-                  ]);
-              })
-              ,),),),
+              ),),),
      
               SizedBox(
                 height: height * .03,
@@ -178,6 +209,8 @@ FortuneItem(
                         selected.add(Fortune.randomInt(0, items.length));
                         isVisible = !isVisible;
                         isNotVisible = !isNotVisible;
+                           MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
+                           
                       });
                     },
                   ),
@@ -195,13 +228,13 @@ FortuneItem(
                       "Request to be matched",
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    Text(
-                      "See all",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .copyWith(color: Color(0xff000CAA)),
-                    ),
+                    // Text(
+                    //   "See all",
+                    //   style: Theme.of(context)
+                    //       .textTheme
+                    //       .labelLarge!
+                    //       .copyWith(color: Color(0xff000CAA)),
+                    // ),
                   ],
                 ),
               ),
@@ -211,509 +244,425 @@ FortuneItem(
               Visibility(
                 visible: isNotVisible,
                 child: Container(
-                  width: width * 1,
-                  height: height * .2,
+                          
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 2,
-                    itemExtent: 80,
+                    itemCount:  imageUrlsList.length,
+                    // itemExtent: 80,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      
+                      return  Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child:  Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          SizedBox(
-                            width: width * .03,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "John Deo",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              SizedBox(
-                                height: height * .01,
-                              ),
-                              Text(
-                                "Match Maker",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: width * .17),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(32.0))),
-                                    insetPadding: EdgeInsets.all(0),
-                                    title: Column(
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Get.back();
-                                              },
-                                              child: Image.asset(
-                                                  "assets/icons/cancel.png"),
-                                            )),
-                                        Stack(
-                                          children: <Widget>[
-                                            Center(
-                                              child: Container(
-                                                height: height * .3,
-                                                width: width * .3,
-                                                child: CircleAvatar(
-                                                  radius: 30.0,
-                                                  backgroundImage: NetworkImage(
-                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                                top: 80,
-                                                left: 55,
-                                                right: 0,
-                                                child: Image.asset(
-                                                    "assets/icons/locked 1.png"))
-                                          ],
-                                        ),
-    
-                                        Text(
-                                          "How old do you think i am",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        // Column(
-                                        //   children: [
-                                        //     RadioListTile(
-                                        //       activeColor: Color(0xffFE0091),
-                                        //       value: 1,
-                                        //       groupValue: selectedRadioTile,
-                                        //       title: Text("20"),
-                                        //       onChanged: (value) {
-                                        //         print("Radio Tile pressed $value");
-                                        //         setSelectedRadioTile(value!);
-                                        //       },
-                                        //     ),
-                                        //     RadioListTile(
-                                        //       activeColor: Color(0xffFE0091),
-                                        //       value: 2,
-                                        //       groupValue: selectedRadioTile,
-                                        //       title: Text("30"),
-                                        //       onChanged: (value) {
-                                        //         print("Radio Tile pressed $value");
-                                        //         setSelectedRadioTile(value!);
-                                        //       },
-                                        //     ),
-                                        //     RadioListTile(
-                                        //       activeColor: Color(0xffFE0091),
-                                        //       value: 3,
-                                        //       groupValue: selectedRadioTile,
-                                        //       title: Text("40"),
-                                        //       onChanged: (value) {
-                                        //         print("Radio Tile pressed $value");
-                                        //         setSelectedRadioTile(value!);
-                                        //       },
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            showDialog(
-                                              barrierDismissible: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  32.0))),
-                                                  insetPadding: EdgeInsets.all(0),
-                                                  title: Column(
-                                                    children: [
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .bottomRight,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Get.back();
-                                                            },
-                                                            child: Image.asset(
-                                                                "assets/icons/cancel.png"),
-                                                          )),
-                                                      Stack(
-                                                        children: <Widget>[
-                                                          Center(
-                                                            child: Container(
-                                                              height: height * .3,
-                                                              width: width * .3,
-                                                              child: CircleAvatar(
-                                                                radius: 30.0,
-                                                                backgroundImage:
-                                                                    NetworkImage(
-                                                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Positioned(
-                                                              top: 80,
-                                                              left: 55,
-                                                              right: 0,
-                                                              child: Image.asset(
-                                                                  "assets/icons/unlocked 1.png"))
-                                                        ],
-                                                      ),
-                                                      Text(
-                                                        "Profile Unlocked",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .titleSmall,
-                                                      ),
-                                                      SizedBox(
-                                                        height: height * .01,
-                                                      ),
-                                                      Text(
-                                                        "Your answer is correct.",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                                color:
-                                                                    Colors.grey),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height * .02,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          showDialog(
-                                                            barrierDismissible:
-                                                                false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return AlertDialog(
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(
-                                                                                32.0))),
-                                                                insetPadding:
-                                                                    EdgeInsets
-                                                                        .all(0),
-                                                                title: Column(
-                                                                  children: [
-                                                                    Align(
-                                                                        alignment:
-                                                                            Alignment
-                                                                                .bottomRight,
-                                                                        child:
-                                                                            GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            Get.back();
-                                                                          },
-                                                                          child: Image.asset(
-                                                                              "assets/icons/cancel.png"),
-                                                                        )),
-                                                                    Stack(
-                                                                      children: <Widget>[
-                                                                        Center(
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                height * .3,
-                                                                            width:
-                                                                                width * .3,
-                                                                            child:
-                                                                                CircleAvatar(
-                                                                              radius:
-                                                                                  30.0,
-                                                                              backgroundImage:
-                                                                                  NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                                                              backgroundColor:
-                                                                                  Colors.transparent,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Positioned(
-                                                                            top:
-                                                                                80,
-                                                                            left:
-                                                                                50,
-                                                                            right:
-                                                                                0,
-                                                                            child:
-                                                                                Image.asset("assets/icons/locked 1.png"))
-                                                                      ],
-                                                                    ),
-                                                                    Text(
-                                                                      "Profile locked",
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .titleSmall,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          height *
-                                                                              .01,
-                                                                    ),
-                                                                    Text(
-                                                                      "Better Luck Next Time!",
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .bodySmall!
-                                                                          .copyWith(
-                                                                              color:
-                                                                                  Colors.grey),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height:
-                                                                          height *
-                                                                              .02,
-                                                                    ),
-                                                                    GestureDetector(
-                                                                      onTap: () {
-                                                                        Get.to(() =>
-                                                                            SikerHomeScreen());
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        height:
-                                                                            height *
-                                                                                .04,
-                                                                        width:
-                                                                            width *
-                                                                                .3,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color: Color(
-                                                                              0xffFE0091),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(15),
-                                                                        ),
-                                                                        child:
-                                                                            Center(
-                                                                          child:
-                                                                              Text(
-                                                                            "Back",
-                                                                            style: Theme.of(context)
-                                                                                .textTheme
-                                                                                .bodySmall!
-                                                                                .copyWith(color: Colors.white),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: MediaQuery.of(context)
-                                                                              .size
-                                                                              .height *
-                                                                          .02,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                        child: Container(
-                                                          height: height * .04,
-                                                          width: width * .3,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color:
-                                                                Color(0xffFE0091),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(15),
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              "Message",
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodySmall!
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .white),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                .02,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: Container(
-                                            height: height * .04,
-                                            width: width * .3,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xffFE0091),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Submit",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall!
-                                                    .copyWith(
-                                                        color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              MediaQuery.of(context).size.height *
-                                                  .02,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              height: height * .04,
-                              width: width * .3,
-                              decoration: BoxDecoration(
-                                color: Color(0xffFE0091),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Request",
+                            CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(
+                                MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString() ) ,
+                              backgroundColor: Colors.transparent,
+                            ),
+                            SizedBox(
+                              width: width * .03,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                   MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                SizedBox(
+                                  height: height * .01,
+                                ),
+                                Text(
+                                  "Match Seeker",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
-                                      .copyWith(color: Colors.white),
+                                      .copyWith(color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: width * .12),
+                            GestureDetector(
+                              onTap: () {
+                             
+
+
+                                 selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
+                                print(selectedseekerid);
+
+                                if(selectedseekerid!=null){
+                                  showdilog(index, selectedseekerid!);
+                                }
+                              },
+                              child: Container(
+                                height: height * .04,
+                                width: width * .3,
+                                decoration: BoxDecoration(
+                                  color: Color(0xffFE0091),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Request",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(color: Colors.white),
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        )
                       );
                     },
                   ),
                 ),
               ),
-              SizedBox(
-                height: height * .02,
-              ),
-              Visibility(
-                visible: isNotVisible,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Request to be matched",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    Text(
-                      "See all",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .copyWith(color: Color(0xff000CAA)),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: height * .02,
-              ),
-              Visibility(
-                visible: isNotVisible,
-                child: Container(
-                  width: width * 1,
-                  height: height * .2,
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 2,
-                    itemExtent: 80,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundImage: NetworkImage(
-                                "https://img.freepik.com/free-photo/smiley-businesswoman-posing-outdoors-with-arms-crossed-copy-space_23-2148767055.jpg"),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          SizedBox(
-                            width: width * .05,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Valentina, 20",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              SizedBox(
-                                height: height * .01,
-                              ),
-                              Text(
-                                "America",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
+
             ],
           ),
     );
   }
+});}
+
+showdilog(int index,int id){
+   final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+  showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(32.0))),
+                                      insetPadding: EdgeInsets.all(0),
+                                      title: Column(
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Get.back();
+                                                },
+                                                child: Image.asset(
+                                                    "assets/icons/cancel.png"),
+                                              )),
+                                          Stack(
+                                            children: <Widget>[
+                                              Center(
+                                                child: Container(
+                                                  height: height * .3,
+                                                  width: width * .3,
+                                                  child: CircleAvatar(
+                                                    radius: 30.0,
+                                                    backgroundImage: NetworkImage(
+                                                        MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()),
+                                                        
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                  top: 80,
+                                                  left: 55,
+                                                  right: 0,
+                                                  child: Image.asset(
+                                                      "assets/icons/locked 1.png"))
+                                            ],
+                                          ),
+                                      
+                                          Text(
+                                          "",
+                                        
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                         
+                                          SizedBox(
+                                            height: height * .01,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    32.0))),
+                                                    insetPadding: EdgeInsets.all(0),
+                                                    title: Column(
+                                                      children: [
+                                                        Align(
+                                                            alignment: Alignment
+                                                                .bottomRight,
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                Get.back();
+                                                              },
+                                                              child: Image.asset(
+                                                                  "assets/icons/cancel.png"),
+                                                            )),
+                                                        Stack(
+                                                          children: <Widget>[
+                                                            Center(
+                                                              child: Container(
+                                                                height: height * .3,
+                                                                width: width * .3,
+                                                                child: CircleAvatar(
+                                                                  radius: 30.0,
+                                                                  backgroundImage:
+                                                                      NetworkImage(
+                                                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Positioned(
+                                                                top: 80,
+                                                                left: 55,
+                                                                right: 0,
+                                                                child: Image.asset(
+                                                                    "assets/icons/unlocked 1.png"))
+                                                          ],
+                                                        ),
+                                                        Text(
+                                                          "Profile Unlocked",
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .titleSmall,
+                                                        ),
+                                                        SizedBox(
+                                                          height: height * .01,
+                                                        ),
+                                                        Text(
+                                                          "Your answer is correct.",
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                                  color:
+                                                                      Colors.grey),
+                                                        ),
+                                                        SizedBox(
+                                                          height: height * .02,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            showDialog(
+                                                              barrierDismissible:
+                                                                  false,
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return AlertDialog(
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(
+                                                                                  32.0))),
+                                                                  insetPadding:
+                                                                      EdgeInsets
+                                                                          .all(0),
+                                                                  title: Column(
+                                                                    children: [
+                                                                      Align(
+                                                                          alignment:
+                                                                              Alignment
+                                                                                  .bottomRight,
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Get.back();
+                                                                            },
+                                                                            child: Image.asset(
+                                                                                "assets/icons/cancel.png"),
+                                                                          )),
+                                                                      Stack(
+                                                                        children: <Widget>[
+                                                                          Center(
+                                                                            child:
+                                                                                Container(
+                                                                              height:
+                                                                                  height * .3,
+                                                                              width:
+                                                                                  width * .3,
+                                                                              child:
+                                                                                  CircleAvatar(
+                                                                                radius:
+                                                                                    30.0,
+                                                                                backgroundImage:
+                                                                                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                                                                backgroundColor:
+                                                                                    Colors.transparent,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Positioned(
+                                                                              top:
+                                                                                  80,
+                                                                              left:
+                                                                                  50,
+                                                                              right:
+                                                                                  0,
+                                                                              child:
+                                                                                  Image.asset("assets/icons/locked 1.png"))
+                                                                        ],
+                                                                      ),
+                                                                      Text(
+                                                                        "Profile locked",
+                                                                        style: Theme.of(
+                                                                                context)
+                                                                            .textTheme
+                                                                            .titleSmall,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            height *
+                                                                                .01,
+                                                                      ),
+                                                                      Text(
+                                                                        "Better Luck Next Time!",
+                                                                        style: Theme.of(
+                                                                                context)
+                                                                            .textTheme
+                                                                            .bodySmall!
+                                                                            .copyWith(
+                                                                                color:
+                                                                                    Colors.grey),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            height *
+                                                                                .02,
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap: () {
+                                                                          Get.to(() =>
+                                                                              SikerHomeScreen());
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              height *
+                                                                                  .04,
+                                                                          width:
+                                                                              width *
+                                                                                  .3,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color: Color(
+                                                                                0xffFE0091),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(15),
+                                                                          ),
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                Text(
+                                                                              "Back",
+                                                                              style: Theme.of(context)
+                                                                                  .textTheme
+                                                                                  .bodySmall!
+                                                                                  .copyWith(color: Colors.white),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height: MediaQuery.of(context)
+                                                                                .size
+                                                                                .height *
+                                                                            .02,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            height: height * .04,
+                                                            width: width * .3,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Color(0xffFE0091),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(15),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "Message",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .bodySmall!
+                                                                    .copyWith(
+                                                                        color: Colors
+                                                                            .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                              MediaQuery.of(context)
+                                                                      .size
+                                                                      .height *
+                                                                  .02,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Container(
+                                              height: height * .04,
+                                              width: width * .3,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFE0091),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Submit",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                MediaQuery.of(context).size.height *
+                                                    .02,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
 }
+

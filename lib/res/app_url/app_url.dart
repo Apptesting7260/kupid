@@ -26,5 +26,6 @@ class AppUrl {
   static const String ViewMakerProfileDetailsUrl = '$baseUrl/maker/view-user-profile' ;
   static const String viewuserprofileUrl = '$baseUrl/seeker/view-user-profile' ;
   static const String MakerPaymentUrl = '$baseUrl/maker/update-payment-info';
- 
+  static const String GetAllMakerUrl = '$baseUrl/seeker/get-all-maker';
+
 }

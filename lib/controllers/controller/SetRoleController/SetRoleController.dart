@@ -41,7 +41,7 @@ class SetRoleController extends GetxController {
 // String Tokernid=value.tokenId.toString();
 prefs.setString('BarearToken', BarrierToken!);
 print(prefs.getString("BarearToken"));
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
 
      Timer(Duration(seconds: 2),(){
        ProfileType != 2

@@ -1,6 +1,7 @@
 
 
 
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
@@ -30,7 +31,9 @@ class ViewMakerProfileDetailsController extends GetxController {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"user_id":prefs.getString('Tokernid')
+"user_id":prefs.getString('Usertype')==1?prefs.getString('Tokernid'):Makerid.toString()
+
+
     };
   //  setRxRequestStatus(Status.LOADING);
 

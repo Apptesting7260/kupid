@@ -66,14 +66,8 @@ dependencies:
   cached_network_image: ^3.2.3
   image: ^4.0.17
   flutter_image_compress: ^2.0.4
-<<<<<<< HEAD
-  video_player: ^2.7.0
-  chewie: ^1.7.0
-  youtube_player_flutter: ^8.1.2
-=======
   # flutter_ffmpeg: any
   video_player: any
->>>>>>> origin/main
   multi_image_picker: any
   path_provider: any
   path: any

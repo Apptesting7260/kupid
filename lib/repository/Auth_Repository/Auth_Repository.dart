@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:cupid_match/data/network/network_api_services.dart';
+import 'package:cupid_match/models/AllMakerModel/AllMakerModel.dart';
 import 'package:cupid_match/models/CreateMatchesPlanModel/CreateMatchesPlanModel.dart';
 import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel.dart';
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
@@ -182,6 +183,12 @@ Future<ViewSikerDetailsToMatchModel> ViewSikerDetailsToMatchApi(var data ) async
   return ViewSikerDetailsToMatchModel.fromJson(response) ;
 }
 
+Future<AllMakerModel> ListAllMakerApi() async{
+  print("hited");
+  dynamic response = await _apiService.getApi2(AppUrl.GetAllMakerUrl);
+  print(response);
+  return AllMakerModel.fromJson(response) ;
+}
 
 
 

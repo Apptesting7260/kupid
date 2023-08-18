@@ -700,11 +700,7 @@ var confirmItems =[
         leading: InkWell(child: Icon(Icons.arrow_back, size: 27, color: Color(0xff5A5A5A),),onTap: (){
 Get.back();
         },),
-<<<<<<< HEAD
-        title: Text("Request To Match", style: Theme
-=======
         title: Text("Incoming Requests", style: Theme
->>>>>>> origin/main
             .of(context)
             .textTheme
             .titleMedium

@@ -116,10 +116,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Image.asset("assets/icons/send.png")
                               ],
                             ),
-                            SizedBox(height: height * .02),
-                            Center(
-                              child: Image.asset("assets/images/vedio.png"),
-                            ),
+                            // SizedBox(height: height * .02),
+                            // Center(
+                            //   child: Image.asset("assets/images/vedio.png"),
+                            // ),
                             SizedBox(height: height * .02),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
