@@ -3,6 +3,7 @@ import 'package:cupid_match/controllers/controller/SeekersAllInterests_Controlle
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/profile/add_bio.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
+import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,39 @@ class Interest extends StatefulWidget {
 }
 
 class _InterestState extends State<Interest> {
+//****************************************************************
+
+  List<String> selectedInterests = []; // Track selected interests
+
+  
+  
+  void showCustomErrorSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Container(
+          padding: EdgeInsets.symmetric(vertical: 12.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, color: Colors.white),
+              SizedBox(width: 8.0),
+              Text(message, style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.pink, // Set pink background color
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        margin: EdgeInsets.all(0.0), // Use zero margin for custom position
+        padding: EdgeInsets.all(0.0), // Use zero padding for custom position
+      ),
+    );
+  }
+
+
+//***********************************************************************
 
   final SeekersAllInterstsControllerInstanse=Get.put(SeekersAllInterstsController());
 
@@ -110,24 +144,47 @@ class _InterestState extends State<Interest> {
                         ),
                       ),
                     ),
+//                     onTap: () {
+//                        if(interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString())){
+//                            interests.remove(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
+//                              listAsString = interests.join(',');
+//
+//                       }else{
+// interests.add(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
+//   listAsString = interests.join(',');
+//
+//                       }
+//                       // if(!interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString())){
+//
+//                       // }
+//
+//                       SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected=!SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected;
+//                 setState(() {
+//                   print(listAsString);
+//                 });
+//                     },
                     onTap: () {
-                       if(interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString())){
-                           interests.remove(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
-                             listAsString = interests.join(',');
 
-                      }else{
-interests.add(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString());
-  listAsString = interests.join(',');
-
+                      if (selectedInterests.length >= 6 &&
+                          !selectedInterests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString())) {
+                        Utils.snackBar( "Message","You can only select up to 6 interests.");
+                        return;
                       }
-                      // if(!interests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString())){
-                           
-                      // }
-                   
-                      SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected=!SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected;
-                setState(() {
-                  print(listAsString);
-                });
+
+                      // Update selected interests list
+                      setState(() {
+                        final interestId = SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString();
+                        if (selectedInterests.contains(interestId)) {
+                          selectedInterests.remove(interestId);
+                        }
+
+                        else {
+                          selectedInterests.add(interestId);
+                        }
+
+                        SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected =
+                        !SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected;
+                      });
                     },
                   );
                 },
@@ -140,8 +197,14 @@ interests.add(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.valu
               child: MyButton(
                 title: "Continue",
                 onTap: () {
-            
-                  Get.to(() => AddBio());
+                  if (selectedInterests.isEmpty) {
+                    Utils.snackBar('Message', 'Minimum one interest mendatory');
+                    return;
+                  }
+                  else{
+                    Get.to(() => AddBio());
+                  }
+                  //Get.to(() => AddBio());
                 },
               ),
             )

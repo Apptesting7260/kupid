@@ -324,77 +324,77 @@ Future<File?> pickVideo() async {
                 ),
               ],
             ),
+            //*************************  video uploaded comment **********
             SizedBox(height: height*.05,),
-            Center(
-              child: Container(
-                height: height * .075,
-                width: width * .7,
-                decoration: BoxDecoration(
-                    color: Color(0xffF3F3F3),
-                    borderRadius: BorderRadius.circular(35)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    videoFile == null ?  Text(
-                        "Upload Video",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Colors.grey),
-                      ) : Row(
-                        children: [
-                          Text(
-                            "Video Uploaded",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: Colors.grey),
-                            ),
-                          Icon(Icons.check_circle,size: 15,color:Colors.green,)
-                        ],
-                      ),
-                    videoFile == null ?  InkWell(
-                        child: Container(
-                          height: height * .1,
-                          width: width * .1,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.shade300,
-                          ),
-                          child: Image.asset("assets/icons/vedio.png",color: Colors.pink,),
-                          alignment: Alignment.center,
-                        ),
-                        onTap: () {
-                          pickVideo();
-                        },
-                      ):InkWell(
-                      child: Container(
-                        height: height * .1,
-                        width: width * .1,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Icon(Icons.cancel,color:Colors.red,),
-                        alignment: Alignment.center,
-                      ),
-                      onTap: () {
-
-                        setState(() {
-                          videoFile=null;
-                        });
-                      },
-                    ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            //
+            // Center(
+            //   child: Container(
+            //     height: height * .075,
+            //     width: width * .7,
+            //     decoration: BoxDecoration(
+            //         color: Color(0xffF3F3F3),
+            //         borderRadius: BorderRadius.circular(35)),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(12.0),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //         videoFile == null ?  Text(
+            //             "Uplod Video",
+            //             style: Theme.of(context)
+            //                 .textTheme
+            //                 .bodyMedium!
+            //                 .copyWith(color: Colors.grey),
+            //           ) : Row(
+            //             children: [
+            //               Text(
+            //                 "Video Uploaded",
+            //                 style: Theme.of(context)
+            //                     .textTheme
+            //                     .bodyMedium!
+            //                     .copyWith(color: Colors.grey),
+            //                 ),
+            //               Icon(Icons.check_circle,size: 15,color:Colors.green,)
+            //             ],
+            //           ),
+            //         videoFile == null ?  InkWell(
+            //             child: Container(
+            //               height: height * .1,
+            //               width: width * .1,
+            //               decoration: BoxDecoration(
+            //                 shape: BoxShape.circle,
+            //                 color: Colors.grey.shade300,
+            //               ),
+            //               child: Image.asset("assets/icons/vedio.png",color: Colors.pink,),
+            //               alignment: Alignment.center,
+            //             ),
+            //             onTap: () {
+            //               pickVideo();
+            //             },
+            //           ):InkWell(
+            //           child: Container(
+            //             height: height * .1,
+            //             width: width * .1,
+            //             decoration: BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               color: Colors.grey.shade300,
+            //             ),
+            //             child: Icon(Icons.cancel,color:Colors.red,),
+            //             alignment: Alignment.center,
+            //           ),
+            //           onTap: () {
+            //
+            //             setState(() {
+            //               videoFile=null;
+            //             });
+            //           },
+            //         ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(height: height * .04),
-
-
             Text(
               "Name",
               style: Theme.of(context).textTheme.titleSmall,

@@ -78,124 +78,121 @@ ListAllMakerControllerinstance.ListAllMakerApi();
                 return GeneralExceptionWidget(onPress: () {});
               }
             case Status.COMPLETED:
-              return Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SingleChildScrollView(
-          child: Column(children: [
+              return SingleChildScrollView(
+                child: Column(children: [
 
-                Center(child: Image.asset("assets/images/match.png")),
-                  if(selectedrole==1)  SpinWillWidget(),
-                 if(selectedrole==2) SlotMachine(),
+                      Center(child: Image.asset("assets/images/match.png")),
+                        if(selectedrole==1)  SpinWillWidget(),
+                       if(selectedrole==2) SlotMachine(),
 
-                 SizedBox(height:Get.height*0.02,),
-
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Request to   Maker",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    InkWell(
-                      child: Text(
-                        "See all",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .copyWith(color: Color(0xff000CAA)),
-                      ),
-                      onTap: (){
-                        Get.to(SeeAllMaker());
-                      },
-                    ),
-                  ],
-                ),
-
-                 Container(
-                          
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount:  3,
-                    // itemExtent: 80,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      
-                      return  Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                       SizedBox(height:Get.height*0.02,),
+//sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
+                        Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                            InkWell(
-                              child: CircleAvatar(
-                                radius: 30.0,
-                                backgroundImage: NetworkImage(
-                                  ListAllMakerControllerinstance.userList.value.allmakers![index].imgPath.toString() ) ,
-                                backgroundColor: Colors.transparent,
-                              ),
-                              onTap: (){
+                          Text(
+                            "Request to   Maker",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          InkWell(
+                            child: Text(
+                              "See all",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(color: Color(0xff000CAA)),
+                            ),
+                            onTap: (){
+                              Get.to(SeeAllMaker());
+                            },
+                          ),
+                        ],
+                      ),
 
-                                Makerid=ListAllMakerControllerinstance.userList.value.allmakers![index].id.toString();
-                                Get.to(ViewMakerProfileInSeeker());
-                              },
-                            ),
-                            SizedBox(
-                              width: width * .03,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                       Container(
+                         margin: EdgeInsets.only(left: 20),
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount:  3,
+                          // itemExtent: 80,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+
+                            return  Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                 ListAllMakerControllerinstance.userList.value.allmakers![index].name.toString(),
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                  "Match Maker",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: width * .12),
-                            GestureDetector(
-                              onTap: () {
-                                // showdilog();
+                                  InkWell(
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: NetworkImage(
+                                        ListAllMakerControllerinstance.userList.value.allmakers![index].imgPath.toString() ) ,
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                    onTap: (){
 
-
-                                // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                                // print(selectedseekerid);
-                              },
-                              child: Container(
-                                height: height * .04,
-                                width: width * .3,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFE0091),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Request",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.white),
+                                      Makerid=ListAllMakerControllerinstance.userList.value.allmakers![index].id.toString();
+                                      Get.to(ViewMakerProfileInSeeker());
+                                    },
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      );
-                    },
-                  ),)
-          ],),
-        )
-      );
+                                  SizedBox(
+                                    width: width * .03,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                       ListAllMakerControllerinstance.userList.value.allmakers![index].name.toString(),
+                                        style: Theme.of(context).textTheme.titleSmall,
+                                      ),
+                                      SizedBox(
+                                        height: height * .01,
+                                      ),
+                                      Text(
+                                        "Match Maker",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: width * .12),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // showdilog();
+
+
+                                      // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+                                      // print(selectedseekerid);
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Request",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            );
+                          },
+                        ),)
+                ],),
+              );
     }} ));
   }
 }

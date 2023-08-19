@@ -25,7 +25,7 @@ class _SignState extends State<Sign> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    //final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -54,9 +54,7 @@ class _SignState extends State<Sign> {
                 validator: (value) {
                   if (!isEmail(value!) && !isPhone(value!) ) {
                     return 'Please enter a valid email or phone number.';}
-                  // }else if (!value.toLowerCase().endsWith("@gmail.com".toLowerCase()) || !value.toLowerCase().endsWith("@mailinator.com".toLowerCase())) {
-                  //   return 'Valid mail no found Like @gmail.com';
-                  // }
+
                   return null;
                 },
                 decoration: InputDecoration(

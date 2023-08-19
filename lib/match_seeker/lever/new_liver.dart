@@ -92,8 +92,7 @@ class _SlotMachineState extends State<SlotMachine> {
               return  Container(
         child: Column(
           children: [
-          
-         
+
             SizedBox(
               height: Get.height * .06,
             ),
@@ -108,11 +107,9 @@ class _SlotMachineState extends State<SlotMachine> {
               ),
                Positioned(
               top:pulled==false?Get.height*0.04:Get.height*0.08,
-              right: Get.width*0.02,
+              right: -Get.width*0.01,
               child: pulled==false?GestureDetector(child: Container(height: Get.height*0.08,width:Get.width*0.1,decoration:BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/liverup.PNG"))),),onTap: () {
-                
-                
-                if(pulled==false){
+               if(pulled==false){
                       _startSpinning();
                 }
                if(pulled==true) Timer(Duration(seconds: 2), () { _stopSpinning();});
@@ -232,13 +229,14 @@ class _SlotMachineState extends State<SlotMachine> {
 
   Widget _buildReel(int index) {
     return  Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
-      
-         width: Get.width*0.2,
-              // height: Get.height*0.15,
+
+
+         width: Get.width*0.28,
+               height: Get.height*0.25,
         decoration: BoxDecoration(border: Border.all(width: 2,color: Color(0xffDC9F3C)),borderRadius: BorderRadius.all(Radius.circular(10)
-        
+
         ),  gradient:LinearGradient(
               colors: [Color(0xffFE0091), Color(0xff000CAA)],
               begin: Alignment.topLeft,
@@ -246,25 +244,27 @@ class _SlotMachineState extends State<SlotMachine> {
               // You can customize other properties here as well
               // like stops, tileMode, etc.
             ),),
-        
+
         child: Column(
           children: [
           Container(
-             
-              width: Get.width*0.15,
-              height: Get.height*0.1,
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(border: Border.all(color:Colors.white),   color: Color(0xffDC9F3C),image:DecorationImage(image: NetworkImage(MagicProfileControllerinstance.slotImages[_currentIndices[index]] ),fit: BoxFit.cover)),
 
-              
-              
-            ), 
+              width: Get.width*0.22,
+              height: Get.height*0.17,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(border: Border.all(color:Colors.white),   color: Color(0xffDC9F3C),
+                  image:DecorationImage(image:
+                  NetworkImage(MagicProfileControllerinstance.slotImages[_currentIndices[index]] ),fit: BoxFit.cover)),
+
+
+
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom:10),
               child: Text(MagicProfileControllerinstance.slotname[_currentIndices[index]],),
             ),
-            
-           
+
+
           ],
         ),
       ),

@@ -397,88 +397,91 @@ Future<File?> pickVideo() async {
                         .titleSmall
                         ?.copyWith(color: AppColors.black),
                   ),
+
+                  //************** video uploaded video ************
                   SizedBox(height: height * 0.05),
 
-                  Center(
-                    child: Container(
-                      height: height * .075,
-                      width: width * .7,
-                      decoration: BoxDecoration(
-                          color: Color(0xffF3F3F3),
-                          borderRadius: BorderRadius.circular(35)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            videoFile == null
-                                ? Text(
-                                    "Upload Video",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: Colors.grey),
-                                  )
-                                : Row(
-                                    children: [
-                                      Text(
-                                        " Video Uploaded ",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: Colors.black),
-                                      ),
-                                      Icon(
-                                        Icons.check_circle,
-                                        size: 15,
-                                        color: Colors.green,
-                                      )
-                                    ],
-                                  ),
-                            videoFile == null
-                                ? InkWell(
-                                    child: Container(
-                                      height: height * .1,
-                                      width: width * .1,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey.shade300,
-                                      ),
-                                      child: Image.asset(
-                                        "assets/icons/vedio.png",
-                                        color: Colors.pink,
-                                      ),
-                                      alignment: Alignment.center,
-                                    ),
-                                    onTap: () {
-                                      pickVideo();
-                                    },
-                                  )
-                                : InkWell(
-                                    child: Container(
-                                      height: height * .1,
-                                      width: width * .1,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey.shade300,
-                                      ),
-                                      child: Icon(
-                                        Icons.cancel,
-                                        color: Colors.red,
-                                      ),
-                                      alignment: Alignment.center,
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        videoFile = null;
-                                      });
-                                    },
-                                  )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Center(
+                  //   child: Container(
+                  //     height: height * .075,
+                  //     width: width * .7,
+                  //     decoration: BoxDecoration(
+                  //         color: Color(0xffF3F3F3),
+                  //         borderRadius: BorderRadius.circular(35)),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(12.0),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           videoFile == null
+                  //               ? Text(
+                  //                   "Upload Video",
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .bodyMedium!
+                  //                       .copyWith(color: Colors.grey),
+                  //                 )
+                  //               : Row(
+                  //                   children: [
+                  //                     Text(
+                  //                       " Video Uploaded ",
+                  //                       style: Theme.of(context)
+                  //                           .textTheme
+                  //                           .bodyMedium!
+                  //                           .copyWith(color: Colors.black),
+                  //                     ),
+                  //                     Icon(
+                  //                       Icons.check_circle,
+                  //                       size: 15,
+                  //                       color: Colors.green,
+                  //                     )
+                  //                   ],
+                  //                 ),
+                  //           videoFile == null
+                  //               ? InkWell(
+                  //                   child: Container(
+                  //                     height: height * .1,
+                  //                     width: width * .1,
+                  //                     decoration: BoxDecoration(
+                  //                       shape: BoxShape.circle,
+                  //                       color: Colors.grey.shade300,
+                  //                     ),
+                  //                     child: Image.asset(
+                  //                       "assets/icons/vedio.png",
+                  //                       color: Colors.pink,
+                  //                     ),
+                  //                     alignment: Alignment.center,
+                  //                   ),
+                  //                   onTap: () {
+                  //                     pickVideo();
+                  //                   },
+                  //                 )
+                  //               : InkWell(
+                  //                   child: Container(
+                  //                     height: height * .1,
+                  //                     width: width * .1,
+                  //                     decoration: BoxDecoration(
+                  //                       shape: BoxShape.circle,
+                  //                       color: Colors.grey.shade300,
+                  //                     ),
+                  //                     child: Icon(
+                  //                       Icons.cancel,
+                  //                       color: Colors.red,
+                  //                     ),
+                  //                     alignment: Alignment.center,
+                  //                   ),
+                  //                   onTap: () {
+                  //                     setState(() {
+                  //                       videoFile = null;
+                  //                     });
+                  //                   },
+                  //                 )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
                   SizedBox(
                     height: height * .03,
                   ),
@@ -542,67 +545,88 @@ Future<File?> pickVideo() async {
                     height: height * 0.03,
                   ),
                   Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Email",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      )),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Email",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
                   SizedBox(
                     height: height * .01,
                   ),
-                if(pachedemail==null)  TextFormField(
-                    controller:
-                        SignUpControllerInstanse.credentialsController.value,
-                        enabled: false,
-                    decoration: InputDecoration(
-                      hintText:pachedemail==null? "example@gmail.com":pachedemail,
-                      contentPadding: EdgeInsets.all(20),
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(color: AppColors.subtitletextcolor),
-                      //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Colors.pinkAccent),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Colors.red),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Color(0xffBABABA)),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                        borderSide: BorderSide(color: Colors.pink),
-                      ),
-                      border: OutlineInputBorder(
+// Check if the user is not registered (pachedemail is null)
+                  if (pachedemail == null)
+                    TextFormField(
+                      controller: SignUpControllerInstanse.credentialsController.value,
+                      enabled: true, // Set to true to enable the field
+                      decoration: InputDecoration(
+                        hintText: "example@gmail.com", // Placeholder text
+                        contentPadding: EdgeInsets.all(20),
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: AppColors.subtitletextcolor),
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Color(0xffBABABA),
-                          )),
-                    ),
-                    // onFieldSubmitted: (value) {},
-                    // validator: (value) {
-                    //   if (value!.isEmpty ||
-                    //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    //           .hasMatch(value)) {
-                    //     return 'Enter a valid email!';
-                    //   }
-                    //   return null;
-                    // },
-                  ),
-                  // if(pachedemail!.isNotEmpty) TextFormField(
-                  
+                          borderSide: BorderSide(color: Colors.pinkAccent),
+                        ),
+                        // ... Other decoration properties ...
+                      ),
+                      // Validation logic can be added here
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email cannot be empty!';
+                        }
+                        // Additional email validation logic can be added here
+                        return null; // Return null if validation passes
+                      },
+                    )
+// User is already registered (pachedemail is not null)
+                  else
+                    TextFormField(
+
+                      enabled: true,
+                      decoration: InputDecoration(
+                        hintText:pachedemail,
+                        contentPadding: EdgeInsets.all(20),
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: AppColors.subtitletextcolor),
+                        //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(color: Colors.pinkAccent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(color: Color(0xffBABABA)),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Color(0xffBABABA)),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          borderSide: BorderSide(color: Colors.pink),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Color(0xffBABABA),
+                            )),
+                      ),),
+
+                  // if(pachedemail!.isNotEmpty)
+                  // TextFormField(
+                  //
                   //       enabled: false,
                   //   decoration: InputDecoration(
                   //     hintText:pachedemail,
