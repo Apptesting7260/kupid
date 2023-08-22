@@ -341,7 +341,12 @@ im2=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_
                         onTap: () {
 userIdsiker=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![index].id.toString();
 
-                           Get.to(SikerProfilePage());
+if(userIdsiker!=null){
+  saveuserid();
+}
+
+print(userIdsiker);
+                          Get.to(SikerProfilePage());
                         },
                         child: Container(
                           padding: EdgeInsets.all(3),

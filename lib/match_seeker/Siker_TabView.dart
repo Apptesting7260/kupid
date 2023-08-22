@@ -4,7 +4,7 @@ import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/invitation.dart';
 import 'package:cupid_match/match_seeker/likes_seeker.dart';
-import 'package:cupid_match/match_seeker/message_screen.dart';
+import 'package:cupid_match/match_seeker/Chat_list_Screen.dart';
 import 'package:cupid_match/match_seeker/profile/profile_page.dart';
 import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
             children: [
               SikerHomeScreen(),
               LikesSeeker(),
-              MessageScreen(),
+              ChatListScreen(),
               ProfilePage(),
             ],
           ),

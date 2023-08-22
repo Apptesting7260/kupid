@@ -87,27 +87,30 @@ ListAllMakerControllerinstance.ListAllMakerApi();
 
                        SizedBox(height:Get.height*0.02,),
 //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
-                        Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Request to   Maker",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          InkWell(
-                            child: Text(
-                              "See all",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(color: Color(0xff000CAA)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Request to   Maker",
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                            onTap: (){
-                              Get.to(SeeAllMaker());
-                            },
-                          ),
-                        ],
-                      ),
+                            InkWell(
+                              child: Text(
+                                "See all",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(color: Color(0xff000CAA)),
+                              ),
+                              onTap: (){
+                                Get.to(SeeAllMaker());
+                              },
+                            ),
+                          ],
+                                              ),
+                        ),
 
                        Container(
                          margin: EdgeInsets.only(left: 20),

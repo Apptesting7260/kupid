@@ -13,14 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Chose_Role_Type extends StatefulWidget {
-  const Chose_Role_Type({Key? key}) : super(key: key);
+class ChoseRoleFirstTime extends StatefulWidget {
+  const ChoseRoleFirstTime({Key? key}) : super(key: key);
 
   @override
-  State<Chose_Role_Type> createState() => _Chose_Role_TypeState();
+  State<ChoseRoleFirstTime> createState() => _ChoseRoleFirstTimeState();
 }
 
-class _Chose_Role_TypeState extends State<Chose_Role_Type> {
+class _ChoseRoleFirstTimeState extends State<ChoseRoleFirstTime> {
 
 int ?rolevalue=1;
 int ?selectedrole;
@@ -146,11 +146,11 @@ selectedrole=prefs.getInt("roll");
 Get.to(
                   
                    
-                     DomatchscreenSiker()
+              Siker_Tab_View(index: 0,)  
                      );
               }});
         
-                   
+                  
                   
                   //    ;
                 

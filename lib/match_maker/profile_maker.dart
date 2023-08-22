@@ -151,10 +151,10 @@ late VideoPlayerController _controller;
                   ),
                   SizedBox(height: height * 0.02,),
 
-                   Center(
-                              child: Image.asset("assets/images/vedio.png"),
-                            ),
-      //   Stack(
+      //              Center(
+      //                         child: Image.asset("assets/images/vedio.png"),
+      //                       ),
+      // //   Stack(
       //   children: [
       //     GestureDetector(
       //       onTap: () {

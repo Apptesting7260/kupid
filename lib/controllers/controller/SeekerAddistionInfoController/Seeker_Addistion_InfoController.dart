@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cupid_match/match_seeker/Chose_Role_FirstTime.dart';
 import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
@@ -194,7 +195,7 @@ class SeekerAddistionInfoController extends GetxController {
       // Check the response status
       if (response.statusCode== 200) {
         print('File uploaded successfully!');
-        Get.off(() => Chose_Role_Type());
+        Get.off(() => ChoseRoleFirstTime());
         loading.value = false ;
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');

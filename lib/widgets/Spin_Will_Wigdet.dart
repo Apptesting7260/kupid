@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
+import 'package:cupid_match/match_seeker/match_screen.dart';
 import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
@@ -79,7 +84,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
 
   @override
   Widget build(BuildContext context) {
-    MagicProfileControllerinstance.MagicProfileApiHit();
+
         final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Obx(() {
@@ -119,10 +124,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
               ),
 
               CircleAvatar(radius: 150,backgroundImage: AssetImage("assets/images/spinner2.PNG"),child: Center(child: CircleAvatar(radius: 130, child:
-Obx(() {
-
-
-  return FortuneWheel(
+ FortuneWheel(
     indicators: <FortuneIndicator>[
       FortuneIndicator(
         alignment: Alignment.center,
@@ -137,27 +139,35 @@ Obx(() {
     selected: selected.stream,
     animateFirst: true,
     onAnimationEnd: () {
-      setState(() {
-        rewards = items[selected.value];
-        print("${selected.value}==============");
+      // setState(() {
+      //   rewards = items[selected.value];
+      //   print("${selected.value}==============");
 
-        // Clear the list before storing new key-value pairs
-        imageUrlsList.clear();
+      //   // Clear the list before storing new key-value pairs
+      //   imageUrlsList.clear();
         
-        // Store the image URLs in the list as key-value pairs
-        for (int i = 0; i < 4; i++) {
-          String itemId = MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString();
-          String imagepath=MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString();
-          String name=MagicProfileControllerinstance.MagicProfileList.value.requests![i].name.toString();
-          // String question=MagicProfileControllerinstance.MagicProfileList.value.requests![i].questions!.question.toString();
-          Map<String, String> keyValueMap = {"id": itemId,"name":name,"imagepath":imagepath};
-          imageUrlsList.add(keyValueMap);
-        }
-        
-        // Print the list of key-value pairs
-        print(imageUrlsList);
-      });
-      print(items);
+      //   // Store the image URLs in the list as key-value pairs
+      //   for (int i = 0; i < 4; i++) {
+      //     String itemId = MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString();
+      //     String imagepath=MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString();
+      //     String name=MagicProfileControllerinstance.MagicProfileList.value.requests![i].name.toString();
+      //     String ?question;
+      //    if(MagicProfileControllerinstance.MagicProfileList.value.requests![i].questions==null){
+
+      //    } else{
+      //     question=MagicProfileControllerinstance.MagicProfileList.value.requests![i].questions!.question.toString();
+      //     print(question);
+      //     }// String question=MagicProfileControllerinstance.MagicProfileList.value.requests![i].questions!.question.toString();
+      //     Map<String, String> keyValueMap = {"id": itemId,"name":name,"imagepath":imagepath,"question":question.toString()};
+      //     imageUrlsList.add(keyValueMap);
+      //   }
+      //   setState(() {
+      //     imageUrlsList;
+      //   });
+      //   // Print the list of key-value pairs
+      //   print(imageUrlsList);
+      // });
+      // print(items);
     },
     items: [
       for (int i = 0; i < 4; i++) ...<FortuneItem>[
@@ -166,7 +176,7 @@ Obx(() {
           child: Row(
             children: [
               SizedBox(width: Get.width * 0.15,),
-              InkWell(
+             InkWell(
                 child: Container(
                   height: Get.height * 0.07,
                   width: Get.width * 0.15,
@@ -175,7 +185,7 @@ Obx(() {
                     color: Colors.green,
                     image: DecorationImage(
                       image: CachedNetworkImageProvider(
-                        MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString(),
+                     isNotVisible==false? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg":  MagicProfileControllerinstance.MagicProfileList.value.requests![i].imgPath.toString()
                       ),
                       fit: BoxFit.fill,
                     ),
@@ -190,8 +200,8 @@ Obx(() {
         ),
       ],
     ],
-  );
-}),
+  )
+
 
 
               ),),),
@@ -206,12 +216,16 @@ Obx(() {
                     title: "Spin Now",
                     onTap: () {
                       setState(() {
-                        selected.add(Fortune.randomInt(0, items.length));
-                        isVisible = !isVisible;
-                        isNotVisible = !isNotVisible;
-                           MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
-                           
-                      });
+    // Update the model data and shuffle it
+    MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
+
+    // Change the selected index
+    selected.add(Fortune.randomInt(0, items.length));
+
+    // Toggle the visibility flags
+    isVisible = !isVisible;
+    isNotVisible = !isNotVisible;
+  });
                     },
                   ),
                 ),
@@ -243,86 +257,183 @@ Obx(() {
               ),
               Visibility(
                 visible: isNotVisible,
-                child: Container(
-                          
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount:  imageUrlsList.length,
-                    // itemExtent: 80,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      
-                      return  Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                            CircleAvatar(
-                              radius: 30.0,
-                              backgroundImage: NetworkImage(
-                                MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString() ) ,
-                              backgroundColor: Colors.transparent,
-                            ),
-                            SizedBox(
-                              width: width * .03,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                child:  Container(
+                         margin: EdgeInsets.only(left: 20),
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount:  4,
+                          // itemExtent: 80,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+
+                            return  Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                   MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                  "Match Seeker",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: width * .12),
-                            GestureDetector(
-                              onTap: () {
-                             
-
-
-                                 selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
+                                   Container(
+                  height: Get.height * 0.1,
+                  width: Get.width * 0.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Colors.green,
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                        MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                                  SizedBox(
+                                    width: width * .03,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                      MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
+                                        style: Theme.of(context).textTheme.titleSmall,
+                                      ),
+                                      SizedBox(
+                                        height: height * .01,
+                                      ),
+                                      Text(
+                                        "Match Maker",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: width * .12),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // showdilog();
+ selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
                                 print(selectedseekerid);
 
                                 if(selectedseekerid!=null){
                                   showdilog(index, selectedseekerid!);
                                 }
-                              },
-                              child: Container(
-                                height: height * .04,
-                                width: width * .3,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFE0091),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Request",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      );
-                    },
-                  ),
-                ),
+
+                                      // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+                                      // print(selectedseekerid);
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Request",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            );
+                          },
+                        ),)
+                
+                //  Container(
+                          
+                //   child: ListView.builder(
+                //     physics: NeverScrollableScrollPhysics(),
+                //     itemCount:  4,
+                //     // itemExtent: 80,
+                //     shrinkWrap: true,
+                //     itemBuilder: (context, index) {
+                      
+                //       return  Padding(
+                //         padding: const EdgeInsets.symmetric(vertical: 10),
+                //         child:  Row(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //         children: [
+                //             Container(
+                //   height: Get.height * 0.1,
+                //   width: Get.width * 0.2,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(100)),
+                //     color: Colors.green,
+                //     image: DecorationImage(
+                //       image: CachedNetworkImageProvider(
+                //         MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()
+                //       ),
+                //       fit: BoxFit.fill,
+                //     ),
+                //   ),
+                // ),
+                //             SizedBox(
+                //               width: width * .03,
+                //             ),
+                //             Column(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children: [
+                //                 Text(
+                //                    MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
+                //                   style: Theme.of(context).textTheme.titleSmall,
+                //                 ),
+                //                 SizedBox(
+                //                   height: height * .01,
+                //                 ),
+                //                 Text(
+                //                   "Match Seeker",
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .bodySmall!
+                //                       .copyWith(color: Colors.grey),
+                //                 ),
+                //               ],
+                //             ),
+                //             SizedBox(width: width * .12),
+                //             GestureDetector(
+                //               onTap: () {
+                             
+
+
+                                //  selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
+                                // print(selectedseekerid);
+
+                                // if(selectedseekerid!=null){
+                                //   showdilog(index, selectedseekerid!);
+                                // }
+                //               },
+                //               child: Container(
+                //                 height: height * .04,
+                //                 width: width * .3,
+                //                 decoration: BoxDecoration(
+                //                   color: Color(0xffFE0091),
+                //                   borderRadius: BorderRadius.circular(15),
+                //                 ),
+                //                 child: Center(
+                //                   child: Text(
+                //                     "Request",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(color: Colors.white),
+                //                   ),
+                //                 ),
+                //               ),
+                //             )
+                //           ],
+                //         )
+                //       );
+                //     },
+                //   ),
+                
               ),
 
             ],
@@ -357,18 +468,23 @@ showdilog(int index,int id){
                                           Stack(
                                             children: <Widget>[
                                               Center(
-                                                child: Container(
-                                                  height: height * .3,
-                                                  width: width * .3,
-                                                  child: CircleAvatar(
-                                                    radius: 30.0,
-                                                    backgroundImage: NetworkImage(
-                                                        MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()),
-                                                        
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                  ),
-                                                ),
+                                                child:   Container(
+                  height: Get.height * 0.14,
+                  width: Get.width * 0.3,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Colors.green,
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                        MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                                                
+                                                
+                                               
                                               ),
                                               Positioned(
                                                   top: 80,
@@ -380,7 +496,7 @@ showdilog(int index,int id){
                                           ),
                                       
                                           Text(
-                                          "",
+                                          MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.question.toString(),
                                         
                                             style: Theme.of(context)
                                                 .textTheme
@@ -390,9 +506,106 @@ showdilog(int index,int id){
                                           SizedBox(
                                             height: height * .01,
                                           ),
+Obx(() => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Select an Answer",style: TextStyle(fontSize: 15,)),
+              ],
+            ),
+            RadioListTile<String>(
+              title: Text(MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.firstAnswer.toString()),
+              value: MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.firstAnswer.toString(),
+              groupValue:MagicProfileControllerinstance.selectedAnswer.value.toString(),
+              onChanged: (value) {
+                    MagicProfileControllerinstance.selectedAnswer.value = value!;
+             
+             MagicProfileControllerinstance.selectedAnswer.value.toString();
+             print(MagicProfileControllerinstance.selectedAnswer.value.toString());
+                
+              },
+            ),
+            RadioListTile<String>(
+              title: Text(MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.secondAnswer.toString()),
+              value: MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.secondAnswer.toString(),
+             groupValue:MagicProfileControllerinstance.selectedAnswer.value.toString(),
+              onChanged: (value) {
+                    MagicProfileControllerinstance.selectedAnswer.value = value!;
+             
+             MagicProfileControllerinstance.selectedAnswer.value.toString();
+             print(MagicProfileControllerinstance.selectedAnswer.value.toString());
+                
+              },
+            ),
+            RadioListTile<String>(
+              title: Text(MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.thirdAnswer.toString()),
+              value: MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.thirdAnswer.toString(),
+               groupValue:MagicProfileControllerinstance.selectedAnswer.value.toString(),
+              onChanged: (value) {
+                    MagicProfileControllerinstance.selectedAnswer.value = value!;
+             
+             MagicProfileControllerinstance.selectedAnswer.value.toString();
+             print(MagicProfileControllerinstance.selectedAnswer.value.toString());
+                
+              },
+            ),
+          ],
+        ),),
+
+
+                                          
                                           GestureDetector(
                                             onTap: () {
-                                              showDialog(
+                                            
+                                         Get.back();
+                                       if(MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.correctAnswer==MagicProfileControllerinstance.selectedAnswer.value.toString()){
+
+                                        showdiog2(index);
+                                       } if(MagicProfileControllerinstance.MagicProfileList.value.requests![index].questions!.correctAnswer!=MagicProfileControllerinstance.selectedAnswer.value.toString()){
+                                        
+                                        showdiologwronganswer(index);
+                                      
+                                       }
+                                            },
+                                            child: Container(
+                                              height: height * .04,
+                                              width: width * .3,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffFE0091),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Submit",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                          color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                MediaQuery.of(context).size.height *
+                                                    .02,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+
+
+showdiog2(int index){
+  final height = MediaQuery.of(context).size.height;
+      final width = MediaQuery.of(context).size.width;
+          showDialog(
                                                 barrierDismissible: false,
                                                 context: context,
                                                 builder: (context) {
@@ -425,7 +638,7 @@ showdilog(int index,int id){
                                                                   radius: 30.0,
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                                                        MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()),
                                                                   backgroundColor:
                                                                       Colors
                                                                           .transparent,
@@ -463,7 +676,53 @@ showdilog(int index,int id){
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
-                                                            showDialog(
+                                                            Get.back();
+                                                            Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
+                                                           
+                                                          },
+                                                          child: Container(
+                                                            height: height * .04,
+                                                            width: width * .3,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Color(0xffFE0091),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(15),
+                                                            ),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "Message",
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .bodySmall!
+                                                                    .copyWith(
+                                                                        color: Colors
+                                                                            .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height:
+                                                              MediaQuery.of(context)
+                                                                      .size
+                                                                      .height *
+                                                                  .02,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+}
+
+showdiologwronganswer(int index){
+     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+              showDialog(
                                                               barrierDismissible:
                                                                   false,
                                                               context: context,
@@ -506,7 +765,7 @@ showdilog(int index,int id){
                                                                                 radius:
                                                                                     30.0,
                                                                                 backgroundImage:
-                                                                                    NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                                                                                    NetworkImage(  MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()),
                                                                                 backgroundColor:
                                                                                     Colors.transparent,
                                                                               ),
@@ -552,8 +811,7 @@ showdilog(int index,int id){
                                                                       ),
                                                                       GestureDetector(
                                                                         onTap: () {
-                                                                          Get.to(() =>
-                                                                              SikerHomeScreen());
+                                                                          Get.back();
                                                                         },
                                                                         child:
                                                                             Container(
@@ -589,80 +847,55 @@ showdilog(int index,int id){
                                                                                 .height *
                                                                             .02,
                                                                       ),
+
+                                                                      InkWell(
+                                                                        child: Container(
+                                                                                                                    height: height * .04,
+                                                                                                                    width: width * .4,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      color: Colors.white,
+                                                                                                                      borderRadius:
+                                                                                                                          BorderRadius.circular(15),
+                                                                                                                          border: Border.all(color:Color(
+                                                                                  0xffFE0091) )
+                                                                                                                    ),
+                                                                                                                    child: Center(
+                                                                                                                      child: Text(
+                                                                                                                        "Request To Maker",
+                                                                                                                        style: Theme.of(context)
+                                                                                                                            .textTheme
+                                                                                                                            .bodySmall!
+                                                                                                                            .copyWith(
+                                                                                                                                color: Color(
+                                                                                  0xffFE0091),)
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+
+                                                                                                                  onTap: (){
+                                                                                                                      Get.back();
+
+
+                                                                                                                      userIdsiker=MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+
+                                                                                                                      setState(() {
+                                                                                                                        userIdsiker;
+                                                                                                                      });
+                                                            Timer(Duration(microseconds: 2), () { Get.to(SeeAllMaker()); });
+                                                                                                                  
+                                                                                                                  },
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 );
                                                               },
                                                             );
-                                                          },
-                                                          child: Container(
-                                                            height: height * .04,
-                                                            width: width * .3,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Color(0xffFE0091),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(15),
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "Message",
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .bodySmall!
-                                                                    .copyWith(
-                                                                        color: Colors
-                                                                            .white),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height:
-                                                              MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                  .02,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                            child: Container(
-                                              height: height * .04,
-                                              width: width * .3,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffFE0091),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "Submit",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                          color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height:
-                                                MediaQuery.of(context).size.height *
-                                                    .02,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
+                                                          
 }
+
+                              
+}
+
+
+
 

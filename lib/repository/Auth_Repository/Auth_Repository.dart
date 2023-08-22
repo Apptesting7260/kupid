@@ -8,9 +8,11 @@ import 'package:cupid_match/models/CreateMatchesPlanModel/CreateMatchesPlanModel
 import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel.dart';
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
+import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
+import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
@@ -120,11 +122,11 @@ Future<SeekersAllInterestsModel> SeekersAllInterestsApi() async{
 }
 
 
-Future<MagicprofilesModel> MagicProfileApi() async{
+Future<MagicProfilesModel> MagicProfileApi() async{
   // print("hited");
   dynamic response = await _apiService.getApi2( AppUrl.MagicProfileUrl);
   // print(response);
-  return MagicprofilesModel.fromJson(response) ;
+  return MagicProfilesModel.fromJson(response) ;
 }
 
 
@@ -190,7 +192,22 @@ Future<AllMakerModel> ListAllMakerApi() async{
   return AllMakerModel.fromJson(response) ;
 }
 
+//***************** OutgoinRequestApi  *********************
+Future<OutgoingRequestModel> OutgoinRequestApi() async{
+   print("OutgoinRequestApi");
+  dynamic response = await _apiService.getApi2( AppUrl.OutgoingRequestUrl);
+  print(response);
+  return OutgoingRequestModel.fromJson(response) ;
+}
 
+
+//***************** IncomingRequestApi  *********************
+  Future<IncomingRequestModel> IncomingRequestApi() async{
+    print("IncomingRequestApi");
+    dynamic response = await _apiService.getApi2( AppUrl.IncomingRequestUrl);
+    print(response);
+    return IncomingRequestModel.fromJson(response) ;
+  }
 
 
 }

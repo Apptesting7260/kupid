@@ -1,6 +1,6 @@
 class ViewSikerDetailsToMatchModel {
   String? status;
-  List<ProfileDetails>? profileDetails;
+  List<ProfileDetail>? profileDetails;
 
   ViewSikerDetailsToMatchModel({
     this.status,
@@ -11,15 +11,14 @@ class ViewSikerDetailsToMatchModel {
     return ViewSikerDetailsToMatchModel(
       status: json['status'],
       profileDetails: json['ProfileDetails'] != null
-          ? List<ProfileDetails>.from(
-              json['ProfileDetails'].map((e) => ProfileDetails.fromJson(e)),
-            )
+          ? List<ProfileDetail>.from(
+              json['ProfileDetails'].map((x) => ProfileDetail.fromJson(x)))
           : null,
     );
   }
 }
 
-class ProfileDetails {
+class ProfileDetail {
   int? id;
   String? name;
   String? email;
@@ -30,34 +29,54 @@ class ProfileDetails {
   String? height;
   String? dob;
   String? profileImg;
-  String? profileVideo;
+  dynamic profileVideo;
   String? gender;
   String? religion;
-  int? status;
-  int? currentStep;
-  String? imgPath;
-  String? videoPath;
+  dynamic currentStep;
+  String imgPath;
+  String videoPath;
   Details? details;
 
-  ProfileDetails.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    phone = json['phone'];
-    occupation = json['occupation'];
-    salary = json['salary'];
-    address = json['address'];
-    height = json['height'];
-    dob = json['dob'];
-    profileImg = json['profile_img'];
-    profileVideo = json['profile_video'];
-    gender = json['gender'];
-    religion = json['religion'];
-    status = json['status'];
-    currentStep = json['current_step'];
-    imgPath = json['img_path'];
-    videoPath = json['video_path'];
-    details = json['details'] != null ? Details.fromJson(json['details']) : null;
+  ProfileDetail({
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.occupation,
+    this.salary,
+    this.address,
+    this.height,
+    this.dob,
+    this.profileImg,
+    this.profileVideo,
+    this.gender,
+    this.religion,
+    this.currentStep,
+    required this.imgPath,
+    required this.videoPath,
+    this.details,
+  });
+
+  factory ProfileDetail.fromJson(Map<String, dynamic> json) {
+    return ProfileDetail(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      phone: json['phone'],
+      occupation: json['occupation'],
+      salary: json['salary'],
+      address: json['address'],
+      height: json['height'],
+      dob: json['dob'],
+      profileImg: json['profile_img'],
+      profileVideo: json['profile_video'],
+      gender: json['gender'],
+      religion: json['religion'],
+      currentStep: json['current_step'],
+      imgPath: json['img_path'],
+      videoPath: json['video_path'],
+      details: json['details'] != null ? Details.fromJson(json['details']) : null,
+    );
   }
 }
 
@@ -72,19 +91,37 @@ class Details {
   int? status;
   String? createdAt;
   String? updatedAt;
-  List<String>? galleryPath;
+  List<String>? gallaryPath;
 
-  Details.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    seekerId = json['seeker_id'];
-    profileGallery = json['profile_gallery'];
-    inInterested = json['in_interested'];
-    interest = json['interest'];
-    bioTitle = json['bio_title'];
-    bioDescription = json['bio_description'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    galleryPath = json['galleryPath'] != null ? List<String>.from(json['galleryPath']) : null;
+  Details({
+    this.id,
+    this.seekerId,
+    this.profileGallery,
+    this.inInterested,
+    this.interest,
+    this.bioTitle,
+    this.bioDescription,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.gallaryPath,
+  });
+
+  factory Details.fromJson(Map<String, dynamic> json) {
+    return Details(
+      id: json['id'],
+      seekerId: json['seeker_id'],
+      profileGallery: json['profile_gallery'],
+      inInterested: json['in_interested'],
+      interest: json['interest'],
+      bioTitle: json['bio_title'],
+      bioDescription: json['bio_description'],
+      status: json['status'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      gallaryPath: json['gallary_path'] != null
+          ? List<String>.from(json['gallary_path'].map((x) => x))
+          : null,
+    );
   }
 }

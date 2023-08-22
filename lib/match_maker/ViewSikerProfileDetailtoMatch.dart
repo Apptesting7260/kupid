@@ -55,10 +55,14 @@ class _SikerProfilePageState extends State<SikerProfilePage> {
                   Container(
                     width: width * 1,
                     height: height * .4,
-                    child: Image.network(
-                     ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString(),
-                      fit: BoxFit.cover,
-                    ),
+                    child:
+                    
+                    CachedNetworkImage(
+  imageUrl: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString(),
+  fit: BoxFit.contain,
+  placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
+  errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
+),
                   ),
                   Positioned(
                       top: 30,
@@ -112,9 +116,9 @@ class _SikerProfilePageState extends State<SikerProfilePage> {
                               ],
                             ),
                             SizedBox(height: height * .02),
-                            Center(
-                              child: Image.asset("assets/images/vedio.png"),
-                            ),
+                            // Center(
+                            //   child: Image.asset("assets/images/vedio.png"),
+                            // ),
                             SizedBox(height: height * .02),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -340,26 +344,26 @@ class _SikerProfilePageState extends State<SikerProfilePage> {
                             SizedBox(height: height * .02),
 
 
-                        // if(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details.)    Container(
-                        //       child: GridView.builder(
-                        //         shrinkWrap: true,
-                        //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        //           crossAxisCount: 4,
-                        //         ),
-                        //         itemCount: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.galleryPath!.length,
-                        //         itemBuilder: (BuildContext context, int index) {
-                        //           return Padding(
-                        //             padding: const EdgeInsets.all(8.0),
-                        //             child: CachedNetworkImage(
-                        //             imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.galleryPath![index].toString(),
-                        //             fit: BoxFit.cover,
-                        //             placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
-                        //             errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
-                        //           ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
+                Container(
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                ),
+                                itemCount: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CachedNetworkImage(
+                                    imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath![index],
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
+                                    errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
+                                  ),
+                                  );
+                                },
+                              ),
+                            ),
 
                             SizedBox(height:Get.height*0.04,),
                             // StaggeredGrid.count(

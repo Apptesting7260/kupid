@@ -1,3 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
+import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
+import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
@@ -14,6 +18,8 @@ import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/Requests/IncomingRequest.dart';
 import 'package:cupid_match/match_seeker/Requests/outgoingRequest.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/drawer.dart';
@@ -31,6 +37,16 @@ class SikerHomeScreen extends StatefulWidget {
 }
 
 class _SikerHomeScreenState extends State<SikerHomeScreen> {
+  OutgoinRequestController controller = Get.put(OutgoinRequestController());
+  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.seekerListApi();
+    Incontroller.iseekerListApi();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -322,36 +338,51 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                     ),
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request To Match",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.to(IncomingRequests());
-                          },
-                          child: Text(
-                            'View All',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )),
-                    ],
-                  ),
+               
+               
 
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-
-                  Container(
+  //************** Request to match **********
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Request To Match",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Get.to(IncomingRequests());
+                    },
+                    child: Text(
+                      'View All',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.02,
+            ),
+          Obx(() {
+              switch (Incontroller.rxRequestStatus.value) {
+                case Status.LOADING:
+                  return const Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  if (Incontroller.error.value == 'No internet') {
+                    return InterNetExceptionWidget(
+                      onPress: () {},
+                    );
+                  } else {
+                    return GeneralExceptionWidget(onPress: () {});
+                  }
+                case Status.COMPLETED:
+                  return    Incontroller.IncomingRequestvalue.value.status=="success" ?  Container(
                     width: width,
-                    height: height * .12,
+                    height: height * .15,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 2,
+                      itemCount: 3,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -360,59 +391,134 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                   color: AppColors.ratingcodeColor,
                                   borderRadius: BorderRadius.circular(15)),
                               width: width * .65,
-                              height: 50,
-                              child: ListTile(
+          
+                              child: Incontroller.IncomingRequestvalue.value.requests![index].getMaker==null? ListTile(
                                 leading: CircleAvatar(
                                     radius: 18,
                                     backgroundColor: AppColors.white,
-                                    backgroundImage: NetworkImage(
-                                      "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-                                    )),
-                                title: Text(
-                                  "Name",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(color: AppColors.black),
-                                ),
-                                subtitle: Text(
-                                  "25/05/2022",
+                                    backgroundImage: CachedNetworkImageProvider(
+                                        Incontroller.IncomingRequestvalue.value
+                                            .requests![index].getSeeker!.imgPath
+                                            .toString())),
+                                title: Text(Incontroller.IncomingRequestvalue
+                                    .value.requests![index].getSeeker!.name
+                                    .toString()),
+                                // Text(
+                                //   Incontroller
+                                //       .IncomingRequestvalue.value.requests![index].getseeker.name
+                                //       .toString(),
+                                //   style: Theme.of(context)
+                                //       .textTheme
+                                //       .bodyMedium
+                                //       ?.copyWith(color: AppColors.black),
+                                // ),
+                                subtitle:
+                                Text(
+                                  Incontroller
+                                      .IncomingRequestvalue.value.requests![index].getSeeker!.dob
+                                      .toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          fontSize: 10, color: AppColors.black),
+                                      fontSize: 10,
+                                      color: AppColors.black),
                                 ),
-                                //trailing: Image.asset("assets/images/Group 221.png",width: width*0.09,),
-                              )),
+                              ):Container(child: Column(children: [Row(children: [Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text("Seeker & Maker Requested",style:TextStyle(color:Colors.black),),
+                              ),],),
+                              
+                              Row(children: [Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                                       
+                                                        width: width * .29,
+                                                        child: Stack(
+                                                          children: [
+                                Positioned(
+                                  right: 30,
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                        Incontroller
+                                      .IncomingRequestvalue.value.requests![index].getSeeker
+                                      !.imgPath.toString()),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:
+                                        Border.all(color: Colors.white, width: 2),
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                         Incontroller
+                                      .IncomingRequestvalue.value.requests![index].getMaker!.imgPath.toString()),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ),
+                                                          ],
+                                                        ),
+                                                      ),
+
+
+                                
+                              ),
+                              Column(children: [  Text("seeker367",style: TextStyle(color: Colors.black),),
+                              
+                              Text("25 march 2002",style: TextStyle(color:Colors.black),)],)
+                              ],)
+                              ],),)),
                         );
                       },
                     ),
-                  ),
+                  ):Container();
+              }
+            }),
+            //************** Request to be match **********
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request To Match",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.to(IncomingRequests());
-                          },
-                          child: Text(
-                            'View All',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-
-                  Container(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Request To Be Match",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                TextButton(
+                    onPressed: () {
+                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        // This code will run after the build is complete
+                        Get.to(OutGoingRequest());
+                      });
+                    },
+                    child: Text(
+                      'View All',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.02,
+            ),
+      Obx(() {
+              switch (controller.rxRequestStatus.value) {
+                case Status.LOADING:
+                  return const Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  if (controller.error.value == 'No internet') {
+                    return InterNetExceptionWidget(
+                      onPress: () {},
+                    );
+                  } else {
+                    return GeneralExceptionWidget(onPress: () {});
+                  }
+                case Status.COMPLETED:
+                  return controller.OutgoingRequestvalue.value.status=="success"  ?
+                    Container(
                     width: width,
                     height: height * .12,
                     child: ListView.builder(
@@ -423,108 +529,53 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
+                          child:
+                          Container(
                               decoration: BoxDecoration(
                                   color: AppColors.ratingcodeColor,
                                   borderRadius: BorderRadius.circular(15)),
                               width: width * .65,
-                              height: 50,
-                              child: ListTile(
+                              //height: Ge,
+                              child:
+                              ListTile(
                                 leading: CircleAvatar(
                                     radius: 18,
                                     backgroundColor: AppColors.white,
-                                    backgroundImage: NetworkImage(
-                                      "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-                                    )),
+                                    backgroundImage: CachedNetworkImageProvider(controller
+                                        .OutgoingRequestvalue
+                                        .value
+                                        .requests![index]
+                                        .getSeeker
+                                    ! .imgPath
+                                        .toString())),
                                 title: Text(
-                                  "Name",
+                                  controller.OutgoingRequestvalue.value
+                                      .requests![index].getSeeker!.name
+                                      .toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(color: AppColors.black),
                                 ),
                                 subtitle: Text(
-                                  "25/05/2022",
+                                  controller.OutgoingRequestvalue.value
+                                      .requests![index].getSeeker!.dob
+                                      .toString(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
                                       fontSize: 10, color: AppColors.black),
                                 ),
-                                //trailing: Image.asset("assets/images/Group 221.png",width: width*0.09,),
-                              )),
+                              )
+                          ),
                         );
                       },
                     ),
-                  ),
-
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request To Be Match",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      TextButton(
-                          onPressed: () {
-
-                            Get.to(OutGoingRequest());
-                          },
-                          child: Text(
-                            'View All',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    width: width,
-                    height: height * .12,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.ratingcodeColor,
-                                  borderRadius: BorderRadius.circular(15)),
-                              width: width * .65,
-                              height: 50,
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: AppColors.white,
-                                    backgroundImage: NetworkImage(
-                                      "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-                                    )),
-                                title: Text(
-                                  "Name",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(color: AppColors.black),
-                                ),
-                                subtitle: Text(
-                                  "25/05/2022",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      fontSize: 10, color: AppColors.black),
-                                ),
-                                //trailing: Image.asset("assets/images/Group 221.png",width: width*0.09,),
-                              )),
-                        );
-                      },
-                    ),
-                  ),
+                  ):Container();
+              }
+            })
+                
                 ]),
           ),
         ));

@@ -12,13 +12,14 @@ class MagicProfileController extends GetxController {
 
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final MagicProfileList =MagicprofilesModel().obs ;
+  final MagicProfileList =MagicProfilesModel().obs ;
+  RxString selectedAnswer="".obs;
   RxString error = ''.obs;
   RxList<dynamic> slotImages = [].obs;
   RxList<dynamic> slotname = [].obs;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
-  void setUserProfileList(MagicprofilesModel _value) => MagicProfileList.value = _value ;
+  void setUserProfileList(MagicProfilesModel _value) => MagicProfileList.value = _value ;
   void setError(String _value) => error.value = _value ;
 
 
