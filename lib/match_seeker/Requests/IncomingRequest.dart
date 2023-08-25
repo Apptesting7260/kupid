@@ -1,9 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
+import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import 'package:cupid_match/controllers/sikerProfileController/sikershortprofilecontrller.dart';
+import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/match_screen.dart';
+import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:cupid_match/widgets/seekershortprofile.dart';
+import 'package:cupid_match/widgets/shortprofilemaker.dart';
+import 'package:cupid_match/widgets/shortprofilepopup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,6 +30,8 @@ class IncomingRequests extends StatefulWidget {
 
 class _IncomingRequestsState extends State<IncomingRequests> {
   IncomingRequestController controller = Get.put(IncomingRequestController());
+
+
 
   String? selectCityItems;
   var CityItems = ["Jaipur", "Sikar"];
@@ -762,161 +775,36 @@ class _IncomingRequestsState extends State<IncomingRequests> {
   }
 
   // MakerProfile show dialog box
-  Future<void> showOptionsDialog(BuildContext context) {
+  Future<void> showmaker(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          final height = MediaQuery.of(context).size.height;
+          final width = MediaQuery.of(context).size.width;
+          return  ShortProfileMaker();
+        });
+  }
+
+
+///seeker
+
+  // MakerProfile show dialog box
+  Future<void> showseeker(BuildContext context) {
+
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           final height = MediaQuery.of(context).size.height;
           final width = MediaQuery.of(context).size.width;
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/remove.png',
-                          height: height * .03,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "Profile",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  CircleAvatar(
-                    radius: 52,
-                    backgroundImage: CachedNetworkImageProvider(
-                        "https://images.unsplash.com/flagged/photo-1553642618-de0381320ff3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
-                  ),
-                  SizedBox(height: height * 0.04),
-                  Text(
-                    "John Deo,22",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Text(
-                    "Jaipur, Indian",
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontWeight: FontWeight.w400, color: Color(0xff777777)),
-                  ),
-                  SizedBox(
-                    height: height * 0.03,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Sex",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: " Male",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff777777)))
-                  ])),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Experience:",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: " 5 Years",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff777777)))
-                  ])),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Matches completed:",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: " 50 Matches",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff777777)))
-                  ])),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Successful Matches:",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: " 40 Matches",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff777777)))
-                  ])),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Liked Profile:",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w600)),
-                    TextSpan(
-                        text: " 30 likes",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff777777)))
-                  ])),
-                  SizedBox(height: height * 0.04),
-                  MyButton(
-                    width: width * .5,
-                    title: "Request",
-                    onTap: () {},
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
+          return shortprofilepopup();
+          
+          }
+  );
+        }
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -1008,11 +896,16 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                   onTap: (){
 
 
+
+
                                     userIdsiker=controller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
 
 
                                     print(userIdsiker);
-                                    Get.to(ShortProfileSeeker());
+                                    if(userIdsiker!=null){
+                                      showseeker(context);
+                                    }
+                                    // Get.to(ShortProfileSeeker());
                                   },
                                 ),
                                 horizontalTitleGap: 10,
@@ -1058,7 +951,15 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                   ),
                                 ),
                                 onTap: () {
-                                  showOptionsDialog(context);
+
+                                  requestid=controller.IncomingRequestvalue.value
+                                    .requests![index].id.toString();
+
+                                    if(requestid!=null){
+                                      print(requestid);
+    Get.to(ChatPage());
+                                    }
+                          
                                 },
                               ),
                             if (controller.IncomingRequestvalue.value
@@ -1076,16 +977,23 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                   child: ListTile(
                                     leading: CircleAvatar(
                                       radius: 22,
-                                      child: CircleAvatar(
-                                          radius: 26,
-                                          backgroundImage: CachedNetworkImageProvider(
-                                              controller
-                                                  .IncomingRequestvalue
-                                                  .value
-                                                  .requests![index]
-                                                  .getMaker!
-                                                  .imgPath
-                                                  .toString())),
+                                      child: InkWell(
+                                        child: CircleAvatar(
+                                            radius: 26,
+                                            backgroundImage: CachedNetworkImageProvider(
+                                                controller
+                                                    .IncomingRequestvalue
+                                                    .value
+                                                    .requests![index]
+                                                    .getMaker!
+                                                    .imgPath
+                                                    .toString())),
+                                                    onTap: (){
+
+                                                      Makerid=controller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
+                                                    showmaker(context);
+                                                    },
+                                      ),
                                     ),
                                     horizontalTitleGap: 10,
                                     title: Text(
@@ -1124,7 +1032,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                     TextDecoration.underline),
                                       ),
                                       onTap: () {
-                                        showOptionsDialog(context);
+                                      Get.to(ChatPage());
                                       },
                                     ),
                                   ),
@@ -1142,5 +1050,67 @@ class _IncomingRequestsState extends State<IncomingRequests> {
         );
       }),
     );
+  }
+
+
+
+
+  Future<void> showdilogapproved(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          final height = MediaQuery.of(context).size.height;
+          final width = MediaQuery.of(context).size.width;
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.asset(
+                          'assets/images/remove.png',
+                          height: height * .03,
+                        ),
+                      ),
+                    ),
+                  ),
+                 
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
+                  CircleAvatar(
+                    radius: 52,
+                    // backgroundColor: Colors.,
+                   child: Icon(Icons.check,size:70,weight:8.0,opticalSize: 30,),
+                  ),
+                  SizedBox(height: height * 0.04),
+                Text("Congratulation!",style: TextStyle(color:Colors.black,fontWeight:FontWeight.bold,fontSize: 30,)),
+                  SizedBox(height: height * 0.04),
+                  Text("Your Request has been Acceped"),
+                  SizedBox(height: height * 0.01),
+
+                  Text("Successfully"),
+                  SizedBox(height: height * 0.04),
+
+                  MyButton(
+                    width: width * .5,
+                    title: "Back",
+                    onTap: () {},
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

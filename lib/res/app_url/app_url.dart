@@ -29,4 +29,8 @@ class AppUrl {
   static const String GetAllMakerUrl = '$baseUrl/seeker/get-all-maker';
 static const String OutgoingRequestUrl = '$baseUrl/seeker/seeker-outgoing-listing' ;
   static const String IncomingRequestUrl = '$baseUrl/seeker/incomming-request-list' ;
+  static const String RequestDetailsUrl = '$baseUrl/seeker/seeker-request-single-page' ;
+  static const String LikeListUrl = '$baseUrl/seeker/seeker-like-list' ;
+
+
 }

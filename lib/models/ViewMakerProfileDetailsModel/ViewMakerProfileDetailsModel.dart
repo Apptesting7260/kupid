@@ -3,12 +3,12 @@ class ViewMakerProfileModel {
      this.status,
      this.ProfileDetail,
   });
-   String ?status;
+   String? status;
    ProfileDetails ?ProfileDetail;
   
   ViewMakerProfileModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    ProfileDetail = ProfileDetails.fromJson(json['ProfileDetails']);
+    ProfileDetail= ProfileDetails.fromJson(json['ProfileDetails']);
   }
 
   Map<String, dynamic> toJson() {
@@ -44,18 +44,18 @@ class ProfileDetails {
      this.likedProfile,
      this.imgPath,
      this.videoPath,
-    //  this.details,
+     this.details,
   });
-   int ?id;
+   int? id;
    String ?name;
    String ?email;
-   String ?phone;
+   String? phone;
    String ?dob;
    String ?gender;
-   String ?location;
-   String ?profileImg;
-   String ?profileVideo;
-   String ?experience;
+   String? location;
+   String? profileImg;
+   String? profileVideo;
+   dynamic experience;
    String ?aboutMaker;
    String ?expectation;
    String? headingOfMaker;
@@ -69,7 +69,7 @@ class ProfileDetails {
    String ?likedProfile;
    String ?imgPath;
    String ?videoPath;
-  //  dynamic details;
+   Details ?details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -81,7 +81,7 @@ class ProfileDetails {
     location = json['location'];
     profileImg = json['profile_img'];
     profileVideo = json['profile_video'];
-    experience = json['experience'];
+    experience = null;
     aboutMaker = json['about_maker'];
     expectation = json['expectation'];
     headingOfMaker = json['heading_of_maker'];
@@ -95,7 +95,7 @@ class ProfileDetails {
     likedProfile = json['liked_profile'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    // details = Details.fromJson(json['details']);
+    details = Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
@@ -123,7 +123,7 @@ class ProfileDetails {
     _data['liked_profile'] = likedProfile;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
-    // _data['details'] = details!.toJson();
+    _data['details'] = details!.toJson();
     return _data;
   }
 }
@@ -143,7 +143,7 @@ class Details {
      this.createdAt,
      this.updatedAt,
   });
-   int? id;
+   int ?id;
    String ?makerId;
    String ?nationality;
    String ?verificationMethod;

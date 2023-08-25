@@ -1,24 +1,21 @@
 class ViewSikerDetailsToMatchModel {
   String? status;
-  List<ProfileDetail>? profileDetails;
+  List<ProfileDetails>? profileDetails;
 
-  ViewSikerDetailsToMatchModel({
-    this.status,
-    this.profileDetails,
-  });
+  ViewSikerDetailsToMatchModel({this.status, this.profileDetails});
 
   factory ViewSikerDetailsToMatchModel.fromJson(Map<String, dynamic> json) {
     return ViewSikerDetailsToMatchModel(
       status: json['status'],
       profileDetails: json['ProfileDetails'] != null
-          ? List<ProfileDetail>.from(
-              json['ProfileDetails'].map((x) => ProfileDetail.fromJson(x)))
+          ? List<ProfileDetails>.from(
+              json['ProfileDetails'].map((x) => ProfileDetails.fromJson(x)))
           : null,
     );
   }
 }
 
-class ProfileDetail {
+class ProfileDetails {
   int? id;
   String? name;
   String? email;
@@ -29,15 +26,17 @@ class ProfileDetail {
   String? height;
   String? dob;
   String? profileImg;
-  dynamic profileVideo;
+  String? profileVideo;
   String? gender;
   String? religion;
   dynamic currentStep;
-  String imgPath;
-  String videoPath;
+  String? imgPath;
+  String? videoPath;
+  String? occupationName;
+  int? likeStatus;
   Details? details;
 
-  ProfileDetail({
+  ProfileDetails({
     this.id,
     this.name,
     this.email,
@@ -52,13 +51,15 @@ class ProfileDetail {
     this.gender,
     this.religion,
     this.currentStep,
-    required this.imgPath,
-    required this.videoPath,
+    this.imgPath,
+    this.videoPath,
+    this.occupationName,
+    this.likeStatus,
     this.details,
   });
 
-  factory ProfileDetail.fromJson(Map<String, dynamic> json) {
-    return ProfileDetail(
+  factory ProfileDetails.fromJson(Map<String, dynamic> json) {
+    return ProfileDetails(
       id: json['id'],
       name: json['name'],
       email: json['email'],
@@ -75,7 +76,9 @@ class ProfileDetail {
       currentStep: json['current_step'],
       imgPath: json['img_path'],
       videoPath: json['video_path'],
-      details: json['details'] != null ? Details.fromJson(json['details']) : null,
+      occupationName: json['occupation_name'],
+      likeStatus: json['like_status'],
+      details: Details.fromJson(json['details']),
     );
   }
 }
@@ -91,7 +94,8 @@ class Details {
   int? status;
   String? createdAt;
   String? updatedAt;
-  List<String>? gallaryPath;
+  List<dynamic>? gallaryPath;
+  List<InterestName>? interestName;
 
   Details({
     this.id,
@@ -105,6 +109,7 @@ class Details {
     this.createdAt,
     this.updatedAt,
     this.gallaryPath,
+    this.interestName,
   });
 
   factory Details.fromJson(Map<String, dynamic> json) {
@@ -120,8 +125,24 @@ class Details {
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       gallaryPath: json['gallary_path'] != null
-          ? List<String>.from(json['gallary_path'].map((x) => x))
+          ? List<dynamic>.from(json['gallary_path'])
           : null,
+      interestName: json['interest_name'] != null
+          ? List<InterestName>.from(
+              json['interest_name'].map((x) => InterestName.fromJson(x)))
+          : null,
+    );
+  }
+}
+
+class InterestName {
+  String? title;
+
+  InterestName({this.title});
+
+  factory InterestName.fromJson(Map<String, dynamic> json) {
+    return InterestName(
+      title: json['title'],
     );
   }
 }

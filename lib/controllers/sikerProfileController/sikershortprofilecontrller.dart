@@ -36,7 +36,7 @@ class SikerShortProfileDetailsController extends GetxController {
     Map data={
 "user_id":userIdsiker
     };
-  //  setRxRequestStatus(Status.LOADING);
+   setRxRequestStatus(Status.LOADING);
 
     _api.ViewSikerDetailsToMatchApi(data).then((value){
       setRxRequestStatus(Status.COMPLETED);

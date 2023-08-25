@@ -14,12 +14,14 @@ import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.d
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
+import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
 import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
 import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewSikerDetailsToMatchModel,.dart/ViewSikerDetailsModel.dart';
+import 'package:cupid_match/models/likeModel/LikeListModel.dart';
 import 'package:cupid_match/res/app_url/app_url.dart';
 
 import '../../models/AllOcupationsModel/AllOcupationsModel.dart';
@@ -208,6 +210,17 @@ Future<OutgoingRequestModel> OutgoinRequestApi() async{
     print(response);
     return IncomingRequestModel.fromJson(response) ;
   }
-
-
+////////***************RequestDetails***************************** */
+  Future<RequestDetailsModel> RequestDetailsApi(var data) async{
+    print("IncomingRequestApi");
+    dynamic response = await _apiService.postApi2( data, AppUrl.RequestDetailsUrl);
+    print(response);
+    return RequestDetailsModel.fromJson(response) ;
+  }
+  Future<LikeListModel> likeListApi() async{
+ 
+    dynamic response = await _apiService.getApi2( AppUrl.LikeListUrl);
+    print(response);
+    return LikeListModel.fromJson(response) ;
+  }
 }

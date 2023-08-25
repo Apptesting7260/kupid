@@ -1,3 +1,4 @@
+import 'package:cupid_match/controllers/controller/LikeListController/LikeListController.dart';
 import 'package:cupid_match/match_maker/invite_state.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,15 @@ class LikesSeeker extends StatefulWidget {
 }
 
 class _LikesSeekerState extends State<LikesSeeker> {
+final LikeListControllerinstance=Get.put(LikeListController());
+
+@override
+  void initState() {
+    LikeListControllerinstance.LikeListApiHit();
+    // TODO: implement initState
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

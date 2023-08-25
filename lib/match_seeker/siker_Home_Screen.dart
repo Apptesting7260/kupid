@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
 import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
 import 'package:cupid_match/data/response/status.dart';
@@ -18,12 +19,14 @@ import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/Requests/IncomingRequest.dart';
 import 'package:cupid_match/match_seeker/Requests/outgoingRequest.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
+import 'package:cupid_match/match_seeker/match_screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/drawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:cupid_match/widgets/seekershortprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -346,7 +349,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Request To Match",
+                  "Incoming Requests",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 TextButton(
@@ -377,102 +380,165 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                 case Status.COMPLETED:
                   return    Incontroller.IncomingRequestvalue.value.status=="success" ?  Container(
                     width: width,
-                    height: height * .15,
+                    height: height * .18,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: 3,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.ratingcodeColor,
-                                  borderRadius: BorderRadius.circular(15)),
-                              width: width * .65,
-          
-                              child: Incontroller.IncomingRequestvalue.value.requests![index].getMaker==null? ListTile(
-                                leading: CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: AppColors.white,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                        Incontroller.IncomingRequestvalue.value
-                                            .requests![index].getSeeker!.imgPath
-                                            .toString())),
-                                title: Text(Incontroller.IncomingRequestvalue
-                                    .value.requests![index].getSeeker!.name
-                                    .toString()),
-                                // Text(
-                                //   Incontroller
-                                //       .IncomingRequestvalue.value.requests![index].getseeker.name
-                                //       .toString(),
-                                //   style: Theme.of(context)
-                                //       .textTheme
-                                //       .bodyMedium
-                                //       ?.copyWith(color: AppColors.black),
-                                // ),
-                                subtitle:
-                                Text(
-                                  Incontroller
-                                      .IncomingRequestvalue.value.requests![index].getSeeker!.dob
-                                      .toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      fontSize: 10,
-                                      color: AppColors.black),
-                                ),
-                              ):Container(child: Column(children: [Row(children: [Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text("Seeker & Maker Requested",style:TextStyle(color:Colors.black),),
-                              ),],),
-                              
-                              Row(children: [Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                                       
-                                                        width: width * .29,
-                                                        child: Stack(
-                                                          children: [
-                                Positioned(
-                                  right: 30,
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                        Incontroller
-                                      .IncomingRequestvalue.value.requests![index].getSeeker
-                                      !.imgPath.toString()),
-                                    backgroundColor: Colors.transparent,
+                        return InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.ratingcodeColor,
+                                    borderRadius: BorderRadius.circular(15)),
+                                width: width * .65,
+                                  
+                                child: Incontroller.IncomingRequestvalue.value.requests![index].getMaker==null? 
+                               
+                                InkWell(
+                                  child: Container(child: Column(children: [Row(
+                                                            
+                                    children: [Padding(
+                                    padding: const EdgeInsets.only(left: 20,top:10,bottom: 10),
+                                    child: Text("Seeker ",style:TextStyle(color:Colors.pink), ),
                                   ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.white, width: 2),
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                         Incontroller
-                                      .IncomingRequestvalue.value.requests![index].getMaker!.imgPath.toString()),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                ),
-                                                          ],
-                                                        ),
-                                                      ),
-
-
+                                  
+                                  
+                                   Text(" Requested",style:TextStyle(color:Colors.black),)
+                                  ],),
+                                                           
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                                           
+                                                            // width: width * .29,
+                                                            child: Stack(
+                                                              children: [
+                                    CircleAvatar(
+                                                  radius:30 ,
+                                                  backgroundColor: AppColors.white,
+                                                  backgroundImage: CachedNetworkImageProvider(
+                                                      Incontroller.IncomingRequestvalue.value
+                                                          .requests![index].getSeeker!.imgPath
+                                                          .toString())),
+                                    
+                                    
+                                                              ],
+                                                            ),
+                                                          ),
                                 
-                              ),
-                              Column(children: [  Text("seeker367",style: TextStyle(color: Colors.black),),
-                              
-                              Text("25 march 2002",style: TextStyle(color:Colors.black),)],)
-                              ],)
-                              ],),)),
+                                
+                                    
+                                  ),
+                                  SizedBox(width:Get.width*0.08,),
+                                  Column(
+                                    
+                                    
+                                    children: [  
+                                      SizedBox(height:Get.height*0.02,),
+                                      Text(  Incontroller.IncomingRequestvalue.value
+                                                          .requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                  SizedBox(height: Get.height*0.01,),
+                                  Text(Incontroller.IncomingRequestvalue.value
+                                                          .requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                  ],)
+                                  ],)),
+                                  //  onTap: (){
+                                  //      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
+                        
+                        
+                                  //     print(userIdsiker);
+                                  //     Get.to(ShortProfileSeeker());
+                                  // },
+                                )
+                                
+                                :
+                                Container(child: Column(children: [Row(children: [
+                                  
+                        
+                                  SizedBox(height: Get.height*0.04,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20,),
+                                  child: Text("Seeker &",style:TextStyle(color:Colors.black), ),
+                                ),
+                                
+                                 Text("Maker",style:TextStyle(color:Colors.pink),),
+                                 Text(" Requested",style:TextStyle(color:Colors.black),)
+                                ],),
+                             
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                                         
+                                                          width: width * .29,
+                                                          child: Stack(
+                                                            children: [
+                                  Positioned(
+                                    right: 30,
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                          Incontroller
+                                        .IncomingRequestvalue.value.requests![index].getSeeker
+                                        !.imgPath.toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: Colors.white, width: 2),
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                           Incontroller
+                                        .IncomingRequestvalue.value.requests![index].getMaker!.imgPath.toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                                            ],
+                                                          ),
+                                                        ),
+                        
+                        
+                                  
+                                ),
+                           Column(
+                                  
+                                  
+                                  children: [  
+                                    SizedBox(height:Get.height*0.02,),
+                                    Text(  Incontroller.IncomingRequestvalue.value
+                                                        .requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                SizedBox(height: Get.height*0.01,),
+                                Text(Incontroller.IncomingRequestvalue.value
+                                                        .requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                ],)
+                                ],))),
+                          ),
+
+                             onTap: () {
+
+                                  requestid=Incontroller.IncomingRequestvalue.value
+                                    .requests![index].id.toString();
+
+                                    if(requestid!=null){
+                                      print(requestid);
+    Get.to(ChatPage());
+                                    }
+                          
+                                },
                         );
                       },
                     ),
@@ -485,7 +551,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Request To Be Match",
+                  "Outgoing Requests",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 TextButton(
@@ -520,55 +586,158 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                   return controller.OutgoingRequestvalue.value.status=="success"  ?
                     Container(
                     width: width,
-                    height: height * .12,
+                    height: height * .18,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: 2,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.ratingcodeColor,
-                                  borderRadius: BorderRadius.circular(15)),
-                              width: width * .65,
-                              //height: Ge,
-                              child:
-                              ListTile(
-                                leading: CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: AppColors.white,
-                                    backgroundImage: CachedNetworkImageProvider(controller
-                                        .OutgoingRequestvalue
-                                        .value
-                                        .requests![index]
-                                        .getSeeker
-                                    ! .imgPath
-                                        .toString())),
-                                title: Text(
-                                  controller.OutgoingRequestvalue.value
-                                      .requests![index].getSeeker!.name
-                                      .toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(color: AppColors.black),
+                        return InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: AppColors.ratingcodeColor,
+                                    borderRadius: BorderRadius.circular(15)),
+                                width: width * .65,
+                                // height: Get.height*0.5,
+                                
+                                child: controller.OutgoingRequestvalue.value.requests![index].getMaker==null? 
+                               
+                                InkWell(
+                                  child: Container(child: Column(children: [Row(
+                                                            
+                                    children: [
+                                      
+                                      SizedBox(height:Get.height*0.04,),
+                                      Padding(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    child: Text("Seeker ",style:TextStyle(color:Colors.pink), ),
+                                  ),
+                                  
+                                  
+                                   Text(" Requested",style:TextStyle(color:Colors.black),)
+                                  ],),
+                                                           
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                                           
+                                                            // width: width * .29,
+                                                            child: Stack(
+                                                              children: [
+                                    CircleAvatar(
+                                                  radius:30 ,
+                                                  backgroundColor: AppColors.white,
+                                                  backgroundImage: CachedNetworkImageProvider(
+                                                      controller.OutgoingRequestvalue.value.requests![index].getSeeker!.imgPath
+                                                          .toString())),
+                                    
+                                    
+                                                              ],
+                                                            ),
+                                                          ),
+                                
+                                
+                                    
+                                  ),
+                                  SizedBox(width:Get.width*0.08,),
+                                  Column(
+                                    
+                                    
+                                    children: [  
+                                      SizedBox(height:Get.height*0.02,),
+                                      Text(  controller.OutgoingRequestvalue.value.requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                  SizedBox(height: Get.height*0.01,),
+                                  Text(controller.OutgoingRequestvalue.value.requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                  ],)
+                                  ],)),
+                                  // onTap: (){
+                                  //      userIdsiker=controller.OutgoingRequestvalue.value.requests![index].getSeeker!.id.toString();
+                        
+                        
+                                  //     print(userIdsiker);
+                                  //     Get.to(ShortProfileSeeker());
+                                  // },
+                                )
+                                
+                                :
+                                Container(child: Column(children: [Row(children: [Padding(
+                                    padding: const EdgeInsets.only(left: 20,top:10),
+                                  child: Text("Seeker &",style:TextStyle(color:Colors.black), ),
                                 ),
-                                subtitle: Text(
-                                  controller.OutgoingRequestvalue.value
-                                      .requests![index].getSeeker!.dob
-                                      .toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      fontSize: 10, color: AppColors.black),
+                                
+                                 Text("Maker",style:TextStyle(color:Colors.pink),),
+                                 Text(" Requested",style:TextStyle(color:Colors.black),)
+                                ],),
+                             
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                                         
+                                                          width: width * .29,
+                                                          child: Stack(
+                                                            children: [
+                                  Positioned(
+                                    right: 30,
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                         controller.OutgoingRequestvalue.value.requests![index].getMaker
+                                        !.imgPath.toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: Colors.white, width: 2),
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                       controller.OutgoingRequestvalue.value.requests![index]. getMaker!.imgPath.toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                                            ],
+                                                          ),
+                                                        ),
+                        
+                        
+                                  
                                 ),
-                              )
+                           Column(
+                                  
+                                  
+                                  children: [  
+                                    SizedBox(height:Get.height*0.02,),
+                                    Text(  controller.OutgoingRequestvalue.value.requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                SizedBox(height: Get.height*0.01,),
+                                Text(controller.OutgoingRequestvalue.value.requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                ],)
+                                ],))),
                           ),
+
+                            onTap: () {
+
+                                  requestid=controller.OutgoingRequestvalue.value
+                                    .requests![index].id.toString();
+
+                                    if(requestid!=null){
+                                      print(requestid);
+    Get.to(ChatPage());
+                                    }
+                          
+                                },
                         );
                       },
                     ),

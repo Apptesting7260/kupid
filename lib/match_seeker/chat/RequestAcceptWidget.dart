@@ -1,6 +1,13 @@
 
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
+import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/res/components/general_exception.dart';
+import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AcceptRequestwidget extends StatefulWidget {
   const AcceptRequestwidget({super.key});
@@ -10,12 +17,39 @@ class AcceptRequestwidget extends StatefulWidget {
 }
 
 class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
+
+  final ViewSikerProfileDetailsControllernstance=Get.put(ViewSikerProfileDetailsController());
+
+
+  final ViewRequestDetailsControllerinstance=Get.put(ViewRequestDetailsController());
+
+  @override
+  void initState() {
+            ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
+    ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
 
         final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return                   Column(
+    return       Obx(() {
+          switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return            Column(
       children: [
         Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,24 +70,28 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                     width: width * .42,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
-                                      child: Image.network(
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUMVgZA0_97XbZH3bBs4y-gaAQ-pNWgZuUjnOj3k3GHQ&usqp=CAU&ec=48600112",
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: CachedNetworkImage(
+       imageUrl:ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.imgPath.toString(),
+       progressIndicatorBuilder: (context, url, downloadProgress) => 
+               CircularProgressIndicator(value: downloadProgress.progress),
+       errorWidget: (context, url, error) => Icon(Icons.error),
+       fit: BoxFit.cover,
+      
+    ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Text(
-                                    "Jake, 22",
+                                   ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.name.toString(),
                                     style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                   SizedBox(
                                     height: height * .005,
                                   ),
                                   Text(
-                                    "Fashion Designer",
+                                  ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.occupationName.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -63,14 +101,14 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                     height: height * .005,
                                   ),
                                   Text(
-                                    "Jaipur, Indian",
+                                ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.address.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
                                   ),
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Text(
                                     "Interest",
@@ -79,15 +117,22 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                   SizedBox(
                                     height: height * .005,
                                   ),
-                                  Text(
-                                    "American",
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.details!.interestName!.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Text(
+                                 ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.details!.interestName![index].title.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
+                                  ) ;
+                                    },
                                   ),
+                                  
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Wrap(
                                     runSpacing: 8.0,
@@ -116,7 +161,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             //         ),
                                             //         onPressed: null)),
                                             Text(
-                                              "Hindu",
+                                            ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.religion.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -138,7 +183,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             Image.asset("assets/icons/height.png"),
                                             SizedBox(width: width * .01),
                                             Text(
-                                              "6 Feet 2.8",
+                                              "${ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.height}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -169,7 +214,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             //         ),
                                             //         onPressed: null)),
                                             Text(
-                                              "30k Monthly",
+                                              "${ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.salary}k Monthly",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -179,15 +224,28 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                       )
                                     ],
                                   ),
-                                  Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset("assets/icons/next.png"))
+                                  // Align(
+                                  //     alignment: Alignment.bottomRight,
+                                  //     child: Image.asset("assets/icons/next.png"))
                                 ],
                               ),
                             ),
                           ),
                          
-                               Container(
+                             Obx(() {
+          switch (ViewSikerProfileDetailsControllernstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewSikerProfileDetailsControllernstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return       Container(
                             // height: height * .5,
                             width: width * .46,
                             decoration: BoxDecoration(
@@ -203,24 +261,28 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                     width: width * .42,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
-                                      child: Image.network(
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUMVgZA0_97XbZH3bBs4y-gaAQ-pNWgZuUjnOj3k3GHQ&usqp=CAU&ec=48600112",
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: CachedNetworkImage(
+       imageUrl:ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString(),
+       progressIndicatorBuilder: (context, url, downloadProgress) => 
+               CircularProgressIndicator(value: downloadProgress.progress),
+       errorWidget: (context, url, error) => Icon(Icons.error),
+       fit: BoxFit.cover,
+      
+    ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Text(
-                                    "Jake, 22",
+                                   ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].name.toString(),
                                     style: Theme.of(context).textTheme.titleSmall,
                                   ),
                                   SizedBox(
                                     height: height * .005,
                                   ),
                                   Text(
-                                    "Fashion Designer",
+                                   ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].occupationName.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -230,14 +292,14 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                     height: height * .005,
                                   ),
                                   Text(
-                                    "Jaipur, Indian",
+                                  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].address.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
                                   ),
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Text(
                                     "Interest",
@@ -246,15 +308,22 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                   SizedBox(
                                     height: height * .005,
                                   ),
-                                  Text(
-                                    "American",
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Text(
+                                   ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.details!.interestName![index].title.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
+                                  ) ;
+                                    },
                                   ),
+                                  
                                   SizedBox(
-                                    height: height * .03,
+                                    height: height * .01,
                                   ),
                                   Wrap(
                                     runSpacing: 8.0,
@@ -283,7 +352,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             //         ),
                                             //         onPressed: null)),
                                             Text(
-                                              "Hindu",
+                                            ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.religion.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -305,7 +374,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             Image.asset("assets/icons/height.png"),
                                             SizedBox(width: width * .01),
                                             Text(
-                                              "6 Feet 2.8",
+                                              "${ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.height}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -336,7 +405,7 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                             //         ),
                                             //         onPressed: null)),
                                             Text(
-                                              "30k Monthly",
+                                              "${ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.salary}k Monthly",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall,
@@ -346,13 +415,23 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
                                       )
                                     ],
                                   ),
-                                  Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Image.asset("assets/icons/next.png"))
+                                  // Align(
+                                  //     alignment: Alignment.bottomRight,
+                                  //     child: Image.asset("assets/icons/next.png"))
+                                
+                              
+                            
+                          
+                         
+                                    
+                                  
+                                  // Align(
+                                  //     alignment: Alignment.bottomRight,
+                                  //     child: Image.asset("assets/icons/next.png"))
                                 ],
                               ),
                             ),
-                          ),
+                          );}}),
                         ],
                       ),
 
@@ -426,4 +505,4 @@ class _AcceptRequestwidgetState extends State<AcceptRequestwidget> {
   }
 
 
-}
+  });}}

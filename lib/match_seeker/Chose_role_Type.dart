@@ -162,4 +162,11 @@ Get.to(
       ),
     );
   }
+
+  // choseroleset()async{
+  //   final sp=SharedPreferences.getInstance();
+
+  //   await sp.s
+
+  // }
 }

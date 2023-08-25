@@ -355,7 +355,7 @@ class _SikerProfilePageState extends State<SikerProfilePage> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: CachedNetworkImage(
-                                    imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath![index],
+                                    imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath![index].toString(),
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
                                     errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
