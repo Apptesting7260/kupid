@@ -183,7 +183,7 @@ class Getseeker {
      this.currentStep,
      this.imgPath,
      this.videoPath,
-     this.occupationName,
+    //  this.occupationName,
      this.likeStatus,
      this.details,
   });
@@ -203,7 +203,7 @@ class Getseeker {
    int ?currentStep;
    String ?imgPath;
    String ?videoPath;
-   String ?occupationName;
+  //  String ?occupationName;
    int ?likeStatus;
    Details?details;
   
@@ -224,7 +224,7 @@ class Getseeker {
     currentStep = json['current_step'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    occupationName = json['occupation_name'];
+    // occupationName = json['occupation_name'];
     likeStatus = json['like_status'];
     details = Details.fromJson(json['details']);
   }
@@ -247,7 +247,7 @@ class Getseeker {
     _data['current_step'] = currentStep;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
-    _data['occupation_name'] = occupationName;
+    // _data['occupation_name'] = occupationName;
     _data['like_status'] = likeStatus;
     _data['details'] = details!.toJson();
     return _data;
@@ -279,7 +279,7 @@ class Details {
    int ?status;
    dynamic createdAt;
    String ?updatedAt;
-   List<dynamic> ?gallaryPath;
+   List<String> ?gallaryPath;
    List<InterestName>? interestName;
   
   Details.fromJson(Map<String, dynamic> json){
@@ -350,7 +350,7 @@ class Getanotherseeker {
      this.currentStep,
      this.imgPath,
      this.videoPath,
-     this.occupationName,
+    //  this.occupationName,
      this.likeStatus,
      this.details,
   });
@@ -370,7 +370,7 @@ class Getanotherseeker {
    int ?currentStep;
    String ?imgPath;
    String ?videoPath;
-   String ?occupationName;
+  //  String ?occupationName;
    int ?likeStatus;
    Details ?details;
   
@@ -391,7 +391,7 @@ class Getanotherseeker {
     currentStep = json['current_step'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    occupationName = json['occupation_name'];
+    // occupationName = json['occupation_name'];
     likeStatus = json['like_status'];
     details = Details.fromJson(json['details']);
   }
@@ -414,7 +414,7 @@ class Getanotherseeker {
     _data['current_step'] = currentStep;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
-    _data['occupation_name'] = occupationName;
+    // _data['occupation_name'] = occupationName;
     _data['like_status'] = likeStatus;
     _data['details'] = details!.toJson();
     return _data;

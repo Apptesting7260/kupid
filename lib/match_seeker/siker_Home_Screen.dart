@@ -529,7 +529,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                           ),
 
                              onTap: () {
-
+setState(() {
+  requestype="1";
+});
                                   requestid=Incontroller.IncomingRequestvalue.value
                                     .requests![index].id.toString();
 
@@ -728,7 +730,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                           ),
 
                             onTap: () {
-
+setState(() {
+  requestype="2";
+});
                                   requestid=controller.OutgoingRequestvalue.value
                                     .requests![index].id.toString();
 

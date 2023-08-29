@@ -29,9 +29,15 @@ class IncomingRequests extends StatefulWidget {
 }
 
 class _IncomingRequestsState extends State<IncomingRequests> {
-  IncomingRequestController controller = Get.put(IncomingRequestController());
 
+  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
 
+@override
+  void initState() {
+    requestid=null;
+    // TODO: implement initState
+    super.initState();
+  }
 
   String? selectCityItems;
   var CityItems = ["Jaipur", "Sikar"];
@@ -863,7 +869,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: controller.IncomingRequestvalue.value.requests!.length,
+              itemCount: Incontroller.IncomingRequestvalue.value.requests!.length,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return Padding(
@@ -885,7 +891,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                     backgroundColor: AppColors.white,
                                     child: CircleAvatar(
                                         radius: 22,
-                                        backgroundImage: CachedNetworkImageProvider(controller
+                                        backgroundImage: CachedNetworkImageProvider(Incontroller
                                             .IncomingRequestvalue
                                             .value
                                             .requests![index]
@@ -898,7 +904,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
 
 
 
-                                    userIdsiker=controller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
+                                    userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
 
 
                                     print(userIdsiker);
@@ -910,7 +916,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                 ),
                                 horizontalTitleGap: 10,
                                 title: Text(
-                                  controller.IncomingRequestvalue.value
+                                  Incontroller.IncomingRequestvalue.value
                                       .requests![index].getSeeker!.name
                                       .toString(),
                                   style: Theme.of(context)
@@ -931,7 +937,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                 ),
                               ),
                             ),
-                            if (controller.IncomingRequestvalue.value
+                            if (Incontroller.IncomingRequestvalue.value
                                     .requests![index].getMaker ==
                                 null)
                               InkWell(
@@ -951,10 +957,15 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                   ),
                                 ),
                                 onTap: () {
-
-                                  requestid=controller.IncomingRequestvalue.value
+                           requestid=Incontroller.IncomingRequestvalue.value
                                     .requests![index].id.toString();
-
+setState(() {
+  requestype="1";
+  requestid;
+  print(Incontroller.IncomingRequestvalue.value
+                                    .requests![index].id.toString());
+});
+       
                                     if(requestid!=null){
                                       print(requestid);
     Get.to(ChatPage());
@@ -962,7 +973,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                           
                                 },
                               ),
-                            if (controller.IncomingRequestvalue.value
+                            if (Incontroller.IncomingRequestvalue.value
                                     .requests![index].getMaker !=
                                 null)
                               Flexible(
@@ -981,7 +992,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                         child: CircleAvatar(
                                             radius: 26,
                                             backgroundImage: CachedNetworkImageProvider(
-                                                controller
+                                                Incontroller
                                                     .IncomingRequestvalue
                                                     .value
                                                     .requests![index]
@@ -990,14 +1001,14 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                     .toString())),
                                                     onTap: (){
 
-                                                      Makerid=controller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
+                                                      Makerid=Incontroller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
                                                     showmaker(context);
                                                     },
                                       ),
                                     ),
                                     horizontalTitleGap: 10,
                                     title: Text(
-                                      controller
+                                      Incontroller
                                           .IncomingRequestvalue
                                           .value
                                           .requests![index].getMaker!.name.toString(),
@@ -1031,9 +1042,20 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                 decoration:
                                                     TextDecoration.underline),
                                       ),
-                                      onTap: () {
-                                      Get.to(ChatPage());
-                                      },
+                                     onTap: () {
+                           requestid=Incontroller.IncomingRequestvalue.value
+                                    .requests![index].id.toString();
+setState(() {
+  requestype="1";
+  requestid;
+  print(Incontroller.IncomingRequestvalue.value
+                                    .requests![index].id.toString());
+});
+       
+                                    if(requestid!=null){
+                                      print(requestid);
+    Get.to(ChatPage());
+                                    }}
                                     ),
                                   ),
                                 ),

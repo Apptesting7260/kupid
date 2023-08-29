@@ -14,6 +14,7 @@ import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.d
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
+import 'package:cupid_match/models/RequestActionModel/RequestActionModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
@@ -223,4 +224,14 @@ Future<OutgoingRequestModel> OutgoinRequestApi() async{
     print(response);
     return LikeListModel.fromJson(response) ;
   }
+
+
+    
+  Future<RequestActionModel> RequestActionApi(var data ) async{
+ print("hited");
+    dynamic response = await _apiService.postApi2( data,AppUrl.RequestActionUrl);
+    print(response);
+    return RequestActionModel.fromJson(response) ;
+  }
+
 }

@@ -2,6 +2,7 @@
 import 'package:cupid_match/utils/my_theme.dart';
 import 'package:cupid_match/views/sign_up/signup_screen.dart';
 import 'package:cupid_match/views/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,13 @@ import 'match_seeker/profile/interest.dart';
 import 'match_seeker/profile/update_profile_details.dart';
 import 'match_seeker/siker_Home_Screen.dart';
 
-void main() {
+Future main()async {
+    
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 

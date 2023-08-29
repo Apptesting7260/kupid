@@ -13,7 +13,13 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   TextEditingController messagecontroller = TextEditingController();
-
+  final ViewRequestDetailsControllerinstance=Get.put(ViewRequestDetailsController());
+@override
+  void initState() {
+ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -72,7 +78,7 @@ class _ChatPageState extends State<ChatPage> {
            
             // SizedBox(height: height*.03),
 
-            AcceptRequestwidget(),
+           AcceptRequestwidget(),
 
             SizedBox(height: Get.height*0.02,),
 

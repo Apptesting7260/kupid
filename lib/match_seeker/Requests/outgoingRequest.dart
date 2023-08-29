@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
+import 'package:cupid_match/match_seeker/match_screen.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:cupid_match/widgets/seekershortprofile.dart';
@@ -1008,7 +1010,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                       ),
 
                                       onTap: (){
-                                        Get.to(ShortProfileSeeker());
+                                        // Get.to(ShortProfileSeeker());
                                       },
                                     ),
                                     horizontalTitleGap: 10,
@@ -1054,9 +1056,19 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                             TextDecoration.underline),
                                       ),
                                     ),
-                                    onTap: () {
-                                      showOptionsDialog(context);
-                                    },
+                                     onTap: () {
+setState(() {
+  requestype="2";
+});
+                                  requestid=controller.OutgoingRequestvalue.value
+                                    .requests![index].id.toString();
+
+                                    if(requestid!=null){
+                                      print(requestid);
+    Get.to(ChatPage());
+                                    }
+                          
+                                },
                                   ),
                                 if(controller.OutgoingRequestvalue.value.requests![index].getMaker != null)
                                   Flexible(

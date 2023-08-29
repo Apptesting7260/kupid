@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/controllers/controller/SetRoleController/SetRoleController.dart';
 import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
@@ -27,6 +28,7 @@ class UserLoginController extends GetxController {
   RxBool loading = false.obs;
 
   void UserLoginapiHit()async{
+     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     loading.value = true ;
     print(loading.value);
@@ -36,7 +38,7 @@ class UserLoginController extends GetxController {
       
     };
     print(data);
-    _api.UserLoginapi(data).then((value){
+    _api.UserLoginapi(data).then((value)async{
       loading.value = false ;
 print(value);
 String Bearertoken=value.token.toString();
@@ -49,6 +51,12 @@ print(prefs.getString('BarearToken'));
 print(prefs.getString('Usertype'));
 print(prefs.getString('Tokernid'));
       // Utils.snackBar( "Message",value.message.toString());
+
+       await _firestore.collection('users').doc(Tokernid).set({
+        "name": Tokernid,
+        // "email": patchemail,
+        // "userid": userid,
+      });
       if(value.userType=="1"){
 
        if(value.currentStep==1){

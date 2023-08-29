@@ -38,3 +38,7 @@ String ?SikerReligon;
   String? userIdsiker;
 
 String? requestid;
+String requestype="1";
+String?action_with;
+String?action_from;
+String?actiontype;
