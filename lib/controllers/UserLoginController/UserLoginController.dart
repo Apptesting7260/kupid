@@ -52,11 +52,6 @@ print(prefs.getString('Usertype'));
 print(prefs.getString('Tokernid'));
       // Utils.snackBar( "Message",value.message.toString());
 
-       await _firestore.collection('users').doc(Tokernid).set({
-        "name": Tokernid,
-        // "email": patchemail,
-        // "userid": userid,
-      });
       if(value.userType=="1"){
 
        if(value.currentStep==1){

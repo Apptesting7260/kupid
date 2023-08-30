@@ -1,12 +1,12 @@
 class RequestDetailsModel {
   RequestDetailsModel({
-     this.status,
-     this.data,
+    this.status,
+    this.data,
   });
-   String ?status;
-   Data ?data;
-  
-  RequestDetailsModel.fromJson(Map<String, dynamic> json){
+  String? status;
+  Data? data;
+
+  RequestDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = Data.fromJson(json['data']);
   }
@@ -21,35 +21,37 @@ class RequestDetailsModel {
 
 class Data {
   Data({
-     this.id,
-     this.makerId,
-     this.matchFrom,
-     this.matchWith,
-     this.matchType,
-     this.matchWithStatus,
-     this.matchFromStatus,
-     this.status,
-     this.createdAt,
-     this.updatedAt,
-     this.getmaker,
-     this.getseeker,
-     this.getanotherseeker,
+    this.id,
+    this.makerId,
+    this.matchFrom,
+    this.matchWith,
+    this.matchType,
+    this.matchWithStatus,
+    this.matchFromStatus,
+    this.status,
+    this.roomId,
+    this.createdAt,
+    this.updatedAt,
+    this.getmaker,
+    this.getseeker,
+    this.getanotherseeker,
   });
-   int ?id;
-   int ?makerId;
-   int ?matchFrom;
-   int ?matchWith;
-   int ?matchType;
-   String ?matchWithStatus;
-   String ?matchFromStatus;
-   int ?status;
-   String ?createdAt;
-   String ?updatedAt;
-   Getmaker? getmaker;
-   Getseeker ?getseeker;
-   Getanotherseeker? getanotherseeker;
-  
-  Data.fromJson(Map<String, dynamic> json){
+  int? id;
+  dynamic makerId;
+  int? matchFrom;
+  int? matchWith;
+  int? matchType;
+  String? matchWithStatus;
+  dynamic matchFromStatus;
+  int? status;
+  int? roomId;
+  String? createdAt;
+  String? updatedAt;
+  Getmaker? getmaker;
+  Getseeker? getseeker;
+  Getseeker? getanotherseeker;
+
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     makerId = json['maker_id'];
     matchFrom = json['match_from'];
@@ -58,11 +60,12 @@ class Data {
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];
     status = json['status'];
+    roomId = json['roomid'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    getmaker = json['getmaker']!=null? Getmaker.fromJson(json['getmaker']):null;
+    getmaker = json['getmaker'] != null ? Getmaker.fromJson(json['getmaker']) : null;
     getseeker = Getseeker.fromJson(json['getseeker']);
-    getanotherseeker = Getanotherseeker.fromJson(json['getanotherseeker']);
+    getanotherseeker = Getseeker.fromJson(json['getanotherseeker']);
   }
 
   Map<String, dynamic> toJson() {
@@ -75,14 +78,16 @@ class Data {
     _data['match_with_status'] = matchWithStatus;
     _data['match_from_status'] = matchFromStatus;
     _data['status'] = status;
+    _data['roomid'] = roomId;
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
-    _data['getmaker'] = getmaker!.toJson();
-    _data['getseeker'] = getseeker!.toJson();
-    _data['getanotherseeker'] = getanotherseeker!.toJson();
+    _data['getmaker'] = getmaker?.toJson();
+    _data['getseeker'] = getseeker?.toJson();
+    _data['getanotherseeker'] = getanotherseeker?.toJson();
     return _data;
   }
 }
+
 
 class Getmaker {
   Getmaker({

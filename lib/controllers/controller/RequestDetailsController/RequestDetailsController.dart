@@ -1,6 +1,7 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewRequestDetailsController extends GetxController {
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _api = AuthRepository();
 
 
@@ -38,11 +39,23 @@ class ViewRequestDetailsController extends GetxController {
     };
    setRxRequestStatus(Status.LOADING);
 
-    _api.RequestDetailsApi(data).then((value){
+    _api.RequestDetailsApi(data).then((value)async{
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);
-
+if(value.data!.roomId!=null){
+   await _firestore
+        .collection('chatroom')
+        .doc(value.data!.roomId.toString())
+        .collection('chats')
+        .doc("chats")
+        .set({
+      "sendby": value.data!.roomId.toString(),
+      "message": "",
+      "type": "img",
+      // "time": FieldValue.serverTimestamp(),
+    });
+}
          print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());
