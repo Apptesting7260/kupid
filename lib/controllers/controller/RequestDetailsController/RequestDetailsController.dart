@@ -3,6 +3,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
@@ -15,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ViewRequestDetailsController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final ViewSikerProfileDetailsControllerinstance=Get.put(ViewSikerProfileDetailsController
+());
   final _api = AuthRepository();
 
 
@@ -43,19 +46,18 @@ class ViewRequestDetailsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);
-if(value.data!.roomId!=null){
-   await _firestore
-        .collection('chatroom')
-        .doc(value.data!.roomId.toString())
-        .collection('chats')
-        .doc("chats")
-        .set({
-      "sendby": value.data!.roomId.toString(),
-      "message": "",
-      "type": "img",
-      // "time": FieldValue.serverTimestamp(),
-    });
-}
+print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
+
+   await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
+    "getseeker":value.data!.getseeker!.id.toString(),
+    "getmaker":value.data!.getmaker!.id.toString(),
+    "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
+    "requestid":value.data!.id.toString()
+   });
+
+  await _firestore.collection("RoomId's").doc(value.data!.roomId.toString()).set({});
+
+
          print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());

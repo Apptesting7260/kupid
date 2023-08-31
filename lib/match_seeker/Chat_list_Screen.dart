@@ -1,4 +1,4 @@
-import 'package:cupid_match/match_seeker/match_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/matched_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

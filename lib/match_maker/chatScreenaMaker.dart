@@ -2,6 +2,7 @@
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_maker/premium.dart';
 import 'package:cupid_match/match_maker/premium_seeker.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _ChatScreenMakerState extends State<ChatScreenMaker> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(()=>ChatScreen());
+                    Get.to(()=>ChatPage());
                   },
                   child: ListTile(
                     leading: Container(

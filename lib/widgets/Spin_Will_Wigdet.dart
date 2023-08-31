@@ -8,7 +8,7 @@ import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
-import 'package:cupid_match/match_seeker/match_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';

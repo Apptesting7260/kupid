@@ -10,6 +10,7 @@ import 'package:cupid_match/match_maker/recent_conversations.dart';
 import 'package:cupid_match/match_maker/recent_matches.dart';
 import 'package:cupid_match/match_maker/request_matches.dart';
 import 'package:cupid_match/match_maker/Chose_Subcription.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
@@ -306,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 10, color: AppColors.black),
                                 ),
                                 trailing: GestureDetector(
-                                    onTap: () => Get.to(() => ChatScreen()),
+                                    onTap: () => Get.to(() => ChatPage()),
                                     child: Image.asset(
                                       "assets/maker/Group 221.png",
                                       width: width * 0.09,

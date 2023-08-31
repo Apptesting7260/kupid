@@ -7,6 +7,7 @@ import 'package:cupid_match/controllers/controller/ProfileScrollController.dart/
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/ViewSikerProfileDetailtoMatch.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
@@ -648,7 +649,7 @@ ShowDialog(BuildContext context) {
                   width: MediaQuery.of(context).size.width * .63,
                   title: 'Leave a note for both',
                   onTap: () {
-                   Get.to(ChatScreen());
+                   Get.to(ChatPage());
                   },
                 )
               ],

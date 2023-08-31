@@ -52,6 +52,10 @@ print(prefs.getString('Usertype'));
 print(prefs.getString('Tokernid'));
       // Utils.snackBar( "Message",value.message.toString());
 
+
+   
+   
+
       if(value.userType=="1"){
 
        if(value.currentStep==1){

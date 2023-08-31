@@ -6,7 +6,7 @@ import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/Vi
 import 'package:cupid_match/controllers/sikerProfileController/sikershortprofilecontrller.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
-import 'package:cupid_match/match_seeker/match_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';

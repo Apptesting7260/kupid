@@ -8,6 +8,7 @@ import 'package:cupid_match/controllers/controller/MagicProfileController/MagicP
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/lever/request_makers.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/my_button.dart';
@@ -553,7 +554,7 @@ showdiog2(int index){
                                                         GestureDetector(
                                                           onTap: () {
                                                             Get.back();
-                                                            Timer(Duration(microseconds: 2), () { Get.to(ChatScreen()); });
+                                                            Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
                                                            
                                                           },
                                                           child: Container(

@@ -3,11 +3,13 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewSikerDetailsToMatchModel,.dart/ViewSikerDetailsModel.dart';
+import 'package:cupid_match/models/chatmodels/usermodel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +32,7 @@ class ViewSikerProfileDetailsController extends GetxController {
 
 
   void ViewSikerProfileDetailsApiHit()async{
-
+ FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final prefs=await SharedPreferences.getInstance();
 
     Map data={
@@ -38,10 +40,25 @@ class ViewSikerProfileDetailsController extends GetxController {
     };
   //  setRxRequestStatus(Status.LOADING);
 
-    _api.ViewSikerDetailsToMatchApi(data).then((value){
+    _api.ViewSikerDetailsToMatchApi(data).then((value)async{
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);
+  final userchat=    ChatUser(
+id: value.profileDetails![0].id.toString(),
+      name:  value.profileDetails![0].name.toString(),
+      email:  value.profileDetails![0].email.toString(),
+      about: value.profileDetails![0].details!.bioTitle.toString(),
+      image:  value.profileDetails![0].imgPath.toString(),
+      createdAt: '',
+      isOnline: false,
+      lastActive: '',
+      pushToken: ''
+
+
+      );
+   await _firestore.collection("seeker").doc(value.profileDetails![0].id.toString()).set(userchat.toJson());
+       
 
          print("fjksdfn");
     }).onError((error, stackTrace){

@@ -19,7 +19,7 @@ import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/Requests/IncomingRequest.dart';
 import 'package:cupid_match/match_seeker/Requests/outgoingRequest.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
-import 'package:cupid_match/match_seeker/match_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
@@ -330,7 +330,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                           fontSize: 10, color: AppColors.black),
                                 ),
                                 trailing: GestureDetector(
-                                    onTap: () => Get.to(() => ChatScreen()),
+                                    // onTap: () => Get.to(() => ChatScreen()),
                                     child: Image.asset(
                                       "assets/maker/Group 221.png",
                                       width: width * 0.09,
