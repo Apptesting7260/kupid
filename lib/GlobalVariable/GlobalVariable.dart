@@ -1,5 +1,6 @@
 
 
+import 'dart:ffi';
 import 'dart:io';
 
 String ?SelectedGender;
@@ -42,3 +43,5 @@ String requestype="1";
 String?action_with;
 String?action_from;
 String?actiontype;
+Bool ?liverpullrequested;
+Bool ?spinnwillrequested;

@@ -1,26 +1,30 @@
 class UserLoginModel {
   UserLoginModel({
-     this.status,
-     this.message,
-     this.token,
-     this.tokenId,
-     this.currentStep,
-     this.userType,
+    this.status,
+    this.message,
+    this.token,
+    this.tokenId,
+    this.currentStep,
+    this.userType,
   });
-   String ?status;
-   String ?message;
-   String? token;
-   int ?tokenId;
-   int ?currentStep;
-   String ?userType;
-  
-  UserLoginModel.fromJson(Map<String, dynamic> json){
-    status = json['status'];
-    message = json['message'];
-    token = json['token'];
-    tokenId = json['token_id'];
-    currentStep = json['current_step'];
-    userType = json['user_type'];
+
+  String? status;
+  String? message;
+  String? token;
+  dynamic tokenId;
+ dynamic currentStep;
+  String? userType;
+
+  // Use factory constructor to create a UserLoginModel instance
+  factory UserLoginModel.fromJson(Map<String, dynamic> json) {
+    return UserLoginModel(
+      status: json['status']!=null?json['status']:"",
+      message: json['message']!=null?json['message']:"",
+      token: json['token']!=null?json['token']:"",
+      tokenId: json['token_id']!=null?json['token_id']:"" , // Use "as int?" to handle possible null values
+      currentStep: json['current_step'] !=null?json['current_step']:"" , // Use "as int?" to handle possible null values
+      userType: json['user_type']!=null?json['user_type']:"",
+    );
   }
 
   Map<String, dynamic> toJson() {

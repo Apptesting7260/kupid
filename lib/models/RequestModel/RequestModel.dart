@@ -3,7 +3,8 @@ class RequestDetailsModel {
     this.status,
     this.data,
   });
-  String? status;
+
+  var  status;
   Data? data;
 
   RequestDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -36,17 +37,18 @@ class Data {
     this.getseeker,
     this.getanotherseeker,
   });
-  int? id;
-  dynamic makerId;
-  int? matchFrom;
-  int? matchWith;
-  int? matchType;
-  String? matchWithStatus;
-  dynamic matchFromStatus;
-  int? status;
-  int? roomId;
-  String? createdAt;
-  String? updatedAt;
+
+  var id;
+  var makerId;
+  var matchFrom;
+  var matchWith;
+  var matchType;
+  var  matchWithStatus;
+  var  matchFromStatus;
+  var status;
+  var roomId;
+  var  createdAt;
+  var  updatedAt;
   Getmaker? getmaker;
   Getseeker? getseeker;
   Getseeker? getanotherseeker;
@@ -64,8 +66,8 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     getmaker = json['getmaker'] != null ? Getmaker.fromJson(json['getmaker']) : null;
-    getseeker = Getseeker.fromJson(json['getseeker']);
-    getanotherseeker = Getseeker.fromJson(json['getanotherseeker']);
+    getseeker = json['getseeker']!=null? Getseeker.fromJson(json['getseeker']):null;
+    getanotherseeker = json['getanotherseeker']!=null ?Getseeker.fromJson(json['getanotherseeker']):null;
   }
 
   Map<String, dynamic> toJson() {
@@ -88,46 +90,46 @@ class Data {
   }
 }
 
-
 class Getmaker {
   Getmaker({
-     this.id,
-     this.name,
-     this.email,
-     this.phone,
-     this.dob,
-     this.gender,
-     this.location,
-     this.profileImg,
-     this.profileVideo,
-     this.experience,
-     this.aboutMaker,
-     this.expectation,
-     this.headingOfMaker,
-     this.status,
-     this.currentStep,
-     this.imgPath,
-     this.videoPath,
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.dob,
+    this.gender,
+    this.location,
+    this.profileImg,
+    this.profileVideo,
+    this.experience,
+    this.aboutMaker,
+    this.expectation,
+    this.headingOfMaker,
+    this.status,
+    this.currentStep,
+    this.imgPath,
+    this.videoPath,
   });
-   int ?id;
-   String ?name;
-   String ?email;
-   String ?phone;
-   String ?dob;
-   String ?gender;
-   String ?location;
-   String ?profileImg;
-   String ?profileVideo;
-   dynamic experience;
-   String ?aboutMaker;
-   String ?expectation;
-   String ?headingOfMaker;
-   int ?status;
-   int ?currentStep;
-   String ?imgPath;
-   String ?videoPath;
-  
-  Getmaker.fromJson(Map<String, dynamic> json){
+
+  var id;
+  var  name;
+  var  email;
+  var  phone;
+  var  dob;
+  var  gender;
+  var  location;
+  var  profileImg;
+  var  profileVideo;
+  dynamic experience;
+  var  aboutMaker;
+  var  expectation;
+  var  headingOfMaker;
+  var status;
+  var currentStep;
+  var  imgPath;
+  var  videoPath;
+
+  Getmaker.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -137,7 +139,7 @@ class Getmaker {
     location = json['location'];
     profileImg = json['profile_img'];
     profileVideo = json['profile_video'];
-    experience = null;
+    experience = json['experience'];
     aboutMaker = json['about_maker'];
     expectation = json['expectation'];
     headingOfMaker = json['heading_of_maker'];
@@ -172,47 +174,46 @@ class Getmaker {
 
 class Getseeker {
   Getseeker({
-     this.id,
-     this.name,
-     this.email,
-     this.phone,
-     this.occupation,
-     this.salary,
-     this.address,
-     this.height,
-     this.dob,
-     this.profileImg,
-     this.profileVideo,
-     this.gender,
-     this.religion,
-     this.currentStep,
-     this.imgPath,
-     this.videoPath,
-    //  this.occupationName,
-     this.likeStatus,
-     this.details,
+    this.id,
+    this.name,
+    this.email,
+    this.phone,
+    this.occupation,
+    this.salary,
+    this.address,
+    this.height,
+    this.dob,
+    this.profileImg,
+    this.profileVideo,
+    this.gender,
+    this.religion,
+    this.currentStep,
+    this.imgPath,
+    this.videoPath,
+    this.likeStatus,
+    this.details,
   });
-   int ?id;
-   String ?name;
-   String ?email;
-   String ?phone;
-   String ?occupation;
-   String ?salary;
-   String ?address;
-   String ?height;
-   String ?dob;
-   String ?profileImg;
-   String ?profileVideo;
-   String ?gender;
-   String ?religion;
-   int ?currentStep;
-   String ?imgPath;
-   String ?videoPath;
-  //  String ?occupationName;
-   int ?likeStatus;
-   Details?details;
-  
-  Getseeker.fromJson(Map<String, dynamic> json){
+
+  var id;
+  var  name;
+  var  email;
+  var  phone;
+  var  occupation;
+  var  salary;
+  var  address;
+  var  height;
+  var  dob;
+  var  profileImg;
+  var  profileVideo;
+  var  gender;
+  var  religion;
+  var currentStep;
+  var  imgPath;
+  var  videoPath;
+  var likeStatus;
+  Details? details;
+
+  Getseeker.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -229,9 +230,8 @@ class Getseeker {
     currentStep = json['current_step'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    // occupationName = json['occupation_name'];
     likeStatus = json['like_status'];
-    details = Details.fromJson(json['details']);
+    details = json['details']!=null?Details.fromJson(json['details']):null;
   }
 
   Map<String, dynamic> toJson() {
@@ -252,7 +252,6 @@ class Getseeker {
     _data['current_step'] = currentStep;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
-    // _data['occupation_name'] = occupationName;
     _data['like_status'] = likeStatus;
     _data['details'] = details!.toJson();
     return _data;
@@ -261,33 +260,34 @@ class Getseeker {
 
 class Details {
   Details({
-     this.id,
-     this.seekerId,
-     this.profileGallery,
-     this.inInterested,
-     this.interest,
-     this.bioTitle,
-     this.bioDescription,
-     this.status,
-     this.createdAt,
-     this.updatedAt,
-     this.gallaryPath,
-     this.interestName,
+    this.id,
+    this.seekerId,
+    this.profileGallery,
+    this.inInterested,
+    this.interest,
+    this.bioTitle,
+    this.bioDescription,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.gallaryPath,
+    this.interestName,
   });
-   int ?id;
-   int ?seekerId;
-   bool? profileGallery;
-   String ?inInterested;
-   String ?interest;
-   String ?bioTitle;
-   String ?bioDescription;
-   int ?status;
-   dynamic createdAt;
-   String ?updatedAt;
-   List<String> ?gallaryPath;
-   List<InterestName>? interestName;
-  
-  Details.fromJson(Map<String, dynamic> json){
+
+  var id;
+  var seekerId;
+  bool? profileGallery;
+  var  inInterested;
+  var  interest;
+  var  bioTitle;
+  var  bioDescription;
+  var status;
+  dynamic createdAt;
+  var  updatedAt;
+  List<String>? gallaryPath;
+  List<InterestName>? interestName;
+
+  Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     seekerId = json['seeker_id'];
     profileGallery = json['profile_gallery'];
@@ -296,10 +296,12 @@ class Details {
     bioTitle = json['bio_title'];
     bioDescription = json['bio_description'];
     status = json['status'];
-    createdAt = json['createdAt'];
+    createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    gallaryPath = List.castFrom<dynamic, String>(json['gallary_path']);
-    interestName = List.from(json['interest_name']).map((e)=>InterestName.fromJson(e)).toList();
+    gallaryPath = json['gallary_path']!=null?List.castFrom<dynamic, String>(json['gallary_path']):[];
+    interestName = json['interest_name']!=null? (json['interest_name'] as List<dynamic>)
+        .map((e) => InterestName.fromJson(e))
+        .toList():[];
   }
 
   Map<String, dynamic> toJson() {
@@ -315,113 +317,25 @@ class Details {
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
     _data['gallary_path'] = gallaryPath;
-    _data['interest_name'] = interestName!.map((e)=>e.toJson()).toList();
+    _data['interest_name'] = interestName!.map((e) => e.toJson()).toList();
     return _data;
   }
 }
 
 class InterestName {
   InterestName({
-     this.title,
+    this.title,
   });
-   String ?title;
-  
-  InterestName.fromJson(Map<String, dynamic> json){
+
+  var  title;
+
+  InterestName.fromJson(Map<String, dynamic> json) {
     title = json['title'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['title'] = title;
-    return _data;
-  }
-}
-
-class Getanotherseeker {
-  Getanotherseeker({
-     this.id,
-     this.name,
-     this.email,
-     this.phone,
-     this.occupation,
-     this.salary,
-     this.address,
-     this.height,
-     this.dob,
-     this.profileImg,
-     this.profileVideo,
-     this.gender,
-     this.religion,
-     this.currentStep,
-     this.imgPath,
-     this.videoPath,
-    //  this.occupationName,
-     this.likeStatus,
-     this.details,
-  });
-   int ?id;
-   String ?name;
-   String ?email;
-   String ?phone;
-   String ?occupation;
-   String ?salary;
-   String ?address;
-   String ?height;
-   String ?dob;
-   String ?profileImg;
-   String ?profileVideo;
-   String ?gender;
-   String ?religion;
-   int ?currentStep;
-   String ?imgPath;
-   String ?videoPath;
-  //  String ?occupationName;
-   int ?likeStatus;
-   Details ?details;
-  
-  Getanotherseeker.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    phone = json['phone'];
-    occupation = json['occupation'];
-    salary = json['salary'];
-    address = json['address'];
-    height = json['height'];
-    dob = json['dob'];
-    profileImg = json['profile_img'];
-    profileVideo = json['profile_video'];
-    gender = json['gender'];
-    religion = json['religion'];
-    currentStep = json['current_step'];
-    imgPath = json['img_path'];
-    videoPath = json['video_path'];
-    // occupationName = json['occupation_name'];
-    likeStatus = json['like_status'];
-    details = Details.fromJson(json['details']);
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['email'] = email;
-    _data['phone'] = phone;
-    _data['occupation'] = occupation;
-    _data['salary'] = salary;
-    _data['address'] = address;
-    _data['height'] = height;
-    _data['dob'] = dob;
-    _data['profile_img'] = profileImg;
-    _data['profile_video'] = profileVideo;
-    _data['gender'] = gender;
-    _data['religion'] = religion;
-    _data['current_step'] = currentStep;
-    _data['img_path'] = imgPath;
-    _data['video_path'] = videoPath;
-    // _data['occupation_name'] = occupationName;
-    _data['like_status'] = likeStatus;
-    _data['details'] = details!.toJson();
     return _data;
   }
 }

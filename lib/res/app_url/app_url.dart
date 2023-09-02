@@ -32,6 +32,9 @@ static const String OutgoingRequestUrl = '$baseUrl/seeker/seeker-outgoing-listin
   static const String RequestDetailsUrl = '$baseUrl/seeker/seeker-request-single-page' ;
   static const String LikeListUrl = '$baseUrl/seeker/seeker-like-list' ;
   static const String RequestActionUrl = '$baseUrl/seeker/request-action' ;
+  static const String SeekerToSeekerRequestUrl = '$baseUrl/seeker/request-seeker-to-seeker' ;
+
+ 
 
 
 }

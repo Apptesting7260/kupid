@@ -90,7 +90,7 @@ Get.offAll(PhotosScreen());
     }).onError((error, stackTrace){
       print("error");
       loading.value = false ;
-      Utils.snackBar('Error', error.toString());
+      Utils.snackBar('Bad Request', error.toString());
     });
   }
 }

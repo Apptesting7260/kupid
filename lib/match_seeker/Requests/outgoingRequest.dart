@@ -947,203 +947,203 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
         ),
       ),
       body:
-      Obx(() {
-       return Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: width * .05, vertical: height * .03),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Search by Filter",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      InkWell(
-                        child: Image.asset(
-                          "assets/images/filter.png",
-                          height: height * .05,
+SingleChildScrollView(
+         child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: width * .05, vertical: height * .03),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Search by Filter",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w600),
                         ),
-                        onTap: () {
-                          _showDialog(context);
-                        },
-                      ),
-                    ],
+                        InkWell(
+                          child: Image.asset(
+                            "assets/images/filter.png",
+                            height: height * .05,
+                          ),
+                          onTap: () {
+                            _showDialog(context);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: height * .02,
-                ),
-
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller
-                      .OutgoingRequestvalue.value.requests!.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: height * .01),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: height * 0.11,
-                            decoration: BoxDecoration(color: Color(0xffFE0091)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: ListTile(
-                                    leading: InkWell(
-                                      child: CircleAvatar(
-                                        radius: 24,
-                                        backgroundColor: AppColors.white,
+                  SizedBox(
+                    height: height * .02,
+                  ),
+       
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:controller
+                                                    .OutgoingRequestvalue.value.requests!.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: height * .01),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: height * 0.11,
+                              decoration: BoxDecoration(color: Color(0xffFE0091)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: ListTile(
+                                      leading: InkWell(
                                         child: CircleAvatar(
-                                          radius: 22,
-                                          backgroundImage: CachedNetworkImageProvider(
-                                              controller
-                                                  .OutgoingRequestvalue.value.requests![index].getSeeker!.imgPath
-                                                  .toString()                                      )),
-                                      ),
-
-                                      onTap: (){
-                                        // Get.to(ShortProfileSeeker());
-                                      },
-                                    ),
-                                    horizontalTitleGap: 10,
-                                    title:
-                                        Text(
-                                            controller
-                                              .OutgoingRequestvalue.value.requests![0].getSeeker!.name
-
-                                              .toString(),
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(fontWeight: FontWeight.w600,
-                                              color: AppColors.white),
+                                          radius: 24,
+                                          backgroundColor: AppColors.white,
+                                          child: CircleAvatar(
+                                            radius: 22,
+                                            backgroundImage: CachedNetworkImageProvider(
+                                                controller
+                                                    .OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.imgPath
+                                                    .toString()                                      )),
                                         ),
-
-                                    subtitle: Text(
-                                      "Match Seeker",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.white),
-                                    ),
-                                  ),
-                                ),
-                                if(controller.OutgoingRequestvalue.value.requests![index].getMaker == null)
-                                  InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 18.0),
-                                      child: Text(
-                                        "View",
+       
+                                        onTap: (){
+                                          // Get.to(ShortProfileSeeker());
+                                        },
+                                      ),
+                                      horizontalTitleGap: 10,
+                                      title:
+                                          Text(
+                                              controller
+                                                .OutgoingRequestvalue.value.requests![0]. outgoing_req_getseeker!.name
+       
+                                                .toString(),
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(fontWeight: FontWeight.w600,
+                                                color: AppColors.white),
+                                          ),
+       
+                                      subtitle: Text(
+                                        "Match Seeker",
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelSmall
                                             ?.copyWith(
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            decoration:
-                                            TextDecoration.underline),
+                                                fontWeight: FontWeight.w300,
+                                                color: AppColors.white),
                                       ),
                                     ),
-                                     onTap: () {
-setState(() {
-  requestype="2";
-});
-                                  requestid=controller.OutgoingRequestvalue.value
-                                    .requests![index].id.toString();
-
-                                    if(requestid!=null){
-                                      print(requestid);
-    Get.to(ChatPage());
-                                    }
-                          
-                                },
                                   ),
-                                if(controller.OutgoingRequestvalue.value.requests![index].getMaker != null)
-                                  Flexible(
-                                    child: Container(
-                                      height: height * 0.10,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(11),
-                                            bottomLeft: Radius.circular(11),
-                                          )),
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                          radius: 22,
-                                          child: CircleAvatar(
-                                            radius: 26,
-                                            backgroundImage:
-                                            NetworkImage(
-                                                "https://images.unsplash.com/flagged/photo-1553642618-de0381320ff3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
+                                  if(controller.OutgoingRequestvalue.value.requests![index].getMaker == null)
+                                    InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 18.0),
+                                        child: Text(
+                                          "View",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              decoration:
+                                              TextDecoration.underline),
+                                        ),
+                                      ),
+                                       onTap: () {
+       setState(() {
+         requestype="2";
+       });
+                                    requestid=controller.OutgoingRequestvalue.value
+                                      .requests![index].id.toString();
+       
+                                      if(requestid!=null){
+                                        print(requestid);
+           Get.to(ChatPage());
+                                      }
+                            
+                                  },
+                                    ),
+                                  if(controller.OutgoingRequestvalue.value.requests![index].getMaker != null)
+                                    Flexible(
+                                      child: Container(
+                                        height: height * 0.10,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(11),
+                                              bottomLeft: Radius.circular(11),
+                                            )),
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            radius: 22,
+                                            child: CircleAvatar(
+                                              radius: 26,
+                                              backgroundImage:
+                                              NetworkImage(
+                                                  "https://images.unsplash.com/flagged/photo-1553642618-de0381320ff3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"),
+                                            ),
                                           ),
-                                        ),
-                                        horizontalTitleGap: 10,
-                                        title: Text(
-                                          "Elelyn",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 9),
-                                        ),
-                                        subtitle: Text(
-                                          "Match Maker",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w300,
-                                              color: Color(0xff777777)),
-                                        ),
-                                        trailing:
-                                        InkWell(
-                                          child: Text(
-                                            "View",
+                                          horizontalTitleGap: 10,
+                                          title: Text(
+                                            "Elelyn",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .labelSmall
+                                                .bodySmall
                                                 ?.copyWith(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xffFE0091),
-                                                decoration:
-                                                TextDecoration.underline),
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 9),
                                           ),
-                                          onTap: () {
-                                            showOptionsDialog(context);
-                                          },
+                                          subtitle: Text(
+                                            "Match Maker",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w300,
+                                                color: Color(0xff777777)),
+                                          ),
+                                          trailing:
+                                          InkWell(
+                                            child: Text(
+                                              "View",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall
+                                                  ?.copyWith(
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Color(0xffFE0091),
+                                                  decoration:
+                                                  TextDecoration.underline),
+                                            ),
+                                            onTap: () {
+                                              showOptionsDialog(context);
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                              ],
+                                    )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-
-              ],
-            );
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+       
+                ],
+              ),
+       ));
         }
-      ),
-    );
-  }
+      
+   
 }

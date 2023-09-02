@@ -50,12 +50,17 @@ print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileD
 
    await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
     "getseeker":value.data!.getseeker!.id.toString(),
-    "getmaker":value.data!.getmaker!.id.toString(),
+    "getmaker":value.data!.getmaker==null?"": value.data!.getmaker!.id.toString(),
     "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
     "requestid":value.data!.id.toString()
    });
 
+ if(value.data!.roomId==null) {
+  
+  
+ }else{
   await _firestore.collection("RoomId's").doc(value.data!.roomId.toString()).set({});
+  }
 
 
          print("fjksdfn");

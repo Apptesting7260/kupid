@@ -207,122 +207,113 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: height * .01,
                             ),
-                            Text(
-                                "My name is Henry and i enjoy meeting new people\nand finding ways to help them have an uplifting\nexperience. I enjoy reading.",
+                       if( ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!=null)     Text(
+                              ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.bioDescription.toString() ,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(color: Colors.grey)),
-                            SizedBox(height: height * .01),
-                            Text("Read more",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(color: Color(0xffFE0091))),
+                            // SizedBox(height: height * .01),
+                            // Text("Read more",
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .titleSmall!
+                            //         .copyWith(color: Color(0xffFE0091))),
                             SizedBox(height: height * .03),
                             Text("Interests",
                                 style: Theme.of(context).textTheme.titleSmall),
                             SizedBox(height: height * .02),
-                            Wrap(
-                              runSpacing: 15.0,
-                              spacing: 10.0,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Color(0xffFE0091)),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: height * .04,
-                                  width: width * .25,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.done_all,
-                                        size: 15,
-                                        color: Color(0xffFE0091),
-                                      ),
-                                      SizedBox(width: width * .01),
-                                      Text(
-                                        "Travelling",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(color: Color(0xffFE0091)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Color(0xffFe0091)),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: height * .04,
-                                  width: width * .22,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.done_all,
-                                        size: 15,
-                                        color: Color(0xffFE0091),
-                                      ),
-                                      SizedBox(width: width * .01),
-                                      Text(
-                                        "Books",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(color: Color(0xffFE0091)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: height * .04,
-                                  width: width * .25,
-                                  child: Center(
-                                    child: Text(
-                                      "Music",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: height * .04,
-                                  width: width * .25,
-                                  child: Center(
-                                    child: Text(
-                                      "Dancing",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  height: height * .04,
-                                  width: width * .25,
-                                  child: Center(
-                                    child: Text(
-                                      "Modeling",
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                           ListView.builder(
+                            shrinkWrap: true,
+  itemCount: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length, // Replace itemCount with the actual item count
+  itemBuilder: (BuildContext context, int index) {
+    return (index % 3 == 0) // Start a new row after every 3 items
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              buildContainer(index),
+              buildContainer(index + 1),
+              buildContainer(index + 2),
+            ],
+          )
+        : Container(); // Empty container for items that don't start a new row
+  },
+),
+                            // Wrap(
+                            //   runSpacing: 15.0,
+                            //   spacing: 10.0,
+                            //   children: [
+                               
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //           border:
+                            //               Border.all(color: Color(0xffFe0091)),
+                            //           borderRadius: BorderRadius.circular(20)),
+                            //       height: height * .04,
+                            //       width: width * .22,
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.center,
+                            //         children: [
+                            //           Icon(
+                            //             Icons.done_all,
+                            //             size: 15,
+                            //             color: Color(0xffFE0091),
+                            //           ),
+                            //           SizedBox(width: width * .01),
+                            //           Text(
+                            //             "Books",
+                            //             style: Theme.of(context)
+                            //                 .textTheme
+                            //                 .bodySmall!
+                            //                 .copyWith(color: Color(0xffFE0091)),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //           border: Border.all(color: Colors.grey),
+                            //           borderRadius: BorderRadius.circular(20)),
+                            //       height: height * .04,
+                            //       width: width * .25,
+                            //       child: Center(
+                            //         child: Text(
+                            //           "Music",
+                            //           style:
+                            //               Theme.of(context).textTheme.bodySmall,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //           border: Border.all(color: Colors.grey),
+                            //           borderRadius: BorderRadius.circular(20)),
+                            //       height: height * .04,
+                            //       width: width * .25,
+                            //       child: Center(
+                            //         child: Text(
+                            //           "Dancing",
+                            //           style:
+                            //               Theme.of(context).textTheme.bodySmall,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //           border: Border.all(color: Colors.grey),
+                            //           borderRadius: BorderRadius.circular(20)),
+                            //       height: height * .04,
+                            //       width: width * .25,
+                            //       child: Center(
+                            //         child: Text(
+                            //           "Modeling",
+                            //           style:
+                            //               Theme.of(context).textTheme.bodySmall,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: height * .03,
                             ),
@@ -345,26 +336,26 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(height: height * .02),
 
 
-                        // if(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details.)    Container(
-                        //       child: GridView.builder(
-                        //         shrinkWrap: true,
-                        //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        //           crossAxisCount: 4,
-                        //         ),
-                        //         itemCount: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.galleryPath!.length,
-                        //         itemBuilder: (BuildContext context, int index) {
-                        //           return Padding(
-                        //             padding: const EdgeInsets.all(8.0),
-                        //             child: CachedNetworkImage(
-                        //             imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.galleryPath![index].toString(),
-                        //             fit: BoxFit.cover,
-                        //             placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
-                        //             errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
-                        //           ),
-                        //           );
-                        //         },
-                        //       ),
-                        //     ),
+                        if(ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!=null&&ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath!=[])    Container(
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                ),
+                                itemCount: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CachedNetworkImage(
+                                    imageUrl:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.gallaryPath![index].toString(),
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => Center(child: CircularProgressIndicator()), // Placeholder widget while loading
+                                    errorWidget: (context, url, error) => Icon(Icons.error), // Error widget if loading fails
+                                  ),
+                                  );
+                                },
+                              ),
+                            ),
 
                             SizedBox(height:Get.height*0.04,),
                             // StaggeredGrid.count(
@@ -427,4 +418,42 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+
+
+
+  Widget buildContainer(int index) {
+        final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+  if (index < ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xffFE0091)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      height: height * .04,
+      width: width * .25,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.done_all,
+            size: 15,
+            color: Color(0xffFE0091),
+          ),
+          SizedBox(width: width * .01),
+          Text(
+            ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName![index].title,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: Color(0xffFE0091)),
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Container(); // Return an empty container for items beyond itemCount
+  }
+}
 }

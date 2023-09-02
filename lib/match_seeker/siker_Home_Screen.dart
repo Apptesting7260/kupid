@@ -385,7 +385,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       scrollDirection: Axis.horizontal,
                       physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 3,
+                      itemCount:  Incontroller.IncomingRequestvalue.value
+                                                          .requests!.length>2?2:1,
                       itemBuilder: (context, index) {
                         return InkWell(
                           child: Padding(
@@ -590,10 +591,13 @@ setState(() {
                     width: width,
                     height: height * .18,
                     child: ListView.builder(
+
+                      
                       scrollDirection: Axis.horizontal,
                       physics: AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 2,
+                      itemCount: controller.OutgoingRequestvalue.value
+                                                          .requests!.length>2?2:1,
                       itemBuilder: (context, index) {
                         return InkWell(
                           child: Padding(
@@ -636,7 +640,7 @@ setState(() {
                                                   radius:30 ,
                                                   backgroundColor: AppColors.white,
                                                   backgroundImage: CachedNetworkImageProvider(
-                                                      controller.OutgoingRequestvalue.value.requests![index].getSeeker!.imgPath
+                                                      controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.imgPath
                                                           .toString())),
                                     
                                     
@@ -653,9 +657,9 @@ setState(() {
                                     
                                     children: [  
                                       SizedBox(height:Get.height*0.02,),
-                                      Text(  controller.OutgoingRequestvalue.value.requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                      Text(  controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
                                   SizedBox(height: Get.height*0.01,),
-                                  Text(controller.OutgoingRequestvalue.value.requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                  Text(controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
                                   ],)
                                   ],)),
                                   // onTap: (){
@@ -722,9 +726,9 @@ setState(() {
                                   
                                   children: [  
                                     SizedBox(height:Get.height*0.02,),
-                                    Text(  controller.OutgoingRequestvalue.value.requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
+                                    Text(  controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
                                 SizedBox(height: Get.height*0.01,),
-                                Text(controller.OutgoingRequestvalue.value.requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
+                                Text(controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
                                 ],)
                                 ],))),
                           ),

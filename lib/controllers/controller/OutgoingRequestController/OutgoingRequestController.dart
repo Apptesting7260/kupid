@@ -24,8 +24,11 @@ class OutgoinRequestController extends GetxController {
     _api.OutgoinRequestApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
+
+      print("yesyeysysysyysysysyys");
     }).onError((error, stackTrace){
       setError(error.toString());
+      print(error);
       setRxRequestStatus(Status.ERROR);
 
     });

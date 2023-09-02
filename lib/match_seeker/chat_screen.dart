@@ -19,6 +19,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   TextEditingController messagecontroller = TextEditingController();
+
+
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ViewRequestDetailsControllerinstance=Get.put(ViewRequestDetailsController());
   
@@ -28,8 +30,71 @@ class _ChatPageState extends State<ChatPage> {
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(dateTime);
   }
+ FocusNode messageFocusNode = FocusNode();
+void updatetryeDataInFirestore() async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+print(("hited"));
+  // Replace 'users' with your collection name and 'documentId' with the specific document ID
+  DocumentReference docRef =  firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("typestatus").doc("userstypingstatus");
+
+   Map<String, dynamic> typestatus = {
+        "id": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "status":true,
+        
+      };
+
+  await docRef.update(typestatus);
+}
+
+void updatefalseDataInFirestore() async {
+   FirebaseFirestore firestore = FirebaseFirestore.instance;
+print(("hited"));
+  // Replace 'users' with your collection name and 'documentId' with the specific document ID
+  DocumentReference docRef =  firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("typestatus").doc("userstypingstatus");
+
+   Map<String, dynamic> typestatus = {
+        "id": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "status":false,
+        
+      };
+
+  await docRef.update(typestatus);
+}
+    void _onFocusChange() {
+    if (messageFocusNode.hasFocus) {
+      updatetryeDataInFirestore();
+      print("TextField is active: true");
+    } else {
+      updatefalseDataInFirestore();
+      print("TextField is active: false");
+    }
+  }
+
+ void typeingstatusofuser()async{
+    print("hited");
+     Map<String, dynamic> typestatus = {
+        "id": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "status":false,
+        
+      };
+
+      await _firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("typestatus").doc("userstypingstatus").set(typestatus);
+}
+
 @override
   void initState() {
+   
+      messageFocusNode.addListener(_onFocusChange);
+     
                 ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
 ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
 
@@ -58,7 +123,6 @@ void onSendMessage() async {
       print("Enter Some Text");
     }
   }
-
 
 
 
@@ -132,7 +196,7 @@ resizeToAvoidBottomInset: true,
           Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: Text(""));
             case Status.ERROR:
               if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
@@ -212,6 +276,69 @@ resizeToAvoidBottomInset: true,
           },
         ),
         );}}) ,
+
+            Obx(() {
+          switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return   StreamBuilder<DocumentSnapshot>(
+  stream: _firestore
+      .collection("RoomId's")
+      .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+      .collection('typestatus')
+      .doc("userstypingstatus") // Replace with the actual document ID
+      .snapshots(),
+  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    if (!snapshot.hasData || !snapshot.data!.exists) {
+      return Center(
+        child: Text("No status data yet."),
+      );
+    }
+
+    Map<String, dynamic> statusData = snapshot.data!.data() as Map<String, dynamic>;
+    String status = statusData['status'].toString(); // Assuming 'status' is the field name
+    String id = statusData['id'].toString(); // Assuming 'status' is the field name
+
+    return id!= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()&& status=="true"?Align(
+
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          padding: EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+
+            color:  Color(0xffcce7e8),
+            borderRadius:BorderRadius.only(
+              topRight: Radius.circular(8),
+              bottomRight: Radius.circular(8),
+              bottomLeft: Radius.circular(8),
+            ),
+          ),
+          child: Row(
+            children: [
+              Text("typing...",style: TextStyle(color: Colors.black),),
+            ],
+          )
+          ),
+        ),
+      ):Container();
+    
+  },
+            );}}),
+
               Row(
                 children: [
                   Wrap(
@@ -301,6 +428,7 @@ resizeToAvoidBottomInset: true,
                           child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: messagecontroller,
+                            focusNode: messageFocusNode,
                             validator: (value) {},
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -340,7 +468,11 @@ resizeToAvoidBottomInset: true,
                           ),
                           onTap: (){
                             print("sent");
+// typeingstatusofuser(); if()
+if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId!=null){
+
                             onSendMessage();
+}
                           },
                         )
                       ],
@@ -362,4 +494,7 @@ resizeToAvoidBottomInset: true,
   }
   return lines.join('\n');
 }
+
+
+
 }

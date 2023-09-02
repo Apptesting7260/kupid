@@ -2,6 +2,7 @@
 
 
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/RequestActionModel/RequestActionModel.dart';
@@ -14,13 +15,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RequestActionController extends GetxController {
 
+  final ViewRequestDetailsControllerinstance=Get.put(ViewRequestDetailsController());
   final _api = AuthRepository();
 
 
   final rxRequestStatus = Status.LOADING.obs ;
   final RequestActionDetail =RequestActionModel().obs ;
   RxString error = ''.obs;
-
+RxBool loading=false.obs;
 
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
@@ -30,7 +32,7 @@ class RequestActionController extends GetxController {
 
   void RequestActionApiHit()async{
         final SharedPreferences prefs = await SharedPreferences.getInstance();
-
+loading.value=true;
     Map data={
 "request_id":requestid,
 "action_with":action_with==null?"":action_with,
@@ -43,10 +45,11 @@ class RequestActionController extends GetxController {
    setRxRequestStatus(Status.LOADING);
 
     _api.RequestActionApi(data).then((value){
-      setRxRequestStatus(Status.COMPLETED);
+   
       RequestActionDetails(value);
       print(value);
-
+ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+    loading.value=false;
          print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());

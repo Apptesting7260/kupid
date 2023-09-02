@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
+import 'package:cupid_match/controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
@@ -30,7 +31,7 @@ class _SlotMachineState extends State<SlotMachine> {
   bool isVisible = true;
   bool isNotVisible = false;
 
-
+final SeekerToSeekerRequestControllerinstance=Get.put(SeekerToSeekerRequestController());
   
   final Random _random = Random();
    List<String> _slotImages = [
@@ -553,8 +554,9 @@ showdiog2(int index){
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
-                                                            Get.back();
-                                                            Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
+                                                        match_withid=MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+print(match_withid);
+                                                  SeekerToSeekerRequestControllerinstance.SikerTOSikerRequestApiHit(); 
                                                            
                                                           },
                                                           child: Container(

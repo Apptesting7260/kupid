@@ -1,5 +1,5 @@
 class OutgoingRequestModel {
-  String? status;
+  var status;
   List<OutgoingMatchRequest>? requests;
 
   OutgoingRequestModel({
@@ -18,18 +18,18 @@ class OutgoingRequestModel {
 }
 
 class OutgoingMatchRequest {
-  int? id;
-  int? makerId;
-  int? matchFrom;
-  int? matchWith;
-  int? matchType;
-  String? matchWithStatus;
-  String? matchFromStatus;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
+  var id;
+  var makerId;
+  var matchFrom;
+  var matchWith;
+  var matchType;
+  var matchWithStatus;
+  var matchFromStatus;
+  var status;
+  var createdAt;
+  var updatedAt;
   OutgoingSeeker? getMaker;
-  OutgoingSeeker? getSeeker;
+  OutgoingSeeker? outgoing_req_getseeker; // Changed field name here
 
   OutgoingMatchRequest({
     this.id,
@@ -43,7 +43,7 @@ class OutgoingMatchRequest {
     this.createdAt,
     this.updatedAt,
     this.getMaker,
-    this.getSeeker,
+    this.outgoing_req_getseeker, // Changed field name here
   });
 
   factory OutgoingMatchRequest.fromJson(Map<String, dynamic> json) {
@@ -59,28 +59,28 @@ class OutgoingMatchRequest {
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       getMaker: json['getmaker'] != null ? OutgoingSeeker.fromJson(json['getmaker']) : null,
-      getSeeker: OutgoingSeeker.fromJson(json['getseeker']),
+      outgoing_req_getseeker:json['outgoing_req_getseeker']!=null? OutgoingSeeker.fromJson(json['outgoing_req_getseeker']):null,
     );
   }
 }
 
 class OutgoingSeeker {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? occupation;
-  String? salary;
-  String? address;
-  String? height;
-  String? dob;
-  String? profileImg;
-  String? profileVideo;
-  String? gender;
-  String? religion;
-  int? currentStep;
-  String? imgPath;
-  String? videoPath;
+  var id;
+  var name;
+  var email;
+  var phone;
+  var occupation;
+  var salary;
+  var address;
+  var height;
+  var dob;
+  var profileImg;
+  var profileVideo;
+  var gender;
+  var religion;
+  var currentStep;
+  var imgPath;
+  var videoPath;
 
   OutgoingSeeker({
     this.id,

@@ -89,7 +89,7 @@ print(action_with);
     return       Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: Text(""));
             case Status.ERROR:
               if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
@@ -116,7 +116,7 @@ print(action_with);
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: height * .3,
+                                   height: height * .25,
                                     width: width * .42,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
@@ -486,7 +486,7 @@ print(action_with);
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: height * .3,
+                                    height: height * .25,
                                     width: width * .42,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
@@ -537,9 +537,9 @@ print(action_with);
                                   SizedBox(
                                     height: height * .005,
                                   ),
-                                  ListView.builder(
+                         if( ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName!=[])         ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount:  ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length,
+                                    itemCount:  0,
                                     itemBuilder: (BuildContext context, int index) {
                                       return Text(
                                    ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.details!.interestName![index].title.toString(),
@@ -730,7 +730,7 @@ print(action_with);
                 ],
               ),
             ),
-            if(requestype=="1")   if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==0&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchFromStatus!="accepted"||ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==0&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchWithStatus!="accepted"||ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==1&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchWithStatus!="accepted")  Padding(
+            if(requestype=="1")   if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==0&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchFromStatus!="accepted"||ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==0&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchWithStatus!="accepted"||ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchType==1&&ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.matchWithStatus!="accepted") Obx(() => Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -760,7 +760,10 @@ requestcondition();
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Center(
-                            child: Text(
+                            child: 
+                            
+                            RequestActionControllerinstance.loading.value==true?CircularProgressIndicator():
+                            Text(
                               "Accept",
                               style: Theme.of(context)
                                   .textTheme
@@ -773,22 +776,32 @@ requestcondition();
                       SizedBox(
                         width: width * .02,
                       ),
-                      Container(
-                        height: height * .04,
-                        width: width * .21,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Color(0xff000CAA))),
-                        child: Center(
-                          child: Text(
-                            "Declined",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(color: Color(0xff000CAA)),
+                      InkWell(
+                        child: Container(
+                          height: height * .04,
+                          width: width * .21,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: Color(0xff000CAA))),
+                          child: Center(
+                            child: Text(
+                              "Declined",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Color(0xff000CAA)),
+                            ),
                           ),
                         ),
+                        onTap: (){
+                          actiontype="Declined";
+setState(() {
+  actiontype;
+});
+
+requestcondition();
+                        },
                       ),
                     ],
                   ),
@@ -796,7 +809,7 @@ requestcondition();
     
                 ],
               ),
-            )
+            )) 
       ],
     );
   }
