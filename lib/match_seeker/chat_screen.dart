@@ -127,7 +127,7 @@ void onSendMessage() async {
 
 
 
-
+/////////////////////////////
 
 
   @override
@@ -193,6 +193,26 @@ resizeToAvoidBottomInset: true,
              AcceptRequestwidget(),
         
               SizedBox(height: Get.height*0.02,),
+              FutureBuilder<dynamic>(
+  future: ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit(), // The Future you want to monitor
+  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.none:
+        return Text('Press button to start.');
+      case ConnectionState.active:
+      case ConnectionState.waiting:
+        return Text("");
+      case ConnectionState.done:
+        if (snapshot.hasError)
+          return Text('Error: ${snapshot.error}');
+  
+  
+  return
+
+       
+    
+
+
           Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
@@ -206,7 +226,8 @@ resizeToAvoidBottomInset: true,
                 return GeneralExceptionWidget(onPress: () {});
               }
             case Status.COMPLETED:
-              return     Expanded(
+              return   
+                Expanded(
         child: StreamBuilder<QuerySnapshot>(
           stream: _firestore
             .collection("RoomId's")
@@ -275,12 +296,12 @@ resizeToAvoidBottomInset: true,
 
           },
         ),
-        );}}) ,
+        );}});}}) ,
 
             Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: Text(""));
             case Status.ERROR:
               if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
@@ -299,7 +320,7 @@ resizeToAvoidBottomInset: true,
       .snapshots(),
   builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(child: CircularProgressIndicator());
+      return Center(child: Text(""));
     }
 
     if (!snapshot.hasData || !snapshot.data!.exists) {

@@ -33,11 +33,11 @@ class ViewRequestDetailsController extends GetxController {
   void setError(String _value) => error.value = _value ;
 
 
-  void ViewRequestDetailsApiHit()async{
+  Future<dynamic> ViewRequestDetailsApiHit()async{
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"request_id":requestid.toString()
+"request_user":requestid.toString()
 
     };
    setRxRequestStatus(Status.LOADING);
