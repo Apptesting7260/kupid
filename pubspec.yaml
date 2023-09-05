@@ -69,7 +69,7 @@ dependencies:
   # flutter_ffmpeg: any
   video_player: any
   multi_image_picker: any
-  path_provider: any
+  path_provider: ^2.1.1
   path: any
   # flutter_meedu_videoplayer: ^4.2.24
   flutter_datetime_picker: any
@@ -77,6 +77,14 @@ dependencies:
   cloud_firestore: ^4.9.0
   firebase_storage: ^11.2.6
   firebase_database: ^10.2.5
+  image_picker_ios: ^0.8.8+2
+  firebase_messaging: ^14.6.7
+  audioplayers: ^5.1.0
+  flutter_audio_recorder2: ^0.0.2
+
+  permission_handler: ^10.4.3
+  microphone: ^0.1.0
+  flutter_sound: ^9.2.13
 
   
 

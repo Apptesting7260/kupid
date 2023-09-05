@@ -1,3 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
@@ -6,10 +11,22 @@ import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/chat/RequestAcceptWidget.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
+import 'package:cupid_match/widgets/audio_play%20widget.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:video_player/video_player.dart';
+String messagetype="text";
+String ?messageimgurl;
+String ?messagaudiourl;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -18,6 +35,17 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+
+  int maxduration = 100;
+  int currentpos = 0;
+  String currentpostlabel = "00:00";
+  String audioasset = "assets/audio/red-indian-music.mp3";
+  bool isplaying = false;
+  bool audioplayed = false;
+  late Uint8List audiobytes;
+Recording ?recording;
+  AudioPlayer player = AudioPlayer();
+   Map<String, dynamic>? messages ;
   TextEditingController messagecontroller = TextEditingController();
 
 
@@ -97,39 +125,274 @@ print(("hited"));
      
                 ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
 ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+  _initAudioRecorder();// TODO: implement initState
 
-    // TODO: implement initState
+  
     super.initState();
   }
   final ViewSikerProfileDetailsControllerinstance=Get.put(ViewSikerProfileDetailsController
 ());
  final ScrollController _scrollController = ScrollController();
 
-void onSendMessage() async {
-  print(messagecontroller.text);
-    if (messagecontroller.text.isNotEmpty) {
+
+void onSendMessage()async {
+  switch (messagetype) {
+    case "text":
       Map<String, dynamic> messages = {
         "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
         "message": messagecontroller.text,
         "type": "text",
         "time": FieldValue.serverTimestamp(),
       };
-
-      messagecontroller.clear();
-      await _firestore
+        messagecontroller.clear();
+    await _firestore
           .collection("RoomId's")
           .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
 .collection("massages").add(messages);
       print("Enter Some Text");
+      setState(() {
+        messagetype="text";
+        print(messagetype);
+      });
+      // Add your logic for handling text messages here
+      break;
+    case "img":
+    messages = {
+        "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "message": messagecontroller.text,
+        "imageurl":messageimgurl,
+        "type": "img",
+        "time": FieldValue.serverTimestamp(),
+      };
+        messagecontroller.clear();
+    await _firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("massages").add(messages!);
+      print("Enter Some Text");
+       setState(() {
+        messagetype="text";
+        print(messagetype);
+      });
+      // Add your logic for handling image messages here
+      break;
+    case "audio":
+     messages = {
+        "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "message": messagecontroller.text,
+        "imageurl":messagaudiourl,
+        
+        "type": "audio",
+        "time": FieldValue.serverTimestamp(),
+      };
+       await _firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("massages").add(messages!);
+      print("Enter Some Text");
+       setState(() {
+        messagetype="text";
+        print(messagetype);
+      });
+      break;
+    case "video":
+      print("Video");
+      // Add your logic for handling video messages here
+      break;
+    default:
+      print("Unknown message type");
+      // Handle the case where the message type is unknown
+  }
+}
+
+
+ String customPath = '/flutter_audio_recorder_';
+Future<String> uploadSelectedImageAndGetUrl() async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    try {
+      // Create a reference to the Firebase Storage location where you want to store the image.
+      final Reference storageReference = FirebaseStorage.instance.ref().child('images/${DateTime.now()}.jpg');
+
+      // Upload the selected image to Firebase Storage
+      final UploadTask uploadTask = storageReference.putFile(File(pickedFile.path));
+
+      // Await the completion of the upload
+      final TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() => null);
+
+      // Retrieve the download URL for the uploaded image
+      final String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+print(downloadUrl);
+
+setState(() {
+  messageimgurl=downloadUrl;
+  messagetype="img";
+});
+onSendMessage();
+      return downloadUrl;
+
+      
+    } catch (error) {
+      // Handle any errors that occur during the upload process
+      print('Error uploading image: $error');
+      return "null";
+    }
+  } else {
+    // User canceled the image selection
+    return "null";
+  }
+}
+ late FlutterAudioRecorder2 _audioRecorder;
+  bool _isRecording = false;
+  String? _recordingPath;
+late Timer _recordingTimer;
+
+
+Future<void> _initAudioRecorder() async {
+  final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+  final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
+  final recorder = FlutterAudioRecorder2(
+    '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
+    audioFormat: AudioFormat.WAV,
+  );
+  await recorder.initialized;
+  setState(() {
+    _audioRecorder = recorder;
+  });
+}
+  bool isRecordingAudio = false; 
+
+Future<void> _startRecording() async {
+  try {
+    final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
+
+    final recorder = FlutterAudioRecorder2(
+      '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
+      audioFormat: AudioFormat.WAV,
+    );
+
+    await recorder.initialized;
+    await recorder.start(); // Start recording
+
+    setState(() {
+      _audioRecorder = recorder;
+      _isRecording = true;
+      isRecordingAudio = true; // Set recording flag to true
+      print("Recording started");
+    });
+
+    // Start a timer to stop the recording after 1 minute (60 seconds)
+    _recordingTimer = Timer(Duration(seconds: 60), () {
+      // Stop the recording when the timer expires
+      _stopRecording();
+    });
+  } catch (e) {
+    print(e);
+  }
+}
+
+  Future<void> _stopRecording() async {
+    try {
+      // Cancel the recording timer if it's active
+      // if (_recordingTimer.isActive) {
+      //   _recordingTimer.cancel();
+      // }
+ recording = await _audioRecorder.stop();
+      setState(() {
+        _isRecording = false;
+        _recordingPath = recording!.path;
+        isRecordingAudio = false; // Set recording flag to false
+      });
+
+      if (_recordingPath != null) {
+        await _uploadAudioToFirebase(File(_recordingPath!));
+
+        setState(() {
+          _recordingPath=null;
+          recording=null;
+          print(_recordingPath);
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
+Future<void> _uploadAudioToFirebase(File audioFile) async {
+  if (audioFile.existsSync()) {
+    try {
+      final storage = FirebaseStorage.instance;
+      final fileName = audioFile.path.split('/').last; // Get the file name
+      final Reference reference = storage.ref().child('audio_recordings/$fileName');
+
+      final UploadTask uploadTask = reference.putFile(audioFile);
+
+      // Await the completion of the upload task
+      final TaskSnapshot storageTaskSnapshot = await uploadTask;
+
+      // Get the download URL
+      final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
+      setState(() {
+        messagetype = "audio";
+        messagaudiourl = downloadURL;
+      });
+      onSendMessage();
+      print('File uploaded successfully. Download URL: $downloadURL');
+    } catch (error) {
+      print('Error uploading file: $error');
+    }
+  } else {
+    print('File does not exist: ${audioFile.path}');
+  }
+}
 
 
+  @override
+  void dispose() {
+    // _audioRecorder.dispose();
+    super.dispose();
+  }
+Future<String?> uploadVideoToFirebaseStorage(String filePath) async {
+  try {
+    Reference storageReference = FirebaseStorage.instance.ref().child('videos/${DateTime.now()}.mp4');
+    final UploadTask uploadTask = storageReference.putFile(File(filePath));
 
-/////////////////////////////
+    final TaskSnapshot downloadUrl = (await uploadTask.whenComplete(() {}));
 
+    final String url = await downloadUrl.ref.getDownloadURL();
+    return url;
+  } catch (e) {
+    print('Error uploading video: $e');
+    return null;
+  }
+}
 
+Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      // type: FileType.custom,
+      // allowedExtensions: ['mp4', 'mov'],
+    );
+
+    if (result != null) {
+      PlatformFile file = result.files.first;
+      String filePath = file.path.toString();
+
+      String? videoUrl = await uploadVideoToFirebaseStorage(filePath);
+
+      if (videoUrl != null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Video uploaded to Firebase: $videoUrl'),
+        ));
+      }
+    }
+  } catch (e) {
+    print('Error picking and uploading video: $e');
+  }
+}
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -193,26 +456,6 @@ resizeToAvoidBottomInset: true,
              AcceptRequestwidget(),
         
               SizedBox(height: Get.height*0.02,),
-              FutureBuilder<dynamic>(
-  future: ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit(), // The Future you want to monitor
-  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-    switch (snapshot.connectionState) {
-      case ConnectionState.none:
-        return Text('Press button to start.');
-      case ConnectionState.active:
-      case ConnectionState.waiting:
-        return Text("");
-      case ConnectionState.done:
-        if (snapshot.hasError)
-          return Text('Error: ${snapshot.error}');
-  
-  
-  return
-
-       
-    
-
-
           Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
@@ -226,8 +469,7 @@ resizeToAvoidBottomInset: true,
                 return GeneralExceptionWidget(onPress: () {});
               }
             case Status.COMPLETED:
-              return   
-                Expanded(
+              return     Expanded(
         child: StreamBuilder<QuerySnapshot>(
           stream: _firestore
             .collection("RoomId's")
@@ -277,10 +519,24 @@ resizeToAvoidBottomInset: true,
           child: Column(
             crossAxisAlignment: isSentByCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              Text(
+       if(snapshot.data!.docs[index]['type'].toString()=="text")  Text(
             breakMessage(message),
                 style: TextStyle(color: Colors.black),
               ),
+              if(snapshot.data!.docs[index]['type'].toString()=="img")
+              Container(
+                height: 150,width: 100,
+                child: 
+                CachedNetworkImage(
+       imageUrl: snapshot.data!.docs[index]['imageurl'].toString(),
+       progressIndicatorBuilder: (context, url, downloadProgress) => 
+               Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+       errorWidget: (context, url, error) => Icon(Icons.error),
+    ),
+                
+             ),
+
+             if(snapshot.data!.docs[index]['type'].toString()=="audio")AudioPlayerWidget(audioUrl: snapshot.data!.docs[index]['audiourl'].toString(),),
               SizedBox(height: 4), // Adjust the spacing as needed
              if (timestamp != null)  Text(
                 formatTimestamp(timestamp), // Format timestamp as needed
@@ -296,12 +552,12 @@ resizeToAvoidBottomInset: true,
 
           },
         ),
-        );}});}}) ,
+        );}}) ,
 
             Obx(() {
           switch (ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
-              return const Center(child: Text(""));
+              return const Center(child: CircularProgressIndicator());
             case Status.ERROR:
               if (ViewRequestDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
@@ -320,7 +576,7 @@ resizeToAvoidBottomInset: true,
       .snapshots(),
   builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(child: Text(""));
+      return Center(child: CircularProgressIndicator());
     }
 
     if (!snapshot.hasData || !snapshot.data!.exists) {
@@ -442,7 +698,10 @@ resizeToAvoidBottomInset: true,
         child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset("assets/icons/camera.png"),
+                        InkWell(child: Image.asset("assets/icons/camera.png"),onTap: (){
+                          // uploadSelectedImageAndGetUrl();
+                          pickVideoAndUploadToFirebase(context);
+                        },),
                         Container(
                           height: height * .06,
                           width: width * .7,
@@ -477,6 +736,16 @@ resizeToAvoidBottomInset: true,
                                       BorderSide(color: Color(0xffF3F3F3)),
                                 ),
                                 hintText: "Type a message...",
+                                suffixIcon: GestureDetector(child: Icon(Icons.mic),
+                                  onLongPress: () {
+               print("start");
+               _startRecording();
+              },
+            
+              onLongPressUp: () {
+                print("stop");
+                _stopRecording();
+              },),
                                 filled: true,
                                 fillColor: Color(0xffF3F3F3)),
                           ),
