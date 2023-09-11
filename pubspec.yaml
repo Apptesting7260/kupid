@@ -79,12 +79,22 @@ dependencies:
   firebase_database: ^10.2.5
   image_picker_ios: ^0.8.8+2
   firebase_messaging: ^14.6.7
-  audioplayers: ^5.1.0
-  flutter_audio_recorder2: ^0.0.2
+  # audioplayers: ^5.1.0
+  # flutter_audio_recorder2: ^0.0.2
 
   permission_handler: ^10.4.3
   microphone: ^0.1.0
-  flutter_sound: ^9.2.13
+  # flutter_sound: ^9.2.13
+  # just_audio: ^0.9.34
+  # audio_wave: ^0.1.5
+  # wave: ^0.2.2
+  # video_thumbnail: ^0.5.3
+  # audio_waveforms: ^1.0.4
+  social_media_recorder: ^0.2.0
+  voice_message_package: ^1.0.41
+  flutter_sound_record: ^3.3.2
+  
+  # flutter_audio_recorder3: ^0.0.5
 
   
 

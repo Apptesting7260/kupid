@@ -15,13 +15,14 @@
 // import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-// import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+
 // import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 // import 'package:get/get.dart';
 // import 'package:image_picker/image_picker.dart';
 // import 'package:intl/intl.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:permission_handler/permission_handler.dart';
+// import 'package:voice_message_package/voice_message_package.dart';
 
 // String messagetype="text";
 // String ?messageimgurl;
@@ -124,7 +125,7 @@
      
 //                 ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
 // ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
-//   _initAudioRecorder();// TODO: implement initState
+
 
   
 //     super.initState();
@@ -216,71 +217,71 @@
 //     return "null";
 //   }
 // }
-//  late FlutterAudioRecorder2 _audioRecorder;
-//   bool _isRecording = false;
-//   String? _recordingPath;
-// late Timer _recordingTimer;
+// //  late FlutterAudioRecorder2 _audioRecorder;
+// //   bool _isRecording = false;
+// //   String? _recordingPath;
+// // late Timer _recordingTimer;
 
 
-// Future<void> _initAudioRecorder() async {
-//   final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-//   final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
-//   final recorder = FlutterAudioRecorder2(
-//     '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
-//     audioFormat: AudioFormat.WAV,
-//   );
-//   await recorder.initialized;
-//   setState(() {
-//     _audioRecorder = recorder;
-//   });
-// }
-//   bool isRecordingAudio = false; 
+// // Future<void> _initAudioRecorder() async {
+// //   final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+// //   final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
+// //   final recorder = FlutterAudioRecorder2(
+// //     '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
+// //     audioFormat: AudioFormat.WAV,
+// //   );
+// //   await recorder.initialized;
+// //   setState(() {
+// //     _audioRecorder = recorder;
+// //   });
+// // }
+// //   bool isRecordingAudio = false; 
 
-// Future<void> _startRecording() async {
-//     try {
-//       await _audioRecorder.start();
-//       setState(() {
-//         _isRecording = true;
-//         isRecordingAudio = true; // Set recording flag to true
-//         print("Recording started");
-//       });
+// // Future<void> _startRecording() async {
+// //     try {
+// //       await _audioRecorder.start();
+// //       setState(() {
+// //         _isRecording = true;
+// //         isRecordingAudio = true; // Set recording flag to true
+// //         print("Recording started");
+// //       });
 
-//       // Start a timer to stop the recording after 1 minute (60 seconds)
-//       _recordingTimer = Timer(Duration(seconds: 60), () {
-//         // Stop the recording when the timer expires
-//         _stopRecording();
-//       });
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
+// //       // Start a timer to stop the recording after 1 minute (60 seconds)
+// //       _recordingTimer = Timer(Duration(seconds: 60), () {
+// //         // Stop the recording when the timer expires
+// //         _stopRecording();
+// //       });
+// //     } catch (e) {
+// //       print(e);
+// //     }
+// //   }
 
-//   Future<void> _stopRecording() async {
-//     try {
-//       // Cancel the recording timer if it's active
-//       // if (_recordingTimer.isActive) {
-//       //   _recordingTimer.cancel();
-//       // }
+// //   Future<void> _stopRecording() async {
+// //     try {
+// //       // Cancel the recording timer if it's active
+// //       // if (_recordingTimer.isActive) {
+// //       //   _recordingTimer.cancel();
+// //       // }
 
-//       final recording = await _audioRecorder.stop();
-//       setState(() {
-//         _isRecording = false;
-//         _recordingPath = recording!.path;
-//         isRecordingAudio = false; // Set recording flag to false
-//       });
+// //       final recording = await _audioRecorder.stop();
+// //       setState(() {
+// //         _isRecording = false;
+// //         _recordingPath = recording!.path;
+// //         isRecordingAudio = false; // Set recording flag to false
+// //       });
 
-//       if (_recordingPath != null) {
-//         await _uploadAudioToFirebase(File(_recordingPath!));
+// //       if (_recordingPath != null) {
+// //         await _uploadAudioToFirebase(File(_recordingPath!));
 
-//         setState(() {
-//           _recordingPath=null;
-//           print(_recordingPath);
-//         });
-//       }
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
+// //         setState(() {
+// //           _recordingPath=null;
+// //           print(_recordingPath);
+// //         });
+// //       }
+// //     } catch (e) {
+// //       print(e);
+// //     }
+// //   }
 
 
 //   Future<void> _uploadAudioToFirebase(File audioFile) async {
@@ -462,8 +463,12 @@
                 
 //              ),
 
-//              if(snapshot.data!.docs[index]['type'].toString()=="audio")AudioPlayerWidget(audioUrl: snapshot.data!.docs[index]['audiourl'].toString(),),
-//               SizedBox(height: 4), // Adjust the spacing as needed
+//              if(snapshot.data!.docs[index]['type'].toString()=="audio")VoiceMessage(
+//   audioSrc: snapshot.data!.docs[index]['audiourl'].toString(),
+//   played: false, // To show played badge or not.
+//   me: true, // Set message side.
+//   onPlay: () {}, // Do something when voice played.
+// ),
 //              if (timestamp != null)  Text(
 //                 formatTimestamp(timestamp), // Format timestamp as needed
 //                 style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -661,16 +666,16 @@
 //                                       BorderSide(color: Color(0xffF3F3F3)),
 //                                 ),
 //                                 hintText: "Type a message...",
-//                                 suffixIcon: GestureDetector(child: Icon(Icons.mic),
-//                                   onLongPress: () {
-//                print("start");
-//                _startRecording();
-//               },
+//               //                   suffixIcon: GestureDetector(child: Icon(Icons.mic),
+//               //                     onLongPress: () {
+//               //  print("start");
+//               // //  _startRecording();
+//               // },
             
-//               onLongPressUp: () {
-//                 print("stop");
-//                 _stopRecording();
-//               },),
+//               // onLongPressUp: () {
+//               //   print("stop");
+//               //   // _stopRecording();
+//               // },),
 //                                 filled: true,
 //                                 fillColor: Color(0xffF3F3F3)),
 //                           ),

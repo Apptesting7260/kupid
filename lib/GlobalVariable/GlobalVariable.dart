@@ -1,5 +1,6 @@
 
 
+import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -45,3 +46,10 @@ String?action_from;
 String?actiontype;
 Bool ?liverpullrequested;
 Bool ?spinnwillrequested;
+
+
+bool isTimerVisible = false;
+Duration remainingTime = Duration(hours: 24);
+late Timer countdownTimer;
+int selectedRadioTile = 0;
+bool shouldShowSpinButton = true;

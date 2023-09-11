@@ -16,17 +16,23 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:social_media_recorder/audio_encoder_type.dart';
+import 'package:social_media_recorder/screen/social_media_recorder.dart';
 import 'package:video_player/video_player.dart';
+// import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:voice_message_package/voice_message_package.dart';
 String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
+String ?messagvideoourl;
+String ?messageThumbnailUrl;
+bool micon=false;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -43,7 +49,8 @@ class _ChatPageState extends State<ChatPage> {
   bool isplaying = false;
   bool audioplayed = false;
   late Uint8List audiobytes;
-Recording ?recording;
+  bool keybordfocus=false;
+// Recording ?recording;
   AudioPlayer player = AudioPlayer();
    Map<String, dynamic>? messages ;
   TextEditingController messagecontroller = TextEditingController();
@@ -125,7 +132,7 @@ print(("hited"));
      
                 ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
 ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
-  _initAudioRecorder();// TODO: implement initState
+  // _initAudioRecorder();// TODO: implement initState
 
   
     super.initState();
@@ -180,7 +187,7 @@ void onSendMessage()async {
      messages = {
         "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
         "message": messagecontroller.text,
-        "imageurl":messagaudiourl,
+        "audiourl":messagaudiourl,
         
         "type": "audio",
         "time": FieldValue.serverTimestamp(),
@@ -197,6 +204,23 @@ void onSendMessage()async {
       break;
     case "video":
       print("Video");
+       messages = {
+        "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "message": messagecontroller.text,
+        "videourl":messagvideoourl,
+        "messageThumbnailUrl":messageThumbnailUrl,
+        "type": "video",
+        "time": FieldValue.serverTimestamp(),
+      };
+       await _firestore
+          .collection("RoomId's")
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+.collection("massages").add(messages!);
+      print("Enter Some Text");
+       setState(() {
+        messagetype="text";
+        print(messagetype);
+      });
       // Add your logic for handling video messages here
       break;
     default:
@@ -244,155 +268,196 @@ onSendMessage();
     return "null";
   }
 }
- late FlutterAudioRecorder2 _audioRecorder;
-  bool _isRecording = false;
-  String? _recordingPath;
-late Timer _recordingTimer;
 
 
-Future<void> _initAudioRecorder() async {
-  final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-  final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
-  final recorder = FlutterAudioRecorder2(
-    '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
-    audioFormat: AudioFormat.WAV,
-  );
-  await recorder.initialized;
-  setState(() {
-    _audioRecorder = recorder;
-  });
-}
-  bool isRecordingAudio = false; 
 
-Future<void> _startRecording() async {
-  try {
-    final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    final uniqueFileName = DateTime.now().toIso8601String(); // Generate a unique filename
+//  late FlutterAudioRecorder2 _audioRecorder;
+//   bool _isRecording = false;
+//   String? _recordingPath;
+//   late Timer _recordingTimer;
+//   bool isRecordingAudio = false;
+//   String messagetype = "";
+//   String messagaudiourl = "";
 
-    final recorder = FlutterAudioRecorder2(
-      '${appDocumentsDirectory.path}/$uniqueFileName', // Use a unique filename
-      audioFormat: AudioFormat.WAV,
-    );
 
-    await recorder.initialized;
-    await recorder.start(); // Start recording
+//   Future<void> _initAudioRecorder() async {
+//     final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+//     final uniqueFileName = DateTime.now().toIso8601String();
 
-    setState(() {
-      _audioRecorder = recorder;
-      _isRecording = true;
-      isRecordingAudio = true; // Set recording flag to true
-      print("Recording started");
-    });
+//     final recorder = FlutterAudioRecorder2(
+//       '${appDocumentsDirectory.path}/$uniqueFileName',
+//       audioFormat: AudioFormat.WAV,
+//     );
 
-    // Start a timer to stop the recording after 1 minute (60 seconds)
-    _recordingTimer = Timer(Duration(seconds: 60), () {
-      // Stop the recording when the timer expires
-      _stopRecording();
-    });
-  } catch (e) {
-    print(e);
-  }
-}
+//     await recorder.initialized;
+//     setState(() {
+//       _audioRecorder = recorder;
+//     });
+//   }
 
-  Future<void> _stopRecording() async {
-    try {
-      // Cancel the recording timer if it's active
-      // if (_recordingTimer.isActive) {
-      //   _recordingTimer.cancel();
-      // }
- recording = await _audioRecorder.stop();
-      setState(() {
-        _isRecording = false;
-        _recordingPath = recording!.path;
-        isRecordingAudio = false; // Set recording flag to false
-      });
+//   Future<void> _startRecording() async {
+//     try {
+//       final appDocumentsDirectory = await getApplicationDocumentsDirectory();
+//       final uniqueFileName = DateTime.now().toIso8601String();
 
-      if (_recordingPath != null) {
-        await _uploadAudioToFirebase(File(_recordingPath!));
+//       final recorder = FlutterAudioRecorder2(
+//         '${appDocumentsDirectory.path}/$uniqueFileName',
+//         audioFormat: AudioFormat.WAV,
+//       );
 
+//       await recorder.initialized;
+//       await recorder.start();
+
+//       setState(() {
+//         _audioRecorder = recorder;
+//         _isRecording = true;
+//         isRecordingAudio = true;
+//         print("Recording started");
+//       });
+
+//       _recordingTimer = Timer(Duration(seconds: 60), () {
+//         _stopRecording();
+//       });
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
+
+//   Future<void> _stopRecording() async {
+//     try {
+//       if (_recordingTimer.isActive) {
+//         _recordingTimer.cancel();
+//       }
+
+//       final recording = await _audioRecorder.stop();
+
+//       setState(() {
+//         _isRecording = false;
+//         _recordingPath = recording!.path;
+//         isRecordingAudio = false;
+//       });
+
+//       if (_recordingPath != null) {
+//         await _uploadAudioToFirebase(File(_recordingPath!));
+
+//         setState(() {
+//           _recordingPath = null;
+//           print(_recordingPath);
+//         });
+//       }
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
+
+  Future<void> _uploadAudioToFirebase(File audioFile) async {
+    if (audioFile.existsSync()) {
+      try {
+        final storage = FirebaseStorage.instance;
+        final fileName = audioFile.path.split('/').last;
+        final Reference reference = storage.ref().child('audio_recordings/$fileName');
+
+        final UploadTask uploadTask = reference.putFile(audioFile);
+
+        final TaskSnapshot storageTaskSnapshot = await uploadTask;
+        final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
         setState(() {
-          _recordingPath=null;
-          recording=null;
-          print(_recordingPath);
+          messagetype = "audio";
+          messagaudiourl = downloadURL;
         });
+           onSendMessage();
+
+        print('File uploaded successfully. Download URL: $downloadURL');
+      } catch (error) {
+        print('Error uploading file: $error');
       }
-    } catch (e) {
-      print(e);
+    } else {
+      print('File does not exist: ${audioFile.path}');
     }
   }
 
-Future<void> _uploadAudioToFirebase(File audioFile) async {
-  if (audioFile.existsSync()) {
-    try {
-      final storage = FirebaseStorage.instance;
-      final fileName = audioFile.path.split('/').last; // Get the file name
-      final Reference reference = storage.ref().child('audio_recordings/$fileName');
-
-      final UploadTask uploadTask = reference.putFile(audioFile);
-
-      // Await the completion of the upload task
-      final TaskSnapshot storageTaskSnapshot = await uploadTask;
-
-      // Get the download URL
-      final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
-      setState(() {
-        messagetype = "audio";
-        messagaudiourl = downloadURL;
-      });
-      onSendMessage();
-      print('File uploaded successfully. Download URL: $downloadURL');
-    } catch (error) {
-      print('Error uploading file: $error');
-    }
-  } else {
-    print('File does not exist: ${audioFile.path}');
-  }
-}
 
 
-  @override
-  void dispose() {
-    // _audioRecorder.dispose();
-    super.dispose();
-  }
-Future<String?> uploadVideoToFirebaseStorage(String filePath) async {
-  try {
-    Reference storageReference = FirebaseStorage.instance.ref().child('videos/${DateTime.now()}.mp4');
-    final UploadTask uploadTask = storageReference.putFile(File(filePath));
 
-    final TaskSnapshot downloadUrl = (await uploadTask.whenComplete(() {}));
 
-    final String url = await downloadUrl.ref.getDownloadURL();
-    return url;
-  } catch (e) {
-    print('Error uploading video: $e');
-    return null;
-  }
-}
+  // Future<String?> generateThumbnail(String videoFilePath) async {
+  // final thumbnailPath = await VideoThumbnail.thumbnailFile(
+  //   video: videoFilePath,
+  //   thumbnailPath: (await getTemporaryDirectory()).path,
+  //   imageFormat: ImageFormat.JPEG,
+  //   maxHeight: 100,
+  //   quality: 75,
+  // );
 
-Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
-  try {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      // type: FileType.custom,
-      // allowedExtensions: ['mp4', 'mov'],
-    );
+  // return thumbnailPath;
 
-    if (result != null) {
-      PlatformFile file = result.files.first;
-      String filePath = file.path.toString();
 
-      String? videoUrl = await uploadVideoToFirebaseStorage(filePath);
+// Future<String?> uploadVideoToFirebaseStorage(String filePath) async {
+//   try {
+//     // Generate a unique video and thumbnail filename
+//     final videoFileName = 'videos/${DateTime.now()}.mp4';
+//     final thumbnailFileName = 'thumbnails/${DateTime.now()}.jpg';
 
-      if (videoUrl != null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Video uploaded to Firebase: $videoUrl'),
-        ));
-      }
-    }
-  } catch (e) {
-    print('Error picking and uploading video: $e');
-  }
-}
+//     Reference videoStorageReference = FirebaseStorage.instance.ref().child(videoFileName);
+//     final UploadTask videoUploadTask = videoStorageReference.putFile(File(filePath));
+
+//     final TaskSnapshot videoDownloadUrl = await videoUploadTask.whenComplete(() {});
+
+//     final videoUrl = await videoDownloadUrl.ref.getDownloadURL();
+//     print('Video URL: $videoUrl');
+
+//     // Generate and upload the video thumbnail
+//     final thumbnailPath = await generateThumbnail(filePath);
+//     Reference thumbnailStorageReference = FirebaseStorage.instance.ref().child(thumbnailFileName);
+//     final UploadTask thumbnailUploadTask = thumbnailStorageReference.putFile(File(thumbnailPath!));
+
+//     final TaskSnapshot thumbnailDownloadUrl = await thumbnailUploadTask.whenComplete(() {});
+
+//     final thumbnailUrl = await thumbnailDownloadUrl.ref.getDownloadURL();
+//     print('Thumbnail URL: $thumbnailUrl');
+
+//     setState(() {
+//       messagetype = "video";
+//       messagvideoourl = videoUrl;
+//       messageThumbnailUrl = thumbnailUrl;
+//     });
+
+//     onSendMessage();
+
+//     return videoUrl;
+//   } catch (e) {
+//     print('Error uploading video: $e');
+//     return null;
+//   }
+// }
+
+
+// Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
+//   try {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       type: FileType.video,
+//       // Remove the allowedExtensions parameter
+//     );
+
+//     if (result != null) {
+//       PlatformFile file = result.files.first;
+//       String filePath = file.path.toString();
+
+//       String? videoUrl = await uploadVideoToFirebaseStorage(filePath);
+
+//       if (videoUrl != null) {
+//         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//           content: Text('Video uploaded to Firebase: $videoUrl'),
+//         ));
+//       }
+//     }
+//   } catch (e) {
+//     print('Error picking and uploading video: $e');
+//   }
+// }
+
+
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -536,7 +601,30 @@ resizeToAvoidBottomInset: true,
                 
              ),
 
-             if(snapshot.data!.docs[index]['type'].toString()=="audio")AudioPlayerWidget(audioUrl: snapshot.data!.docs[index]['audiourl'].toString(),),
+//              if(snapshot.data!.docs[index]['type'].toString()=="audio")VoiceMessage(
+//   audioSrc:  snapshot.data!.docs[index]['audiourl'],
+//   played: false, // To show played badge or not.
+//   me: true, // Set message side.
+//   onPlay: () {}, // Do something when voice played.
+// ),
+
+
+if(snapshot.data!.docs[index]['type'].toString()=="video")
+              Container(                                                          
+   height: Get.height*0.15,                                          
+   width: Get.width*0.53,                                            
+   decoration: BoxDecoration(                                        
+     color: Colors.black54,                                          
+     borderRadius: BorderRadius.circular(24)   ,  
+     image:       DecorationImage(image: CachedNetworkImageProvider(snapshot.data!.docs[index]['messageThumbnailUrl'].toString()))              
+   ),                                                                 
+   child: IconButton(                                                
+     onPressed: (){                                                  
+      //  Get.to(LoginScreen());                                        
+     },                                                              
+     icon:Icon(Icons.slow_motion_video_sharp,color: Colors.white60,),
+   ),                                                                 
+ ),                
               SizedBox(height: 4), // Adjust the spacing as needed
              if (timestamp != null)  Text(
                 formatTimestamp(timestamp), // Format timestamp as needed
@@ -695,22 +783,47 @@ resizeToAvoidBottomInset: true,
         
               Container(width:Get.width,child:  Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
+        child: micon==false?Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(child: Image.asset("assets/icons/camera.png"),onTap: (){
-                          // uploadSelectedImageAndGetUrl();
-                          pickVideoAndUploadToFirebase(context);
+                          uploadSelectedImageAndGetUrl();
+                          // pickVideoAndUploadToFirebase(context);
                         },),
                         Container(
                           height: height * .06,
                           width: width * .7,
-                          child: TextFormField(
+                          child:   TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: messagecontroller,
                             focusNode: messageFocusNode,
-                            validator: (value) {},
+                            validator: (value) {},onTap: () {
+                              print("true");
+                            },
+                           onTapOutside: (event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                             print("false");
+                           },
                             decoration: InputDecoration(
+                              // suffixIcon: SizedBox(
+                              //   height: 50,width: 50,
+                                // child: SocialMediaRecorder(
+                                                        
+                                //          sendRequestFunction: (soundFile) {
+                                                
+                                                
+                                //           print("the current path is ${soundFile.path}");
+                                                
+                                //             if(soundFile.path.isNotEmpty){
+                                //                         _uploadAudioToFirebase(soundFile);
+                                //                         setState(() {
+                                // _isRecording=false;
+                                //                         });
+                                //             }
+                                //           },
+                                //           encode: AudioEncoderType.AAC,
+                                //         ),
+                              // ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15.0)),
@@ -736,21 +849,20 @@ resizeToAvoidBottomInset: true,
                                       BorderSide(color: Color(0xffF3F3F3)),
                                 ),
                                 hintText: "Type a message...",
-                                suffixIcon: GestureDetector(child: Icon(Icons.mic),
-                                  onLongPress: () {
-               print("start");
-               _startRecording();
-              },
-            
-              onLongPressUp: () {
-                print("stop");
-                _stopRecording();
-              },),
+           
                                 filled: true,
                                 fillColor: Color(0xffF3F3F3)),
                           ),
                         ),
-                        InkWell(
+                     InkWell(child: Icon(Icons.mic),
+                      onTap: (){
+
+                        setState(() {
+                          micon=true;
+                        });
+                      },
+                      ),
+                   InkWell(
                           child: Icon(
                             Icons.send_rounded,
                             size: 35,
@@ -766,7 +878,26 @@ if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId!=nu
                           },
                         )
                       ],
-                    ),
+                    )
+:Align(
+  alignment: Alignment.bottomRight,
+  child:   SocialMediaRecorder(
+                                    encode: AudioEncoderType.OPUS,     
+                                         sendRequestFunction: (soundFile) {
+                                                
+                                                  
+                                            print("the current path is ${soundFile.path}");
+                                                  
+                                              if(soundFile.path.isNotEmpty){
+                                                          _uploadAudioToFirebase(soundFile);
+                                                          setState(() {
+                                    micon=true;
+                                                          });
+                                              }
+                                            },
+                                           
+                                          ),
+),
       ),),
                
             ],
@@ -775,6 +906,8 @@ if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId!=nu
      
     ));
   }
+
+
 
   String breakMessage(String message) {
   List<String> words = message.split(' ');

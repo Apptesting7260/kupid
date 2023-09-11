@@ -1,78 +1,146 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
-class AudioPlayerWidget extends StatefulWidget {
-  final String audioUrl;
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
 
-  AudioPlayerWidget({required this.audioUrl});
 
-  @override
-  _AudioPlayerWidgetState createState() => _AudioPlayerWidgetState();
-}
+// class AudioPlayerWidget extends StatefulWidget {
+//   const AudioPlayerWidget({
+//     Key? key,
+//     required this.audioUrl,
+//   }) : super(key: key);
 
-class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
-  AudioPlayer audioPlayer = AudioPlayer();
-  bool isPlaying = false;
-  late StreamSubscription<PlayerState> playerStateSubscription;
+//   final String audioUrl;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   _AudioPlayerWidgetState createState() => _AudioPlayerWidgetState();
+// }
 
-    // Listen for audio player state changes
-    playerStateSubscription = audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      if (state == PlayerState.playing) {
-        setState(() {
-          isPlaying = true;
-        });
-      } else if (state == PlayerState.stopped || state == PlayerState.completed) {
-        setState(() {
-          isPlaying = false;
-        });
-      }
-    });
-  }
+// class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
+//   AudioPlayer _audioPlayer = AudioPlayer();
+//   PlayerState _playerState = PlayerState.stopped;
+//   double _sliderValue = 0.0;
+//   Duration _duration = Duration();
+//   Duration _position = Duration();
 
-  Future<void> _playAudio() async {
-    try {
-      if (!isPlaying) {
-        final Uri uri = Uri.parse(widget.audioUrl); // Convert string URL to Uri
-        await audioPlayer.play(UrlSource(widget.audioUrl)); // Pass the Uri as the source
-        setState(() {
-          isPlaying = true;
-        });
-      } else {
-        await audioPlayer.pause();
-        setState(() {
-          isPlaying = false;
-        });
-      }
-    } catch (e) {
-      print('Error playing audio: $e');
-    }
-  }
+//   @override
+//   void initState() {
+//     super.initState();
 
-  @override
-  void dispose() {
-    playerStateSubscription.cancel(); // Cancel the subscription
-    audioPlayer.dispose(); // Dispose the audio player when no longer needed
-    super.dispose();
-  }
+//     _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
+//       setState(() {
+//         _playerState = state;
+//       });
+//     });
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _playAudio,
-      child: Icon(
-        isPlaying ? Icons.pause : Icons.play_arrow,
-        size: 36.0,
-        color: Colors.blue,
-      ),
-    );
-  }
-}
+//     _audioPlayer.onDurationChanged.listen((Duration duration) {
+//       setState(() {
+//         _duration = duration;
+//         _sliderValue = 0.0; // Reset slider value when duration changes
+//       });
+//     });
+
+//     _audioPlayer.onPositionChanged.listen((Duration position) {
+//       setState(() {
+//         _position = position;
+//         _sliderValue = _position.inMilliseconds.toDouble();
+//       });
+//     });
+//   }
+
+//   Future<void> _playAudio() async {
+//     await _audioPlayer.play(UrlSource(widget.audioUrl));
+//   }
+
+//   Future<void> _pauseAudio() async {
+//     await _audioPlayer.pause();
+//   }
+
+//   Future<void> _stopAudio() async {
+//     await _audioPlayer.stop();
+//   }
+
+//   void _seekAudio(double value) {
+//     final newPosition = Duration(milliseconds: value.toInt());
+//     _audioPlayer.seek(newPosition);
+//   }
+
+//   @override
+//   void dispose() {
+//     _audioPlayer.dispose();
+//     super.dispose();
+//   }
+
+//   String _formatDuration(Duration duration) {
+//     final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+//     final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+//     return '$minutes:$seconds';
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       // height: Get.height*0.04,
+//       width: Get.width*0.4,
+//       child: Column(
+//         children: <Widget>[
+//           // SizedBox(height: 10),
+//           Row(
+            
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               IconButton(
+//                 icon: Icon(
+//                   Icons.play_arrow,
+//                   size: 20.0,
+//                   color: _playerState == PlayerState.playing
+//                       ? Colors.blue
+//                       : Colors.grey,
+//                 ),
+//                 onPressed: _playAudio,
+//               ),
+//               IconButton(
+//                 icon: Icon(
+//                   Icons.pause,
+//                   size: 20.0,
+//                   color: _playerState == PlayerState.paused
+//                       ? Colors.blue
+//                       : Colors.grey,
+//                 ),
+//                 onPressed: _pauseAudio,
+//               ),
+//               IconButton(
+//                 icon: Icon(
+//                   Icons.stop,
+//                   size: 20.0,
+//                   color: _playerState == PlayerState.stopped
+//                       ? Colors.blue
+//                       : Colors.grey,
+//                 ),
+//                 onPressed: _stopAudio,
+//               ),
+//             ],
+//           ),
+//           if (_duration.inMilliseconds > 0) // Only show slider if duration is available
+//             Slider(
+              
+//               value: _sliderValue,
+//               onChanged: _seekAudio,
+//               min: 0.0,
+//               max: _duration.inMilliseconds.toDouble(),
+//               activeColor: Colors.blue,
+//               inactiveColor: Colors.grey,
+//             ),
+//           // Text(
+//           //   '${_formatDuration(_position)} / ${_formatDuration(_duration)}',
+//           //   style: TextStyle(fontSize: 8.0),
+//           // ),
+//         ],
+//       ),
+//     );
+//   }
+// }
