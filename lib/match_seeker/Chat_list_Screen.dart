@@ -1,7 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/matched_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controllers/controller/SeekerChatListController/seeker_chat_list_controller.dart';
+import '../data/response/status.dart';
+import '../res/components/general_exception.dart';
+import '../res/components/internet_exceptions_widget.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
@@ -11,6 +17,15 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+  SeekerChatListController seekerChatListController = Get.put(SeekerChatListController());
+
+  @override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
+    seekerChatListController.isSeekerChatListApi();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -67,89 +82,128 @@ class _ChatListScreenState extends State<ChatListScreen> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: height * .02),
-            Expanded(
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 5,
-                itemExtent: 80,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(() => ChatPage());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: height * .33,
-                          width: width * .29,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                right: 30,
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundImage: NetworkImage(
-                                      "https://img.freepik.com/free-photo/smiley-businesswoman-posing-outdoors-with-arms-crossed-copy-space_23-2148767055.jpg"),
-                                  backgroundColor: Colors.transparent,
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border:
+            Obx(() {
+              switch (seekerChatListController.rxRequestStatus.value) {
+                case Status.LOADING:
+                  return const Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  if (seekerChatListController.error.value == 'No internet') {
+                    return InterNetExceptionWidget(
+                      onPress: () {},
+                    );
+                  } else {
+                    return GeneralExceptionWidget(onPress: () {});
+                  }
+                case Status.COMPLETED:
+                  return  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: seekerChatListController.seekerChatListValue.value.chat!.length,
+                    itemExtent: 80,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(() => ChatPage());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: height * .33,
+                              width: width * .29,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    right: 30,
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                          seekerChatListController
+                                              .seekerChatListValue
+                                              .value
+                                              .chat![
+                                          index]
+                                              .seekerwithImg!
+                                              .toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
                                       Border.all(color: Colors.white, width: 2),
-                                ),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundImage: NetworkImage(
-                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                                  backgroundColor: Colors.transparent,
-                                ),
+                                    ),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage: CachedNetworkImageProvider(
+                                          seekerChatListController
+                                              .seekerChatListValue
+                                              .value
+                                              .chat![
+                                          index]
+                                              .seekerfromImg!
+                                              .toString()),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Flexible(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: height * .01,
+                                  ),
+                                  Text(
+                                    (seekerChatListController
+                                        .seekerChatListValue
+                                        .value
+                                        .chat![index]
+                                        .seekerfromName!
+                                        .toString())+ " & "
+                                       +
+                                        (seekerChatListController
+                                            .seekerChatListValue
+                                            .value
+                                            .chat![index]
+                                            .seekerwithName!
+                                            .toString()),
+                                    style: Theme.of(context).textTheme.titleSmall,
+                                  ),
+
+                                  SizedBox(
+                                    height: height * .01,
+                                  ),
+                                  Text(
+                                    "Hey! How\'s it going?",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: width * .01),
+                            Text(
+                              "10:50PM",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Colors.grey),
+                            )
+                          ],
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: height * .01,
-                              ),
-                              Text(
-                                "Jake,Skyler & John Deo",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              SizedBox(
-                                height: height * .01,
-                              ),
-                              Text(
-                                "Hey! How\'s it going?",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: width * .01),
-                        Text(
-                          "10:50PM",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.grey),
-                        )
-                      ],
-                    ),
+                      );
+                    },
                   );
-                },
-              ),
-            ),
+              }
+            }),
+
           ],
         ),
       ),

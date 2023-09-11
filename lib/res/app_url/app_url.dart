@@ -33,6 +33,11 @@ static const String OutgoingRequestUrl = '$baseUrl/seeker/seeker-outgoing-listin
   static const String LikeListUrl = '$baseUrl/seeker/seeker-like-list' ;
   static const String RequestActionUrl = '$baseUrl/seeker/request-action' ;
   static const String SeekerToSeekerRequestUrl = '$baseUrl/seeker/request-seeker-to-seeker' ;
+  static const String IncomingMakerRequestUrl = '$baseUrl/maker/incoming-request';
+  static const String RecentSeekerMatchesUrl = '$baseUrl/seeker/get-recent-matches';
+  static const String SeekerChatList = '$baseUrl/seeker/chat-list';
+  static const String RecentMakerMatchesUrl = '$baseUrl/maker/maker-recent-matches';
+  static const String OutgoingMakerRequestUrl = '$baseUrl/maker/outgoing-request';
 
  
 
