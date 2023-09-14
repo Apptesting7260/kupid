@@ -951,7 +951,10 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
 
   int rewards = 0;
 
-
+  bool shouldShowSpinButton = true;
+  bool isTimerVisible = false;
+  late Timer countdownTimer;
+  Duration remainingTime = Duration(hours: 24);
   final SeekerToSeekerRequestControllerinstance =
       Get.put(SeekerToSeekerRequestController());
 

@@ -31,7 +31,7 @@ class ViewMakerProfileDetailsController extends GetxController {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"user_id":prefs.getString('Usertype')==1?prefs.getString('Tokernid'):Makerid.toString()
+"user_id":prefs.getString('Tokernid')
 
 
     };

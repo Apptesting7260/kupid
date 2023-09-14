@@ -1,6 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
+
+import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
+import '../data/response/status.dart';
+import '../res/components/general_exception.dart';
+import '../res/components/internet_exceptions_widget.dart';
 
 class RecentMatches extends StatefulWidget {
   const RecentMatches({Key? key}) : super(key: key);
@@ -10,6 +18,25 @@ class RecentMatches extends StatefulWidget {
 }
 
 class _RecentMatchesState extends State<RecentMatches> {
+  RecentSeekerMatchesController rsmController =
+      Get.put(RecentSeekerMatchesController());
+
+
+  String? Getcurrentuser;
+@override
+  void initState() {
+    // TODO: implement initState
+  getcurrentuser();
+    super.initState();
+  }
+  getcurrentuser()async{
+    SharedPreferences sp=await SharedPreferences.getInstance();
+    Getcurrentuser=sp.getString("Tokernid");
+    setState(() {
+      Getcurrentuser;
+    });
+    print("$Getcurrentuser======currentuser");
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -22,110 +49,170 @@ class _RecentMatchesState extends State<RecentMatches> {
           ),
           centerTitle: true,
         ),
-        body: Padding(padding: EdgeInsets.symmetric(horizontal: width*0.04),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.04),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,mainAxisSpacing: 10,childAspectRatio: .50),
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: width *.45,
-                      child: Padding(
-                        padding:  EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  height: height * 0.32,
-                                  width: width * 0.43,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.ratingcodeColor,
-                                      borderRadius:
-                                      BorderRadius.circular(18)),
-                                ),
-                                Transform.rotate(
-                                  angle: (math.pi / 390) * 11,
-                                  origin: Offset(-190.0, 760.0),
-                                  child: Container(
-                                    height: height * .2,
-                                    width: width * .2,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(22),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              'https://images.unsplash.com/photo-1685464670063-2cbac395fc24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),
-                                          fit: BoxFit.cover),
-                                    ),
+                Obx(() {
+                  switch (rsmController.rxRequestStatus.value) {
+                    case Status.LOADING:
+                      return const Center(child: CircularProgressIndicator());
+                    case Status.ERROR:
+                      if (rsmController.error.value == 'No internet') {
+                        return InterNetExceptionWidget(
+                          onPress: () {},
+                        );
+                      } else {
+                        return GeneralExceptionWidget(onPress: () {});
+                      }
+                    case Status.COMPLETED:
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: .50),
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: rsmController
+                            .RecentSeekerMatchValue.value.data!.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: width * .45,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        height: height * 0.32,
+                                        width: width * 0.43,
+                                        decoration: BoxDecoration(
+                                            color: AppColors.ratingcodeColor,
+                                            borderRadius:
+                                                BorderRadius.circular(18)),
+                                      ),
+                                      Transform.rotate(
+                                        angle: (math.pi / 390) * 11,
+                                        origin: Offset(-190.0, 760.0),
+                                        child: Container(
+                                          height: height * .2,
+                                          width: width * .2,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(22),
+                                            image: DecorationImage(
+                                                image:rsmController
+                                                    .RecentSeekerMatchValue
+                                                    .value
+                                                    .data![index]
+                                                    .getanotherseeker!.id!=int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                    rsmController
+                                                        .RecentSeekerMatchValue
+                                                        .value
+                                                        .data![index]
+                                                        .getseeker!
+                                                        .imgPath
+                                                        .toString()):CachedNetworkImageProvider(
+                                                    rsmController
+                                                        .RecentSeekerMatchValue
+                                                        .value
+                                                        .data![index]
+                                                        .getanotherseeker!
+                                                        .imgPath
+                                                        .toString()),
+                                                fit: BoxFit.cover),
+                                          ),
+                                        ),
+                                      ),
+                                      Transform.rotate(
+                                        angle: (math.pi / 850) * -40,
+                                        origin: Offset(520.0, -80.0),
+                                        child: Container(
+                                          height: height * .2,
+                                          width: width * .2,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: rsmController
+                                                    .RecentSeekerMatchValue
+                                                    .value
+                                                    .data![index]
+                                                    .getanotherseeker!.id==int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                    rsmController
+                                                        .RecentSeekerMatchValue
+                                                        .value
+                                                        .data![index]
+                                                        .getseeker!
+                                                        .imgPath
+                                                        .toString()):CachedNetworkImageProvider(
+                                                    rsmController
+                                                        .RecentSeekerMatchValue
+                                                        .value
+                                                        .data![index]
+                                                        .getanotherseeker!
+                                                        .imgPath
+                                                        .toString()),
+                                                fit: BoxFit.cover),
+                                            borderRadius:
+                                                BorderRadius.circular(22),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        child: CircleAvatar(
+                                          radius: 20,
+                                          child: CircleAvatar(
+                                            radius: 50,
+                                            backgroundColor: AppColors.white,
+                                            child: Icon(Icons.heart_broken),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 60,
+                                        top: 6,
+                                        child: CircleAvatar(
+                                          radius: 20,
+                                          child: CircleAvatar(
+                                            radius: 50,
+                                            backgroundColor: AppColors.white,
+                                            child: Icon(Icons.heart_broken),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Transform.rotate(
-                                  angle: (math.pi / 850) * -40,
-                                  origin: Offset(520.0, -80.0),
-                                  child: Container(
-                                    height: height * .2,
-                                    width: width * .2,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              'https://plus.unsplash.com/premium_photo-1664547606960-008623079291?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60'),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(22),
-                                    ),
+                                  SizedBox(
+                                    height: height * .01,
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: 10,
-                                  child: CircleAvatar(
-                                    radius: 20,
-                                    child: CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor: AppColors.white,
-                                      child: Icon(Icons.heart_broken),
-                                    ),
+                                  Text(
+                                    "It’s a match, Jake!",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(color: AppColors.red),
+                                    maxLines: 1,
                                   ),
-                                ),
-                                Positioned(
-                                  left: 60,
-                                  top: 6,
-                                  child: CircleAvatar(
-                                    radius: 20,
-                                    child: CircleAvatar(
-                                      radius: 50,
-                                      backgroundColor: AppColors.white,
-                                      child: Icon(Icons.heart_broken),
-                                    ),
+                                  SizedBox(
+                                    height: height * .01,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    "Start a conversation now with each other",
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
+                                  ),
+                                ],
+                              ),
                             ),
-                            SizedBox(height: height*.01,),
-                            Text(
-                              "It’s a match, Jake!",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(color: AppColors.red),maxLines: 1,
-                            ),
-                            SizedBox(height: height*.01,),
-                            Text(
-                              "Start a conversation now with each other",
-                              style: Theme.of(context).textTheme.labelSmall,
-
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                          );
+                        },
+                      );
+                  }
+                }),
               ],
             ),
           ),

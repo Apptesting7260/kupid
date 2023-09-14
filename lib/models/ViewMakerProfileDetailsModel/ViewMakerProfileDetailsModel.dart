@@ -46,30 +46,30 @@ class ProfileDetails {
      this.videoPath,
      this.details,
   });
-   int? id;
-   String ?name;
-   String ?email;
-   String? phone;
-   String ?dob;
-   String ?gender;
-   String? location;
-   String? profileImg;
-   String? profileVideo;
-   dynamic experience;
-   String ?aboutMaker;
-   String ?expectation;
-   String? headingOfMaker;
-   int ?status;
-   int ?currentStep;
-   String ?matchMade;
-   String ?matchsSuccessfull;
-   String ?matchsDeclined;
-   String ?matchsCompleted;
-   String ?makerExperience;
-   String ?likedProfile;
-   String ?imgPath;
-   String ?videoPath;
-   Details ?details;
+   var id;
+   var name;
+  var email;
+   var phone;
+   var dob;
+   var gender;
+  var location;
+   var profileImg;
+   var profileVideo;
+   var experience;
+   var aboutMaker;
+   var expectation;
+   var headingOfMaker;
+  var status;
+  var currentStep;
+   var matchMade;
+   var matchsSuccessfull;
+   var matchsDeclined;
+   var matchsCompleted;
+   var makerExperience;
+   var likedProfile;
+   var imgPath;
+   var videoPath;
+   Details?details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -95,7 +95,7 @@ class ProfileDetails {
     likedProfile = json['liked_profile'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    details = Details.fromJson(json['details']);
+    details =  Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
@@ -143,18 +143,18 @@ class Details {
      this.createdAt,
      this.updatedAt,
   });
-   int ?id;
-   String ?makerId;
-   String ?nationality;
-   String ?verificationMethod;
-   String ?idProof;
-   String ?bankName;
-   String ?makerFullName;
-   String ?accountNumber;
-   String ?ifscCode;
-   String ?status;
-   String ?createdAt;
-   String ?updatedAt;
+   var id;
+  var makerId;
+  var nationality;
+  var verificationMethod;
+  var idProof;
+  var bankName;
+  var makerFullName;
+  var accountNumber;
+  var ifscCode;
+  var status;
+  var createdAt;
+  var updatedAt;
   
   Details.fromJson(Map<String, dynamic> json){
     id = json['id'];

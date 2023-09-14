@@ -29,8 +29,12 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:cupid_match/widgets/seekershortprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:math' as math;
+
+import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
+import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 
 class SikerHomeScreen extends StatefulWidget {
   const SikerHomeScreen({Key? key}) : super(key: key);
@@ -42,13 +46,23 @@ class SikerHomeScreen extends StatefulWidget {
 class _SikerHomeScreenState extends State<SikerHomeScreen> {
   OutgoinRequestController controller = Get.put(OutgoinRequestController());
   IncomingRequestController Incontroller = Get.put(IncomingRequestController());
-
+  final ViewSikerProfileDetailsControllernstance=Get.put(ViewSikerProfileDetailsController());
+  RecentSeekerMatchesController recentSeekerMatchesController =
+      Get.put(RecentSeekerMatchesController());
+  String? Getcurrentuser;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getcurrentuser();
     controller.seekerListApi();
     Incontroller.iseekerListApi();
+    recentSeekerMatchesController.isrecentSeekermatchesApi();
+  }
+  getcurrentuser()async{
+    SharedPreferences sp=await SharedPreferences.getInstance();
+    Getcurrentuser=sp.getString("Tokernid");
+    print("$Getcurrentuser======currentuser");
   }
   @override
   Widget build(BuildContext context) {
@@ -75,9 +89,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
             )
           ],
         ),
-    
         endDrawer: MyDrawer(),
-      
         body: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: width * 0.05, vertical: height * 0.02),
@@ -124,129 +136,190 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                           )),
                     ],
                   ),
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Text(
-                  //     "But no conversation",
-                  //     style: Theme.of(context)
-                  //         .textTheme
-                  //         .bodySmall
-                  //         ?.copyWith(
-                  //             color: AppColors.black, fontSize: 13),
-                  //   ),
-                  // ),
                   SizedBox(
                     height: height * .02,
                   ),
 
-                  Container(
-                    width: width,
-                    height: height * .45,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: width * .45,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: height * 0.32,
-                                      width: width * 0.43,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.ratingcodeColor,
-                                          borderRadius:
-                                              BorderRadius.circular(18)),
-                                    ),
-                                    Transform.rotate(
-                                      angle: (math.pi / 390) * 11,
-                                      origin: Offset(-190.0, 760.0),
-                                      child: Container(
-                                        height: height * .2,
-                                        width: width * .2,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(22),
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://images.unsplash.com/photo-1685464670063-2cbac395fc24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),
-                                              fit: BoxFit.cover),
+                  Obx(() {
+                    switch (
+                        recentSeekerMatchesController.rxRequestStatus.value) {
+                      case Status.LOADING:
+                        return const Center(child: CircularProgressIndicator());
+                      case Status.ERROR:
+                        if (Incontroller.error.value == 'No internet') {
+                          return InterNetExceptionWidget(
+                            onPress: () {},
+                          );
+                        } else {
+                          return GeneralExceptionWidget(onPress: () {});
+                        }
+                      case Status.COMPLETED:
+                        return recentSeekerMatchesController
+                                    .RecentSeekerMatchValue
+                                    .value
+                                    .data!
+                                    .length ==
+                                0
+                            ? SizedBox()
+                            : Container(
+                                width: width,
+                                height: height * .45,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: recentSeekerMatchesController
+                                      .seekerRequestlenght,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      width: width * .45,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  height: height * 0.32,
+                                                  width: width * 0.43,
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .ratingcodeColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              18)),
+                                                ),
+
+
+                                                Transform.rotate(
+                                                  angle: (math.pi / 390) * 11,
+                                                  origin: Offset(-190.0, 760.0),
+                                                  child: Container(
+                                                    height: height * .2,
+                                                    width: width * .2,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(22),
+                                                      image: DecorationImage(
+                                                          image:recentSeekerMatchesController
+                                                              .RecentSeekerMatchValue
+                                                              .value
+                                                              .data![index]
+                                                              .getanotherseeker!.id!=int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                              recentSeekerMatchesController
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![index]
+                                                                  .getseeker!
+                                                                  .imgPath
+                                                                  .toString()):CachedNetworkImageProvider(
+                                                              recentSeekerMatchesController
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![index]
+                                                                  .getanotherseeker!
+                                                                  .imgPath
+                                                                  .toString()),
+                                                          fit: BoxFit.cover),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Transform.rotate(
+                                                  angle: (math.pi / 850) * -40,
+                                                  origin: Offset(520.0, -80.0),
+                                                  child: Container(
+                                                    height: height * .2,
+                                                    width: width * .2,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: recentSeekerMatchesController
+                                                              .RecentSeekerMatchValue
+                                                              .value
+                                                              .data![index]
+                                                              .getanotherseeker!.id==int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                              recentSeekerMatchesController
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![index]
+                                                                  .getseeker!
+                                                                  .imgPath
+                                                                  .toString()):CachedNetworkImageProvider(
+                                                              recentSeekerMatchesController
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![index]
+                                                                  .getanotherseeker!
+                                                                  .imgPath
+                                                                  .toString()),
+                                                          fit: BoxFit.cover),
+                                                      borderRadius:
+                                                      BorderRadius.circular(22),
+                                                    ),
+                                                  ),
+                                                ),
+
+
+
+                                                Positioned(
+                                                  bottom: 10,
+                                                  left: 10,
+                                                  child: CircleAvatar(
+                                                    radius: 20,
+                                                    child: CircleAvatar(
+                                                      radius: 50,
+                                                      backgroundColor:
+                                                          AppColors.white,
+                                                      child: Icon(
+                                                          Icons.heart_broken),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  left: 60,
+                                                  top: 6,
+                                                  child: CircleAvatar(
+                                                    radius: 20,
+                                                    child: CircleAvatar(
+                                                      radius: 50,
+                                                      backgroundColor:
+                                                          AppColors.white,
+                                                      child: Icon(
+                                                          Icons.heart_broken),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: height * .01,
+                                            ),
+                                            Text(
+                                              "It’s a match, Jake!",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall
+                                                  ?.copyWith(
+                                                      color: AppColors.red),
+                                              maxLines: 1,
+                                            ),
+                                            SizedBox(
+                                              height: height * .01,
+                                            ),
+                                            Text(
+                                              "Start a conversation now with each other",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    Transform.rotate(
-                                      angle: (math.pi / 850) * -40,
-                                      origin: Offset(520.0, -80.0),
-                                      child: Container(
-                                        height: height * .2,
-                                        width: width * .2,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://plus.unsplash.com/premium_photo-1664547606960-008623079291?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60'),
-                                              fit: BoxFit.cover),
-                                          borderRadius:
-                                              BorderRadius.circular(22),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 10,
-                                      left: 10,
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        child: CircleAvatar(
-                                          radius: 50,
-                                          backgroundColor: AppColors.white,
-                                          child: Icon(Icons.heart_broken),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 60,
-                                      top: 6,
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        child: CircleAvatar(
-                                          radius: 50,
-                                          backgroundColor: AppColors.white,
-                                          child: Icon(Icons.heart_broken),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 ),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                  "It’s a match, Jake!",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(color: AppColors.red),
-                                  maxLines: 1,
-                                ),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                  "Start a conversation now with each other",
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                              );
+                    }
+                  }),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -332,427 +405,745 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 trailing: GestureDetector(
                                     // onTap: () => Get.to(() => ChatScreen()),
                                     child: Image.asset(
-                                      "assets/maker/Group 221.png",
-                                      width: width * 0.09,
-                                    )),
+                                  "assets/maker/Group 221.png",
+                                  width: width * 0.09,
+                                )),
                               )),
                         );
                       },
                     ),
                   ),
 
-               
-               
-
-  //************** Request to match **********
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Incoming Requests",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                TextButton(
-                    onPressed: () {
-                      Get.to(IncomingRequests());
-                    },
-                    child: Text(
-                      'View All',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-          Obx(() {
-              switch (Incontroller.rxRequestStatus.value) {
-                case Status.LOADING:
-                  return const Center(child: CircularProgressIndicator());
-                case Status.ERROR:
-                  if (Incontroller.error.value == 'No internet') {
-                    return InterNetExceptionWidget(
-                      onPress: () {},
-                    );
-                  } else {
-                    return GeneralExceptionWidget(onPress: () {});
-                  }
-                case Status.COMPLETED:
-                  return    Incontroller.IncomingRequestvalue.value.status=="success" ?  Container(
-                    width: width,
-                    height: height * .18,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount:  Incontroller.IncomingRequestvalue.value
-                                                          .requests!.length>2?2:1,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColors.ratingcodeColor,
-                                    borderRadius: BorderRadius.circular(15)),
-                                width: width * .65,
-                                  
-                                child: Incontroller.IncomingRequestvalue.value.requests![index].getMaker==null? 
-                               
-                                InkWell(
-                                  child: Container(child: Column(children: [Row(
-                                                            
-                                    children: [Padding(
-                                    padding: const EdgeInsets.only(left: 20,top:10,bottom: 10),
-                                    child: Text("Seeker ",style:TextStyle(color:Colors.pink), ),
-                                  ),
-                                  
-                                  
-                                   Text(" Requested",style:TextStyle(color:Colors.black),)
-                                  ],),
-                                                           
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                                           
-                                                            // width: width * .29,
-                                                            child: Stack(
+                  //************** Request to match **********
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Incoming Requests",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Get.to(IncomingRequests());
+                          },
+                          child: Text(
+                            'View All',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Obx(() {
+                    switch (Incontroller.rxRequestStatus.value) {
+                      case Status.LOADING:
+                        return const Center(child: CircularProgressIndicator());
+                      case Status.ERROR:
+                        if (Incontroller.error.value == 'No internet') {
+                          return InterNetExceptionWidget(
+                            onPress: () {},
+                          );
+                        } else {
+                          return GeneralExceptionWidget(onPress: () {});
+                        }
+                      case Status.COMPLETED:
+                        return Incontroller.IncomingRequestvalue.value.status ==
+                                "success"
+                            ? Container(
+                                width: width,
+                                height: height * .18,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: Incontroller.IncomingRequestvalue
+                                              .value.requests!.length >
+                                          2
+                                      ? 2
+                                      : 1,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.ratingcodeColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            width: width * .65,
+                                            child: Incontroller
+                                                        .IncomingRequestvalue
+                                                        .value
+                                                        .requests![index]
+                                                        .getMaker ==
+                                                    null
+                                                ? InkWell(
+                                                    child: Container(
+                                                        child: Column(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 20,
+                                                                      top: 10,
+                                                                      bottom:
+                                                                          10),
+                                                              child: Text(
+                                                                "Seeker ",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              " Requested",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Container(
+                                                                // width: width * .29,
+                                                                child: Stack(
+                                                                  children: [
+                                                                    CircleAvatar(
+                                                                        radius:
+                                                                            30,
+                                                                        backgroundColor:
+                                                                            AppColors
+                                                                                .white,
+                                                                        backgroundImage: CachedNetworkImageProvider(Incontroller
+                                                                            .IncomingRequestvalue
+                                                                            .value
+                                                                            .requests![index]
+                                                                            .getSeeker!
+                                                                            .imgPath
+                                                                            .toString())),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: Get.width *
+                                                                  0.08,
+                                                            ),
+                                                            Column(
                                                               children: [
-                                    CircleAvatar(
-                                                  radius:30 ,
-                                                  backgroundColor: AppColors.white,
-                                                  backgroundImage: CachedNetworkImageProvider(
-                                                      Incontroller.IncomingRequestvalue.value
-                                                          .requests![index].getSeeker!.imgPath
-                                                          .toString())),
-                                    
-                                    
+                                                                SizedBox(
+                                                                  height:
+                                                                      Get.height *
+                                                                          0.02,
+                                                                ),
+                                                                Text(
+                                                                  Incontroller
+                                                                      .IncomingRequestvalue
+                                                                      .value
+                                                                      .requests![
+                                                                          index]
+                                                                      .getSeeker!
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      Get.height *
+                                                                          0.01,
+                                                                ),
+                                                                Text(
+                                                                  Incontroller
+                                                                      .IncomingRequestvalue
+                                                                      .value
+                                                                      .requests![
+                                                                          index]
+                                                                      .getSeeker!
+                                                                      .dob
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                )
                                                               ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )),
+                                                    //  onTap: (){
+                                                    //      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
+
+                                                    //     print(userIdsiker);
+                                                    //     Get.to(ShortProfileSeeker());
+                                                    // },
+                                                  )
+                                                : Container(
+                                                    child: Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: Get.height *
+                                                                0.04,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                              left: 20,
+                                                            ),
+                                                            child: Text(
+                                                              "Seeker &",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
                                                             ),
                                                           ),
-                                
-                                
-                                    
-                                  ),
-                                  SizedBox(width:Get.width*0.08,),
-                                  Column(
-                                    
-                                    
-                                    children: [  
-                                      SizedBox(height:Get.height*0.02,),
-                                      Text(  Incontroller.IncomingRequestvalue.value
-                                                          .requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
-                                  SizedBox(height: Get.height*0.01,),
-                                  Text(Incontroller.IncomingRequestvalue.value
-                                                          .requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
-                                  ],)
-                                  ],)),
-                                  //  onTap: (){
-                                  //      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
-                        
-                        
-                                  //     print(userIdsiker);
-                                  //     Get.to(ShortProfileSeeker());
-                                  // },
-                                )
-                                
-                                :
-                                Container(child: Column(children: [Row(children: [
-                                  
-                        
-                                  SizedBox(height: Get.height*0.04,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 20,),
-                                  child: Text("Seeker &",style:TextStyle(color:Colors.black), ),
-                                ),
-                                
-                                 Text("Maker",style:TextStyle(color:Colors.pink),),
-                                 Text(" Requested",style:TextStyle(color:Colors.black),)
-                                ],),
-                             
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                                         
-                                                          width: width * .29,
-                                                          child: Stack(
-                                                            children: [
-                                  Positioned(
-                                    right: 30,
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: CachedNetworkImageProvider(
-                                          Incontroller
-                                        .IncomingRequestvalue.value.requests![index].getSeeker
-                                        !.imgPath.toString()),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border:
-                                          Border.all(color: Colors.white, width: 2),
-                                    ),
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: CachedNetworkImageProvider(
-                                           Incontroller
-                                        .IncomingRequestvalue.value.requests![index].getMaker!.imgPath.toString()),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                                            ],
+                                                          Text(
+                                                            "Maker",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .pink),
                                                           ),
-                                                        ),
-                        
-                        
-                                  
-                                ),
-                           Column(
-                                  
-                                  
-                                  children: [  
-                                    SizedBox(height:Get.height*0.02,),
-                                    Text(  Incontroller.IncomingRequestvalue.value
-                                                        .requests![index].getSeeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
-                                SizedBox(height: Get.height*0.01,),
-                                Text(Incontroller.IncomingRequestvalue.value
-                                                        .requests![index].getSeeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
-                                ],)
-                                ],))),
-                          ),
-
-                             onTap: () {
-setState(() {
-  requestype="1";
-});
-                                  requestid=Incontroller.IncomingRequestvalue.value
-                                    .requests![index].id.toString();
-
-                                    if(requestid!=null){
-                                      print(requestid);
-    Get.to(ChatPage());
-                                    }
-                          
-                                },
-                        );
-                      },
-                    ),
-                  ):Container();
-              }
-            }),
-            //************** Request to be match **********
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Outgoing Requests",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                TextButton(
-                    onPressed: () {
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
-                        // This code will run after the build is complete
-                        Get.to(OutGoingRequest());
-                      });
-                    },
-                    child: Text(
-                      'View All',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-      Obx(() {
-              switch (controller.rxRequestStatus.value) {
-                case Status.LOADING:
-                  return const Center(child: CircularProgressIndicator());
-                case Status.ERROR:
-                  if (controller.error.value == 'No internet') {
-                    return InterNetExceptionWidget(
-                      onPress: () {},
-                    );
-                  } else {
-                    return GeneralExceptionWidget(onPress: () {});
-                  }
-                case Status.COMPLETED:
-                  return controller.OutgoingRequestvalue.value.status=="success"  ?
-                    Container(
-                    width: width,
-                    height: height * .18,
-                    child: ListView.builder(
-
-                      
-                      scrollDirection: Axis.horizontal,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.OutgoingRequestvalue.value
-                                                          .requests!.length>2?2:1,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColors.ratingcodeColor,
-                                    borderRadius: BorderRadius.circular(15)),
-                                width: width * .65,
-                                // height: Get.height*0.5,
-                                
-                                child: controller.OutgoingRequestvalue.value.requests![index].getMaker==null? 
-                               
-                                InkWell(
-                                  child: Container(child: Column(children: [Row(
-                                                            
-                                    children: [
-                                      
-                                      SizedBox(height:Get.height*0.04,),
-                                      Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Text("Seeker ",style:TextStyle(color:Colors.pink), ),
-                                  ),
-                                  
-                                  
-                                   Text(" Requested",style:TextStyle(color:Colors.black),)
-                                  ],),
-                                                           
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                                           
-                                                            // width: width * .29,
-                                                            child: Stack(
-                                                              children: [
-                                    CircleAvatar(
-                                                  radius:30 ,
-                                                  backgroundColor: AppColors.white,
-                                                  backgroundImage: CachedNetworkImageProvider(
-                                                      controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.imgPath
-                                                          .toString())),
-                                    
-                                    
-                                                              ],
+                                                          Text(
+                                                            " Requested",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Container(
+                                                              width:
+                                                                  width * .29,
+                                                              child: Stack(
+                                                                children: [
+                                                                  Positioned(
+                                                                    right: 30,
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      radius:
+                                                                          30.0,
+                                                                      backgroundImage: CachedNetworkImageProvider(Incontroller
+                                                                          .IncomingRequestvalue
+                                                                          .value
+                                                                          .requests![
+                                                                              index]
+                                                                          .getSeeker!
+                                                                          .imgPath
+                                                                          .toString()),
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      border: Border.all(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          width:
+                                                                              2),
+                                                                    ),
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      radius:
+                                                                          30.0,
+                                                                      backgroundImage: CachedNetworkImageProvider(Incontroller
+                                                                          .IncomingRequestvalue
+                                                                          .value
+                                                                          .requests![
+                                                                              index]
+                                                                          .getMaker!
+                                                                          .imgPath
+                                                                          .toString()),
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
-                                
-                                
-                                    
-                                  ),
-                                  SizedBox(width:Get.width*0.08,),
-                                  Column(
-                                    
-                                    
-                                    children: [  
-                                      SizedBox(height:Get.height*0.02,),
-                                      Text(  controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
-                                  SizedBox(height: Get.height*0.01,),
-                                  Text(controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
-                                  ],)
-                                  ],)),
-                                  // onTap: (){
-                                  //      userIdsiker=controller.OutgoingRequestvalue.value.requests![index].getSeeker!.id.toString();
-                        
-                        
-                                  //     print(userIdsiker);
-                                  //     Get.to(ShortProfileSeeker());
-                                  // },
-                                )
-                                
-                                :
-                                Container(child: Column(children: [Row(children: [Padding(
-                                    padding: const EdgeInsets.only(left: 20,top:10),
-                                  child: Text("Seeker &",style:TextStyle(color:Colors.black), ),
-                                ),
-                                
-                                 Text("Maker",style:TextStyle(color:Colors.pink),),
-                                 Text(" Requested",style:TextStyle(color:Colors.black),)
-                                ],),
-                             
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                                         
-                                                          width: width * .29,
-                                                          child: Stack(
+                                                          Column(
                                                             children: [
-                                  Positioned(
-                                    right: 30,
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: CachedNetworkImageProvider(
-                                         controller.OutgoingRequestvalue.value.requests![index].getMaker
-                                        !.imgPath.toString()),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border:
-                                          Border.all(color: Colors.white, width: 2),
-                                    ),
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: CachedNetworkImageProvider(
-                                       controller.OutgoingRequestvalue.value.requests![index]. getMaker!.imgPath.toString()),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
+                                                              SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.02,
+                                                              ),
+                                                              Text(
+                                                                Incontroller
+                                                                    .IncomingRequestvalue
+                                                                    .value
+                                                                    .requests![
+                                                                        index]
+                                                                    .getSeeker!
+                                                                    .name
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.01,
+                                                              ),
+                                                              Text(
+                                                                Incontroller
+                                                                    .IncomingRequestvalue
+                                                                    .value
+                                                                    .requests![
+                                                                        index]
+                                                                    .getSeeker!
+                                                                    .dob
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              )
                                                             ],
-                                                          ),
-                                                        ),
-                        
-                        
-                                  
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ))),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          requestype = "1";
+                                        });
+                                        requestid = Incontroller
+                                            .IncomingRequestvalue
+                                            .value
+                                            .requests![index]
+                                            .id
+                                            .toString();
+
+                                        if (requestid != null) {
+                                          print(requestid);
+                                          Get.to(ChatPage());
+                                        }
+                                      },
+                                    );
+                                  },
                                 ),
-                           Column(
-                                  
-                                  
-                                  children: [  
-                                    SizedBox(height:Get.height*0.02,),
-                                    Text(  controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.name.toString(),style: TextStyle(color: Colors.pink,fontSize:20,fontWeight: FontWeight.bold),),
-                                SizedBox(height: Get.height*0.01,),
-                                Text(controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.dob.toString(),style: TextStyle(color:Colors.black),)],)
-                                ],)
-                                ],))),
-                          ),
+                              )
+                            : Container();
+                    }
+                  }),
+                  //************** Request to be match **********
 
-                            onTap: () {
-setState(() {
-  requestype="2";
-});
-                                  requestid=controller.OutgoingRequestvalue.value
-                                    .requests![index].id.toString();
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Outgoing Requests",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            WidgetsBinding.instance!.addPostFrameCallback((_) {
+                              // This code will run after the build is complete
+                              Get.to(OutGoingRequest());
+                            });
+                          },
+                          child: Text(
+                            'View All',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Obx(() {
+                    switch (controller.rxRequestStatus.value) {
+                      case Status.LOADING:
+                        return const Center(child: CircularProgressIndicator());
+                      case Status.ERROR:
+                        if (controller.error.value == 'No internet') {
+                          return InterNetExceptionWidget(
+                            onPress: () {},
+                          );
+                        } else {
+                          return GeneralExceptionWidget(onPress: () {});
+                        }
+                      case Status.COMPLETED:
+                        return controller.OutgoingRequestvalue.value.status ==
+                                "success"
+                            ? Container(
+                                width: width,
+                                height: height * .18,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: controller.OutgoingRequestvalue.value.requests!.length > 2
+                                      ? 2
+                                      : 1,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                color:
+                                                    AppColors.ratingcodeColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            width: width * .65,
+                                            // height: Get.height*0.5,
 
-                                    if(requestid!=null){
-                                      print(requestid);
-    Get.to(ChatPage());
-                                    }
-                          
-                                },
-                        );
-                      },
-                    ),
-                  ):Container();
-              }
-            })
-                
+                                            child: controller
+                                                        .OutgoingRequestvalue
+                                                        .value
+                                                        .requests![index]
+                                                        .getMaker ==
+                                                    null
+                                                ? InkWell(
+                                                    child: Container(
+                                                        child: Column(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              height:
+                                                                  Get.height *
+                                                                      0.04,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 20),
+                                                              child: Text(
+                                                                "Seeker ",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              " Requested",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Container(
+                                                                // width: width * .29,
+                                                                child: Stack(
+                                                                  children: [
+                                                                    CircleAvatar(
+                                                                        radius:
+                                                                            30,
+                                                                        backgroundColor:
+                                                                            AppColors
+                                                                                .white,
+                                                                        backgroundImage: CachedNetworkImageProvider(controller
+                                                                            .OutgoingRequestvalue
+                                                                            .value
+                                                                            .requests![index]
+                                                                            .outgoing_req_getseeker!
+                                                                            .imgPath
+                                                                            .toString())),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: Get.width *
+                                                                  0.08,
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                SizedBox(
+                                                                  height:
+                                                                      Get.height *
+                                                                          0.02,
+                                                                ),
+                                                                Text(
+                                                                  controller
+                                                                      .OutgoingRequestvalue
+                                                                      .value
+                                                                      .requests![
+                                                                          index]
+                                                                      .outgoing_req_getseeker!
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      Get.height *
+                                                                          0.01,
+                                                                ),
+                                                                Text(
+                                                                  controller
+                                                                      .OutgoingRequestvalue
+                                                                      .value
+                                                                      .requests![
+                                                                          index]
+                                                                      .outgoing_req_getseeker!
+                                                                      .dob
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )),
+                                                    // onTap: (){
+                                                    //      userIdsiker=controller.OutgoingRequestvalue.value.requests![index].getSeeker!.id.toString();
+
+                                                    //     print(userIdsiker);
+                                                    //     Get.to(ShortProfileSeeker());
+                                                    // },
+                                                  )
+                                                : Container(
+                                                    child: Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    left: 20,
+                                                                    top: 10),
+                                                            child: Text(
+                                                              "Seeker &",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "Maker",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .pink),
+                                                          ),
+                                                          Text(
+                                                            " Requested",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Container(
+                                                              width:
+                                                                  width * .29,
+                                                              child: Stack(
+                                                                children: [
+                                                                  Positioned(
+                                                                    right: 30,
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      radius:
+                                                                          30.0,
+                                                                      backgroundImage: CachedNetworkImageProvider(controller
+                                                                          .OutgoingRequestvalue
+                                                                          .value
+                                                                          .requests![
+                                                                              index]
+                                                                          .getMaker!
+                                                                          .imgPath
+                                                                          .toString()),
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      border: Border.all(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          width:
+                                                                              2),
+                                                                    ),
+                                                                    child:
+                                                                        CircleAvatar(
+                                                                      radius:
+                                                                          30.0,
+                                                                      backgroundImage: CachedNetworkImageProvider(controller
+                                                                          .OutgoingRequestvalue
+                                                                          .value
+                                                                          .requests![
+                                                                              index]
+                                                                          .getMaker!
+                                                                          .imgPath
+                                                                          .toString()),
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Column(
+                                                            children: [
+                                                              SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.02,
+                                                              ),
+                                                              Text(
+                                                                controller
+                                                                    .OutgoingRequestvalue
+                                                                    .value
+                                                                    .requests![
+                                                                        index]
+                                                                    .outgoing_req_getseeker!
+                                                                    .name
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink,
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.01,
+                                                              ),
+                                                              Text(
+                                                                controller
+                                                                    .OutgoingRequestvalue
+                                                                    .value
+                                                                    .requests![
+                                                                        index]
+                                                                    .outgoing_req_getseeker!
+                                                                    .dob
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ))),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          requestype = "2";
+                                        });
+                                        requestid = controller
+                                            .OutgoingRequestvalue
+                                            .value
+                                            .requests![index]
+                                            .id
+                                            .toString();
+
+                                        if (requestid != null) {
+                                          print(requestid);
+                                          Get.to(ChatPage());
+                                        }
+                                      },
+                                    );
+                                  },
+                                ),
+                              )
+                            : Container();
+                    }
+                  })
                 ]),
           ),
         ));

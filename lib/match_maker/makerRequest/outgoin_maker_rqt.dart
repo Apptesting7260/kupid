@@ -1,40 +1,38 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
-import 'package:cupid_match/controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
-import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
-import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
-import 'package:cupid_match/controllers/sikerProfileController/sikershortprofilecontrller.dart';
-import 'package:cupid_match/data/response/status.dart';
-import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
-import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
-import 'package:cupid_match/res/components/general_exception.dart';
-import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:cupid_match/widgets/seekershortprofile.dart';
-import 'package:cupid_match/widgets/shortprofilemaker.dart';
-import 'package:cupid_match/widgets/shortprofilepopup.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
+import '../../controllers/controller/IncomingRequestController/IncomingRequestController.dart';
+import '../../controllers/controller/OutgoingMakerRequestController/outgoing_maker_request_controller.dart';
+import '../../data/response/status.dart';
+import '../../res/components/general_exception.dart';
+import '../../res/components/internet_exceptions_widget.dart';
+import '../../widgets/shortprofilemaker.dart';
+import '../../widgets/shortprofilepopup.dart';
 
-class IncomingRequests extends StatefulWidget {
-  const IncomingRequests({Key? key}) : super(key: key);
+class OutgoingMakerRequest extends StatefulWidget {
+  const OutgoingMakerRequest({Key? key}) : super(key: key);
 
   @override
-  State<IncomingRequests> createState() => _IncomingRequestsState();
+  State<OutgoingMakerRequest> createState() => _OutgoingMakerRequestState();
 }
 
-class _IncomingRequestsState extends State<IncomingRequests> {
-
+class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
+  OutgoingMakerRequestController outgoingMakerRequestController =
+      Get.put(OutgoingMakerRequestController());
   IncomingRequestController Incontroller = Get.put(IncomingRequestController());
-
-@override
+  int x = 5;
+  @override
   void initState() {
-    requestid=null;
+    requestid = null;
     // TODO: implement initState
     super.initState();
   }
@@ -55,28 +53,23 @@ class _IncomingRequestsState extends State<IncomingRequests> {
     "15Km",
     "20Km",
   ];
-
   String? selectSearch;
   var searchItems = [
     "Rajasthan",
     "Haryana",
   ];
-
   String? selectLike;
   var likesItems = [
     "100 Like",
     "200 Like",
   ];
-
   String? confirmMatches;
   var confirmItems = [
     "10 Matches",
     "20 Matches",
   ];
-
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
-
   void _submit() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
@@ -85,7 +78,6 @@ class _IncomingRequestsState extends State<IncomingRequests> {
     _formKey.currentState!.save();
   }
 
-  //Filter show dialog box
   Future<void> _showDialog(BuildContext context) async {
     await showDialog(
       barrierDismissible: false,
@@ -780,7 +772,6 @@ class _IncomingRequestsState extends State<IncomingRequests> {
     );
   }
 
-  // MakerProfile show dialog box
   Future<void> showmaker(BuildContext context) {
     return showDialog(
         context: context,
@@ -788,16 +779,11 @@ class _IncomingRequestsState extends State<IncomingRequests> {
         builder: (BuildContext context) {
           final height = MediaQuery.of(context).size.height;
           final width = MediaQuery.of(context).size.width;
-          return  ShortProfileMaker();
+          return ShortProfileMaker();
         });
   }
 
-
-///seeker
-
-  // MakerProfile show dialog box
   Future<void> showseeker(BuildContext context) {
-
     return showDialog(
         context: context,
         barrierDismissible: false,
@@ -805,40 +791,33 @@ class _IncomingRequestsState extends State<IncomingRequests> {
           final height = MediaQuery.of(context).size.height;
           final width = MediaQuery.of(context).size.width;
           return shortprofilepopup();
-          
-          }
-  );
-        }
-  
-  
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          child: Icon(
-            Icons.arrow_back,
-            size: 27,
-            color: Color(0xff5A5A5A),
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                size: 27,
+                color: Color(0xff5A5A5A),
+              )),
+          title: Text(
+            "Outgoing Requests",
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
           ),
-          onTap: () {
-            Get.back();
-          },
         ),
-        title: Text(
-          "Incoming Requests",
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: Obx(() {
-        return
-          SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -869,273 +848,245 @@ class _IncomingRequestsState extends State<IncomingRequests> {
               SizedBox(
                 height: height * .02,
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: Incontroller.IncomingRequestvalue.value.requests!.length,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: height * .01),
-                    child: Stack(
-                      children: [
-                        Container(
-        
-                          height: height * 0.11,
-                          decoration: BoxDecoration(color: Color(0xffFE0091)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+              Obx(() {
+                switch (outgoingMakerRequestController.rxRequestStatus.value) {
+                  case Status.LOADING:
+                    return const Center(child: CircularProgressIndicator());
+                  case Status.ERROR:
+                    if (outgoingMakerRequestController.error.value ==
+                        'No internet') {
+                      return InterNetExceptionWidget(
+                        onPress: () {},
+                      );
+                    } else {
+                      return GeneralExceptionWidget(onPress: () {});
+                    }
+                  case Status.COMPLETED:
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: height * .01),
+                          child: Stack(
                             children: [
-                              Flexible(
-                                child: ListTile(
-                                  leading: InkWell(
-                                    child: CircleAvatar(
-                                      radius: 24,
-                                      backgroundColor: AppColors.white,
-                                      child: CircleAvatar(
-                                          radius: 22,
-                                          backgroundImage: CachedNetworkImageProvider(Incontroller
-                                              .IncomingRequestvalue
-                                              .value
-                                              .requests![index]
-                                              .getSeeker!
-                                              .imgPath
-                                              .toString())),
-                                    ),
-                                    onTap: (){
-        
-        
-        
-        
-                                      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
-        
-        
-                                      print(userIdsiker);
-                                      if(userIdsiker!=null){
-                                        showseeker(context);
-                                      }
-                                      // Get.to(ShortProfileSeeker());
-                                    },
-                                  ),
-                                  horizontalTitleGap: 10,
-                                  title: Text(
-                                    Incontroller.IncomingRequestvalue.value
-                                        .requests![index].getSeeker!.name
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.white),
-                                  ),
-                                  subtitle: Text(
-                                    "Match Seeker",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(
-                                            fontWeight: FontWeight.w300,
-                                            color: AppColors.white),
-                                  ),
-                                ),
-                              ),
-                              if (Incontroller.IncomingRequestvalue.value
-                                      .requests![index].getMaker ==
-                                  null)
-                                InkWell(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 18.0),
-                                    child: Text(
-                                      "View",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall
-                                          ?.copyWith(
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              decoration:
-                                                  TextDecoration.underline),
-                                    ),
-                                  ),
-                                  onTap: () {
-                             requestid=Incontroller.IncomingRequestvalue.value
-                                      .requests![index].id.toString();
-        setState(() {
-          requestype="1";
-          requestid;
-          print(Incontroller.IncomingRequestvalue.value
-                                      .requests![index].id.toString());
-        });
-               
-                                      if(requestid!=null){
-                                        print(requestid);
-            Get.to(ChatPage());
-                                      }
-                            
-                                  },
-                                ),
-                              if (Incontroller.IncomingRequestvalue.value
-                                      .requests![index].getMaker !=
-                                  null)
-                                Flexible(
-                                  child: Container(
-                                    height: height * 0.10,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(11),
-                                          bottomLeft: Radius.circular(11),
-                                        )),
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 22,
-                                        child: InkWell(
+                              Container(
+                                height: height * 0.11,
+                                decoration:
+                                    BoxDecoration(color: Color(0xffFE0091)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: ListTile(
+                                        leading: InkWell(
                                           child: CircleAvatar(
-                                              radius: 26,
-                                              backgroundImage: CachedNetworkImageProvider(
-                                                  Incontroller
-                                                      .IncomingRequestvalue
-                                                      .value
-                                                      .requests![index]
-                                                      .getMaker!
-                                                      .imgPath
-                                                      .toString())),
-                                                      onTap: (){
-        
-                                                        Makerid=Incontroller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
-                                                      showmaker(context);
-                                                      },
+                                            radius: 24,
+                                            backgroundColor: AppColors.white,
+                                            child: CircleAvatar(
+                                              radius: 22,
+                                              backgroundImage:
+                                              CachedNetworkImageProvider(outgoingMakerRequestController
+                                                  .OutgoingMakerRequestValue
+                                                  .value
+                                                  .requests![index]
+                                                  .getmaker!
+                                                  .imgPath
+                                                  .toString()),),
+                                          ),
+                                          onTap: () {
+                                            userIdsiker = Incontroller
+                                                .IncomingRequestvalue
+                                                .value
+                                                .requests![index]
+                                                .getSeeker!
+                                                .id
+                                                .toString();
+
+                                            print(userIdsiker);
+                                            if (userIdsiker != null) {
+                                              showseeker(context);
+                                            }
+                                            // Get.to(ShortProfileSeeker());
+                                          },
                                         ),
-                                      ),
-                                      horizontalTitleGap: 10,
-                                      title: Text(
-                                        Incontroller
-                                            .IncomingRequestvalue
-                                            .value
-                                            .requests![index].getMaker!.name.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 9),
-                                      ),
-                                      subtitle: Text(
-                                        "Match Maker",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.w300,
-                                                color: Color(0xff777777)),
-                                      ),
-                                      trailing: InkWell(
-                                        child: Text(
-                                          "View",
+                                        horizontalTitleGap: 10,
+                                        title: Text(outgoingMakerRequestController
+                                                .OutgoingMakerRequestValue
+                                                .value
+                                                .requests![index]
+                                                .getmaker!
+                                                .name
+                                                .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.white),
+                                        ),
+                                        subtitle: Text(
+                                          "Match Maker",
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelSmall
                                               ?.copyWith(
-                                                  fontSize: 9,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xffFE0091),
-                                                  decoration:
-                                                      TextDecoration.underline),
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.white),
                                         ),
-                                       onTap: () {
-                             requestid=Incontroller.IncomingRequestvalue.value
-                                      .requests![index].id.toString();
-        setState(() {
-          requestype="1";
-          requestid;
-          print(Incontroller.IncomingRequestvalue.value
-                                      .requests![index].id.toString());
-        });
-               
-                                      if(requestid!=null){
-                                        print(requestid);
-            Get.to(ChatPage());
-                                      }}
                                       ),
                                     ),
-                                  ),
-                                )
+                                    if (x == 5)
+                                      InkWell(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 18.0),
+                                          child: Text(
+                                            "View",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall
+                                                ?.copyWith(
+                                                    fontSize: 9,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white,
+                                                    decoration: TextDecoration
+                                                        .underline),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          requestid = Incontroller
+                                              .IncomingRequestvalue
+                                              .value
+                                              .requests![index]
+                                              .id
+                                              .toString();
+                                          setState(() {
+                                            requestype = "1";
+                                            requestid;
+                                            print(Incontroller
+                                                .IncomingRequestvalue
+                                                .value
+                                                .requests![index]
+                                                .id
+                                                .toString());
+                                          });
+
+                                          if (requestid != null) {
+                                            print(requestid);
+                                            Get.to(ChatPage());
+                                          }
+                                        },
+                                      ),
+                                    if (x != 5)
+                                      Flexible(
+                                        child: Container(
+                                          height: height * 0.10,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.white,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(11),
+                                                bottomLeft: Radius.circular(11),
+                                              )),
+                                          child: ListTile(
+                                            leading: CircleAvatar(
+                                              radius: 22,
+                                              child: InkWell(
+                                                child: CircleAvatar(
+                                                  radius: 26,
+                                                  backgroundImage:
+                                                      CachedNetworkImageProvider(
+                                                          'https://images.pexels.com/photos/17896249/pexels-photo-17896249/free-photo-of-monschau-overview.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                ),
+                                                onTap: () {
+                                                  Makerid = Incontroller
+                                                      .IncomingRequestvalue
+                                                      .value
+                                                      .requests![index]
+                                                      .getMaker!
+                                                      .id
+                                                      .toString();
+                                                  showmaker(context);
+                                                },
+                                              ),
+                                            ),
+                                            horizontalTitleGap: 10,
+                                            title: Text(
+                                              "name",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 9),
+                                            ),
+                                            subtitle: Text(
+                                              "Match Maker",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                      fontSize: 8,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Color(0xff777777)),
+                                            ),
+                                            trailing: InkWell(
+                                                child: Text(
+                                                  "View",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .labelSmall
+                                                      ?.copyWith(
+                                                          fontSize: 9,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              Color(0xffFE0091),
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline),
+                                                ),
+                                                onTap: () {
+                                                  requestid = Incontroller
+                                                      .IncomingRequestvalue
+                                                      .value
+                                                      .requests![index]
+                                                      .id
+                                                      .toString();
+                                                  setState(() {
+                                                    requestype = "1";
+                                                    requestid;
+                                                    print(Incontroller
+                                                        .IncomingRequestvalue
+                                                        .value
+                                                        .requests![index]
+                                                        .id
+                                                        .toString());
+                                                  });
+
+                                                  if (requestid != null) {
+                                                    print(requestid);
+                                                    Get.to(ChatPage());
+                                                  }
+                                                }),
+                                          ),
+                                        ),
+                                      )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                        );
+                      },
+                    );
+                }
+              }),
             ],
           ),
-        );
-      }),
-    );
-  }
-
-
-
-
-  Future<void> showdilogapproved(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          final height = MediaQuery.of(context).size.height;
-          final width = MediaQuery.of(context).size.width;
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.asset(
-                          'assets/images/remove.png',
-                          height: height * .03,
-                        ),
-                      ),
-                    ),
-                  ),
-                 
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  CircleAvatar(
-                    radius: 52,
-                    // backgroundColor: Colors.,
-                   child: Icon(Icons.check,size:70,weight:8.0,opticalSize: 30,),
-                  ),
-                  SizedBox(height: height * 0.04),
-                Text("Congratulation!",style: TextStyle(color:Colors.black,fontWeight:FontWeight.bold,fontSize: 30,)),
-                  SizedBox(height: height * 0.04),
-                  Text("Your Request has been Acceped"),
-                  SizedBox(height: height * 0.01),
-
-                  Text("Successfully"),
-                  SizedBox(height: height * 0.04),
-
-                  MyButton(
-                    width: width * .5,
-                    title: "Back",
-                    onTap: () {},
-                  )
-                ],
-              ),
-            ),
-          );
-        });
+        ));
   }
 }

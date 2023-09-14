@@ -30,7 +30,6 @@ class SeekerToSeekerRequestController extends GetxController {
    loading.value=true;
    Map Data={
 "match_with":match_withid,
-
    };
 
     _api.SeekerToSeekerRequestApi(Data).then((value){

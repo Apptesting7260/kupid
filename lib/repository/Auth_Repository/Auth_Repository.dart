@@ -11,6 +11,7 @@ import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.d
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
+import 'package:cupid_match/models/MakerSinglepageRequestModel/MakerSinglepageRequestModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
@@ -31,8 +32,13 @@ import '../../models/CountryModel/country_model.dart';
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
 import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
+import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart';
 import '../../models/MakerProfileModel/MakerProfileModel.dart';
+import '../../models/MakerRecentMatchesModel/maker_recent_matches_model.dart';
+import '../../models/OutgoingMakerRequestModle/outgoing_maker_request_model.dart';
+import '../../models/RecentSeekerMatches/recent_seeker_matches_Model.dart';
 import '../../models/ResendOtpModel/ResendOtpModel.dart';
+import '../../models/SeekerChatListModel/seeker_chat_list_model.dart';
 import '../../models/SeekerProfileModel/SeekerProfileModel.dart';
 import '../../models/SetRoleModel/SetRoleModel.dart';
 
@@ -242,4 +248,56 @@ Future<OutgoingRequestModel> OutgoinRequestApi() async{
     print(response);
     return SikerTOSikerRequestModel.fromJson(response) ;
   }
+
+  //***************** Incoming Maker Request ApiServices  *********************
+  Future<IncomingMakerRequestModel> IncomingMakerRequestApi() async{
+    print("IncomingMakerRequestApi");
+    dynamic response = await _apiService.getApi2( AppUrl.IncomingMakerRequestUrl);
+    print(response);
+    return IncomingMakerRequestModel.fromJson(response) ;
+  }
+
+
+  //***************** Recent Seeker Matches ApiServices  *********************
+  Future<RecentSeekerMatchesModel> RecentSeekerMatchesApi(var data) async{
+    dynamic response = await _apiService.postApi2(data, AppUrl.RecentSeekerMatchesUrl);
+    print(response);
+    print("RecentSeekerMatchesApi");
+    return RecentSeekerMatchesModel.fromJson(response) ;
+  }
+
+  //***************** Seeker Chat List ApiServices  *********************
+  Future<SeekerChatListModel> SeekerChatListApi(var data) async{
+    dynamic response = await _apiService.postApi2(data, AppUrl.SeekerChatList);
+    print(response);
+    print("SeekerChatListApi");
+    return SeekerChatListModel.fromJson(response) ;
+  }
+
+  //***************** Recent Maker Matches ApiServices  *********************
+
+  Future<MakerRecentMatchesModel> RecentMakerMatchesApi() async{
+    print("RecentMakerMatchesApi");
+    dynamic response = await _apiService.getApi2( AppUrl.RecentMakerMatchesUrl);
+    print(response);
+    return MakerRecentMatchesModel.fromJson(response) ;
+  }
+
+
+  //***************** Outgoing Maker Request ApiServices  *********************
+
+  Future<OutgoingMakerRequestModel> OutgoingMakerRequestApi() async{
+    print("OutgoingMakerRequestApi");
+    dynamic response = await _apiService.getApi2( AppUrl.OutgoingMakerRequestUrl);
+    print(response);
+    return OutgoingMakerRequestModel.fromJson(response) ;
+  }
+
+    Future<MakersinglepageRequestModel> MakerRequestDetailsApi(var data) async{
+    print("OutgoingMakerRequestApi");
+    dynamic response = await _apiService.postApi2( data ,AppUrl.makerrequestsinglepage);
+    print(response);
+    return MakersinglepageRequestModel.fromJson(response) ;
+  }
+
 }

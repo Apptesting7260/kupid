@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import 'dart:math' as math;
 
+import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
+
 class RecentConversations extends StatefulWidget {
   const RecentConversations({Key? key}) : super(key: key);
 
@@ -12,6 +14,7 @@ class RecentConversations extends StatefulWidget {
 }
 
 class _RecentConversationsState extends State<RecentConversations> {
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

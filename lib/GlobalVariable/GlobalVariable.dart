@@ -23,7 +23,7 @@ List <String>  interests=[];
   String? selectGender;
     bool isVisible = true;
   bool isNotVisible = false;
-  int ?rolevalue;
+int ?rolevalue;
 File? videoFile;
  int ?selectedseekerid;
   String? selectExperience;
@@ -36,8 +36,8 @@ String? BioDescription;
 String? IntrestedIn;
 String? Interests;
 String ?SikerReligon;
-  String selectedCountry = '';
-  String? userIdsiker;
+String selectedCountry = '';
+String? userIdsiker;
 
 String? requestid;
 String requestype="1";
@@ -47,9 +47,4 @@ String?actiontype;
 Bool ?liverpullrequested;
 Bool ?spinnwillrequested;
 
-
-bool isTimerVisible = false;
-Duration remainingTime = Duration(hours: 24);
-late Timer countdownTimer;
-int selectedRadioTile = 0;
-bool shouldShowSpinButton = true;
+int selectedRadioTile=0;
