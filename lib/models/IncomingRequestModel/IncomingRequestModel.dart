@@ -1,19 +1,32 @@
 class IncomingRequestModel {
   String? status;
   List<Request>? requests;
+  String? message;
 
   IncomingRequestModel({
     this.status,
     this.requests,
+    this.message
   });
 
   factory IncomingRequestModel.fromJson(Map<String, dynamic> json) {
     return IncomingRequestModel(
       status: json['status'],
+      message: json['message'],
       requests: (json['requests'] as List<dynamic>?)
           ?.map((json) => Request.fromJson(json as Map<String, dynamic>))
           .toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['status'] = status;
+    data['message'] = message;
+    if (requests != null) {
+      data['requests'] = requests!.map((request) => request.toJson()).toList();
+    }
+    return data;
   }
 }
 
@@ -65,6 +78,27 @@ class Request {
           ? GetSeeker.fromJson(json['getseeker'] as Map<String, dynamic>)
           : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['maker_id'] = makerId;
+    data['match_from'] = matchFrom;
+    data['match_with'] = matchWith;
+    data['match_type'] = matchType;
+    data['match_with_status'] = matchWithStatus;
+    data['match_from_status'] = matchFromStatus;
+    data['status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (getMaker != null) {
+      data['getmaker'] = getMaker!.toJson();
+    }
+    if (getSeeker != null) {
+      data['getseeker'] = getSeeker!.toJson();
+    }
+    return data;
   }
 }
 
@@ -128,6 +162,28 @@ class GetMaker {
       videoPath: json['video_path'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['dob'] = dob;
+    data['gender'] = gender;
+    data['location'] = location;
+    data['profile_img'] = profileImg;
+    data['profile_video'] = profileVideo;
+    data['experience'] = experience;
+    data['about_maker'] = aboutMaker;
+    data['expectation'] = expectation;
+    data['heading_of_maker'] = headingOfMaker;
+    data['status'] = status;
+    data['current_step'] = currentStep;
+    data['img_path'] = imgPath;
+    data['video_path'] = videoPath;
+    return data;
+  }
 }
 
 class GetSeeker {
@@ -186,5 +242,26 @@ class GetSeeker {
       imgPath: json['img_path'],
       videoPath: json['video_path'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['occupation'] = occupation;
+    data['salary'] = salary;
+    data['address'] = address;
+    data['height'] = height;
+    data['dob'] = dob;
+    data['profile_img'] = profileImg;
+    data['profile_video'] = profileVideo;
+    data['gender'] = gender;
+    data['religion'] = religion;
+    data['current_step'] = currentStep;
+    data['img_path'] = imgPath;
+    data['video_path'] = videoPath;
+    return data;
   }
 }

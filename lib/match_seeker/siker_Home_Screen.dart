@@ -16,6 +16,7 @@ import 'package:cupid_match/match_maker/recent_matches.dart';
 import 'package:cupid_match/match_maker/request_matches.dart';
 import 'package:cupid_match/match_maker/Chose_Subcription.dart';
 import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
+import 'package:cupid_match/match_seeker/Demo/homeScreenwidget.dart';
 import 'package:cupid_match/match_seeker/Requests/IncomingRequest.dart';
 import 'package:cupid_match/match_seeker/Requests/outgoingRequest.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
@@ -55,9 +56,13 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
     // TODO: implement initState
     super.initState();
     getcurrentuser();
-    controller.seekerListApi();
+   
+  controller.seekerListApi();
     Incontroller.iseekerListApi();
     recentSeekerMatchesController.isrecentSeekermatchesApi();
+           
+  
+    ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
   }
   getcurrentuser()async{
     SharedPreferences sp=await SharedPreferences.getInstance();
@@ -90,7 +95,66 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
           ],
         ),
         endDrawer: MyDrawer(),
-        body: Padding(
+        body:    Obx(() {
+        final incomingrequeststatus = Incontroller.rxRequestStatus.value;
+
+        final outgoingrequeststatus = controller.rxRequestStatus.value;
+        final recentmachesstatus=recentSeekerMatchesController.rxRequestStatus.value;
+        if (recentmachesstatus == Status.ERROR ||
+            incomingrequeststatus == Status.ERROR||outgoingrequeststatus==Status.ERROR) {
+          if (recentSeekerMatchesController.error.value == 'No internet' ||
+              Incontroller.error.value == 'No internet'||controller.error.value=='No internet') {
+            return InterNetExceptionWidget(
+              onPress: () {
+                // questionsViewModal.refreshApi();
+                // myProfileView_vm.refreshApi();
+              },
+            );
+          } else {
+              if(recentSeekerMatchesController.RecentSeekerMatchValue.value.status== 'failed' &&
+              Incontroller.IncomingRequestvalue.value.status == 'failed'&& controller.OutgoingRequestvalue.value.status=='failed'){
+
+                return  Column(
+                
+                  children: [
+                    Container(child: Center(child: Container(child: Column(children: [
+
+                      SizedBox(height: Get.height*0.01,),
+                       Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                          onTap: () {
+                            Get.to(Chose_Role_Type());
+                          },
+                          child: Image.asset('assets/images/match.png'))),
+
+                          SizedBox(height: Get.height*0.1,),
+                      Container(height: Get.height*.3, width: Get.width*.9,decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/skikerhomeempty.png"))),),
+
+                      SizedBox(height: Get.height*0.02,),
+                      Text("Outgoing Request",style: TextStyle(color:Colors.black,fontSize: 18),),          SizedBox(height: Get.height*0.02,),
+                      Text("Find your perfect match",style: TextStyle(color:Colors.black,fontSize: 18,fontWeight:  FontWeight.bold),),
+                      SizedBox(height: Get.height*0.02,),
+                      MyButton(title: "Find Match", onTap: (){
+                          Get.to(Chose_Role_Type());
+                      })
+                      ],),),),),
+                  ],
+                );
+              }
+            return HomeScreenWIdget();
+          }
+        } else if (recentmachesstatus == Status.LOADING ||
+            incomingrequeststatus == Status.LOADING||outgoingrequeststatus==Status.LOADING) {
+          return Center(
+              child: CircularProgressIndicator(
+            
+          ));
+        } else {
+
+        
+              
+          return  Padding(
           padding: EdgeInsets.symmetric(
               horizontal: width * 0.05, vertical: height * 0.02),
           child: SingleChildScrollView(
@@ -140,36 +204,37 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                     height: height * .02,
                   ),
 
-                  Obx(() {
-                    switch (
-                        recentSeekerMatchesController.rxRequestStatus.value) {
-                      case Status.LOADING:
-                        return const Center(child: CircularProgressIndicator());
-                      case Status.ERROR:
-                        if (Incontroller.error.value == 'No internet') {
-                          return InterNetExceptionWidget(
-                            onPress: () {},
-                          );
-                        } else {
-                          return GeneralExceptionWidget(onPress: () {});
-                        }
-                      case Status.COMPLETED:
-                        return recentSeekerMatchesController
+                  // Obx(() {
+                  //   switch (
+                  //       recentSeekerMatchesController.rxRequestStatus.value) {
+                  //     case Status.LOADING:
+                  //       return const Center(child: CircularProgressIndicator());
+                  //     case Status.ERROR:
+                  //       if (Incontroller.error.value == 'No internet') {
+                  //         return InterNetExceptionWidget(
+                  //           onPress: () {},
+                  //         );
+                  //       } else {
+                  //         return GeneralExceptionWidget(onPress: () {});
+                  //       }
+                  //     case Status.COMPLETED:
+                  //       return 
+                        
+                    if(recentSeekerMatchesController
                                     .RecentSeekerMatchValue
                                     .value
-                                    .data!
-                                    .length ==
-                                0
-                            ? SizedBox()
-                            : Container(
+                                    .data!.isNotEmpty
+                                 
+                                ) 
+                            Container(
                                 width: width,
                                 height: height * .45,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: recentSeekerMatchesController
-                                      .seekerRequestlenght,
+                                  itemCount: 
+                                     2,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       width: width * .45,
@@ -205,7 +270,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                               .RecentSeekerMatchValue
                                                               .value
                                                               .data![index]
-                                                              .getanotherseeker!.id!=int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                              .getanotherseeker!.id.toString()!=Getcurrentuser.toString()? CachedNetworkImageProvider(
                                                               recentSeekerMatchesController
                                                                   .RecentSeekerMatchValue
                                                                   .value
@@ -236,7 +301,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                               .RecentSeekerMatchValue
                                                               .value
                                                               .data![index]
-                                                              .getanotherseeker!.id==int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                              .getanotherseeker!.id.toString()==Getcurrentuser.toString()? CachedNetworkImageProvider(
                                                               recentSeekerMatchesController
                                                                   .RecentSeekerMatchValue
                                                                   .value
@@ -317,9 +382,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                     );
                                   },
                                 ),
-                              );
-                    }
-                  }),
+                              ),
+                 
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -435,22 +499,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Obx(() {
-                    switch (Incontroller.rxRequestStatus.value) {
-                      case Status.LOADING:
-                        return const Center(child: CircularProgressIndicator());
-                      case Status.ERROR:
-                        if (Incontroller.error.value == 'No internet') {
-                          return InterNetExceptionWidget(
-                            onPress: () {},
-                          );
-                        } else {
-                          return GeneralExceptionWidget(onPress: () {});
-                        }
-                      case Status.COMPLETED:
-                        return Incontroller.IncomingRequestvalue.value.status ==
-                                "success"
-                            ? Container(
+                if(  Incontroller.IncomingRequestvalue.value.status ==
+                                "success")
+                            Container(
                                 width: width,
                                 height: height * .18,
                                 child: ListView.builder(
@@ -774,10 +825,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                     );
                                   },
                                 ),
-                              )
-                            : Container();
-                    }
-                  }),
+                              ),
+                            
+                    
+                  
                   //************** Request to be match **********
 
                   Row(
@@ -803,22 +854,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Obx(() {
-                    switch (controller.rxRequestStatus.value) {
-                      case Status.LOADING:
-                        return const Center(child: CircularProgressIndicator());
-                      case Status.ERROR:
-                        if (controller.error.value == 'No internet') {
-                          return InterNetExceptionWidget(
-                            onPress: () {},
-                          );
-                        } else {
-                          return GeneralExceptionWidget(onPress: () {});
-                        }
-                      case Status.COMPLETED:
-                        return controller.OutgoingRequestvalue.value.status ==
-                                "success"
-                            ? Container(
+                if( controller.OutgoingRequestvalue.value.status ==
+                                "success")
+                             Container(
                                 width: width,
                                 height: height * .18,
                                 child: ListView.builder(
@@ -1141,12 +1179,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                   },
                                 ),
                               )
-                            : Container();
-                    }
-                  })
+               
                 ]),
-          ),
-        ));
+          ));
+  }}));
   }
 
   List images = [

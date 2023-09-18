@@ -11,19 +11,23 @@ String seekerChatListModelToJson(SeekerChatListModel data) => json.encode(data.t
 class SeekerChatListModel {
   String? status;
   List<Chat>? chat;
+   String? message;
 
   SeekerChatListModel({
      this.status,
      this.chat,
+     this.message
   });
 
   factory SeekerChatListModel.fromJson(Map<String, dynamic> json) => SeekerChatListModel(
     status: json["status"],
+    message: json["message"],
     chat: List<Chat>.from(json["chat"].map((x) => Chat.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "message": message,
     "chat": List<dynamic>.from(chat!.map((x) => x.toJson())),
   };
 }

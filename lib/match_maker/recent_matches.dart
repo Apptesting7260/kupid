@@ -55,19 +55,8 @@ class _RecentMatchesState extends State<RecentMatches> {
             child: Column(
               children: [
                 Obx(() {
-                  switch (rsmController.rxRequestStatus.value) {
-                    case Status.LOADING:
-                      return const Center(child: CircularProgressIndicator());
-                    case Status.ERROR:
-                      if (rsmController.error.value == 'No internet') {
-                        return InterNetExceptionWidget(
-                          onPress: () {},
-                        );
-                      } else {
-                        return GeneralExceptionWidget(onPress: () {});
-                      }
-                    case Status.COMPLETED:
-                      return GridView.builder(
+                  return
+                  rsmController.RecentSeekerMatchValue.value.status=="success" ?GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
@@ -210,10 +199,25 @@ class _RecentMatchesState extends State<RecentMatches> {
                             ),
                           );
                         },
-                      );
+                      ):Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(height:Get.height*0.15,),
+                                  Container(
+                                          
+                                          height: Get.height*0.2,
+                                          width: Get.width*0.8,
+                                          decoration:BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/recentConversationempty.png"))),),
+
+                                          SizedBox(height: Get.height*0.01,),
+                                          Center(child: Text("Reference site about Lorem Ipsum\n   giving information on its origins",style: TextStyle(color: Colors.black),))
+                                ],
+                              );
                   }
-                }),
-              ],
+                
+            )],
             ),
           ),
         ));

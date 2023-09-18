@@ -841,7 +841,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
           SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
+           if(Incontroller.IncomingRequestvalue.value.status=="success" )   Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: width * .05, vertical: height * .03),
                 child: Row(
@@ -869,6 +869,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
               SizedBox(
                 height: height * .02,
               ),
+
+
+
+        Incontroller.IncomingRequestvalue.value.status=="success"   ?  
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: Incontroller.IncomingRequestvalue.value.requests!.length,
@@ -1069,7 +1073,22 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                     ),
                   );
                 },
-              ),
+              ): Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(height:Get.height*0.15,),
+                                  Container(
+                                          
+                                          height: Get.height*0.2,
+                                          width: Get.width*0.8,
+                                          decoration:BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/recentConversationempty.png"))),),
+
+                                          SizedBox(height: Get.height*0.01,),
+                                          Center(child: Text("Reference site about Lorem Ipsum\n   giving information on its origins",style: TextStyle(color: Colors.black),))
+                                ],
+                              ),
             ],
           ),
         );

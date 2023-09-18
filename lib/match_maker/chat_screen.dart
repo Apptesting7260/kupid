@@ -32,6 +32,8 @@ String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
  var playerx;
+ bool ismessage=false;
+
 class MakerChatScreen extends StatefulWidget {
   const MakerChatScreen({Key? key}) : super(key: key);
 
@@ -40,6 +42,7 @@ class MakerChatScreen extends StatefulWidget {
 }
 
 class _MakerChatScreenState extends State<MakerChatScreen> {
+   bool ispageloading=false;
     final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
   String url="";
   int maxduration = 100;
@@ -147,7 +150,9 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
 MakerRequestDetailsControllerinstance.MakerRequestDetailsApiHit();
   // _initAudioRecorder();// TODO: implement initState
 
-  
+  Timer(Duration(seconds: 3), () {setState(() {
+    ispageloading=true;
+  }); });
     super.initState();
   }
 
@@ -611,7 +616,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
           ),
         ),
       ),
-      body: Container(
+      body: ispageloading==false?Center(child: CircularProgressIndicator(),): Container(
         child: Column(
           children: [
             // SizedBox(height: height*.03),
@@ -638,7 +643,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 case Status.COMPLETED:
                   return Expanded(
                     child: StreamBuilder(
-                    stream: APIs.getAllMessages(),
+                    stream: APIs.getAllMessages(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString()),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         //if data is loading
@@ -657,7 +662,11 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                             final message = snapshot
                                 .data!.docs[index]['message']
                                 .toString();
-                            final timestamp = snapshot.data!.docs[index]['time']
+
+
+if(message.isNotEmpty){
+  ismessage=true;
+}                            final timestamp = snapshot.data!.docs[index]['time']
                                 as Timestamp?; // Assuming 'time' is the timestamp field
                             final isSentByCurrentUser = snapshot
                                     .data!.docs[index]['sentby']
@@ -959,7 +968,7 @@ SizedBox(width: Get.width*0.02,),
             //   }
             // }),
 
-              Row(
+          if(ismessage==false)    Row(
                 children: [
                   Wrap(
                           runSpacing: 8.0,
@@ -1106,7 +1115,7 @@ SizedBox(width: Get.width*0.02,),
                                             ),
                                           ),
                                   ),
-                                  IconButton(
+                                       IconButton(
                                     onPressed:onSendMessage ,
                                     icon: Icon(
                                       isRecording ? Icons.refresh : Icons.send,
@@ -1116,7 +1125,7 @@ SizedBox(width: Get.width*0.02,),
                                   const SizedBox(width: 16),
                                   IconButton(
                                     onPressed: _startOrStopRecording,
-                                    icon: Icon(isRecording ? Icons.stop : Icons.mic),
+                                    icon: Icon(isRecording ? Icons.send : Icons.mic),
                                     color: Colors.black,
                                     iconSize: 28,
                                   ),

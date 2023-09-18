@@ -65,8 +65,9 @@ class _CustomAudioPlayerState extends State<CustomAudioPlayer> {
       height: 70,
       width: 200,
       decoration: BoxDecoration(
+        border:Border.all(width: 1,color:Colors.black),
         borderRadius: BorderRadius.circular(20),
-        color: Colors.black,
+        // color: Colors.black,
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -79,7 +80,7 @@ class _CustomAudioPlayerState extends State<CustomAudioPlayer> {
                   height: 30,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Colors.white,
+                    color: Colors.black,
                     value: _duration > 0 ? _position / _duration : 0.0,
                   ),
                 ),

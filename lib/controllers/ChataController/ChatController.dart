@@ -439,22 +439,12 @@ class APIs {
   static FirebaseStorage storage = FirebaseStorage.instance;
 
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(
- ) {
-    return firestore
-                        .collection("RoomId's/1111/massages/")
-                        // ("RoomId's")
-                        // .doc(ViewRequestDetailsControllerinstance
-                        //     .ViewProfileDetail.value.data!.roomId
-                        //     .toString())
-                        // .collection('typestatus')
-                        // .doc(
-                        //     "userstypingstatus"). // Replace with the actual document ID
-                        // .snapshots()
-        .orderBy('time', descending: true)
-        .snapshots();
-  }
-
+static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(String roomId) {
+  return firestore
+      .collection("RoomId's/$roomId/massages/")
+      .orderBy('time', descending: true)
+      .snapshots();
+}
 
   // for storing self information
   // static ChatUser me = ChatUser(

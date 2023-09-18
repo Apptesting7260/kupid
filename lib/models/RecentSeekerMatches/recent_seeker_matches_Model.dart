@@ -10,20 +10,24 @@ String recentSeekerMatchesModelToJson(RecentSeekerMatchesModel data) => json.enc
 
 class RecentSeekerMatchesModel {
   String? status;
+  String? message;
   List<Datum>? data;
 
   RecentSeekerMatchesModel({
      this.status,
      this.data,
+     this.message
   });
 
   factory RecentSeekerMatchesModel.fromJson(Map<String, dynamic> json) => RecentSeekerMatchesModel(
     status: json["status"],
+    message: json["message"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "message": message,
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }

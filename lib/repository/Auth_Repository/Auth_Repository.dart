@@ -9,7 +9,9 @@ import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
+import 'package:cupid_match/models/LiverPooledRequestModel/LiverPooledRequestModel.dart';
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
+import 'package:cupid_match/models/MakerChatListModel/maker_chat_list_model.dart';
 import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 import 'package:cupid_match/models/MakerSinglepageRequestModel/MakerSinglepageRequestModel.dart';
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
@@ -20,6 +22,7 @@ import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/SeekerToSeekerRequestModel/SeekerToSeekerRequestModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
+import 'package:cupid_match/models/StaticLiverPoolModel/StaticLiverPoolMdodel.dart';
 import 'package:cupid_match/models/UserLoginModel/UserLoginModel.dart';
 import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
@@ -299,5 +302,27 @@ Future<OutgoingRequestModel> OutgoinRequestApi() async{
     print(response);
     return MakersinglepageRequestModel.fromJson(response) ;
   }
+//**************** Maker Chat List ApiServices  ********************
+  Future<MakerChatListModel> MakerChatListApi(var data) async{
+    dynamic response = await _apiService.postApi2(data, AppUrl.MakerChatList);
+    print(response);
+    print("MakerChatListModel");
+    return MakerChatListModel.fromJson(response) ;
+  }
+
+  //**************** Maker Chat List ApiServices  ********************
+  Future<SpeendRequestModel> SpeendRequestDetailsapi( ) async{
+    dynamic response = await _apiService.getApi2( AppUrl.SpeendRequestUrl);
+    print(response);
+    print("MakerChatListModel");
+    return SpeendRequestModel.fromJson(response) ;
+  }
+  Future<StaticLiverPullModel> StaticLiverPullApi() async{
+    // print("hited");
+    dynamic response = await _apiService.getApi2( AppUrl.staticLiverPullUrl);
+    // print(response);
+    return StaticLiverPullModel.fromJson(response) ;
+  }
+
 
 }

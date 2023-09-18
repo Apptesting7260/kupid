@@ -65,19 +65,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Positioned(
-                      top: 30,
-                      left: 20,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          size: 20,
-                          color: Colors.black,
-                        ),
-                      )),
+                  // Positioned(
+                  //     top: 30,
+                  //     left: 20,
+                  //     child: GestureDetector(
+                  //       onTap: () {
+                  //         Get.back();
+                  //       },
+                  //       child: Icon(
+                  //         Icons.arrow_back,
+                  //         size: 20,
+                  //         color: Colors.black,
+                  //       ),
+                  //     )),
                   Positioned(
                     top: 270,
                     child: Container(

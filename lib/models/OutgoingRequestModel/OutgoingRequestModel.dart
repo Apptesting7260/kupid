@@ -14,7 +14,17 @@ class OutgoingRequestModel {
           ?.map((requestJson) => OutgoingMatchRequest.fromJson(requestJson))
           .toList(),
     );
+    
   }
+  Map<String, dynamic> toJson() {
+  final Map<String, dynamic> data = {};
+  data['status'] = status;
+  if (requests != null) {
+    data['requests'] = requests!.map((request) => request.toJson()).toList();
+  }
+  return data;
+}
+
 }
 
 class OutgoingMatchRequest {
@@ -61,6 +71,30 @@ class OutgoingMatchRequest {
       getMaker: json['getmaker'] != null ? OutgoingSeeker.fromJson(json['getmaker']) : null,
       outgoing_req_getseeker:json['outgoing_req_getseeker']!=null? OutgoingSeeker.fromJson(json['outgoing_req_getseeker']):null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['maker_id'] = makerId;
+    data['match_from'] = matchFrom;
+    data['match_with'] = matchWith;
+    data['match_type'] = matchType;
+    data['match_with_status'] = matchWithStatus;
+    data['match_from_status'] = matchFromStatus;
+    data['status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    
+    // Serialize the 'getMaker' and 'outgoing_req_getseeker' properties if they exist
+    if (getMaker != null) {
+      data['getmaker'] = getMaker!.toJson();
+    }
+    if (outgoing_req_getseeker != null) {
+      data['outgoing_req_getseeker'] = outgoing_req_getseeker!.toJson();
+    }
+
+    return data;
   }
 }
 
@@ -120,5 +154,27 @@ class OutgoingSeeker {
       imgPath: json['img_path'],
       videoPath: json['video_path'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['occupation'] = occupation;
+    data['salary'] = salary;
+    data['address'] = address;
+    data['height'] = height;
+    data['dob'] = dob;
+    data['profile_img'] = profileImg;
+    data['profile_video'] = profileVideo;
+    data['gender'] = gender;
+    data['religion'] = religion;
+    data['current_step'] = currentStep;
+    data['img_path'] = imgPath;
+    data['video_path'] = videoPath;
+
+    return data;
   }
 }

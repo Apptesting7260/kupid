@@ -1,47 +1,44 @@
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
 import 'package:get/get.dart';
 import '../../../data/response/status.dart';
-
 import '../../../repository/Auth_Repository/Auth_Repository.dart';
+import 'package:get_storage/get_storage.dart'; // Import GetStorage
 
 class IncomingRequestController extends GetxController {
-
   final _api = AuthRepository();
-
-
-  final rxRequestStatus = Status.LOADING.obs ;
-  final IncomingRequestvalue =IncomingRequestModel().obs ;
+  final rxRequestStatus = Status.LOADING.obs;
+  final IncomingRequestvalue = IncomingRequestModel().obs;
   RxString error = ''.obs;
 
-  void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
-  void setUserList(IncomingRequestModel value) => IncomingRequestvalue.value = value ;
-  void setError(String value) => error.value = value ;
+  final box = GetStorage(); // Create a GetStorage instance
 
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  void setUserList(IncomingRequestModel value) => IncomingRequestvalue.value = value;
+  void setError(String value) => error.value = value;
 
-  void iseekerListApi(){
+  void iseekerListApi() {
     setRxRequestStatus(Status.LOADING);
 
-    _api.IncomingRequestApi().then((value){
+    if (box.hasData('incomingRequestData')) {
+      // Use cached data if available
+      final cachedData = box.read('incomingRequestData');
+      setUserList(IncomingRequestModel.fromJson(cachedData));
       setRxRequestStatus(Status.COMPLETED);
-      setUserList(value);
-    }).onError((error, stackTrace){
-      setError(error.toString());
-      setRxRequestStatus(Status.ERROR);
+    } else {
+      // Fetch data from the API
+      _api.IncomingRequestApi().then((value) {
+        setRxRequestStatus(Status.COMPLETED);
+        setUserList(value);
 
-    });
+        // Manually convert and cache the data as JSON
+        final jsonData = value.toJson();
+        box.write('incomingRequestData', jsonData);
+
+        print("faild result");
+      }).onError((error, stackTrace) {
+        setError(error.toString());
+        setRxRequestStatus(Status.ERROR);
+      });
+    }
   }
-  //
-  // void refreshApi(){
-  //
-  //     setRxRequestStatus(Status.LOADING);
-  //
-  //   _api.userListApi().then((value){
-  //     setRxRequestStatus(Status.COMPLETED);
-  //     setUserList(value);
-  //   }).onError((error, stackTrace){
-  //     setError(error.toString());
-  //     setRxRequestStatus(Status.ERROR);
-  //
-  //   });
-  // }
 }

@@ -1259,6 +1259,7 @@ class _SlotMachineState extends State<SlotMachine> {
       _isSpinning = true;
       shouldShowSpinButton = false;
       isTimerVisible = !isTimerVisible;
+      islivierpooled=true;
       remainingTime = Duration(hours: 24);
       startCountdownTimer();
     });

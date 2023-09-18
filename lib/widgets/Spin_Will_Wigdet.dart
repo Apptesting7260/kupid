@@ -1004,6 +1004,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
         selected.add(Fortune.randomInt(0, items.length));
         isVisible = !isVisible;
         isNotVisible = !isNotVisible;
+        isspinedwill=true;
       });
 
       setState(() {
@@ -1087,7 +1088,7 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
                           animateFirst: true,
                           onAnimationEnd: () {
                             // setState(() {
-                            //   rewards = items[selected.value];
+                            //   rewards = items[selected.value];spin
                             //   print("${selected.value}==============");
 
                             //   // Clear the list before storing new key-value pairs
@@ -1125,27 +1126,32 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      width: Get.width * 0.15,
+                                      width: Get.width * 0.10,
                                     ),
                                     InkWell(
-                                      child: Container(
-                                        height: Get.height * 0.07,
-                                        width: Get.width * 0.15,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(100)),
-                                          color: Colors.green,
-                                          image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                isNotVisible == false
-                                                    ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
-                                                    : MagicProfileControllerinstance
-                                                        .MagicProfileList
-                                                        .value
-                                                        .requests![i]
-                                                        .imgPath
-                                                        .toString()),
-                                            fit: BoxFit.fill,
+                                      child:  Transform.rotate(
+                                              angle: 90 *
+                                                  3.1415926535897932 /
+                                                  180,
+                                        child: Container(
+                                          height: Get.height * 0.07,
+                                          width: Get.width * 0.15,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(100)),
+                                            color: Colors.green,
+                                            image: DecorationImage(
+                                              image: CachedNetworkImageProvider(
+                                                  isNotVisible == false
+                                                      ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
+                                                      : MagicProfileControllerinstance
+                                                          .MagicProfileList
+                                                          .value
+                                                          .requests![i]
+                                                          .imgPath
+                                                          .toString()),
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                       ),

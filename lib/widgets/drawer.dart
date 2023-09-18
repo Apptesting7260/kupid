@@ -9,10 +9,13 @@ import 'package:cupid_match/match_seeker/profile/interest.dart';
 import 'package:cupid_match/match_seeker/profile/interested_in.dart';
 
 import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
+import 'package:cupid_match/views/splash_screen.dart';
 
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class MyDrawer extends StatefulWidget {
   @override
   State<MyDrawer> createState() => _MyDrawerState();
 }
+
+  final box = GetStorage();
 
 class _MyDrawerState extends State<MyDrawer> {
   @override
@@ -309,7 +314,10 @@ class _MyDrawerState extends State<MyDrawer> {
               child: MyButton(
                 width: width * .5,
                 title: 'Log Out',
-                onTap: () {},
+                onTap: () {
+                  logout();
+
+                },
               ),
             ),
             SizedBox(
@@ -319,5 +327,24 @@ class _MyDrawerState extends State<MyDrawer> {
         ),
       ),
     );
+  }
+
+   void logout()async {
+  final SharedPreferences sp=await SharedPreferences.getInstance();
+
+    // Delete the cached data when the user logs out
+    box.remove('incomingRequestData');
+    box.remove('outgoingRequestData');
+    box.remove('recentSeekerMatchesData');
+    box.remove('seekrprofiledata');
+    box.remove('seekerChatListValue');
+    sp.remove("BarearToken");
+    
+    // You can also clear all data in the storage if needed
+    // box.erase();
+    
+    // Add any other logout logic you have here
+    Get.off(SplashScreen());
+    print("Logged out successfully");
   }
 }

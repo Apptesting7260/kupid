@@ -4,12 +4,14 @@ import 'package:cupid_match/controllers/controller/MagicProfileController/MagicP
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
+import 'package:cupid_match/match_seeker/lever/StaticLiverPool.dart';
 import 'package:cupid_match/match_seeker/lever/new_liver.dart';
 import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/match_seeker/viewMakerProfileinseeker/ViewMakerProfile.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/Spin_Will_Wigdet.dart';
+import 'package:cupid_match/widgets/Spined_Spin_Will_Screen.dart';
 import 'package:cupid_match/widgets/drawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +84,10 @@ ListAllMakerControllerinstance.ListAllMakerApi();
                 child: Column(children: [
 
                       Center(child: Image.asset("assets/images/match.png")),
-                        if(selectedrole==1)  SpinWillWidget(),
-                       if(selectedrole==2) SlotMachine(),
+                        if(selectedrole==1&&isspinedwill==false)  SpinWillWidget(),
+                        if(selectedrole==1&&isspinedwill==true)  Spined_Spin_Wheel_Widget(),
+                       if(selectedrole==2&&islivierpooled==false) SlotMachine(),
+                       if(selectedrole==2&&islivierpooled==true) LiverPooledWidget(),
 
                        SizedBox(height:Get.height*0.02,),
 //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf

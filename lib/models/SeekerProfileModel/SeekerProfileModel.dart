@@ -8,13 +8,13 @@ class SikerCreateProfileModel {
   
   SikerCreateProfileModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    msg = json['msg'];
+    msg = json['message'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
-    _data['msg'] = msg;
+    _data['message'] = msg;
     return _data;
   }
 }

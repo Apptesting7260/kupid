@@ -39,8 +39,10 @@ static const String OutgoingRequestUrl = '$baseUrl/seeker/seeker-outgoing-listin
   static const String RecentMakerMatchesUrl = '$baseUrl/maker/maker-recent-matches';
   static const String OutgoingMakerRequestUrl = '$baseUrl/maker/outgoing-request';
   static const String makerrequestsinglepage = '$baseUrl/maker/maker-request-single-page';
+  static const String MakerChatList = '$baseUrl/maker/chat-list';
+  static const String SpeendRequestUrl = '$baseUrl/seeker/show-spin-request-profile';
 
- 
 
+  static const String staticLiverPullUrl = '$baseUrl/seeker/show-leverpool-request-profile';
 
 }

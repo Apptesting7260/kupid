@@ -38,6 +38,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+     bool ispageloading=false;
   String url="";
   int maxduration = 100;
   int currentpos = 0;
@@ -143,8 +144,13 @@ class _ChatPageState extends State<ChatPage> {
     _initialiseControllers();
       messageFocusNode.addListener(_onFocusChange);
      
-                ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
+                
 ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+Timer(Duration(seconds: 3), () {
+  setState(() {
+        ispageloading=true;
+  });
+ });
   // _initAudioRecorder();// TODO: implement initState
 
   
@@ -636,11 +642,12 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 case Status.COMPLETED:
                   return Expanded(
                     child: StreamBuilder(
-                    stream: APIs.getAllMessages(),
+                    stream: APIs.getAllMessages(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString()),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         //if data is loading
                         case ConnectionState.waiting:
+                        return Center(child: CircularProgressIndicator());
                         case ConnectionState.none:
                           // return const SizedBox();
 
@@ -1060,7 +1067,7 @@ SizedBox(width: Get.width*0.02,),
                                             ),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(12.0),
-                                              color: const Color(0xffFE0091),
+                                              color:  Colors.white,
                                             ),
                                             padding: const EdgeInsets.only(left: 18),
                                             margin: const EdgeInsets.symmetric(
@@ -1071,8 +1078,9 @@ SizedBox(width: Get.width*0.02,),
                                                 MediaQuery.of(context).size.width / 1.7,
                                             height: 50,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xffFE0091),
+                                              color: Colors.white,
                                               borderRadius: BorderRadius.circular(12.0),
+                                              border: Border.all(width: 1,color:Colors.black)
                                             ),
                                             padding: const EdgeInsets.only(left: 18),
                                             margin: const EdgeInsets.symmetric(
@@ -1080,11 +1088,11 @@ SizedBox(width: Get.width*0.02,),
                                             child: TextField(
                                               // readOnly: true,
                                               controller: messagecontroller,
-                                              style: TextStyle(color: Colors.white),
+                                              style: TextStyle(color: Colors.black),
                                               decoration: InputDecoration(
                                                 hintText: "Type Something...",
                                                 hintStyle: const TextStyle(
-                                                    color: Colors.white54),
+                                                    color: Colors.grey),
                                                 contentPadding:
                                                     const EdgeInsets.only(top: 16),
                                                 border: InputBorder.none,
@@ -1094,7 +1102,7 @@ SizedBox(width: Get.width*0.02,),
                                                     showOptionsDialog(context);
                                                   },
                                                   icon: Icon(Icons.adaptive.share),
-                                                  color: Colors.white54,
+                                                  color: Colors.grey,
                                                 ),
                                               ),
                                             ),
@@ -1110,7 +1118,7 @@ SizedBox(width: Get.width*0.02,),
                                   const SizedBox(width: 16),
                                   IconButton(
                                     onPressed: _startOrStopRecording,
-                                    icon: Icon(isRecording ? Icons.stop : Icons.mic),
+                                    icon: Icon(isRecording ? Icons.send : Icons.mic),
                                     color: Colors.black,
                                     iconSize: 28,
                                   ),

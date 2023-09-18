@@ -46,5 +46,9 @@ String?action_from;
 String?actiontype;
 Bool ?liverpullrequested;
 Bool ?spinnwillrequested;
-
+  DateTime? startTime;
+  DateTime? endTime;
 int selectedRadioTile=0;
+
+bool islivierpooled=false;
+bool isspinedwill=false;
