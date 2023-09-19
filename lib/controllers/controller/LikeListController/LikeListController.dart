@@ -31,6 +31,9 @@ class LikeListController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setlikelistList(value);
 
+
+
+
     print("$slotImages===================");
     }).onError((error, stackTrace){
       setError(error.toString());

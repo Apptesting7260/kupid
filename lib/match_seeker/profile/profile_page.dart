@@ -28,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       userIdsiker=null;
     });
-    // TODO: implement initState
+
     super.initState();
   }
  @override
@@ -57,14 +57,19 @@ class _ProfilePageState extends State<ProfilePage> {
               width: width * 1,
               child: Stack(
                 children: [
+                  //ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString()
                   Container(
                     width: width * 1,
-                    height: height * .4,
-                    child: Image.network(
-                     ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString(),
+                    height: height * 0.4,
+
+                    child: CachedNetworkImage(
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                       fit: BoxFit.cover,
+                      imageUrl: ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath, // Replace with your actual image URL
                     ),
                   ),
+
                   // Positioned(
                   //     top: 30,
                   //     left: 20,

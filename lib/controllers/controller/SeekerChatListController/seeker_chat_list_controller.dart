@@ -27,23 +27,24 @@ final box1 = GetStorage();
     final cachedData = box1.read('seekerChatListValue');
     setUserList(SeekerChatListModel.fromJson(cachedData));
     setRxRequestStatus(Status.COMPLETED);
-  } else{
-_api.SeekerChatListApi(data).then((value) {
-      setRxRequestStatus(Status.COMPLETED);
-      setUserList(value);
-
-      // if (value.data!.length > 2) {
-      //   seekerRequestlenght = 2;
-      // } else {R
-      //   seekerRequestlenght = 1;
-      // }
-      final jsonData = value.toJson(); // Assuming you have a method toMap() in your model
-      box1.write('seekerChatListValue', jsonData);
-    }).onError((error, stackTrace) {
-      setError(error.toString());
-      setRxRequestStatus(Status.ERROR);
-    });
-  }
+  } else {
+   _api.SeekerChatListApi(data).then((value) {
+     setRxRequestStatus(Status.COMPLETED);
+     setUserList(value);
+     // if (value.data!.length > 2) {
+     //   seekerRequestlenght = 2;
+     // } else {R
+     //   seekerRequestlenght = 1;
+     // }
+     final jsonData = value
+         .toJson(); // Assuming you have a method toMap() in your model
+     box1.write('seekerChatListValue', jsonData);
+     print("sdfsdfsdfdsjf&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+   }).onError((error, stackTrace) {
+     setError(error.toString());
+     setRxRequestStatus(Status.ERROR);
+   });
+ }
     
   }
 //

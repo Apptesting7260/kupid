@@ -405,21 +405,24 @@ SpeendReqestControllerinstance.startTimer();
                 SizedBox(
                   height: height * .02,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Request to be matched",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    // Text(
-                    //   "See all",
-                    //   style: Theme.of(context)
-                    //       .textTheme
-                    //       .labelLarge!
-                    //       .copyWith(color: Color(0xff000CAA)),
-                    // ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Request to be matched",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      // Text(
+                      //   "See all",
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .labelLarge!
+                      //       .copyWith(color: Color(0xff000CAA)),
+                      // ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: height * .02,

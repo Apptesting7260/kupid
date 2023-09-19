@@ -20,6 +20,9 @@ import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
+import '../controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
+
 class DomatchscreenSiker extends StatefulWidget {
   const DomatchscreenSiker({Key? key}) : super(key: key);
 
@@ -32,6 +35,7 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final ListAllMakerControllerinstance=Get.put(ListAllMakerController());
 
+  final MagicProfileControllerinstance = Get.put(MagicProfileController());
   ChoseRole()async{
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -49,157 +53,330 @@ selectedrole=prefs.getInt("roll");
   void initState() {
 ListAllMakerControllerinstance.ListAllMakerApi();
         ChoseRole();
+        MagicProfileControllerinstance.MagicProfileApiHit();
     // TODO: implement initState
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-        final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: MyDrawer(),
       appBar: AppBar(title: Text(
-                  "Home",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),actions: [ GestureDetector(
-                    onTap: () {
-                      _scaffoldKey.currentState!.openEndDrawer();
-                    },
-                    child: Image.asset("assets/icons/menu.png"))],),
-      body:   Obx(() {
-          switch (ListAllMakerControllerinstance.rxRequestStatus.value) {
-            case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
-            case Status.ERROR:
-              if (ListAllMakerControllerinstance.error.value == 'No internet') {
-                return InterNetExceptionWidget(
-                  onPress: () {},
-                );
-              } else {
-                return GeneralExceptionWidget(onPress: () {});
-              }
-            case Status.COMPLETED:
-              return SingleChildScrollView(
-                child: Column(children: [
+        "Home",
+        style: Theme
+            .of(context)
+            .textTheme
+            .titleSmall,
+      ), actions: [ GestureDetector(
+          onTap: () {
+            _scaffoldKey.currentState!.openEndDrawer();
+          },
+          child: Image.asset("assets/icons/menu.png"))
+      ],),
+      body:
+      Obx((){
+        final ListAllMakerControllerstatus = ListAllMakerControllerinstance.rxRequestStatus.value;
+        final MagicProfileControllerstatus = MagicProfileControllerinstance.rxRequestStatus.value;
 
-                      Center(child: Image.asset("assets/images/match.png")),
-                        if(selectedrole==1&&isspinedwill==false)  SpinWillWidget(),
-                        if(selectedrole==1&&isspinedwill==true)  Spined_Spin_Wheel_Widget(),
-                       if(selectedrole==2&&islivierpooled==false) SlotMachine(),
-                       if(selectedrole==2&&islivierpooled==true) LiverPooledWidget(),
+        if (ListAllMakerControllerstatus == Status.ERROR ||
+            MagicProfileControllerstatus == Status.ERROR)
+        {
+          return Text("Error ");
+        }
+        else if (ListAllMakerControllerstatus == Status.LOADING ||
+            MagicProfileControllerstatus == Status.LOADING)
+        {
+          return Center(child: CircularProgressIndicator());
+        }
+        else {
+          return SingleChildScrollView(
+            child: Column(children: [
 
-                       SizedBox(height:Get.height*0.02,),
+              Center(child: Image.asset("assets/images/match.png")),
+              if(selectedrole == 1 && isspinedwill == false) SpinWillWidget(),
+              if(selectedrole == 1 &&
+                  isspinedwill == true) Spined_Spin_Wheel_Widget(),
+              if(selectedrole == 2 && islivierpooled == false) SlotMachine(),
+              if(selectedrole == 2 &&
+                  islivierpooled == true) LiverPooledWidget(),
+
+              SizedBox(height: Get.height * 0.02,),
 //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Request to   Maker",
-                              style: Theme.of(context).textTheme.titleSmall,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Request to Maker",
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleSmall,
+                    ),
+                    InkWell(
+                      child: Text(
+                        "See all",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .labelLarge!
+                            .copyWith(color: Color(0xff000CAA)),
+                      ),
+                      onTap: () {
+                        Get.to(SeeAllMaker());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              Container(
+                margin: EdgeInsets.only(left: 20),
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+                  // itemExtent: 80,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            child: CircleAvatar(
+                              radius: 45.0,
+                              backgroundImage: NetworkImage(
+                                  ListAllMakerControllerinstance.userList
+                                      .value
+                                      .allmakers![index].imgPath.toString()),
+                              backgroundColor: Colors.transparent,
                             ),
-                            InkWell(
-                              child: Text(
-                                "See all",
-                                style: Theme.of(context)
+                            onTap: () {
+                              Makerid =
+                                  ListAllMakerControllerinstance.userList
+                                      .value
+                                      .allmakers![index].id.toString();
+                              Get.to(ViewMakerProfileInSeeker());
+                            },
+                          ),
+                          SizedBox(
+                            width: width * .03,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                ListAllMakerControllerinstance.userList.value
+                                    .allmakers![index].name.toString(),
+                                style: Theme
+                                    .of(context)
                                     .textTheme
-                                    .labelLarge!
-                                    .copyWith(color: Color(0xff000CAA)),
+                                    .titleSmall,
                               ),
-                              onTap: (){
-                                Get.to(SeeAllMaker());
-                              },
+                              SizedBox(
+                                height: height * .01,
+                              ),
+                              Text(
+                                "Match Maker",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: width * .15),
+                          GestureDetector(
+                            onTap: () {
+                              // showdilog();
+
+
+                              // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+                              // print(selectedseekerid);
+                            },
+                            child: Container(
+                              height: height * .04,
+                              width: width * .3,
+                              decoration: BoxDecoration(
+                                color: Color(0xffFE0091),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Request",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
                             ),
-                          ],
-                                              ),
-                        ),
-
-                       Container(
-                         margin: EdgeInsets.only(left: 20),
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount:  3,
-                          // itemExtent: 80,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-
-                            return  Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child:  Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                  InkWell(
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage: NetworkImage(
-                                        ListAllMakerControllerinstance.userList.value.allmakers![index].imgPath.toString() ) ,
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                    onTap: (){
-
-                                      Makerid=ListAllMakerControllerinstance.userList.value.allmakers![index].id.toString();
-                                      Get.to(ViewMakerProfileInSeeker());
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: width * .03,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                       ListAllMakerControllerinstance.userList.value.allmakers![index].name.toString(),
-                                        style: Theme.of(context).textTheme.titleSmall,
-                                      ),
-                                      SizedBox(
-                                        height: height * .01,
-                                      ),
-                                      Text(
-                                        "Match Maker",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: width * .12),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // showdilog();
-
-
-                                      // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                                      // print(selectedseekerid);
-                                    },
-                                    child: Container(
-                                      height: height * .04,
-                                      width: width * .3,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffFE0091),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "Request",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                            );
-                          },
-                        ),)
-                ],),
-              );
-    }} ));
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),)
+            ],),
+          ); // Default case, return a Widget
+        }
+      })
+    );
   }
 }
+//       Obx(() {
+//          final ListAllMakerControllerstatus = ListAllMakerControllerinstance.rxRequestStatus.value;
+//          final SpeendReqestControllerstatus = SpeendReqestControllerinstance.rxRequestStatus.value;
+//          final SeekerToSeekerRequestControllerstatus = SeekerToSeekerRequestControllerinstance.rxRequestStatus.value;
+//          final MagicProfileControllerstatus = SeekerToSeekerRequestControllerinstance.rxRequestStatus.value;
+//          switch (ListAllMakerControllerinstance.rxRequestStatus.value ) {
+//             case Status.LOADING:
+//               return const Center(child: CircularProgressIndicator());
+//             case Status.ERROR:
+//               if (ListAllMakerControllerinstance.error.value == 'No internet') {
+//                 return InterNetExceptionWidget(
+//                   onPress: () {},
+//                 );
+//               } else {
+//                 return GeneralExceptionWidget(onPress: () {});
+//               }
+//             case Status.COMPLETED:
+//               return
+//                 SingleChildScrollView(
+//                 child: Column(children: [
+//
+//                       Center(child: Image.asset("assets/images/match.png")),
+//                         if(selectedrole==1&&isspinedwill==false)  SpinWillWidget(),
+//                         if(selectedrole==1&&isspinedwill==true)  Spined_Spin_Wheel_Widget(),
+//                        if(selectedrole==2&&islivierpooled==false) SlotMachine(),
+//                        if(selectedrole==2&&islivierpooled==true) LiverPooledWidget(),
+//
+//                        SizedBox(height:Get.height*0.02,),
+// //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
+//                         Padding(
+//                           padding: const EdgeInsets.all(16.0),
+//                           child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               "Request to Maker",
+//                               style: Theme.of(context).textTheme.titleSmall,
+//                             ),
+//                             InkWell(
+//                               child: Text(
+//                                 "See all",
+//                                 style: Theme.of(context)
+//                                     .textTheme
+//                                     .labelLarge!
+//                                     .copyWith(color: Color(0xff000CAA)),
+//                               ),
+//                               onTap: (){
+//                                 Get.to(SeeAllMaker());
+//                               },
+//                             ),
+//                           ],
+//                                               ),
+//                         ),
+//
+//                   Container(
+//                     margin: EdgeInsets.only(left: 20),
+//                     child: ListView.builder(
+//                       physics: NeverScrollableScrollPhysics(),
+//                       itemCount:  3,
+//                       // itemExtent: 80,
+//                       shrinkWrap: true,
+//                       itemBuilder: (context, index) {
+//
+//                         return  Padding(
+//                           padding: const EdgeInsets.symmetric(vertical: 10.0),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.start,
+//                             children: [
+//                               InkWell(
+//                                 child: CircleAvatar(
+//                                   radius: 45.0,
+//                                   backgroundImage: NetworkImage(
+//                                       ListAllMakerControllerinstance.userList.value.allmakers![index].imgPath.toString() ) ,
+//                                   backgroundColor: Colors.transparent,
+//                                 ),
+//                                 onTap: (){
+//
+//                                   Makerid=ListAllMakerControllerinstance.userList.value.allmakers![index].id.toString();
+//                                   Get.to(ViewMakerProfileInSeeker());
+//                                 },
+//                               ),
+//                               SizedBox(
+//                                 width: width * .03,
+//                               ),
+//                               Column(
+//                                 mainAxisAlignment: MainAxisAlignment.center,
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: [
+//                                   Text(
+//                                     ListAllMakerControllerinstance.userList.value.allmakers![index].name.toString(),
+//                                     style: Theme.of(context).textTheme.titleSmall,
+//                                   ),
+//                                   SizedBox(
+//                                     height: height * .01,
+//                                   ),
+//                                   Text(
+//                                     "Match Maker",
+//                                     style: Theme.of(context)
+//                                         .textTheme
+//                                         .bodySmall!
+//                                         .copyWith(color: Colors.grey),
+//                                   ),
+//                                 ],
+//                               ),
+//                               SizedBox(width: width * .15),
+//                               GestureDetector(
+//                                 onTap: () {
+//                                   // showdilog();
+//
+//
+//                                   // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+//                                   // print(selectedseekerid);
+//                                 },
+//                                 child: Container(
+//                                   height: height * .04,
+//                                   width: width * .3,
+//                                   decoration: BoxDecoration(
+//                                     color: Color(0xffFE0091),
+//                                     borderRadius: BorderRadius.circular(15),
+//                                   ),
+//                                   child: Center(
+//                                     child: Text(
+//                                       "Request",
+//                                       style: Theme.of(context)
+//                                           .textTheme
+//                                           .bodySmall!
+//                                           .copyWith(color: Colors.white),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               )
+//                             ],
+//                           ),
+//                         );
+//                       },
+//                     ),)
+//                 ],),
+//               );
+//     }
+//       }
+//       )
+

@@ -1334,21 +1334,24 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
                 ),
                 Visibility(
                   visible: isNotVisible,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request to be matched",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      // Text(
-                      //   "See all",
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .labelLarge!
-                      //       .copyWith(color: Color(0xff000CAA)),
-                      // ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Request to be matched",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        // Text(
+                        //   "See all",
+                        //   style: Theme.of(context)
+                        //       .textTheme
+                        //       .labelLarge!
+                        //       .copyWith(color: Color(0xff000CAA)),
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

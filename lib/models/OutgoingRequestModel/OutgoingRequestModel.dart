@@ -1,15 +1,18 @@
 class OutgoingRequestModel {
   var status;
   List<OutgoingMatchRequest>? requests;
+  var message;
 
   OutgoingRequestModel({
     this.status,
     this.requests,
+    this.message,
   });
 
   factory OutgoingRequestModel.fromJson(Map<String, dynamic> json) {
     return OutgoingRequestModel(
       status: json['status'],
+      message: json['message'],
       requests: (json['requests'] as List<dynamic>?)
           ?.map((requestJson) => OutgoingMatchRequest.fromJson(requestJson))
           .toList(),
@@ -19,6 +22,7 @@ class OutgoingRequestModel {
   Map<String, dynamic> toJson() {
   final Map<String, dynamic> data = {};
   data['status'] = status;
+  data['message'] = message;
   if (requests != null) {
     data['requests'] = requests!.map((request) => request.toJson()).toList();
   }

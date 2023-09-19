@@ -805,12 +805,12 @@ class _IncomingRequestsState extends State<IncomingRequests> {
           final height = MediaQuery.of(context).size.height;
           final width = MediaQuery.of(context).size.width;
           return shortprofilepopup();
-          
+
           }
   );
         }
-  
-  
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -872,7 +872,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
 
 
 
-        Incontroller.IncomingRequestvalue.value.status=="success"   ?  
+        Incontroller.IncomingRequestvalue.value.status=="success"   ?
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: Incontroller.IncomingRequestvalue.value.requests!.length,
@@ -883,7 +883,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                     child: Stack(
                       children: [
                         Container(
-        
+
                           height: height * 0.11,
                           decoration: BoxDecoration(color: Color(0xffFE0091)),
                           child: Row(
@@ -906,13 +906,13 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                               .toString())),
                                     ),
                                     onTap: (){
-        
-        
-        
-        
+
+
+
+
                                       userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
-        
-        
+
+
                                       print(userIdsiker);
                                       if(userIdsiker!=null){
                                         showseeker(context);
@@ -971,12 +971,12 @@ class _IncomingRequestsState extends State<IncomingRequests> {
           print(Incontroller.IncomingRequestvalue.value
                                       .requests![index].id.toString());
         });
-               
+
                                       if(requestid!=null){
                                         print(requestid);
             Get.to(ChatPage());
                                       }
-                            
+
                                   },
                                 ),
                               if (Incontroller.IncomingRequestvalue.value
@@ -1006,7 +1006,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                       .imgPath
                                                       .toString())),
                                                       onTap: (){
-        
+
                                                         Makerid=Incontroller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
                                                       showmaker(context);
                                                       },
@@ -1057,7 +1057,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
           print(Incontroller.IncomingRequestvalue.value
                                       .requests![index].id.toString());
         });
-               
+
                                       if(requestid!=null){
                                         print(requestid);
             Get.to(ChatPage());
@@ -1080,7 +1080,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                 children: [
                                   SizedBox(height:Get.height*0.15,),
                                   Container(
-                                          
+
                                           height: Get.height*0.2,
                                           width: Get.width*0.8,
                                           decoration:BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/recentConversationempty.png"))),),
@@ -1128,7 +1128,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                       ),
                     ),
                   ),
-                 
+
                   SizedBox(
                     height: height * 0.04,
                   ),

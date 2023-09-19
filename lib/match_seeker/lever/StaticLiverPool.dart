@@ -128,7 +128,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                       Column(
                         children: [
                           Text(
-                            "Next Spin",
+                            "Next Pull",
                             style: Get.theme.textTheme.headlineSmall!.copyWith(
                               color: Color(0xff000CAA),
                               fontWeight: FontWeight.bold,
@@ -315,24 +315,15 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: Get.height * 0.1,
-                                    width: Get.width * 0.2,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(100)),
-                                      color: Colors.green,
-                                      image: DecorationImage(
-                                        image: CachedNetworkImageProvider(
-                                            dataofStaticPull
-                                                .spinLeverpoolRequestedData!
-                                                .spinRequestData![index]
-                                                .seekerData!
-                                                .imgPath
-                                                .toString()),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
+                                  CircleAvatar(
+                                    radius:45,
+                                    backgroundImage: CachedNetworkImageProvider(
+                                        dataofStaticPull
+                                            .spinLeverpoolRequestedData!
+                                            .spinRequestData![index]
+                                            .seekerData!
+                                            .imgPath
+                                            .toString()),
                                   ),
                                   SizedBox(width: width * .03),
                                   Column(

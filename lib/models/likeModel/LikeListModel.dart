@@ -1,19 +1,23 @@
 class LikeListModel {
   LikeListModel({
      this.status,
+    this.message,
      this.data,
   });
    String ?status;
+   String ? message;
    List<Data>? data;
   
   LikeListModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
+    message = json['message'];
     data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
+    _data['message'] = message;
     _data['data'] = data!.map((e)=>e.toJson()).toList();
     return _data;
   }

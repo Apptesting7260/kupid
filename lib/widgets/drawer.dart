@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../match_seeker/profile/profile_page.dart';
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
@@ -72,7 +74,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
                     subtitle: GestureDetector(
                       onTap: () {
-                        // Get.to(() => ProfileTwoScreen());
+                      Get.to(() => ProfilePage());
                       },
                       child: Container(
                         height: height * .04,

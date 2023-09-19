@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 
 import '../controllers/controller/SeekerChatListController/seeker_chat_list_controller.dart';
 import '../data/response/status.dart';
+import '../res/colors/app_color.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
+
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
@@ -40,64 +42,49 @@ class _ChatListScreenState extends State<ChatListScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "Matches (5)",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              SizedBox(height: height * .02),
-              SizedBox(
-                height: height * .1,
-                width: width * 1,
-                child: ListView.builder(
-                  itemCount: 6,
-                  scrollDirection: Axis.horizontal,
-                  itemExtent: 80,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(() => MatchedRequesd());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: CircleAvatar(
-                          radius: 30.0,
-                          backgroundImage: NetworkImage(
-                              "https://img.freepik.com/free-photo/smiley-businesswoman-posing-outdoors-with-arms-crossed-copy-space_23-2148767055.jpg"),
-                          backgroundColor: Colors.transparent,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: height * .02),
-              Text(
-                "Friends (10)",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              SizedBox(height: height * .02),
-              Obx(() {
-                switch (seekerChatListController.rxRequestStatus.value) {
-                  case Status.LOADING:
-                    return const Center(child: CircularProgressIndicator());
-                  case Status.ERROR:
-                    if (seekerChatListController.error.value == 'No internet') {
-                      return InterNetExceptionWidget(
-                        onPress: () {},
-                      );
-                    } else {
-                      return GeneralExceptionWidget(onPress: () {});
-                    }
-                  case Status.COMPLETED:
-                    return  ListView.builder(
+      body:
+      Obx(() {
+        switch (seekerChatListController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return const Center(child: CircularProgressIndicator());
+          case Status.ERROR:
+            if (seekerChatListController.error.value == 'No internet') {
+              return InterNetExceptionWidget(
+                onPress: () {},
+              );
+            } else {
+              return GeneralExceptionWidget(onPress: () {});
+            }
+          case Status.COMPLETED:
+
+            return
+              Column(
+
+                children: [
+
+                  if(seekerChatListController.seekerChatListValue.value.message =='No data Found')SizedBox(height:Get.height*0.12),
+                  if(seekerChatListController.seekerChatListValue.value.message =='No data Found')
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/images/emessage.png',width: Get.width*0.7,),
+                        SizedBox(height: Get.height*0.05,),
+                        Text("No Messages, yet.",style: Get.theme.textTheme.headlineSmall!.copyWith(
+                            color: AppColor.blackColor
+                        )),
+                        SizedBox(height: Get.height*0.02,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 70.0),
+                          child: Text("No messages in your inbox, yet! Start chatting with people around you.",style: Get.theme.textTheme.bodyMedium!.copyWith(
+                              color: AppColor.blackColor,fontWeight: FontWeight.w300
+                          ),textAlign: TextAlign.center,),
+                        )
+                      ],
+                    ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: seekerChatListController.seekerChatListValue.value.chat!.length,
                       itemExtent: 80,
@@ -105,17 +92,17 @@ class _ChatListScreenState extends State<ChatListScreen> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                          setState(() {
-                                            requestype = "2";
-                                          });
-                                          requestid =  seekerChatListController.seekerChatListValue.value.chat![index].requestid
-                                              
-                                              .toString();
-      
-                                          if (requestid != null) {
-                                            print(requestid);
-                                            Get.to(ChatPage());
-                                          }
+                            setState(() {
+                              requestype = "2";
+                            });
+                            requestid =  seekerChatListController.seekerChatListValue.value.chat![index].requestid
+
+                                .toString();
+
+                            if (requestid != null) {
+                              print(requestid);
+                              Get.to(ChatPage());
+                            }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -177,7 +164,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                           .chat![index]
                                           .seekerfromName!
                                           .toString())+ " & "
-                                         +
+                                          +
                                           (seekerChatListController
                                               .seekerChatListValue
                                               .value
@@ -186,7 +173,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                               .toString()),
                                       style: Theme.of(context).textTheme.titleSmall,
                                     ),
-      
+
                                     SizedBox(
                                       height: height * .01,
                                     ),
@@ -212,14 +199,19 @@ class _ChatListScreenState extends State<ChatListScreen> {
                           ),
                         );
                       },
-                    );
-                }
-              }),
-      
-            ],
-          ),
-        ),
-      ),
+                    ),
+                  )
+                ],
+              );
+        }
+      }
+      )
+      // Obx(() {
+      //   return
+      //
+      // })
+
     );
   }
 }
+// seekerChatListController.seekerChatListValue.value.message
