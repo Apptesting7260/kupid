@@ -1,5 +1,3 @@
-
-
 import 'dart:ui';
 
 import 'package:cupid_match/data/network/network_api_services.dart';
@@ -19,6 +17,7 @@ import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dar
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
 import 'package:cupid_match/models/RequestActionModel/RequestActionModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
+import 'package:cupid_match/models/SeekerMyProfileDetailsModel/SeekerMyProfileDetailsModel.dart';
 import 'package:cupid_match/models/SeekerToSeekerRequestModel/SeekerToSeekerRequestModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
@@ -45,284 +44,301 @@ import '../../models/SeekerChatListModel/seeker_chat_list_model.dart';
 import '../../models/SeekerProfileModel/SeekerProfileModel.dart';
 import '../../models/SetRoleModel/SetRoleModel.dart';
 
-
-
 class AuthRepository {
-int?abcd;
-  final _apiService  = NetworkApiServices() ;
+  int? abcd;
+  final _apiService = NetworkApiServices();
 
-
-  Future<SignUpModel> SignUpApi(var data) async{
+  Future<SignUpModel> SignUpApi(var data) async {
     dynamic response = await _apiService.postApi(data, AppUrl.SignUpUrl);
-    return SignUpModel.fromJson(response) ;
+    return SignUpModel.fromJson(response);
   }
 
-
-  Future<OtpVerificationModel> OtpVarificationApi(var data) async{
-    dynamic response = await _apiService.postApi(data, AppUrl.OtpvarificationUrl);
-    return OtpVerificationModel.fromJson(response) ;
+  Future<OtpVerificationModel> OtpVarificationApi(var data) async {
+    dynamic response =
+        await _apiService.postApi(data, AppUrl.OtpvarificationUrl);
+    return OtpVerificationModel.fromJson(response);
   }
 
+  Future<CreatePasswordModel> CreatePasswordApi(var data) async {
+    dynamic response =
+        await _apiService.postApi(data, AppUrl.CreatePasswordUrl);
+    return CreatePasswordModel.fromJson(response);
+  }
 
-Future<CreatePasswordModel> CreatePasswordApi(var data) async{
-  dynamic response = await _apiService.postApi(data, AppUrl.CreatePasswordUrl);
-  return CreatePasswordModel.fromJson(response) ;
-}
+  Future<ResendOtpModel> ResendOtpApi(var data) async {
+    dynamic response = await _apiService.postApi(data, AppUrl.ResendOtpUrl);
+    return ResendOtpModel.fromJson(response);
+  }
 
-Future<ResendOtpModel> ResendOtpApi(var data) async{
-  dynamic response = await _apiService.postApi(data, AppUrl.ResendOtpUrl);
-  return ResendOtpModel.fromJson(response) ;
-}
+  Future<SetRoleModel> SetRoleApiApi(var data) async {
+    dynamic response = await _apiService.postApi(data, AppUrl.SetRoleUrl);
+    return SetRoleModel.fromJson(response);
+  }
 
-Future<SetRoleModel> SetRoleApiApi(var data) async{
-  dynamic response = await _apiService.postApi(data, AppUrl.SetRoleUrl);
-  return SetRoleModel.fromJson(response) ;
-}
+  Future<ForgotPasswordModel> ForgotPasswordApi(var data) async {
+    dynamic response =
+        await _apiService.postApi(data, AppUrl.ForgotPasswordUrl);
+    return ForgotPasswordModel.fromJson(response);
+  }
 
-Future<ForgotPasswordModel> ForgotPasswordApi(var data) async{
-  dynamic response = await _apiService.postApi(data, AppUrl.ForgotPasswordUrl);
-  return ForgotPasswordModel.fromJson(response) ;
-}
+  Future<ForgotPasswordResetModel> ForgotPasswordResetApi(var data) async {
+    dynamic response =
+        await _apiService.postApi(data, AppUrl.ForgotPasswordResetUrl);
+    return ForgotPasswordResetModel.fromJson(response);
+  }
 
-Future<ForgotPasswordResetModel> ForgotPasswordResetApi(var data) async{
-  dynamic response = await _apiService.postApi(data, AppUrl.ForgotPasswordResetUrl);
-  return ForgotPasswordResetModel.fromJson(response) ;
-}
+  Future<MakerProfileModel> MakerProfileApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, "https://urlsdemo.xyz/kupid/api/user-profile-update");
+    print(response);
+    return MakerProfileModel.fromJson(response);
+  }
 
-Future<MakerProfileModel> MakerProfileApi(var data) async{
-  dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/user-profile-update");
-  print(response);
-  return MakerProfileModel.fromJson(response) ;
-}
+  Future<SikerCreateProfileModel> SeekerProfileApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, "https://urlsdemo.xyz/kupid/api/user-profile-update");
+    print(response);
+    return SikerCreateProfileModel.fromJson(response);
+  }
 
-Future<SikerCreateProfileModel> SeekerProfileApi(var data) async{
-  dynamic response = await _apiService.postApi2(data, "https://urlsdemo.xyz/kupid/api/user-profile-update");
-  print(response);
-  return SikerCreateProfileModel.fromJson(response) ;
-}
+  Future<MakerPaymentInfoModel> MakerPaymentInfoApi(var data) async {
+    dynamic response = await _apiService.postApi2(data, AppUrl.MakerPaymentUrl);
+    print(response);
+    return MakerPaymentInfoModel.fromJson(response);
+  }
 
-Future<MakerPaymentInfoModel> MakerPaymentInfoApi(var data) async{
-  dynamic response = await _apiService.postApi2(data, AppUrl.MakerPaymentUrl);
-  print(response);
-  return MakerPaymentInfoModel.fromJson(response) ;
-}
+  Future<FetchsubcriptionplanModel> FetchSubcriptionApi(var data) async {
+    // print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.FetchSubcriptionUrl);
+    print(response);
+    return FetchsubcriptionplanModel.fromJson(response);
+  }
 
-Future<FetchsubcriptionplanModel> FetchSubcriptionApi(var data) async{
-  // print("hited");
-  dynamic response = await _apiService.postApi2(data, AppUrl.FetchSubcriptionUrl);
-  print(response);
-  return FetchsubcriptionplanModel.fromJson(response) ;
-}
+  Future<CreateMonthlyPlanModel> CreateMonhleyPlanApi(var data) async {
+    // print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.CreateMonthlyPlanUrl);
+    print(response);
+    return CreateMonthlyPlanModel.fromJson(response);
+  }
 
-Future<CreateMonthlyPlanModel> CreateMonhleyPlanApi(var data) async{
-  // print("hited");
-  dynamic response = await _apiService.postApi2(data, AppUrl.CreateMonthlyPlanUrl);
-  print(response);
-  return CreateMonthlyPlanModel.fromJson(response) ;
-}
-Future<CreateMatchesPlanModel> CreateMatchesPlanApi(var data) async{
-  // print("hited");
-  dynamic response = await _apiService.postApi2(data, AppUrl.CreateMatchesPlanUrl);
-  // print(response);
-  return CreateMatchesPlanModel.fromJson(response) ;
-}
+  Future<CreateMatchesPlanModel> CreateMatchesPlanApi(var data) async {
+    // print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.CreateMatchesPlanUrl);
+    // print(response);
+    return CreateMatchesPlanModel.fromJson(response);
+  }
 
-Future<SeekersAllInterestsModel> SeekersAllInterestsApi() async{
-  // print("hited");
-  dynamic response = await _apiService.getApi2( AppUrl.SeekersAllInterestsUrl);
-  print(response);
-  return SeekersAllInterestsModel.fromJson(response) ;
-}
+  Future<SeekersAllInterestsModel> SeekersAllInterestsApi() async {
+    // print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.SeekersAllInterestsUrl);
+    print(response);
+    return SeekersAllInterestsModel.fromJson(response);
+  }
 
+  Future<MagicProfilesModel> MagicProfileApi() async {
+    // print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.MagicProfileUrl);
+    // print(response);
+    return MagicProfilesModel.fromJson(response);
+  }
 
-Future<MagicProfilesModel> MagicProfileApi() async{
-  // print("hited");
-  dynamic response = await _apiService.getApi2( AppUrl.MagicProfileUrl);
-  // print(response);
-  return MagicProfilesModel.fromJson(response) ;
-}
+  Future<AllOcupationsModel> GetAllOcupationsApi() async {
+    // print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.GetAllOcupationsUrl);
+    print(response);
+    return AllOcupationsModel.fromJson(response);
+  }
 
+  Future<ViewProfileDetailsModel> ViewProfileDetailsapi() async {
+    // print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.ViewProfileDetailsUrl);
+    print(response);
+    return ViewProfileDetailsModel.fromJson(response);
+  }
 
-Future<AllOcupationsModel> GetAllOcupationsApi() async{
-  // print("hited");
-  dynamic response = await _apiService.getApi2( AppUrl.GetAllOcupationsUrl);
-  print(response);
-  return AllOcupationsModel.fromJson(response) ;
-}
+  Future<UserLoginModel> UserLoginapi(var data) async {
+    print("hit");
+    dynamic response = await _apiService.postApi(data, AppUrl.UserLoginUrl);
+    print(response);
+    return UserLoginModel.fromJson(response);
+  }
 
-
-Future<ViewProfileDetailsModel> ViewProfileDetailsapi() async{
-  // print("hited");
-  dynamic response = await _apiService.getApi2( AppUrl.ViewProfileDetailsUrl);
-  print(response);
-  return ViewProfileDetailsModel.fromJson(response) ;
-}
-
-Future<UserLoginModel> UserLoginapi( var data) async{
-  print("hit");
-  dynamic response = await _apiService.postApi(data, AppUrl.UserLoginUrl);
-  print(response);
-  return UserLoginModel.fromJson(response);
-}
-
-Future<CountryModel> CountryCodeapi()async{
+  Future<CountryModel> CountryCodeapi() async {
     print('fshdshsdhfafhsd');
     dynamic response = await _apiService.getApi2(AppUrl.CountryCodeUrl);
     print(response);
     return CountryModel.fromJson(response);
-}
-Future<ProfilesScrollModel> ProfileScrollapi( ) async{
-  print("hited");
-  dynamic response = await _apiService.getApi2(AppUrl.ProfileScrollUrl);
-  print(response);
-  return ProfilesScrollModel.fromJson(response) ;
-}
-Future<DomatchesModel> DoMatcchesapi(var data ) async{
-  print("hited");
-  dynamic response = await _apiService.postApi2(data,AppUrl.DoMatchesUrl);
-  print(response);
-  return DomatchesModel.fromJson(response) ;
-}
+  }
 
-Future<ViewMakerProfileModel> ViewMakerProfileDetailsApi(var data ) async{
-  print("hited");
-  dynamic response = await _apiService.postApi2(data,AppUrl.ViewMakerProfileDetailsUrl);
-  print(response);
-  return ViewMakerProfileModel.fromJson(response) ;
-}
+  Future<ProfilesScrollModel> ProfileScrollapi() async {
+    print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.ProfileScrollUrl);
+    print(response);
+    return ProfilesScrollModel.fromJson(response);
+  }
 
-Future<ViewSikerDetailsToMatchModel> ViewSikerDetailsToMatchApi(var data ) async{
-  print("hited");
-  dynamic response = await _apiService.postApi2(data,AppUrl.viewuserprofileUrl);
-  print(response);
-  return ViewSikerDetailsToMatchModel.fromJson(response) ;
-}
+  Future<DomatchesModel> DoMatcchesapi(var data) async {
+    print("hited");
+    dynamic response = await _apiService.postApi2(data, AppUrl.DoMatchesUrl);
+    print(response);
+    return DomatchesModel.fromJson(response);
+  }
 
-Future<AllMakerModel> ListAllMakerApi() async{
-  print("hited");
-  dynamic response = await _apiService.getApi2(AppUrl.GetAllMakerUrl);
-  print(response);
-  return AllMakerModel.fromJson(response) ;
-}
+  Future<ViewMakerProfileModel> ViewMakerProfileDetailsApi(var data) async {
+    print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.ViewMakerProfileDetailsUrl);
+    print(response);
+    return ViewMakerProfileModel.fromJson(response);
+  }
+
+  Future<ViewSikerDetailsToMatchModel> ViewSikerDetailsToMatchApi(
+      var data) async {
+    print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.viewuserprofileUrl);
+    print(response);
+    return ViewSikerDetailsToMatchModel.fromJson(response);
+  }
+
+  Future<AllMakerModel> ListAllMakerApi() async {
+    print("hited");
+    dynamic response = await _apiService.getApi2(AppUrl.GetAllMakerUrl);
+    print(response);
+    return AllMakerModel.fromJson(response);
+  }
 
 //***************** OutgoinRequestApi  *********************
-Future<OutgoingRequestModel> OutgoinRequestApi() async{
-   print("OutgoinRequestApi");
-  dynamic response = await _apiService.getApi2( AppUrl.OutgoingRequestUrl);
-  print(response);
-  return OutgoingRequestModel.fromJson(response) ;
-}
-
+  Future<OutgoingRequestModel> OutgoinRequestApi() async {
+    print("OutgoinRequestApi");
+    dynamic response = await _apiService.getApi2(AppUrl.OutgoingRequestUrl);
+    print(response);
+    return OutgoingRequestModel.fromJson(response);
+  }
 
 //***************** IncomingRequestApi  *********************
-  Future<IncomingRequestModel> IncomingRequestApi() async{
+  Future<IncomingRequestModel> IncomingRequestApi() async {
     print("IncomingRequestApdsgfdhsgfdsjhdsjfhdsji");
-    dynamic response = await _apiService.getApi2( AppUrl.IncomingRequestUrl);
+    dynamic response = await _apiService.getApi2(AppUrl.IncomingRequestUrl);
     print(response);
-    return IncomingRequestModel.fromJson(response) ;
+    return IncomingRequestModel.fromJson(response);
   }
+
 ////////***************RequestDetails***************************** */
-  Future<RequestDetailsModel> RequestDetailsApi(var data) async{
+  Future<RequestDetailsModel> RequestDetailsApi(var data) async {
     print("IncomingRequestApi");
-    dynamic response = await _apiService.postApi2( data, AppUrl.RequestDetailsUrl);
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.RequestDetailsUrl);
     print(response);
-    return RequestDetailsModel.fromJson(response) ;
-  }
-  Future<LikeListModel> likeListApi() async{
- 
-    dynamic response = await _apiService.getApi2( AppUrl.LikeListUrl);
-    print(response);
-    return LikeListModel.fromJson(response) ;
+    return RequestDetailsModel.fromJson(response);
   }
 
-
-    
-  Future<RequestActionModel> RequestActionApi(var data ) async{
- print("hited");
-    dynamic response = await _apiService.postApi2( data,AppUrl.RequestActionUrl);
+  Future<LikeListModel> likeListApi() async {
+    dynamic response = await _apiService.getApi2(AppUrl.LikeListUrl);
     print(response);
-    return RequestActionModel.fromJson(response) ;
+    return LikeListModel.fromJson(response);
   }
 
-
-  Future<SikerTOSikerRequestModel> SeekerToSeekerRequestApi(var data ) async{
- print("hited");
-    dynamic response = await _apiService.postApi2( data,AppUrl.SeekerToSeekerRequestUrl);
+  Future<RequestActionModel> RequestActionApi(var data) async {
+    print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.RequestActionUrl);
     print(response);
-    return SikerTOSikerRequestModel.fromJson(response) ;
+    return RequestActionModel.fromJson(response);
+  }
+
+  Future<SikerTOSikerRequestModel> SeekerToSeekerRequestApi(var data) async {
+    print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.SeekerToSeekerRequestUrl);
+    print(response);
+    return SikerTOSikerRequestModel.fromJson(response);
   }
 
   //***************** Incoming Maker Request ApiServices  *********************
-  Future<IncomingMakerRequestModel> IncomingMakerRequestApi() async{
+  Future<IncomingMakerRequestModel> IncomingMakerRequestApi() async {
     print("IncomingMakerRequestApi");
-    dynamic response = await _apiService.getApi2( AppUrl.IncomingMakerRequestUrl);
+    dynamic response =
+        await _apiService.getApi2(AppUrl.IncomingMakerRequestUrl);
     print(response);
-    return IncomingMakerRequestModel.fromJson(response) ;
+    return IncomingMakerRequestModel.fromJson(response);
   }
 
-
   //***************** Recent Seeker Matches ApiServices  *********************
-  Future<RecentSeekerMatchesModel> RecentSeekerMatchesApi(var data) async{
-    dynamic response = await _apiService.postApi2(data, AppUrl.RecentSeekerMatchesUrl);
+  Future<RecentSeekerMatchesModel> RecentSeekerMatchesApi(var data) async {
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.RecentSeekerMatchesUrl);
     print(response);
     print("RecentSeekerMatchesApi");
-    return RecentSeekerMatchesModel.fromJson(response) ;
+    return RecentSeekerMatchesModel.fromJson(response);
   }
 
   //***************** Seeker Chat List ApiServices  *********************
-  Future<SeekerChatListModel> SeekerChatListApi(var data) async{
+  Future<SeekerChatListModel> SeekerChatListApi(var data) async {
     dynamic response = await _apiService.postApi2(data, AppUrl.SeekerChatList);
     print(response);
     print("SeekerChatListApi");
-    return SeekerChatListModel.fromJson(response) ;
+    return SeekerChatListModel.fromJson(response);
   }
 
   //***************** Recent Maker Matches ApiServices  *********************
 
-  Future<MakerRecentMatchesModel> RecentMakerMatchesApi() async{
+  Future<MakerRecentMatchesModel> RecentMakerMatchesApi() async {
     print("RecentMakerMatchesApi");
-    dynamic response = await _apiService.getApi2( AppUrl.RecentMakerMatchesUrl);
+    dynamic response = await _apiService.getApi2(AppUrl.RecentMakerMatchesUrl);
     print(response);
-    return MakerRecentMatchesModel.fromJson(response) ;
+    return MakerRecentMatchesModel.fromJson(response);
   }
-
 
   //***************** Outgoing Maker Request ApiServices  *********************
 
-  Future<OutgoingMakerRequestModel> OutgoingMakerRequestApi() async{
+  Future<OutgoingMakerRequestModel> OutgoingMakerRequestApi() async {
     print("OutgoingMakerRequestApi");
-    dynamic response = await _apiService.getApi2( AppUrl.OutgoingMakerRequestUrl);
+    dynamic response =
+        await _apiService.getApi2(AppUrl.OutgoingMakerRequestUrl);
     print(response);
-    return OutgoingMakerRequestModel.fromJson(response) ;
+    return OutgoingMakerRequestModel.fromJson(response);
   }
 
-    Future<MakersinglepageRequestModel> MakerRequestDetailsApi(var data) async{
+  Future<MakersinglepageRequestModel> MakerRequestDetailsApi(var data) async {
     print("OutgoingMakerRequestApi");
-    dynamic response = await _apiService.postApi2( data ,AppUrl.makerrequestsinglepage);
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.makerrequestsinglepage);
     print(response);
-    return MakersinglepageRequestModel.fromJson(response) ;
+    return MakersinglepageRequestModel.fromJson(response);
   }
+
 //**************** Maker Chat List ApiServices  ********************
-  Future<MakerChatListModel> MakerChatListApi(var data) async{
+  Future<MakerChatListModel> MakerChatListApi(var data) async {
     dynamic response = await _apiService.postApi2(data, AppUrl.MakerChatList);
     print(response);
     print("MakerChatListModel");
-    return MakerChatListModel.fromJson(response) ;
+    return MakerChatListModel.fromJson(response);
   }
 
   //**************** Maker Chat List ApiServices  ********************
-  Future<SpeendRequestModel> SpeendRequestDetailsapi( ) async{
-    dynamic response = await _apiService.getApi2( AppUrl.SpeendRequestUrl);
+  Future<SpeendRequestModel> SpeendRequestDetailsapi() async {
+    dynamic response = await _apiService.getApi2(AppUrl.SpeendRequestUrl);
     print(response);
     print("MakerChatListModel");
-    return SpeendRequestModel.fromJson(response) ;
+    return SpeendRequestModel.fromJson(response);
   }
-  Future<StaticLiverPullModel> StaticLiverPullApi() async{
+
+  Future<StaticLiverPullModel> StaticLiverPullApi() async {
     // print("hited");
-    dynamic response = await _apiService.getApi2( AppUrl.staticLiverPullUrl);
+    dynamic response = await _apiService.getApi2(AppUrl.staticLiverPullUrl);
     // print(response);
-    return StaticLiverPullModel.fromJson(response) ;
+    return StaticLiverPullModel.fromJson(response);
   }
 
-
+  Future<SeekerMyProfileDetailModel> SeekerMyProfileDetailsApi() async {
+    // print("hited");
+    dynamic response =
+        await _apiService.getApi2(AppUrl.SeekerMyProfileDetailsUrl);
+    // print(response);
+    return SeekerMyProfileDetailModel.fromJson(response);
+  }
 }

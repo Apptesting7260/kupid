@@ -1,3 +1,8 @@
+import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
+import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
+import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
+import 'package:cupid_match/controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
+import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/MakerLikes.dart';
 import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
@@ -28,7 +33,14 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
   bool loading = false;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
-
+  OutgoinRequestController controller = Get.put(OutgoinRequestController());
+  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+  final ViewSikerProfileDetailsControllernstance =
+      Get.put(ViewSikerProfileDetailsController());
+  RecentSeekerMatchesController recentSeekerMatchesController =
+      Get.put(RecentSeekerMatchesController());
+  final seekerMyProfileDetailsController =
+      Get.put(SeekerMyProfileDetailsController());
   @override
   void initState() {
     // fetchApi();
@@ -36,9 +48,17 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     // TODO: implement initState
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
-
+    homepageapis();
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
+  }
+
+  homepageapis() {
+    controller.seekerListApi();
+    Incontroller.iseekerListApi();
+    recentSeekerMatchesController.isrecentSeekermatchesApi();
+
+    seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
   }
 
   @override
@@ -48,7 +68,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {
-   Get.to(Chose_Role_Type());
+          Get.to(Chose_Role_Type());
         },
         child: Icon(
           Icons.add,
@@ -115,7 +135,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     DateTime now = DateTime.now();
     if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
       currentBackPressTime = now;
-        SystemNavigator.pop();
+      SystemNavigator.pop();
       return Future.value(false);
     } else {
       SystemNavigator.pop();

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/lever/lever_pull.dart';
@@ -21,29 +22,26 @@ class Chose_Role_Type extends StatefulWidget {
 }
 
 class _Chose_Role_TypeState extends State<Chose_Role_Type> {
+  final seekerMyProfileDetailsController =
+      Get.put(SeekerMyProfileDetailsController());
+  int? rolevalue = 1;
+  int? selectedrole;
+  bool isloadding = false;
+  ChoseRole() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-int ?rolevalue=1;
-int ?selectedrole;
-bool isloadding=false;
-ChoseRole()async{
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('roll', rolevalue!);
+    selectedrole = prefs.getInt("roll");
+    print(prefs.getInt("roll"));
+  }
 
-   await prefs.setInt('roll',rolevalue!);
-selectedrole=prefs.getInt("roll");
- print(prefs.getInt("roll"));
-}
-
-
-
-@override
+  @override
   void initState() {
-
-
     // TODO: implement initState
-
 
     super.initState();
   }
+
   int _value = 1;
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,7 @@ selectedrole=prefs.getInt("roll");
                   onChanged: (val) {
                     setState(() {
                       _value = val!;
-                       rolevalue=val;
+                      rolevalue = val;
                     });
                   },
                   activeColor: Color(0xffFE0091)),
@@ -117,7 +115,7 @@ selectedrole=prefs.getInt("roll");
                   onChanged: (val) {
                     setState(() {
                       _value = val!;
-                      rolevalue=val;
+                      rolevalue = val;
                     });
                   },
                   activeColor: Color(0xffFE0091)),
@@ -130,30 +128,23 @@ selectedrole=prefs.getInt("roll");
                 loading: isloadding,
                 title: "Next",
                 onTap: () {
-
-
                   setState(() {
-                          isloadding=true;
+                    isloadding = true;
                   });
-     
- ChoseRole();
- Timer(Duration(seconds: 2), () {       if(selectedrole!=null){
-  isloadding=false;
 
-  setState(() {
-    isloadding;
-  });
-Get.to(
-                  
-                   
-                     DomatchscreenSiker()
-                     );
-              }});
-        
-                   
-                  
+                  ChoseRole();
+                  Timer(Duration(seconds: 2), () {
+                    if (selectedrole != null) {
+                      isloadding = false;
+
+                      setState(() {
+                        isloadding;
+                      });
+                      Get.to(DomatchscreenSiker());
+                    }
+                  });
+
                   //    ;
-                
                 },
               ),
             )
