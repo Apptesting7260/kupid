@@ -70,7 +70,7 @@ id: value.profileDetails![0].id.toString(),
          print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());
-      print(error.toString());
+      print("${error.toString()}+++--*****+");
       setRxRequestStatus(Status.ERROR);
 
     });

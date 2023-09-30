@@ -28,7 +28,12 @@ class _PinFieldsState extends State<PinFields> {
 final OtpVarificationControllerinstace=Get.put(OtpVarificationController());
   final FocusNode _pinPutFocusNode = FocusNode();
 final ResendOtpControllerInstanse=Get.put(ResendOtpController());
-
+@override
+  void initState() {
+    OtpVarificationControllerinstace.OtpController.value.clear();
+    // TODO: implement initState
+    super.initState();
+  }
   // BoxDecoration get _pinPutDecoration {
   //   return BoxDecoration(
   //     border: Border.all(color: Color(0xff2a319c)),

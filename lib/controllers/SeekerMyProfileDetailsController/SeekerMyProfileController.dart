@@ -1,3 +1,4 @@
+import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
 import 'package:cupid_match/models/SeekerMyProfileDetailsModel/SeekerMyProfileDetailsModel.dart';
 import 'package:get/get.dart';
@@ -13,11 +14,11 @@ class SeekerMyProfileDetailsController extends GetxController {
   //int? seekerRequestlenght;
 
   final rxRequestStatus = Status.LOADING.obs;
-  final SeekerMyProfileDetail = SeekerMyProfileDetailModel().obs;
+  final SeekerMyProfileDetail = SeekerMyProfileDetailModelAutoGenerate().obs;
   RxString error = ''.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-  void SekerMyProfileDetails(SeekerMyProfileDetailModel value) =>
+  void SekerMyProfileDetails(SeekerMyProfileDetailModelAutoGenerate value) =>
       SeekerMyProfileDetail.value = value;
   void setError(String value) => error.value = value;
 
@@ -29,12 +30,13 @@ class SeekerMyProfileDetailsController extends GetxController {
     _api.SeekerMyProfileDetailsApi().then((value) {
       setRxRequestStatus(Status.COMPLETED);
       SekerMyProfileDetails(value);
-
+print("${value.SpinLeverRequestedDat!.leverpool.toString()}");
       // if (value.data!.length > 2) {
       //   seekerRequestlenght = 2;
       // } else {
       //   seekerRequestlenght = 1;
-      // }
+      // }  Get.off((DomatchscreenSiker()));
+     print("againhited");
     }).onError((error, stackTrace) {
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);

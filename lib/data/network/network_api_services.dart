@@ -52,9 +52,11 @@ Future<dynamic> getApi2(String url)async{
     final response = await http.get(Uri.parse(url),
 
       headers: { "Authorization":"Bearer ${prefs.getString('BarearToken')}"},
+      
     ).timeout( const Duration(seconds: 20)
 
     );
+    print(prefs.getString('BarearToken'));
     responseJson  = returnResponse(response) ;
     apiresponsehit=jsonDecode(response.body);
   }on SocketException {
@@ -114,7 +116,7 @@ Future<dynamic> getApi2(String url)async{
                 headers: { "Authorization":"Bearer ${prefs.getString('BarearToken')}"},
 
 
-          body: data
+          body:data
       );
       // print(response.body);
       // print("object");

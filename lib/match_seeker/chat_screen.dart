@@ -72,7 +72,7 @@ class _ChatPageState extends State<ChatPage> {
     DocumentReference docRef = firestore
         .collection("RoomId's")
         .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomId
+            .ViewProfileDetail.value.data!.roomid
             .toString())
         .collection("typestatus")
         .doc("userstypingstatus");
@@ -94,7 +94,7 @@ class _ChatPageState extends State<ChatPage> {
     DocumentReference docRef = firestore
         .collection("RoomId's")
         .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomId
+            .ViewProfileDetail.value.data!.roomid
             .toString())
         .collection("typestatus")
         .doc("userstypingstatus");
@@ -131,7 +131,7 @@ class _ChatPageState extends State<ChatPage> {
     await _firestore
         .collection("RoomId's")
         .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomId
+            .ViewProfileDetail.value.data!.roomid
             .toString())
         .collection("typestatus")
         .doc("userstypingstatus")
@@ -179,7 +179,7 @@ Timer(Duration(seconds: 3), () {
         await _firestore
             .collection("RoomId's")
             .doc(ViewRequestDetailsControllerinstance
-                .ViewProfileDetail.value.data!.roomId
+                .ViewProfileDetail.value.data!.roomid
                 .toString())
             .collection("massages")
             .add(messages);
@@ -206,7 +206,7 @@ Timer(Duration(seconds: 3), () {
         messagecontroller.clear();
     await _firestore
           .collection("RoomId's")
-          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
 .collection("massages").add(messages!);
       print("Enter Some Text");
        setState(() {
@@ -228,7 +228,7 @@ Timer(Duration(seconds: 3), () {
       };
        await _firestore
           .collection("RoomId's")
-          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString())
+          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
 .collection("massages").add(messages!);
       print("Enter Some Text");
        setState(() {
@@ -619,9 +619,9 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
         child: Column(
           children: [
             // SizedBox(height: height*.03),
-
+        
             AcceptRequestwidget(),
-
+        
             SizedBox(
               height: Get.height * 0.02,
             ),
@@ -642,7 +642,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 case Status.COMPLETED:
                   return Expanded(
                     child: StreamBuilder(
-                    stream: APIs.getAllMessages(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomId.toString()),
+                    stream: APIs.getAllMessages(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString()),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         //if data is loading
@@ -650,12 +650,13 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                         return Center(child: CircularProgressIndicator());
                         case ConnectionState.none:
                           // return const SizedBox();
-
+        
                         //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
-
+        
                         return ListView.builder(
+                          shrinkWrap: true,
                           reverse: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
@@ -673,7 +674,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                     .profileDetails![0]
                                     .id
                                     .toString();
-
+        
                             return Align(
                               alignment: isSentByCurrentUser
                                   ? Alignment.centerRight
@@ -683,7 +684,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                   ? MainAxisAlignment.end
                                   : MainAxisAlignment.start, 
                                 children: [
-SizedBox(width: Get.width*0.02,),
+        SizedBox(width: Get.width*0.02,),
                                if(snapshot
                                     .data!.docs[index]['sentby']
                                     .toString() !=
@@ -749,118 +750,118 @@ SizedBox(width: Get.width*0.02,),
                                                     Icon(Icons.error),
                                           ),
                                         ),
-
+        
              if(snapshot.data!.docs[index]['type'].toString()=="audio") CustomAudioPlayer(audioUrl:snapshot.data!.docs[index]['audiourl'].toString() ,),
              
-      //        Container(r
-      //   alignment: AlignmentDirectional.bottomEnd,
-      //   height: 70,
-      //   width: 200,
-      //   decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.circular(20),
-      //     color: Colors.black,
-      //   ),
-      //   child: Padding(
-      //     padding: const EdgeInsets.all(20.0),
-      //     child: Row(
-      //       children: [
-      //         Stack(
-      //           children: [
-      //             SizedBox(
-
-      //               width: 30,
-      //               height: 30,
-      //               child: StreamBuilder(
-      //                 stream: playerx.streams.position,
-      //                 builder: (context, snapshot) {
-      //                   return CircularProgressIndicator(
-      //                     strokeWidth: 2,
-      //                     color: Colors.white,
-      //                     value: loading
-      //                         ? null
-      //                         : playerx.position.inSeconds /
-      //                         max(playerx.duration.inSeconds, 0.01),
-      //                   );
-      //                 },
-      //               ),
-      //             ),
-      //             SizedBox(
-
-      //               width: 30,
-      //               height: 30,
-      //               child: FloatingActionButton(
-      //                 disabledElevation: 0,
-      //                 elevation: 0,
-      //                 focusElevation: 0,
-      //                 hoverElevation: 0,
-      //                 highlightElevation: 0,
-      //                 backgroundColor: Colors.teal.withOpacity(0.1),
-      //                 onPressed: () {
-      //                   setState(() {
-      //                     playerx.toggle();
-      //                   });
-      //                 },
-      //                 child: DefaultTextStyle(
-      //                   style: const TextStyle(color: Colors.black87),
-      //                   child: StreamBuilder(
-      //                     stream: playerx.streams.position,
-      //                     builder: (context, snapshot) {
-      //                       return playerx.playing
-      //                           ? const Icon(
-      //                         Icons.pause,
-      //                         color: Colors.white,
-      //                         size: 20,
-      //                       )
-      //                           : const Icon(
-      //                         Icons.play_arrow,
-      //                         color: Colors.white,
-      //                         size: 20,
-      //                       );
-      //                     },
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Expanded(
-      //           child: Container(
-
-      //             width: double.infinity,
-      //             child: StreamBuilder(
-      //                 stream: playerx.streams.position,
-      //                 builder: (context, AsyncSnapshot<Duration> snapshot) {
-      //                   loading = false;
-      //                   return Slider(
-      //                     value: position,
-      //                     min: 0,
-      //                     max: 100,
-      //                     onChangeStart: (double value) {
-      //                       _changingPosition = true;
-      //                     },
-      //                     onChangeEnd: (double value) {
-      //                       _changingPosition = false;
-      //                     },
-      //                     onChanged: (double value) {
-      //                       setState(() {
-      //                         loading = true;
-      //                         _position = Duration(
-      //                             seconds:
-      //                             ((value / 100) * playerx.duration.inSeconds)
-      //                                 .toInt());
-      //                         playerx.position = _position;
-      //                       });
-      //                     },
-      //                   );
-      //                 }),
-      //           ),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
+            //        Container(r
+            //   alignment: AlignmentDirectional.bottomEnd,
+            //   height: 70,
+            //   width: 200,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(20),
+            //     color: Colors.black,
+            //   ),
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(20.0),
+            //     child: Row(
+            //       children: [
+            //         Stack(
+            //           children: [
+            //             SizedBox(
+        
+            //               width: 30,
+            //               height: 30,
+            //               child: StreamBuilder(
+            //                 stream: playerx.streams.position,
+            //                 builder: (context, snapshot) {
+            //                   return CircularProgressIndicator(
+            //                     strokeWidth: 2,
+            //                     color: Colors.white,
+            //                     value: loading
+            //                         ? null
+            //                         : playerx.position.inSeconds /
+            //                         max(playerx.duration.inSeconds, 0.01),
+            //                   );
+            //                 },
+            //               ),
+            //             ),
+            //             SizedBox(
+        
+            //               width: 30,
+            //               height: 30,
+            //               child: FloatingActionButton(
+            //                 disabledElevation: 0,
+            //                 elevation: 0,
+            //                 focusElevation: 0,
+            //                 hoverElevation: 0,
+            //                 highlightElevation: 0,
+            //                 backgroundColor: Colors.teal.withOpacity(0.1),
+            //                 onPressed: () {
+            //                   setState(() {
+            //                     playerx.toggle();
+            //                   });
+            //                 },
+            //                 child: DefaultTextStyle(
+            //                   style: const TextStyle(color: Colors.black87),
+            //                   child: StreamBuilder(
+            //                     stream: playerx.streams.position,
+            //                     builder: (context, snapshot) {
+            //                       return playerx.playing
+            //                           ? const Icon(
+            //                         Icons.pause,
+            //                         color: Colors.white,
+            //                         size: 20,
+            //                       )
+            //                           : const Icon(
+            //                         Icons.play_arrow,
+            //                         color: Colors.white,
+            //                         size: 20,
+            //                       );
+            //                     },
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //         Expanded(
+            //           child: Container(
+        
+            //             width: double.infinity,
+            //             child: StreamBuilder(
+            //                 stream: playerx.streams.position,
+            //                 builder: (context, AsyncSnapshot<Duration> snapshot) {
+            //                   loading = false;
+            //                   return Slider(
+            //                     value: position,
+            //                     min: 0,
+            //                     max: 100,
+            //                     onChangeStart: (double value) {
+            //                       _changingPosition = true;
+            //                     },
+            //                     onChangeEnd: (double value) {
+            //                       _changingPosition = false;
+            //                     },
+            //                     onChanged: (double value) {
+            //                       setState(() {
+            //                         loading = true;
+            //                         _position = Duration(
+            //                             seconds:
+            //                             ((value / 100) * playerx.duration.inSeconds)
+            //                                 .toInt());
+            //                         playerx.position = _position;
+            //                       });
+            //                     },
+            //                   );
+            //                 }),
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             //CustomAudioPlayerWidget(audioUrl: snapshot.data!.docs[index]['audiourl'].toString(),),
-
+        
           //  CustomAudioPlayer(audioUrl:snapshot.data!.docs[index]['audiourl'].toString() ,),
               SizedBox(height: 4), // Adjust the spacing as needed
              if (timestamp != null)  Text(
@@ -870,15 +871,15 @@ SizedBox(width: Get.width*0.02,),
             ],
           ),
         ),
-      ),
+            ),
           ]));
-  },
-);
-
+        },
+        );
+        
                     }},
         ),
         );}}) ,
-
+        
             // Obx(() {
             //   switch (
             //       ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
@@ -909,20 +910,20 @@ SizedBox(width: Get.width*0.02,),
             //           if (snapshot.connectionState == ConnectionState.waiting) {
             //             return Center(child: CircularProgressIndicator());
             //           }
-
+        
             //           if (!snapshot.hasData || !snapshot.data!.exists) {
             //             return Center(
             //               child: Text("No status data yet."),
             //             );
             //           }
-
+        
             //           Map<String, dynamic> statusData =
             //               snapshot.data!.data() as Map<String, dynamic>;
             //           String status = statusData['status']
             //               .toString(); // Assuming 'status' is the field name
             //           String id = statusData['id']
             //               .toString(); // Assuming 'status' is the field name
-
+        
             //           return id !=
             //                       ViewSikerProfileDetailsControllerinstance
             //                           .ViewProfileDetail
@@ -959,7 +960,7 @@ SizedBox(width: Get.width*0.02,),
             //       );
             //   }
             // }),
-
+        
               Row(
                 children: [
                   Wrap(
@@ -1042,7 +1043,8 @@ SizedBox(width: Get.width*0.02,),
             ],
           ),
         ),
-     bottomNavigationBar:  TapRegion(
+
+        bottomSheet: TapRegion(
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
        child: Container(
          padding: MediaQuery.of(context).viewInsets,
@@ -1125,7 +1127,8 @@ SizedBox(width: Get.width*0.02,),
                                 ],
                               ),
         ),),
-     ),
+     ), 
+   
     ));
   }
 

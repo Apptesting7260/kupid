@@ -28,7 +28,7 @@ class SignUpController extends GetxController {
     _api.SignUpApi(data).then((value){
       loading.value = false ;
 print(value);
-      Utils.snackBar( "Message",value.msg.toString());
+      // Utils.snackBar( "Message",value.msg.toString());
 
    Timer(Duration(seconds: 2),(){
    if(value.msg!="User Already Exist") {

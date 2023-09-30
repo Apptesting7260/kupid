@@ -85,11 +85,12 @@ RxInt remainingSeconds = 0.obs;
         slotImages.add(value.data![i].imgPath.toString());
         slotname.add(value.data![i].name.toString());
       }
-
+print("uuuuuuuuu");
       print("object");
       print("$slotImages===================");
     }).onError((error, stackTrace){
       setError(error.toString());
+      print(error);
       setRxRequestStatus(Status.ERROR);
 
     });

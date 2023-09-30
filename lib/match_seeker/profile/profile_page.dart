@@ -69,10 +69,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           placeholder: (context, url) =>
                               Center(child: CircularProgressIndicator()),
                           fit: BoxFit.cover,
-                          imageUrl: seekerMyProfileDetailsController
-                              .SeekerMyProfileDetail
-                              .value
-                              .ProfileDetails!
+                          imageUrl:  seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                               .imgPath
                               .toString(), // Replace with your actual image URL
                         ),
@@ -113,10 +112,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            seekerMyProfileDetailsController
+                                           seekerMyProfileDetailsController
                                                 .SeekerMyProfileDetail
-                                                .value
-                                                .ProfileDetails!
+                                                .value.ProfileDetail!
+                                             
                                                 .name
                                                 .toString(),
                                             style: Theme.of(context)
@@ -127,16 +126,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ),
                                         Text(
                                             seekerMyProfileDetailsController
-                                                        .SeekerMyProfileDetail
-                                                        .value
-                                                        .ProfileDetails!
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                                         .occupation ==
                                                     null
                                                 ? ""
-                                                : seekerMyProfileDetailsController
-                                                    .SeekerMyProfileDetail
-                                                    .value
-                                                    .ProfileDetails!
+                                                :  seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                                     .occupation
                                                     .toString(),
                                             style: Theme.of(context)
@@ -171,8 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Text(
                                             seekerMyProfileDetailsController
                                                 .SeekerMyProfileDetail
-                                                .value
-                                                .ProfileDetails!
+                                                .value.ProfileDetail!
                                                 .address
                                                 .toString(),
                                             style: Theme.of(context)
@@ -230,17 +226,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                   height: height * .01,
                                 ),
                                 Text(
-                                    seekerMyProfileDetailsController
+                                     seekerMyProfileDetailsController
                                                 .SeekerMyProfileDetail
-                                                .value
-                                                .ProfileDetails!
+                                                .value.ProfileDetail!
                                                 .occupation ==
                                             null
                                         ? ""
-                                        : seekerMyProfileDetailsController
-                                            .SeekerMyProfileDetail
-                                            .value
-                                            .ProfileDetails!
+                                        :  seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                             .occupation
                                             .toString(),
                                     style: Theme.of(context)
@@ -255,10 +249,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   height: height * .01,
                                 ),
                                 Text(
-                                    seekerMyProfileDetailsController
-                                        .SeekerMyProfileDetail
-                                        .value
-                                        .ProfileDetails!
+                                     seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                         .dob
                                         .toString(),
                                     style: Theme.of(context)
@@ -272,17 +265,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(
                                   height: height * .01,
                                 ),
-                                if (seekerMyProfileDetailsController
-                                        .SeekerMyProfileDetail
-                                        .value
-                                        .ProfileDetails!
+                                if ( seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                         .details !=
                                     null)
                                   Text(
-                                      seekerMyProfileDetailsController
-                                          .SeekerMyProfileDetail
-                                          .value
-                                          .ProfileDetails!
+                                       seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                           .details!
                                           .bioDescription
                                           .toString(),
@@ -303,10 +294,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 SizedBox(height: height * .02),
                                 ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount: seekerMyProfileDetailsController
-                                      .SeekerMyProfileDetail
-                                      .value
-                                      .ProfileDetails!
+                                  itemCount:  seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                       .details!
                                       .interestName!
                                       .length, // Replace itemCount with the actual item count
@@ -425,16 +415,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 SizedBox(height: height * .02),
 
-                                if (seekerMyProfileDetailsController
-                                            .SeekerMyProfileDetail
-                                            .value
-                                            .ProfileDetails!
+                                if ( seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                             .details !=
                                         null &&
-                                    seekerMyProfileDetailsController
-                                            .SeekerMyProfileDetail
-                                            .value
-                                            .ProfileDetails!
+                                     seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                             .details!
                                             .gallaryPath !=
                                         [])
@@ -446,10 +434,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                         crossAxisCount: 4,
                                       ),
                                       itemCount:
-                                          seekerMyProfileDetailsController
-                                              .SeekerMyProfileDetail
-                                              .value
-                                              .ProfileDetails!
+                                           seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                               .details!
                                               .gallaryPath!
                                               .length,
@@ -459,10 +446,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: CachedNetworkImage(
                                             imageUrl:
-                                                seekerMyProfileDetailsController
-                                                    .SeekerMyProfileDetail
-                                                    .value
-                                                    .ProfileDetails!
+                                               seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!
                                                     .details!
                                                     .gallaryPath![index]
                                                     .toString(),
@@ -549,8 +535,9 @@ class _ProfilePageState extends State<ProfilePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     if (index <
-        seekerMyProfileDetailsController.SeekerMyProfileDetail.value
-            .ProfileDetails!.details!.interestName!.length) {
+       seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!.details!.interestName!.length) {
       return Container(
         decoration: BoxDecoration(
           border: Border.all(color: Color(0xffFE0091)),
@@ -568,8 +555,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(width: width * .01),
             Text(
-              seekerMyProfileDetailsController.SeekerMyProfileDetail.value
-                  .ProfileDetails!.details!.interestName![index].title,
+            seekerMyProfileDetailsController
+                                                .SeekerMyProfileDetail
+                                                .value.ProfileDetail!.details!.interestName![index].title.toString(),
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!

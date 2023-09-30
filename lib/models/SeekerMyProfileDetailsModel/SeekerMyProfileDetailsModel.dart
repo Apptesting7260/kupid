@@ -1,69 +1,71 @@
-class SeekerMyProfileDetailModel {
-  SeekerMyProfileDetailModel({
-    this.status,
-    this.message,
-    this.ProfileDetails,
+class SeekerMyProfileDetailModelAutoGenerate {
+  SeekerMyProfileDetailModelAutoGenerate({
+     this.status,
+     this.message,
+     this.ProfileDetail,
+     this.SpinLeverRequestedDat,
   });
-  String? status;
-  String? message;
-  ProfileDetail? ProfileDetails;
-
-  SeekerMyProfileDetailModel.fromJson(Map<String, dynamic> json) {
+   String ?status;
+   String? message;
+   ProfileDetails? ProfileDetail;
+   SpinLeverRequestedData ?SpinLeverRequestedDat;
+  
+  SeekerMyProfileDetailModelAutoGenerate.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    ProfileDetails = ProfileDetail.fromJson(json['ProfileDetails']);
+    ProfileDetail = ProfileDetails.fromJson(json['ProfileDetails']);
+    SpinLeverRequestedDat = SpinLeverRequestedData.fromJson(json['SpinLeverRequestedData']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['message'] = message;
-    _data['ProfileDetails'] = ProfileDetails!.toJson();
+    _data['ProfileDetails'] = ProfileDetail!.toJson();
+    _data['SpinLeverRequestedData'] = SpinLeverRequestedDat!.toJson();
     return _data;
   }
 }
 
-class ProfileDetail {
-  ProfileDetail({
-    this.id,
-    this.name,
-    this.email,
-    this.phone,
-    this.occupation,
-    this.salary,
-    this.address,
-    this.height,
-    this.dob,
-    this.gender,
-    this.religion,
-    this.currentStep,
-    this.spinLeverRequestedData,
-    this.imgPath,
-    this.videoPath,
-    this.occupationName,
-    this.likeStatus,
-    this.details,
+class ProfileDetails {
+  ProfileDetails({
+     this.id,
+     this.name,
+     this.email,
+     this.phone,
+     this.occupation,
+     this.salary,
+     this.address,
+     this.height,
+     this.dob,
+     this.gender,
+     this.religion,
+     this.currentStep,
+     this.imgPath,
+     this.videoPath,
+     this.occupationName,
+     this.likeStatus,
+     this.details,
   });
-  var id;
-  var name;
-  var email;
-  var phone;
-  var occupation;
-  var salary;
-  var address;
-  var height;
-  var dob;
-  var gender;
-  var religion;
-  var currentStep;
-  List<SpinLeverRequestedData>? spinLeverRequestedData;
-  var imgPath;
-  var videoPath;
-  var occupationName;
-  var likeStatus;
-  Details? details;
-
-  ProfileDetail.fromJson(Map<String, dynamic> json) {
+   var id;
+   var name;
+   var email;
+   var phone;
+   var occupation;
+   var salary;
+   var address;
+   var height;
+   var dob;
+   var gender;
+   var religion;
+   var currentStep;
+   var imgPath;
+   var videoPath;
+   var occupationName;
+   var likeStatus;
+   Details ?details;
+  
+  ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -76,9 +78,6 @@ class ProfileDetail {
     gender = json['gender'];
     religion = json['religion'];
     currentStep = json['current_step'];
-    spinLeverRequestedData = List.from(json['spinLeverRequestedData'])
-        .map((e) => SpinLeverRequestedData.fromJson(e))
-        .toList();
     imgPath = json['img_path'];
     videoPath = json['video_path'];
     occupationName = json['occupation_name'];
@@ -100,8 +99,6 @@ class ProfileDetail {
     _data['gender'] = gender;
     _data['religion'] = religion;
     _data['current_step'] = currentStep;
-    _data['spinLeverRequestedData'] =
-        spinLeverRequestedData!.map((e) => e.toJson()).toList();
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
     _data['occupation_name'] = occupationName;
@@ -111,64 +108,35 @@ class ProfileDetail {
   }
 }
 
-class SpinLeverRequestedData {
-  SpinLeverRequestedData({
-    this.id,
-    this.seekerId,
-    this.type,
-    this.spinLiverRequestedStatus,
-  });
-  var id;
-  var seekerId;
-  var type;
-  var spinLiverRequestedStatus;
-
-  SpinLeverRequestedData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    seekerId = json['seeker_id'];
-    type = json['type'];
-    spinLiverRequestedStatus = json['spin_liver_requested_status'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['seeker_id'] = seekerId;
-    _data['type'] = type;
-    _data['spin_liver_requested_status'] = spinLiverRequestedStatus;
-    return _data;
-  }
-}
-
 class Details {
   Details({
-    this.id,
-    this.seekerId,
-    this.profileGallery,
-    this.inInterested,
-    this.interest,
-    this.bioTitle,
-    this.bioDescription,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.gallaryPath,
-    this.interestName,
+     this.id,
+     this.seekerId,
+     this.profileGallery,
+     this.inInterested,
+     this.interest,
+     this.bioTitle,
+     this.bioDescription,
+     this.status,
+     this.createdAt,
+     this.updatedAt,
+     this.gallaryPath,
+     this.interestName,
   });
-  var id;
-  var seekerId;
-  var profileGallery;
-  var inInterested;
-  var interest;
-  var bioTitle;
-  var bioDescription;
-  var status;
-  var createdAt;
-  var updatedAt;
-  List<String>? gallaryPath;
-  List<dynamic>? interestName;
-
-  Details.fromJson(Map<String, dynamic> json) {
+   var id;
+   var seekerId;
+   var profileGallery;
+   var inInterested;
+   var interest;
+   var bioTitle;
+   var bioDescription;
+   var status;
+   var createdAt;
+   var updatedAt;
+   List<dynamic>? gallaryPath;
+   List<InterestName>? interestName;
+  
+  Details.fromJson(Map<String, dynamic> json){
     id = json['id'];
     seekerId = json['seeker_id'];
     profileGallery = json['profile_gallery'];
@@ -177,10 +145,10 @@ class Details {
     bioTitle = json['bio_title'];
     bioDescription = json['bio_description'];
     status = json['status'];
-    createdAt = json['created_at'];
+    createdAt = null;
     updatedAt = json['updated_at'];
-    gallaryPath = List.castFrom<dynamic, String>(json['gallary_path']);
-    interestName = List.castFrom<dynamic, dynamic>(json['interest_name']);
+    gallaryPath = List.castFrom<dynamic, dynamic>(json['gallary_path']);
+    interestName = List.from(json['interest_name']).map((e)=>InterestName.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -196,7 +164,45 @@ class Details {
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
     _data['gallary_path'] = gallaryPath;
-    _data['interest_name'] = interestName;
+    _data['interest_name'] = interestName!.map((e)=>e.toJson()).toList();
+    return _data;
+  }
+}
+
+class InterestName {
+  InterestName({
+     this.title,
+  });
+   String ?title;
+  
+  InterestName.fromJson(Map<String, dynamic> json){
+    title = json['title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['title'] = title;
+    return _data;
+  }
+}
+
+class SpinLeverRequestedData {
+  SpinLeverRequestedData({
+     this.leverpool,
+     this.spin,
+  });
+   bool? leverpool;
+   bool? spin;
+  
+  SpinLeverRequestedData.fromJson(Map<String, dynamic> json){
+    leverpool = json['leverpool'];
+    spin = json['spin'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['leverpool'] = leverpool;
+    _data['spin'] = spin;
     return _data;
   }
 }

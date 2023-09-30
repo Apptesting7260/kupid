@@ -2,17 +2,21 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/LiverPoolController/LiverpoolConteroller.dart';
+import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
 import 'package:cupid_match/controllers/controller/StaticLiverPoolController/StaticLiverPoolController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
+import 'package:cupid_match/match_seeker/lever/new_liver.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 
-
+bool isboxloading=false;
 class LiverPooledWidget extends StatefulWidget {
   @override
   _LiverPooledWidgetState createState() => _LiverPooledWidgetState();
@@ -20,6 +24,12 @@ class LiverPooledWidget extends StatefulWidget {
 
 class _LiverPooledWidgetState extends State<LiverPooledWidget> {
   final staticLiverpullController = Get.put(StaticLiverPullController());
+  final liverPoolController = Get.put(LiverPoolController());
+
+
+
+
+  
 
   bool pulled = false;
   //********************* for timer functions here ok ! *********
@@ -41,8 +51,10 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
   @override
   void initState() {
     // TODO: implement initState
-        staticLiverpullController.staticLiverPullmethod();
-    staticLiverpullController.startTimer();
+        staticLiverpullController.staticLiverPullmethodapihit();
+        print(("objectpulled"));
+
+    // staticLiverpullController.startTimer();
     super.initState();
    
   }
@@ -102,6 +114,14 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                                   "assets/images/liverup.PNG"))),
                                     ),
                                     onTap: () {
+                                      Fluttertoast.showToast(
+  msg: "You Have Already Pooled",
+  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+  backgroundColor: Colors.black54,
+  textColor: Colors.white,
+);
+       
                                       // if (pulled == false) {
                                       //   _startSpinning();
                                       // }
@@ -150,7 +170,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Text(
-                                        "${staticLiverpullController.remainingHours.toString()}",
+                                        "${staticLiverpullController.hours.toString()}",
                                         style: Get
                                             .theme.textTheme.headlineSmall!
                                             .copyWith(
@@ -197,7 +217,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Text(
-                                        "${staticLiverpullController.remainingMinutes.toString()}",
+                                        "${staticLiverpullController.minutes .toString()}",
                                         style: Get
                                             .theme.textTheme.headlineSmall!
                                             .copyWith(
@@ -244,7 +264,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       child: Text(
-                                        "${staticLiverpullController.remainingSeconds.toString()}",
+                                        "${staticLiverpullController.seconds .toString()}",
                                         style: Get
                                             .theme.textTheme.headlineSmall!
                                             .copyWith(
@@ -274,10 +294,10 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                       //******************** for timer of next polling
 
                       SizedBox(
-                        height: Get.height * 0.02,
+                        height: Get.height * 0.05,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.only(left: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -316,7 +336,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
-                                    radius:45,
+                                    radius:30,
                                     backgroundImage: CachedNetworkImageProvider(
                                         dataofStaticPull
                                             .spinLeverpoolRequestedData!
@@ -354,7 +374,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                   ),
                                   SizedBox(width: width * .12),
                                   //***************** this is request b
-                                  GestureDetector(
+                  if(staticLiverpullController.seekerprofilerequested.value==false)               GestureDetector(
                                     onTap: () {
                                       selectedseekerid =
                                           dataofStaticPull.id!.toInt();
@@ -371,11 +391,52 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "Request",
+                            "Request",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                       if(staticLiverpullController.seekerprofilerequested.value==true&&dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true")               GestureDetector(
+                                    onTap: () {
+                                    
+Fluttertoast.showToast(
+  msg: "You Have Already Requested",
+  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+  backgroundColor: Colors.black54,
+  textColor: Colors.white,
+);
+
+//                                       if( dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true"){
+// // selectedseekerid =
+// //                                           dataofStaticPull.id!.toInt();
+// //                                       if (selectedseekerid != null) {
+// //                                         showdilog(index, selectedseekerid!);
+// //                                       }
+// //                                       }else{
+// //                                         print("Blocked");
+//                                       }
+                                      
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                    "Requested",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white,fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
@@ -386,6 +447,10 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                           },
                         ),
                       ),
+
+
+
+
                     ],
                   ),
                 );
@@ -445,35 +510,51 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
     );
   }
 
-  void _startSpinning() {
-    setState(() {
-      pulled = true;
+  // void _startSpinning() {
+  //   setState(() {
+  //     pulled = true;
 
-      staticLiverpullController.staticLiverPullvalue.value.data!.shuffle();
-      isVisible = !isVisible;
-      isNotVisible = !isNotVisible;
-      shouldShowSpinButton = false;
-    });
+  //     staticLiverpullController.staticLiverPullvalue.value.data!.shuffle();
+  //     isVisible = !isVisible;
+  //     isNotVisible = !isNotVisible;
+  //     shouldShowSpinButton = false;
+  //   });
 
-    _spinTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
-      setState(() {
-        staticLiverpullController.staticLiverPullvalue.value.data!.shuffle();
-      });
-    });
-  }
+  //   _spinTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+  //     setState(() {
+  //       staticLiverpullController.staticLiverPullvalue.value.data!.shuffle();
+  //     });
+  //   });
+  // }
 
-  void _stopSpinning() {
-    _spinTimer.cancel();
-    setState(() {
-      pulled = false;
-    });
-    _checkResult();
-  }
+  // void _stopSpinning() {
+  //   _spinTimer.cancel();
+  //   setState(() {
+  //     pulled = false;
+  //   });
+  //   _checkResult();
+  // }
 
-  void _checkResult() {
-    // Add your logic here to determine the outcome
-  }
-
+  // void _checkResult() {
+  //   // Add your logic here to determine the outcome
+  // }
+  void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );}
   showdilog(int index, int id) {
     final dataofStaticPull =
         staticLiverpullController.staticLiverPullvalue.value.data![0];
@@ -572,6 +653,10 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                             .toString();
                         print(staticLiverpullController.selectedAnswer.value
                             .toString());
+
+
+    print(Liverpooldprofiles);
+                  
                       },
                     ),
                     RadioListTile<String>(
@@ -631,8 +716,23 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
               ),
               GestureDetector(
                 onTap: () {
+
+                        setState(() {
+                    isboxloading=true;
+                  });
                   Get.back();
-                  if (dataofStaticPull
+                         Liverpooldprofiles[index]['is_requested'] = "true";
+                  liverPoolController.apihit();
+
+                  if(isboxloading==true){
+                    _showProgressDialog(context);
+                  }
+
+                  Timer(Duration(seconds: 2), () {
+                          setState(() {
+                    isboxloading=false;
+                             Get.back();
+                         if (dataofStaticPull
                           .spinLeverpoolRequestedData!
                           .spinRequestData![index]
                           .seekerData!
@@ -652,6 +752,55 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                           .toString()) {
                     showdiologwronganswer(index);
                   }
+
+                  });
+                   });
+                  // Get.back();
+                  // if (dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!
+                  //         .questions!
+                  //         .correctAnswer ==
+                  //     staticLiverpullController.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiog2(index);
+                  // }
+                  // if (dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!
+                  //         .questions!
+                  //         .correctAnswer !=
+                  //     staticLiverpullController.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiologwronganswer(index);
+                  // }
+
+                  // String id=dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!.id.toString();
+                  //         print(id);
+
+
+
+//   if (index != -1) {
+//     // Update the is_requested value at the found index
+//     Liverpooldprofiles[index1]["is_requested"] = "true";
+//     setState(() {
+//       Liverpooldprofiles;
+//     });
+//       print(Liverpooldprofiles);
+
+// liverPoolController.apihit();
+//   } else {
+//     // print("Seeker with ID $targetSeekerId not found in the list.");
+//   }
+
+
+                
+
                 },
                 child: Container(
                   height: height * .04,
@@ -693,7 +842,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          insetPadding: EdgeInsets.all(0),
+          // insetPadding: EdgeInsets.all(0),
           title: Column(
             children: [
               Align(
@@ -708,12 +857,12 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                      height: height * .3,
+                      // height: height * .3,
                       width: width * .3,
                       child: CircleAvatar(
-                        radius: 30.0,
+                        radius: 40.0,
                         backgroundImage:
-                            NetworkImage(dataofStaticPull.imgPath.toString()),
+                            CachedNetworkImageProvider(dataofStaticPull.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
@@ -722,15 +871,18 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                       top: 80,
                       left: 55,
                       right: 0,
-                      child: Image.asset("assets/icons/unlocked 1.png"))
+                      child: Container(child: Image.asset("assets/icons/unlocked 1.png")))
                 ],
+              ),
+                SizedBox(
+                height: height * .02,
               ),
               Text(
                 "Profile Unlocked",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               SizedBox(
-                height: height * .01,
+                height: height * .02,
               ),
               Text(
                 "Your answer is correct.",
@@ -758,7 +910,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                   ),
                   child: Center(
                     child: Text(
-                      "Message",
+                      "View",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -804,12 +956,12 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                      height: height * .3,
+                      // height: height * .3,
                       width: width * .3,
                       child: CircleAvatar(
-                        radius: 30.0,
+                        radius: 40.0,
                         backgroundImage:
-                            NetworkImage(dataofStaticPull.imgPath.toString()),
+                            CachedNetworkImageProvider(dataofStaticPull.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
@@ -838,28 +990,28 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
               SizedBox(
                 height: height * .02,
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: height * .04,
-                  width: width * .3,
-                  decoration: BoxDecoration(
-                    color: Color(0xffFE0091),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Back",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.back();
+              //   },
+              //   child: Container(
+              //     height: height * .04,
+              //     width: width * .3,
+              //     decoration: BoxDecoration(
+              //       color: Color(0xffFE0091),
+              //       borderRadius: BorderRadius.circular(15),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         "Back",
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.white),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),

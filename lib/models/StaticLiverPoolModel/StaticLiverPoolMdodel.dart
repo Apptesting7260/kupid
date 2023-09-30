@@ -1,53 +1,30 @@
-// To parse this JSON data, do
-//
-//     final staticLiverPullModel = staticLiverPullModelFromJson(jsonString);
-
-import 'dart:convert';
-
-StaticLiverPullModel staticLiverPullModelFromJson(String str) => StaticLiverPullModel.fromJson(json.decode(str));
-
-String staticLiverPullModelToJson(StaticLiverPullModel data) => json.encode(data.toJson());
-
 class StaticLiverPullModel {
-  String? status;
-  List<Datum>? data;
-
   StaticLiverPullModel({
      this.status,
+     this.message,
      this.data,
   });
+   String? status;
+   String ?message;
+   List<Data> ?data;
+  
+  StaticLiverPullModel.fromJson(Map<String, dynamic> json){
+    status = json['status'];
+    message = json['message'];
+    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+  }
 
-  factory StaticLiverPullModel.fromJson(Map<String, dynamic> json) => StaticLiverPullModel(
-    status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['status'] = status;
+    _data['message'] = message;
+    _data['data'] = data!.map((e)=>e.toJson()).toList();
+    return _data;
+  }
 }
 
-class Datum {
-  var  id;
-  var name;
-  var email;
-  var phone;
-  var occupation;
-  var salary;
-  var address;
-  var height;
-  var dob;
-  var gender;
-  var religion;
-  var currentStep;
-  var imgPath;
-  var videoPath;
-  var occupationName;
-  var likeStatus;
-  SpinLeverpoolRequestedData? spinLeverpoolRequestedData;
-
-  Datum({
+class Data {
+  Data({
      this.id,
      this.name,
      this.email,
@@ -66,119 +43,126 @@ class Datum {
      this.likeStatus,
      this.spinLeverpoolRequestedData,
   });
+   var id;
+   var name;
+   var email;
+   var phone;
+   var occupation;
+   var salary;
+   var address;
+   var height;
+   var dob;
+   var gender;
+   var religion;
+   var currentStep;
+   var imgPath;
+   var videoPath;
+   var occupationName;
+   var likeStatus;
+   SpinLeverpoolRequestedData ?spinLeverpoolRequestedData;
+  
+  Data.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    phone = json['phone'];
+    occupation = json['occupation'];
+    salary = json['salary'];
+    address = json['address'];
+    height = json['height'];
+    dob = json['dob'];
+    gender = json['gender'];
+    religion = json['religion'];
+    currentStep = json['current_step'];
+    imgPath = json['img_path'];
+    videoPath = json['video_path'];
+    occupationName = json['occupation_name'];
+    likeStatus = json['like_status'];
+    spinLeverpoolRequestedData = SpinLeverpoolRequestedData.fromJson(json['spin_leverpool_requested_data']);
+  }
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    id: json["id"],
-    name: json["name"],
-    email: json["email"],
-    phone: json["phone"],
-    occupation: json["occupation"],
-    salary: json["salary"],
-    address: json["address"],
-    height: json["height"],
-    dob: json["dob"],
-    gender: json["gender"],
-    religion: json["religion"],
-    currentStep: json["current_step"],
-    imgPath: json["img_path"],
-    videoPath: json["video_path"],
-    occupationName: json["occupation_name"],
-    likeStatus: json["like_status"],
-    spinLeverpoolRequestedData: SpinLeverpoolRequestedData.fromJson(json["spin_leverpool_requested_data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "email": email,
-    "phone": phone,
-    "occupation": occupation,
-    "salary": salary,
-    "address": address,
-    "height": height,
-    "dob": dob,
-    "gender": gender,
-    "religion": religion,
-    "current_step": currentStep,
-    "img_path": imgPath,
-    "video_path": videoPath,
-    "occupation_name": occupationName,
-    "like_status": likeStatus,
-    "spin_leverpool_requested_data": spinLeverpoolRequestedData!.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['name'] = name;
+    _data['email'] = email;
+    _data['phone'] = phone;
+    _data['occupation'] = occupation;
+    _data['salary'] = salary;
+    _data['address'] = address;
+    _data['height'] = height;
+    _data['dob'] = dob;
+    _data['gender'] = gender;
+    _data['religion'] = religion;
+    _data['current_step'] = currentStep;
+    _data['img_path'] = imgPath;
+    _data['video_path'] = videoPath;
+    _data['occupation_name'] = occupationName;
+    _data['like_status'] = likeStatus;
+    _data['spin_leverpool_requested_data'] = spinLeverpoolRequestedData!.toJson();
+    return _data;
+  }
 }
 
 class SpinLeverpoolRequestedData {
-  var id;
-  var seekerId;
-  var leverpoolRequestTime;
-  var showExpireTime;
-  List<SpinRequestDatum>? spinRequestData;
-
   SpinLeverpoolRequestedData({
      this.id,
      this.seekerId,
-     this.leverpoolRequestTime,
      this.showExpireTime,
+     this.hoursRemaining,
      this.spinRequestData,
+     this.spinLiverRequestedStatus,
   });
+   var id;
+   var seekerId;
+   var showExpireTime;
+   var hoursRemaining;
+   List<SpinRequestData> ?spinRequestData;
+   var spinLiverRequestedStatus;
+  
+  SpinLeverpoolRequestedData.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    seekerId = json['seeker_id'];
+    showExpireTime = json['show_expire_Time'];
+    hoursRemaining = json['hours_remaining'];
+    spinRequestData = List.from(json['spin_request_data']).map((e)=>SpinRequestData.fromJson(e)).toList();
+    spinLiverRequestedStatus = json['spin_liver_requested_status'];
+  }
 
-  factory SpinLeverpoolRequestedData.fromJson(Map<String, dynamic> json) => SpinLeverpoolRequestedData(
-    id: json["id"],
-    seekerId: json["seeker_id"],
-    leverpoolRequestTime: json["leverpool_request_time"],
-    showExpireTime: json["show_expire_Time"],
-    spinRequestData: List<SpinRequestDatum>.from(json["spin_request_data"].map((x) => SpinRequestDatum.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "seeker_id": seekerId,
-    "leverpool_request_time": leverpoolRequestTime,
-    "show_expire_Time": showExpireTime,
-    "spin_request_data": List<dynamic>.from(spinRequestData!.map((x) => x.toJson())),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['seeker_id'] = seekerId;
+    _data['show_expire_Time'] = showExpireTime;
+    _data['hours_remaining'] = hoursRemaining;
+    _data['spin_request_data'] = spinRequestData!.map((e)=>e.toJson()).toList();
+    _data['spin_liver_requested_status'] = spinLiverRequestedStatus;
+    return _data;
+  }
 }
 
-class SpinRequestDatum {
-  SeekerData? seekerData;
-  bool? isRequested;
-
-  SpinRequestDatum({
+class SpinRequestData {
+  SpinRequestData({
      this.seekerData,
      this.isRequested,
   });
+   SeekerData ?seekerData;
+   var isRequested;
+  
+  SpinRequestData.fromJson(Map<String, dynamic> json){
+    seekerData = SeekerData.fromJson(json['seeker_data']);
+    isRequested = json['is_requested'];
+  }
 
-  factory SpinRequestDatum.fromJson(Map<String, dynamic> json) => SpinRequestDatum(
-    seekerData: SeekerData.fromJson(json["seeker_data"]),
-    isRequested: json["is_requested"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "seeker_data": seekerData!.toJson(),
-    "is_requested": isRequested,
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['seeker_data'] = seekerData!.toJson();
+    _data['is_requested'] = isRequested;
+    return _data;
+  }
 }
 
 class SeekerData {
-  var id;
-  var name;
-  var email;
-  var phone;
-  var occupation;
-  var salary;
-  var address;
-  var height;
-  var dob;
-  var gender;
-  var religion;
-  var currentStep;
-  var imgPath;
-  var videoPath;
-  var occupationName;
-  var likeStatus;
-  Questions? questions;
-
   SeekerData({
      this.id,
      this.name,
@@ -198,60 +182,68 @@ class SeekerData {
      this.likeStatus,
      this.questions,
   });
+   var id;
+   var name;
+   var email;
+   var phone;
+   var occupation;
+   var salary;
+   var address;
+   var height;
+   var dob;
+   var gender;
+   var religion;
+   var currentStep;
+   var imgPath;
+   var videoPath;
+   var occupationName;
+   var likeStatus;
+   Questions? questions;
+  
+  SeekerData.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    phone = json['phone'];
+    occupation = json['occupation'];
+    salary = json['salary'];
+    address = json['address'];
+    height = json['height'];
+    dob = json['dob'];
+    gender = json['gender'];
+    religion = json['religion'];
+    currentStep = json['currentStep'];
+    imgPath = json['img_path'];
+    videoPath = json['video_path'];
+    occupationName = json['occupation_name'];
+    likeStatus = json['like_status'];
+    questions = Questions.fromJson(json['questions']);
+  }
 
-  factory SeekerData.fromJson(Map<String, dynamic> json) => SeekerData(
-    id: json["id"],
-    name: json["name"],
-    email: json["email"],
-    phone: json["phone"],
-    occupation: json["occupation"],
-    salary: json["salary"],
-    address: json["address"],
-    height: json["height"],
-    dob: json["dob"],
-    gender: json["gender"],
-    religion: json["religion"],
-    currentStep: json["current_step"],
-    imgPath: json["img_path"],
-    videoPath: json["video_path"],
-    occupationName: json["occupation_name"],
-    likeStatus: json["like_status"],
-    questions: Questions.fromJson(json["questions"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "email": email,
-    "phone": phone,
-    "occupation": occupation,
-    "salary": salary,
-    "address": address,
-    "height": height,
-    "dob": dob,
-    "gender": gender,
-    "religion": religion,
-    "current_step": currentStep,
-    "img_path": imgPath,
-    "video_path": videoPath,
-    "occupation_name": occupationName,
-    "like_status": likeStatus,
-    "questions": questions!.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['name'] = name;
+    _data['email'] = email;
+    _data['phone'] = phone;
+    _data['occupation'] = occupation;
+    _data['salary'] = salary;
+    _data['address'] = address;
+    _data['height'] = height;
+    _data['dob'] = dob;
+    _data['gender'] = gender;
+    _data['religion'] = religion;
+    _data['current_step'] = currentStep;
+    _data['img_path'] = imgPath;
+    _data['video_path'] = videoPath;
+    _data['occupation_name'] = occupationName;
+    _data['like_status'] = likeStatus;
+    _data['questions'] = questions!.toJson();
+    return _data;
+  }
 }
 
 class Questions {
-  var id;
-  var seekerId;
-  var question;
-  var firstAnswer;
-  var secondAnswer;
-  var thirdAnswer;
-  var correctAnswer;
-  var status;
-  var createdAt;
-  var updatedAt;
-
   Questions({
      this.id,
      this.seekerId,
@@ -264,30 +256,42 @@ class Questions {
      this.createdAt,
      this.updatedAt,
   });
+   var id;
+   var seekerId;
+   var question;
+   var firstAnswer;
+   var secondAnswer;
+   var thirdAnswer;
+   var correctAnswer;
+   var status;
+   var createdAt;
+   var updatedAt;
+  
+  Questions.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    seekerId = json['seeker_id'];
+    question = json['question'];
+    firstAnswer = json['first_answer'];
+    secondAnswer = json['second_answer'];
+    thirdAnswer = json['third_answer'];
+    correctAnswer = json['correct_answer'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
 
-  factory Questions.fromJson(Map<String, dynamic> json) => Questions(
-    id: json["id"],
-    seekerId: json["seeker_id"],
-    question: json["question"],
-    firstAnswer: json["first_answer"],
-    secondAnswer: json["second_answer"],
-    thirdAnswer: json["third_answer"],
-    correctAnswer: json["correct_answer"],
-    status: json["status"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "seeker_id": seekerId,
-    "question": question,
-    "first_answer": firstAnswer,
-    "second_answer": secondAnswer,
-    "third_answer": thirdAnswer,
-    "correct_answer": correctAnswer,
-    "status": status,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['seeker_id'] = seekerId;
+    _data['question'] = question;
+    _data['first_answer'] = firstAnswer;
+    _data['second_answer'] = secondAnswer;
+    _data['third_answer'] = thirdAnswer;
+    _data['correct_answer'] = correctAnswer;
+    _data['status'] = status;
+    _data['created_at'] = createdAt;
+    _data['updated_at'] = updatedAt;
+    return _data;
+  }
 }

@@ -236,7 +236,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                               SizedBox(
                                 height: Get.height * 0.04,
                               ),
-                              MyButton(title: 'Find Match', onTap: () {})
+                              MyButton(title: 'Find Match', onTap: () { Get.to(Chose_Role_Type());})
                             ],
                           ),
                         if (recentSeekerMatchesController
@@ -1375,7 +1375,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                 .requests![index]
                                                 .id
                                                 .toString();
-
+print(requestid);
                                             if (requestid != null) {
                                               print(requestid);
                                               Get.to(ChatPage());

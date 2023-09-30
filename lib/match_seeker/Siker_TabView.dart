@@ -1,7 +1,9 @@
 import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
+import 'package:cupid_match/controllers/controller/LikeListController/LikeListController.dart';
 import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
 import 'package:cupid_match/controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
+import 'package:cupid_match/controllers/controller/SeekerChatListController/seeker_chat_list_controller.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/match_maker/Create_Match/Create_Match.dart';
 import 'package:cupid_match/match_maker/MakerLikes.dart';
@@ -41,6 +43,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
       Get.put(RecentSeekerMatchesController());
   final seekerMyProfileDetailsController =
       Get.put(SeekerMyProfileDetailsController());
+      SeekerChatListController seekerChatListController = Get.put(SeekerChatListController());
+      final LikeListControllerinstance=Get.put(LikeListController());
   @override
   void initState() {
     // fetchApi();
@@ -49,6 +53,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
     homepageapis();
+    chatpageapis();
+    likepagepais();
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
   }
@@ -59,6 +65,16 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     recentSeekerMatchesController.isrecentSeekermatchesApi();
 
     seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
+  }
+
+  likepagepais(){
+  LikeListControllerinstance.LikeListApiHit();
+  }
+  chatpageapis(){
+   seekerChatListController.isSeekerChatListApi();
+  }
+  profilepageapis(){
+
   }
 
   @override

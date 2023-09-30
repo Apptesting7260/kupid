@@ -7,6 +7,7 @@ import 'package:cupid_match/models/CreateMonthlyPlanModel/CreateMonthlyPlanModel
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
 import 'package:cupid_match/models/FetchSubcriptionModel/FetchSubcriptionModel.dart';
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
+import 'package:cupid_match/models/LiverPoolModel/LiverPollModel.dart';
 import 'package:cupid_match/models/LiverPooledRequestModel/LiverPooledRequestModel.dart';
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/MakerChatListModel/maker_chat_list_model.dart';
@@ -232,7 +233,7 @@ class AuthRepository {
     print("IncomingRequestApi");
     dynamic response =
         await _apiService.postApi2(data, AppUrl.RequestDetailsUrl);
-    print(response);
+    print("$response============");
     return RequestDetailsModel.fromJson(response);
   }
 
@@ -334,11 +335,30 @@ class AuthRepository {
     return StaticLiverPullModel.fromJson(response);
   }
 
-  Future<SeekerMyProfileDetailModel> SeekerMyProfileDetailsApi() async {
+  Future<SeekerMyProfileDetailModelAutoGenerate> SeekerMyProfileDetailsApi() async {
     // print("hited");
     dynamic response =
         await _apiService.getApi2(AppUrl.SeekerMyProfileDetailsUrl);
     // print(response);
-    return SeekerMyProfileDetailModel.fromJson(response);
+    return SeekerMyProfileDetailModelAutoGenerate.fromJson(response);
   }
+
+    Future<LiverPoolModel> LiverPoolRequestApi( var data) async {
+    // print("hited");
+    dynamic response =
+        await _apiService.postApi2(data, AppUrl.LiverPoolRequestUrl);
+    print(response);
+    return LiverPoolModel.fromJson(response);
+  }
+
+
+
+
+
+
+
+
+
+ 
 }
+

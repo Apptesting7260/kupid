@@ -1,6 +1,8 @@
 
 
 
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
@@ -37,7 +39,7 @@ class ViewRequestDetailsController extends GetxController {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"request_user":requestid.toString()
+"request_id":"1"
 
     };
    setRxRequestStatus(Status.LOADING);
@@ -55,18 +57,18 @@ print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileD
     "requestid":value.data!.id.toString()
    });
 
- if(value.data!.roomId==null) {
+ if(value.data!.roomid==null) {
   
   
  }else{
-  await _firestore.collection("RoomId's").doc(value.data!.roomId.toString()).set({});
+  await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});
   }
 
 
          print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());
-      print(error.toString());
+      print("${error.toString()}===============+++=");
       setRxRequestStatus(Status.ERROR);
 
     });

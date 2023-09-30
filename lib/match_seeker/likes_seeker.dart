@@ -23,7 +23,7 @@ final LikeListControllerinstance=Get.put(LikeListController());
 
 @override
   void initState() {
-    LikeListControllerinstance.LikeListApiHit();
+  
     // TODO: implement initState
     super.initState();
   }

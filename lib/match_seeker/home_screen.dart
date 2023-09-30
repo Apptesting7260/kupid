@@ -48,7 +48,7 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
 
   @override
   void initState() {
-    ListAllMakerControllerinstance.ListAllMakerApi();
+    // ListAllMakerControllerinstance.ListAllMakerApi();
     ChoseRole();
     MagicProfileControllerinstance.MagicProfileApiHit();
     // TODO: implement initState
@@ -95,62 +95,92 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                 children: [
                   Center(child: Image.asset("assets/images/match.png")),
 
-                  if (selectedrole == 1 &&
-                      seekerMyProfileDetailsController
-                              .SeekerMyProfileDetail
-                              .value
-                              .ProfileDetails!
-                              .spinLeverRequestedData![0]
-                              .spinLiverRequestedStatus ==
-                          false)
+                 
+
+                  if (selectedrole == 1 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==false
+                      )
                     SpinWillWidget(),
 
-                  if (selectedrole == 1 &&
-                      seekerMyProfileDetailsController
-                              .SeekerMyProfileDetail
-                              .value
-                              .ProfileDetails!
-                              .spinLeverRequestedData![0]
-                              .spinLiverRequestedStatus ==
-                          true)
-                    Spined_Spin_Wheel_Widget(),
+                    if (selectedrole == 1 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==true
+                      )
+                  Spined_Spin_Wheel_Widget(),
+                      //  SpinWillWidget(),
 
-                  if (selectedrole == 2 &&
-                      seekerMyProfileDetailsController
-                              .SeekerMyProfileDetail
-                              .value
-                              .ProfileDetails!
-                              .spinLeverRequestedData![1]
-                              .spinLiverRequestedStatus ==
-                          false)
-                    SlotMachine(),
+                   if (selectedrole == 2 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==false
+                      )
+                   SlotMachine(),
+                    if (selectedrole == 2 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==true
+                      )
+                  LiverPooledWidget(),
+                  //  SlotMachine(),
 
-                  if (selectedrole == 1 &&
-                      seekerMyProfileDetailsController
-                              .SeekerMyProfileDetail
-                              .value
-                              .ProfileDetails!
-                              .spinLeverRequestedData![1]
-                              .spinLiverRequestedStatus ==
-                          true)
-                    LiverPooledWidget(),
 
-                  // if (selectedrole == 2 && islivierpooled == false)
+                  // if (selectedrole == 1 &&
+                  //     seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![0]
+                  //             .spinLiverRequestedStatus ==
+                  //         true&&(seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![0].type=="spin"||seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![1].type=="spin"))
+                  //   Spined_Spin_Wheel_Widget(),
+
+                  // if (rolevalue == 2 &&
+                  //     seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value.profileDetails
+                  //             .spinLeverRequestedData![0]
+                  //             .spinLiverRequestedStatus ==
+                  //         false&&(seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![0].type=="leverpool"||seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![1].type=="leverpool"))
                   //   SlotMachine(),
-                  // if (selectedrole == 2 && islivierpooled == true)
-                  //   LiverPooledWidget(),
+                  //    if (rolevalue == 2 &&
+                  //     seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![1]
+                  //             .spinLiverRequestedStatus ==
+                  //         true&&(seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![0].type=="leverpool"||seekerMyProfileDetailsController
+                  //             .SeekerMyProfileDetail
+                  //             .value
+                  //             .ProfileDetails!
+                  //             .spinLeverRequestedData![1].type=="leverpool"))
+                  //  LiverPooledWidget(),
+
+               
 
                   SizedBox(
                     height: Get.height * 0.02,
                   ),
 //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
+
+  Padding(
+                    padding: const EdgeInsets.only(left: 5,right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Request to Maker",
+                          "Request to Random Profile",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         InkWell(
@@ -169,91 +199,100 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                     ),
                   ),
 
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 3,
-                      // itemExtent: 80,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              InkWell(
-                                child: CircleAvatar(
-                                  radius: 45.0,
-                                  backgroundImage: NetworkImage(
-                                      ListAllMakerControllerinstance.userList
-                                          .value.allmakers![index].imgPath
-                                          .toString()),
-                                  backgroundColor: Colors.transparent,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Container(
+                                  
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        // itemExtent: 80,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage: NetworkImage(
+                                        ListAllMakerControllerinstance.userList
+                                            .value.allmakers![index].imgPath
+                                            .toString()),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                  onTap: () {
+                                    Makerid = ListAllMakerControllerinstance
+                                        .userList.value.allmakers![index].id
+                                        .toString();
+                                    Get.to(ViewMakerProfileInSeeker());
+                                  },
                                 ),
-                                onTap: () {
-                                  Makerid = ListAllMakerControllerinstance
-                                      .userList.value.allmakers![index].id
-                                      .toString();
-                                  Get.to(ViewMakerProfileInSeeker());
-                                },
-                              ),
-                              SizedBox(
-                                width: width * .03,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    ListAllMakerControllerinstance
-                                        .userList.value.allmakers![index].name
-                                        .toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  SizedBox(
-                                    height: height * .01,
-                                  ),
-                                  Text(
-                                    "Match Maker",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: width * .15),
-                              GestureDetector(
-                                onTap: () {
-                                  // showdilog();
-
-                                  // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                                  // print(selectedseekerid);
-                                },
-                                child: Container(
-                                  height: height * .04,
-                                  width: width * .3,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFE0091),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Request",
+                                SizedBox(
+                                  width: width * .03,
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: Get.width*0.2,
+                                      child: Text(
+                                        ListAllMakerControllerinstance
+                                            .userList.value.allmakers![index].name
+                                            .toString(),
+                                        style:
+                                            Theme.of(context).textTheme.titleSmall,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * .01,
+                                    ),
+                                    Text(
+                                      "Match Maker",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
-                                          .copyWith(color: Colors.white),
+                                          .copyWith(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: width * .15),
+                                GestureDetector(
+                                  onTap: () {
+                                    // showdilog();
+                  
+                                    // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+                                    // print(selectedseekerid);
+                                  },
+                                  child: Container(
+                                    height: height * .04,
+                                    // width: width * .2,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffFE0091),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Request to Maker",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   )
                 ],
@@ -263,145 +302,3 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
         }));
   }
 }
-//       Obx(() {
-//          final ListAllMakerControllerstatus = ListAllMakerControllerinstance.rxRequestStatus.value;
-//          final SpeendReqestControllerstatus = SpeendReqestControllerinstance.rxRequestStatus.value;
-//          final SeekerToSeekerRequestControllerstatus = SeekerToSeekerRequestControllerinstance.rxRequestStatus.value;
-//          final MagicProfileControllerstatus = SeekerToSeekerRequestControllerinstance.rxRequestStatus.value;
-//          switch (ListAllMakerControllerinstance.rxRequestStatus.value ) {
-//             case Status.LOADING:
-//               return const Center(child: CircularProgressIndicator());
-//             case Status.ERROR:
-//               if (ListAllMakerControllerinstance.error.value == 'No internet') {
-//                 return InterNetExceptionWidget(
-//                   onPress: () {},
-//                 );
-//               } else {
-//                 return GeneralExceptionWidget(onPress: () {});
-//               }
-//             case Status.COMPLETED:
-//               return
-//                 SingleChildScrollView(
-//                 child: Column(children: [
-//
-//                       Center(child: Image.asset("assets/images/match.png")),
-//                         if(selectedrole==1&&isspinedwill==false)  SpinWillWidget(),
-//                         if(selectedrole==1&&isspinedwill==true)  Spined_Spin_Wheel_Widget(),
-//                        if(selectedrole==2&&islivierpooled==false) SlotMachine(),
-//                        if(selectedrole==2&&islivierpooled==true) LiverPooledWidget(),
-//
-//                        SizedBox(height:Get.height*0.02,),
-// //sdfhsdjfsdhfjdshfjdshfjdshfjdshfdsjhfjdshfjdshf
-//                         Padding(
-//                           padding: const EdgeInsets.all(16.0),
-//                           child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             Text(
-//                               "Request to Maker",
-//                               style: Theme.of(context).textTheme.titleSmall,
-//                             ),
-//                             InkWell(
-//                               child: Text(
-//                                 "See all",
-//                                 style: Theme.of(context)
-//                                     .textTheme
-//                                     .labelLarge!
-//                                     .copyWith(color: Color(0xff000CAA)),
-//                               ),
-//                               onTap: (){
-//                                 Get.to(SeeAllMaker());
-//                               },
-//                             ),
-//                           ],
-//                                               ),
-//                         ),
-//
-//                   Container(
-//                     margin: EdgeInsets.only(left: 20),
-//                     child: ListView.builder(
-//                       physics: NeverScrollableScrollPhysics(),
-//                       itemCount:  3,
-//                       // itemExtent: 80,
-//                       shrinkWrap: true,
-//                       itemBuilder: (context, index) {
-//
-//                         return  Padding(
-//                           padding: const EdgeInsets.symmetric(vertical: 10.0),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.start,
-//                             children: [
-//                               InkWell(
-//                                 child: CircleAvatar(
-//                                   radius: 45.0,
-//                                   backgroundImage: NetworkImage(
-//                                       ListAllMakerControllerinstance.userList.value.allmakers![index].imgPath.toString() ) ,
-//                                   backgroundColor: Colors.transparent,
-//                                 ),
-//                                 onTap: (){
-//
-//                                   Makerid=ListAllMakerControllerinstance.userList.value.allmakers![index].id.toString();
-//                                   Get.to(ViewMakerProfileInSeeker());
-//                                 },
-//                               ),
-//                               SizedBox(
-//                                 width: width * .03,
-//                               ),
-//                               Column(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     ListAllMakerControllerinstance.userList.value.allmakers![index].name.toString(),
-//                                     style: Theme.of(context).textTheme.titleSmall,
-//                                   ),
-//                                   SizedBox(
-//                                     height: height * .01,
-//                                   ),
-//                                   Text(
-//                                     "Match Maker",
-//                                     style: Theme.of(context)
-//                                         .textTheme
-//                                         .bodySmall!
-//                                         .copyWith(color: Colors.grey),
-//                                   ),
-//                                 ],
-//                               ),
-//                               SizedBox(width: width * .15),
-//                               GestureDetector(
-//                                 onTap: () {
-//                                   // showdilog();
-//
-//
-//                                   // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-//                                   // print(selectedseekerid);
-//                                 },
-//                                 child: Container(
-//                                   height: height * .04,
-//                                   width: width * .3,
-//                                   decoration: BoxDecoration(
-//                                     color: Color(0xffFE0091),
-//                                     borderRadius: BorderRadius.circular(15),
-//                                   ),
-//                                   child: Center(
-//                                     child: Text(
-//                                       "Request",
-//                                       style: Theme.of(context)
-//                                           .textTheme
-//                                           .bodySmall!
-//                                           .copyWith(color: Colors.white),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         );
-//                       },
-//                     ),)
-//                 ],),
-//               );
-//     }
-//       }
-//       )
-

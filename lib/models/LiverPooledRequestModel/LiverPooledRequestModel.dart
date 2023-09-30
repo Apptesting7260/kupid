@@ -1,19 +1,23 @@
 class SpeendRequestModel {
   SpeendRequestModel({
      this.status,
+     this.message,
      this.data,
   });
-   String? status;
+   String ?status;
+   String? message;
    List<Data>? data;
   
   SpeendRequestModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
+    message = json['message'];
     data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
+    _data['message'] = message;
     _data['data'] = data!.map((e)=>e.toJson()).toList();
     return _data;
   }
@@ -39,29 +43,29 @@ class Data {
      this.likeStatus,
      this.spinLeverpoolRequestedData,
   });
-   int ?id;
-   String? name;
-   String ?email;
-   String ?phone;
-   String ?occupation;
-   String ?salary;
-   String ?address;
-   String ?height;
-   String ?dob;
-   String ?gender;
-   String ?religion;
-   int? currentStep;
-   String ?imgPath;
-   String ?videoPath;
-   String? occupationName;
-   int ?likeStatus;
+   var id;
+   var name;
+   var email;
+   var phone;
+   var occupation;
+   var salary;
+   var address;
+   var height;
+   var dob;
+   var gender;
+   var religion;
+   var currentStep;
+   var imgPath;
+   var videoPath;
+   List<dynamic> ?occupationName;
+   var likeStatus;
    SpinLeverpoolRequestedData ?spinLeverpoolRequestedData;
   
   Data.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    phone = json['phone'];
+    phone = null;
     occupation = json['occupation'];
     salary = json['salary'];
     address = json['address'];
@@ -72,7 +76,7 @@ class Data {
     currentStep = json['current_step'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    occupationName = json['occupation_name'];
+    occupationName = List.castFrom<dynamic, dynamic>(json['occupation_name']);
     likeStatus = json['like_status'];
     spinLeverpoolRequestedData = SpinLeverpoolRequestedData.fromJson(json['spin_leverpool_requested_data']);
   }
@@ -106,20 +110,26 @@ class SpinLeverpoolRequestedData {
      this.seekerId,
      this.spinRequestTime,
      this.showExpireTime,
+     this.hoursRemaining,
      this.spinRequestData,
+     this.spinLiverRequestedStatus,
   });
-   int ?id;
-   int ?seekerId;
-   String? spinRequestTime;
-   String ?showExpireTime;
+   var id;
+   var seekerId;
+   var spinRequestTime;
+   var showExpireTime;
+   var hoursRemaining;
    List<SpinRequestData>? spinRequestData;
+   bool? spinLiverRequestedStatus;
   
   SpinLeverpoolRequestedData.fromJson(Map<String, dynamic> json){
     id = json['id'];
     seekerId = json['seeker_id'];
     spinRequestTime = json['spin_request_time'];
     showExpireTime = json['show_expire_Time'];
+    hoursRemaining = json['hours_remaining'];
     spinRequestData = List.from(json['spin_request_data']).map((e)=>SpinRequestData.fromJson(e)).toList();
+    spinLiverRequestedStatus = json['spin_liver_requested_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -128,7 +138,9 @@ class SpinLeverpoolRequestedData {
     _data['seeker_id'] = seekerId;
     _data['spin_request_time'] = spinRequestTime;
     _data['show_expire_Time'] = showExpireTime;
+    _data['hours_remaining'] = hoursRemaining;
     _data['spin_request_data'] = spinRequestData!.map((e)=>e.toJson()).toList();
+    _data['spin_liver_requested_status'] = spinLiverRequestedStatus;
     return _data;
   }
 }
@@ -138,8 +150,8 @@ class SpinRequestData {
      this.seekerData,
      this.isRequested,
   });
-   SeekerData? seekerData;
-   bool? isRequested;
+   SeekerData ?seekerData;
+   var isRequested;
   
   SpinRequestData.fromJson(Map<String, dynamic> json){
     seekerData = SeekerData.fromJson(json['seeker_data']);
@@ -174,23 +186,23 @@ class SeekerData {
      this.likeStatus,
      this.questions,
   });
-   int ?id;
-   String? name;
-   String? email;
-   String? phone;
-   String? occupation;
-   String? salary;
-   String? address;
-   String? height;
-   String? dob;
-   String ?gender;
-   String ?religion;
-   Null currentStep;
-   String? imgPath;
-   String? videoPath;
-   String ?occupationName;
-   int ?likeStatus;
-   Questions? questions;
+   var id;
+   var name;
+   var email;
+   var phone;
+   var occupation;
+   var salary;
+   var address;
+   var height;
+   var dob;
+   var gender;
+   var religion;
+   var currentStep;
+   var imgPath;
+   var videoPath;
+   var occupationName;
+   var likeStatus;
+   Questions ?questions;
   
   SeekerData.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -198,12 +210,12 @@ class SeekerData {
     email = json['email'];
     phone = json['phone'];
     occupation = json['occupation'];
-    salary = json['salary'];
+    salary = null;
     address = json['address'];
     height = json['height'];
-    dob = null;
+    dob = json['dob'];
     gender = json['gender'];
-    religion = json['religion'];
+    religion = null;
     currentStep = null;
     imgPath = json['img_path'];
     videoPath = json['video_path'];
@@ -248,16 +260,16 @@ class Questions {
      this.createdAt,
      this.updatedAt,
   });
-   int? id;
-   int? seekerId;
-   String? question;
-   String ?firstAnswer;
-   String? secondAnswer;
-   String ?thirdAnswer;
-   String ?correctAnswer;
-   int ?status;
-   String? createdAt;
-   String? updatedAt;
+   var id;
+   var seekerId;
+   var question;
+   var firstAnswer;
+   var secondAnswer;
+   var thirdAnswer;
+   var correctAnswer;
+   var status;
+   var createdAt;
+   var updatedAt;
   
   Questions.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -268,7 +280,7 @@ class Questions {
     thirdAnswer = json['third_answer'];
     correctAnswer = json['correct_answer'];
     status = json['status'];
-    createdAt = json['created_at'];
+    createdAt = null;
     updatedAt = json['updated_at'];
   }
 

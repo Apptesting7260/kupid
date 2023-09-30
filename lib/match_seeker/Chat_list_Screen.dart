@@ -27,7 +27,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
     // TODO: implement initState
     super.initState();
-    seekerChatListController.isSeekerChatListApi();
+ 
   }
   @override
   Widget build(BuildContext context) {
@@ -58,150 +58,152 @@ class _ChatListScreenState extends State<ChatListScreen> {
           case Status.COMPLETED:
 
             return
-              Column(
-
-                children: [
-
-                  if(seekerChatListController.seekerChatListValue.value.message =='No data Found')SizedBox(height:Get.height*0.12),
-                  if(seekerChatListController.seekerChatListValue.value.message =='No data Found')
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/emessage.png',width: Get.width*0.7,),
-                        SizedBox(height: Get.height*0.05,),
-                        Text("No Messages, yet.",style: Get.theme.textTheme.headlineSmall!.copyWith(
-                            color: AppColor.blackColor
-                        )),
-                        SizedBox(height: Get.height*0.02,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 70.0),
-                          child: Text("No messages in your inbox, yet! Start chatting with people around you.",style: Get.theme.textTheme.bodyMedium!.copyWith(
-                              color: AppColor.blackColor,fontWeight: FontWeight.w300
-                          ),textAlign: TextAlign.center,),
-                        )
-                      ],
-                    ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: seekerChatListController.seekerChatListValue.value.chat!.length,
-                      itemExtent: 80,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              requestype = "2";
-                            });
-                            requestid =  seekerChatListController.seekerChatListValue.value.chat![index].requestid
-
-                                .toString();
-
-                            if (requestid != null) {
-                              print(requestid);
-                              Get.to(ChatPage());
-                            }
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: height * .33,
-                                width: width * .29,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      right: 30,
-                                      child: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundImage: CachedNetworkImageProvider(
-                                            seekerChatListController
+              SingleChildScrollView(
+                child: Column(
+              
+                  children: [
+              
+                    if(seekerChatListController.seekerChatListValue.value.message =='No data Found')SizedBox(height:Get.height*0.12),
+                    if(seekerChatListController.seekerChatListValue.value.message =='No data Found')
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/images/emessage.png',width: Get.width*0.7,),
+                          SizedBox(height: Get.height*0.05,),
+                          Text("No Messages, yet.",style: Get.theme.textTheme.headlineSmall!.copyWith(
+                              color: AppColor.blackColor
+                          )),
+                          SizedBox(height: Get.height*0.02,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 70.0),
+                            child: Text("No messages in your inbox, yet! Start chatting with people around you.",style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                color: AppColor.blackColor,fontWeight: FontWeight.w300
+                            ),textAlign: TextAlign.center,),
+                          )
+                        ],
+                      ),
+              
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: seekerChatListController.seekerChatListValue.value.chat!.length,
+                        itemExtent: 80,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                requestype = "2";
+                              });
+                              requestid =  seekerChatListController.seekerChatListValue.value.chat![index].requestid
+              
+                                  .toString();
+              
+                              if (requestid != null) {
+                                print(requestid);
+                                Get.to(ChatPage());
+                              }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: height * .33,
+                                  width: width * .29,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        right: 30,
+                                        child: CircleAvatar(
+                                          radius: 30.0,
+                                          backgroundImage: CachedNetworkImageProvider(
+                                              seekerChatListController
+                                                  .seekerChatListValue
+                                                  .value
+                                                  .chat![
+                                              index]
+                                                  .seekerwithImg!
+                                                  .toString()),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border:
+                                          Border.all(color: Colors.white, width: 2),
+                                        ),
+                                        child: CircleAvatar(
+                                          radius: 30.0,
+                                          backgroundImage: CachedNetworkImageProvider(
+                                              seekerChatListController
+                                                  .seekerChatListValue
+                                                  .value
+                                                  .chat![
+                                              index]
+                                                  .seekerfromImg!
+                                                  .toString()),
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: height * .01,
+                                      ),
+                                      Text(
+                                        (seekerChatListController
+                                            .seekerChatListValue
+                                            .value
+                                            .chat![index]
+                                            .seekerfromName!
+                                            .toString())+ " & "
+                                            +
+                                            (seekerChatListController
                                                 .seekerChatListValue
                                                 .value
-                                                .chat![
-                                            index]
-                                                .seekerwithImg!
+                                                .chat![index]
+                                                .seekerwithName!
                                                 .toString()),
-                                        backgroundColor: Colors.transparent,
+                                        style: Theme.of(context).textTheme.titleSmall,
                                       ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border:
-                                        Border.all(color: Colors.white, width: 2),
+              
+                                      SizedBox(
+                                        height: height * .01,
                                       ),
-                                      child: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundImage: CachedNetworkImageProvider(
-                                            seekerChatListController
-                                                .seekerChatListValue
-                                                .value
-                                                .chat![
-                                            index]
-                                                .seekerfromImg!
-                                                .toString()),
-                                        backgroundColor: Colors.transparent,
+                                      Text(
+                                        "Hey! How\'s it going?",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(color: Colors.grey),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Flexible(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: height * .01,
-                                    ),
-                                    Text(
-                                      (seekerChatListController
-                                          .seekerChatListValue
-                                          .value
-                                          .chat![index]
-                                          .seekerfromName!
-                                          .toString())+ " & "
-                                          +
-                                          (seekerChatListController
-                                              .seekerChatListValue
-                                              .value
-                                              .chat![index]
-                                              .seekerwithName!
-                                              .toString()),
-                                      style: Theme.of(context).textTheme.titleSmall,
-                                    ),
-
-                                    SizedBox(
-                                      height: height * .01,
-                                    ),
-                                    Text(
-                                      "Hey! How\'s it going?",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: width * .01),
-                              Text(
-                                "10:50PM",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
+                                SizedBox(width: width * .01),
+                                Text(
+                                  "10:50PM",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.grey),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               );
         }
       }

@@ -22,6 +22,13 @@ class _SignState extends State<Sign> {
   bool isPhone(String input) =>
       RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
           .hasMatch(input);
+
+        @override
+  void initState() {
+     SignUpControllerInstance.credentialsController.value.clear();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

@@ -905,6 +905,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
+import 'package:cupid_match/controllers/controller/spinRequestController/SpinRequestController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
@@ -922,7 +923,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+List spinedprofilelist=[];
 class SpinWillWidget extends StatefulWidget {
   const SpinWillWidget({super.key});
 
@@ -932,6 +933,9 @@ class SpinWillWidget extends StatefulWidget {
 
 class _SpinWillWidgetState extends State<SpinWillWidget> {
   final MagicProfileControllerinstance = Get.put(MagicProfileController());
+
+final spinRequestController=Get.put(SpinRequestController());
+  
 
   List<int> items = [
     100,
@@ -1012,6 +1016,24 @@ class _SpinWillWidgetState extends State<SpinWillWidget> {
         isTimerVisible = true;
         remainingTime = Duration(hours: 24);
       });
+spinedprofilelist=[];
+       for(int i =0; i<=3;i++){
+
+    print(  MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
+    spinedprofilelist.add({
+      "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
+      "is_requested":"false"
+    });
+ print(spinedprofilelist);
+ print(spinedprofilelist.length);
+
+    if(spinedprofilelist.length==4){
+      print("spined");
+      spinRequestController.apihit();
+        //  LiverPoolControllerinstance.apihit();
+    }
+   
+  }
 
       // Save the current time as the last spin time
       saveLastSpinTime();

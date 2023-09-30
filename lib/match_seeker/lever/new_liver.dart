@@ -773,21 +773,25 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/LiverPoolController/LiverpoolConteroller.dart';
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
+import 'package:cupid_match/controllers/controller/StaticLiverPoolController/StaticLiverPoolController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/lever/StaticLiverPool.dart';
 import 'package:cupid_match/match_seeker/lever/request_makers.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-
+List Liverpooldprofiles=[];
 class SlotMachine extends StatefulWidget {
   @override
   _SlotMachineState createState() => _SlotMachineState();
@@ -795,6 +799,9 @@ class SlotMachine extends StatefulWidget {
 
 class _SlotMachineState extends State<SlotMachine> {
   final MagicProfileControllerinstance = Get.put(MagicProfileController());
+  final LiverPoolControllerinstance = Get.put(LiverPoolController());
+
+  
   bool pulled = false;
   //********************* for timer functions here ok ! *********
   bool shouldShowSpinButton = true;
@@ -822,6 +829,7 @@ class _SlotMachineState extends State<SlotMachine> {
 
   final SeekerToSeekerRequestControllerinstance =
       Get.put(SeekerToSeekerRequestController());
+  final liverPoolController = Get.put(LiverPoolController());
 
   final Random _random = Random();
   List<String> _slotImages = [
@@ -837,6 +845,7 @@ class _SlotMachineState extends State<SlotMachine> {
     "https://images.unsplash.com/photo-1461800919507-79b16743b257?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
     "https://images.unsplash.com/photo-1536378482916-d6371707105a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
   ];
+    final staticLiverpullController = Get.put(StaticLiverPullController());
   List<String> _slotname = [
     'a', // Replace with actual image URLs
     'b',
@@ -919,13 +928,26 @@ class _SlotMachineState extends State<SlotMachine> {
                                             "assets/images/liverup.PNG"))),
                               ),
                               onTap: () {
-                                if (pulled == false) {
+                            if(staticLiverpullController.seekerprofilerequested.value==false){
+ if (pulled == false) {
                                   _startSpinning();
                                 }
                                 if (pulled == true)
                                   Timer(Duration(seconds: 2), () {
                                     _stopSpinning();
                                   });
+                            }else{
+
+Fluttertoast.showToast(
+  msg: "You Have Already Pooled",
+  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+  backgroundColor: Colors.black54,
+  textColor: Colors.white,
+);
+         
+                            }
+                               
                               },
                             )
                           : Container(
@@ -1080,24 +1102,27 @@ class _SlotMachineState extends State<SlotMachine> {
                       ],
                     ),
                   ),
-
+SizedBox(height:Get.height*0.05,),
                 Visibility(
                   visible: isNotVisible,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Request to be matched",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      // Text(
-                      //   "See all",
-                      //   style: Theme.of(context)
-                      //       .textTheme
-                      //       .labelLarge!
-                      //       .copyWith(color: Color(0xff000CAA)),
-                      // ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Request to be matched",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        // Text(
+                        //   "See all",
+                        //   style: Theme.of(context)
+                        //       .textTheme
+                        //       .labelLarge!
+                        //       .copyWith(color: Color(0xff000CAA)),
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -1117,6 +1142,7 @@ class _SlotMachineState extends State<SlotMachine> {
                             _currentIndices[index]; // Get shuffled index
                         final request = MagicProfileControllerinstance
                             .MagicProfileList.value.requests![shuffledIndex];
+                      
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -1158,7 +1184,7 @@ class _SlotMachineState extends State<SlotMachine> {
                                 ],
                               ),
                               SizedBox(width: width * .12),
-                              GestureDetector(
+                          if(staticLiverpullController.seekerprofilerequested.value==false)      GestureDetector(
                                 onTap: () {
                                   selectedseekerid = request.id!.toInt();
                                   if (selectedseekerid != null) {
@@ -1182,7 +1208,50 @@ class _SlotMachineState extends State<SlotMachine> {
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
+
+                                 if(staticLiverpullController.seekerprofilerequested.value==true&&staticLiverpullController
+                                .staticLiverPullvalue.value.data![0].spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true")               GestureDetector(
+                                    onTap: () {
+                                        // showdiologwronganswer(index);
+
+//                                       if( dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true"){
+// // selectedseekerid =
+// //                                           dataofStaticPull.id!.toInt();
+// //                                       if (selectedseekerid != null) {
+// //                                         showdilog(index, selectedseekerid!);
+// //                                       }
+// //                                       }else{
+// //                                         print("Blocked");
+//                                       }
+
+Fluttertoast.showToast(
+  msg: "You Have Already Requested",
+  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+  backgroundColor: Colors.black54,
+  textColor: Colors.white,
+);
+                                      
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                    "Requested",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white,fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                             ],
                           ),
                         );
@@ -1278,7 +1347,31 @@ class _SlotMachineState extends State<SlotMachine> {
       pulled = false;
       _isSpinning = false;
       _finalIndices = _currentIndices.toList();
+
+
     });
+            Liverpooldprofiles=[];
+      for(int i =0; i<=2;i++){
+
+    print( MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
+    Liverpooldprofiles.add({
+      "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
+      "is_requested":"false"
+    });
+ print(Liverpooldprofiles);
+ print(Liverpooldprofiles.length);
+
+    if(Liverpooldprofiles.length==3){
+      print("pooled");
+         LiverPoolControllerinstance.apihit();
+    }
+   
+  }
+    // if(Liverpooldprofiles.isNotEmpty){
+   
+    // }
+
+
     _checkResult();
   }
 
@@ -1435,8 +1528,35 @@ class _SlotMachineState extends State<SlotMachine> {
               ),
               GestureDetector(
                 onTap: () {
+                        setState(() {
+                    isboxloading=true;
+                  });
                   Get.back();
-                  if (MagicProfileControllerinstance.MagicProfileList.value
+                         Liverpooldprofiles[index]['is_requested'] = "true";
+                  liverPoolController.apihit();
+
+                  if(isboxloading==true){
+                    _showProgressDialog(context);
+                  }
+                  // if (MagicProfileControllerinstance.MagicProfileList.value
+                  //         .requests![index].questions!.correctAnswer ==
+                  //     MagicProfileControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiog2(index);
+                  // }
+                  // if (MagicProfileControllerinstance.MagicProfileList.value
+                  //         .requests![index].questions!.correctAnswer !=
+                  //     MagicProfileControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiologwronganswer(index);
+
+                  
+                  // }
+                  Timer(Duration(seconds: 2), () {
+                          setState(() {
+                    isboxloading=false;
+                             Get.back();
+                          if (MagicProfileControllerinstance.MagicProfileList.value
                           .requests![index].questions!.correctAnswer ==
                       MagicProfileControllerinstance.selectedAnswer.value
                           .toString()) {
@@ -1446,8 +1566,12 @@ class _SlotMachineState extends State<SlotMachine> {
                           .requests![index].questions!.correctAnswer !=
                       MagicProfileControllerinstance.selectedAnswer.value
                           .toString()) {
-                    showdiologwronganswer(index);
-                  }
+                    showdiologwronganswer(index);}
+         
+
+                  });
+                   });
+
                 },
                 child: Container(
                   height: height * .04,
@@ -1488,7 +1612,7 @@ class _SlotMachineState extends State<SlotMachine> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
           insetPadding: EdgeInsets.all(0),
-          title: Column(
+          title:Column(
             children: [
               Align(
                   alignment: Alignment.bottomRight,
@@ -1502,7 +1626,7 @@ class _SlotMachineState extends State<SlotMachine> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                      height: height * .3,
+                      // height: height * .3,
                       width: width * .3,
                       child: CircleAvatar(
                         radius: 30.0,
@@ -1574,7 +1698,23 @@ class _SlotMachineState extends State<SlotMachine> {
       },
     );
   }
-
+  void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );}
   showdiologwronganswer(int index) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -1586,7 +1726,7 @@ class _SlotMachineState extends State<SlotMachine> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
           insetPadding: EdgeInsets.all(0),
-          title: Column(
+          title:Column(
             children: [
               Align(
                   alignment: Alignment.bottomRight,
@@ -1600,18 +1740,54 @@ class _SlotMachineState extends State<SlotMachine> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                      height: height * .3,
-                      width: width * .3,
-                      child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            MagicProfileControllerinstance
-                                .MagicProfileList.value.requests![index].imgPath
-                                .toString()),
-                        backgroundColor: Colors.transparent,
+                      // height: Get.height * 0.14,
+                      width: Get.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        color: Colors.green,
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                              MagicProfileControllerinstance.MagicProfileList
+                                  .value.requests![index].imgPath
+                                  .toString()),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
+  //                 Center(
+  //                   child: Container(
+  //                     height: height * .3,
+  //                     width: width * .3,
+  //                     child: CircleAvatar(
+  //                       radius: 30.0,
+
+  //                       child: CachedNetworkImage(
+  //   imageUrl:             MagicProfileControllerinstance
+  //                               .MagicProfileList.value.requests![index].imgPath
+  //                               .toString(), // Replace with your image URL
+  //   imageBuilder: (context, imageProvider) => Container(
+  //     decoration: BoxDecoration(
+  //       shape: BoxShape.circle,
+  //       image: DecorationImage(
+  //         image: imageProvider,
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //   ),
+  //   placeholder: (context, url) => CircularProgressIndicator(), // Placeholder widget while loading
+  //   errorWidget: (context, url, error) => Icon(Icons.error), // Widget to display in case of an error
+  // ),
+  //                       // backgroundImage: CachedNetworkImageProvider(
+                          
+  //                           // MagicProfileControllerinstance
+  //                           //     .MagicProfileList.value.requests![index].imgPath
+  //                           //     .toString(),),
+  //                       backgroundColor: Colors.transparent,
+                        
+  //                     ),
+  //                   ),
+  //                 ),
                   Positioned(
                       top: 80,
                       left: 50,
@@ -1636,28 +1812,28 @@ class _SlotMachineState extends State<SlotMachine> {
               SizedBox(
                 height: height * .02,
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: height * .04,
-                  width: width * .3,
-                  decoration: BoxDecoration(
-                    color: Color(0xffFE0091),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Back",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.back();
+              //   },
+              //   child: Container(
+              //     height: height * .04,
+              //     width: width * .3,
+              //     decoration: BoxDecoration(
+              //       color: Color(0xffFE0091),
+              //       borderRadius: BorderRadius.circular(15),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         "Back",
+              //         style: Theme.of(context)
+              //             .textTheme
+              //             .bodySmall!
+              //             .copyWith(color: Colors.white),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),

@@ -181,8 +181,6 @@ class ProfileDetails {
      this.address,
      this.height,
      this.dob,
-     this.profileImg,
-     this.profileVideo,
      this.gender,
      this.religion,
      this.currentStep,
@@ -192,7 +190,7 @@ class ProfileDetails {
      this.likeStatus,
      this.details,
   });
-  var id;
+   var id;
    var name;
    var email;
    var phone;
@@ -201,16 +199,14 @@ class ProfileDetails {
    var address;
    var height;
    var dob;
-   var profileImg;
-   var profileVideo;
    var gender;
    var religion;
    var currentStep;
    var imgPath;
    var videoPath;
    var occupationName;
-  var likeStatus;
-   Details ?details;
+   var likeStatus;
+   Details? details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -222,8 +218,6 @@ class ProfileDetails {
     address = json['address'];
     height = json['height'];
     dob = json['dob'];
-    profileImg = json['profile_img'];
-    profileVideo = json['profile_video'];
     gender = json['gender'];
     religion = json['religion'];
     currentStep = json['current_step'];
@@ -231,7 +225,7 @@ class ProfileDetails {
     videoPath = json['video_path'];
     occupationName = json['occupation_name'];
     likeStatus = json['like_status'];
-    details = json['details']!=null?Details.fromJson(json['details']):null;
+    details = Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
@@ -245,8 +239,6 @@ class ProfileDetails {
     _data['address'] = address;
     _data['height'] = height;
     _data['dob'] = dob;
-    _data['profile_img'] = profileImg;
-    _data['profile_video'] = profileVideo;
     _data['gender'] = gender;
     _data['religion'] = religion;
     _data['current_step'] = currentStep;
@@ -276,16 +268,16 @@ class Details {
   });
   var id;
   var seekerId;
-   var profileGallery;
-   var inInterested;
-   var interest;
-   var bioTitle;
-   var bioDescription;
+  var profileGallery;
+  var inInterested;
+  var interest;
+  var bioTitle;
+  var bioDescription;
   var status;
-   dynamic createdAt;
-   var updatedAt;
-   List<String> ?gallaryPath;
-   List<InterestName> ?interestName;
+  var createdAt;
+  var updatedAt;
+  List<String>? gallaryPath;
+  List<dynamic> ?interestName;
   
   Details.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -296,10 +288,10 @@ class Details {
     bioTitle = json['bio_title'];
     bioDescription = json['bio_description'];
     status = json['status'];
-    createdAt = json['createdAt'];
+    createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    gallaryPath = json['gallary_path']!=null?List.castFrom<dynamic, String>(json['gallary_path']):[];
-    interestName = json['interest_name']!=null? List.from(json['interest_name']).map((e)=>InterestName.fromJson(e)).toList():[];
+    gallaryPath = List.castFrom<dynamic, String>(json['gallary_path']);
+    interestName = List.castFrom<dynamic, dynamic>(json['interest_name']);
   }
 
   Map<String, dynamic> toJson() {
@@ -315,24 +307,7 @@ class Details {
     _data['created_at'] = createdAt;
     _data['updated_at'] = updatedAt;
     _data['gallary_path'] = gallaryPath;
-    _data['interest_name'] = interestName!.map((e)=>e.toJson()).toList();
-    return _data;
-  }
-}
-
-class InterestName {
-  InterestName({
-     this.title,
-  });
-   var title;
-  
-  InterestName.fromJson(Map<String, dynamic> json){
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['title'] = title;
+    _data['interest_name'] = interestName;
     return _data;
   }
 }

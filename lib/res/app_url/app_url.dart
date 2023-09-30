@@ -56,4 +56,5 @@ class AppUrl {
   static const String staticLiverPullUrl =
       '$baseUrl/seeker/show-leverpool-request-profile';
   static const String SeekerMyProfileDetailsUrl = '$baseUrl/seeker/my-profile';
+  static const String LiverPoolRequestUrl = '$baseUrl/seeker/after-leverpool-seeker-request-profile';
 }

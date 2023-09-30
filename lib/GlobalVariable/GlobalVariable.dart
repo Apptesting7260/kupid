@@ -23,7 +23,7 @@ List <String>  interests=[];
   String? selectGender;
     bool isVisible = true;
   bool isNotVisible = false;
-int ?rolevalue;
+int rolevalue=1;
 File? videoFile;
  int ?selectedseekerid;
   String? selectExperience;
