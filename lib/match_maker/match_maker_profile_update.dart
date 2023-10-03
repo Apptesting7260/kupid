@@ -89,12 +89,13 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   String? selectedValue;
   var items = ['22', '23', '24', '25', '26'];
 
-
+  String? selectMakerGendr;
   var genderItems = ["male", "female", "other"];
 
   String? selectLocationItems;
   var locationItems = ["Jaipur, indian", "Sikar"];
 
+  String? selectExp;
 
   var experienceItems = [
     "Bigginer",
@@ -236,6 +237,8 @@ Future<File?> pickVideo() async {
 
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
+    startdate=null;
+    imgFile=null;
   }
 
   final imgPicker = ImagePicker();
@@ -777,10 +780,11 @@ Future<File?> pickVideo() async {
                             child: Text(items),
                           );
                         }).toList(),
-                        value: selectGender,
+                        value: selectMakerGendr,
                         onChanged: (String? value) {
                           setState(() {
-                            selectGender = value;
+                            selectMakerGendr = value;
+                            selectGender = selectMakerGendr;
                             print(selectGender);
                           });
                         },
@@ -797,7 +801,7 @@ Future<File?> pickVideo() async {
                             color: Colors.white,
                           ),
                         ),
-                        iconStyleData: selectGender == null
+                        iconStyleData: selectMakerGendr == null
                             ? IconStyleData(
                                 icon: Icon(Icons
                                     .keyboard_arrow_down), // Change to up arrow icon
@@ -809,7 +813,7 @@ Future<File?> pickVideo() async {
                                   child: Icon(Icons.close),
                                   onTap: () {
                                     setState(() {
-                                      selectGender = null;
+                                      selectMakerGendr = null;
                                     });
                                   },
                                 ), // Change to down arrow icon
@@ -1060,10 +1064,12 @@ Future<File?> pickVideo() async {
                             child: Text(items),
                           );
                         }).toList(),
-                        value: selectExperience,
+                        value: selectExp,
                         onChanged: (String? value) {
                           setState(() {
-                            selectExperience = value;
+
+                            selectExp = value;
+                            selectExperience = selectExp;
                             print(selectExperience);
                           });
                         },
@@ -1080,7 +1086,7 @@ Future<File?> pickVideo() async {
                             color: Colors.white,
                           ),
                         ),
-                        iconStyleData: selectExperience == null
+                        iconStyleData: selectExp == null
                             ? IconStyleData(
                                 icon: Icon(Icons
                                     .keyboard_arrow_down), // Change to up arrow icon
@@ -1092,7 +1098,7 @@ Future<File?> pickVideo() async {
                                   child: Icon(Icons.close),
                                   onTap: () {
                                     setState(() {
-                                      selectExperience = null;
+                                      selectExp = null;
                                     });
                                   },
                                 ), // Change to down arrow icon

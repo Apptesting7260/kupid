@@ -305,6 +305,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 title: "Next",
                 onTap: () {
                   Get.to(()=>InterstedIn());
+                  selectedImagesFiles.clear();
                 },
               ),
             ),

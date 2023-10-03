@@ -14,6 +14,10 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../views/splash_screen.dart';
 
 class MakerDrawer extends StatefulWidget {
   const MakerDrawer({super.key});
@@ -32,7 +36,9 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
     // TODO: implement initState
     super.initState();
   }
-  @override
+final box = GetStorage();
+
+@override
   Widget build(BuildContext context) {
 
        final height = MediaQuery.of(context).size.height;
@@ -307,7 +313,21 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
                 child: MyButton(
                   width: width * .5,
                   title: 'Log Out',
-                  onTap: () {},
+                  onTap: () async {
+
+                    final SharedPreferences sp=await SharedPreferences.getInstance();
+
+                    // Delete the cached data when the user logs out
+
+                    sp.remove("BarearToken");
+
+                    // You can also clear all data in the storage if needed
+                    // box.erase();
+
+                    // Add any other logout logic you have here
+                    Get.off(SplashScreen());
+                    print("Logged out successfully");
+                  },
                 ),
               ),
               SizedBox(

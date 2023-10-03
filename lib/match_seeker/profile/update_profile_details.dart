@@ -34,7 +34,7 @@ class SikerProfileDetails extends StatefulWidget {
 }
 
 class _SikerProfileDetailsState extends State<SikerProfileDetails> {
-  MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
+  // MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
 
   final SignUpControllerinstance=Get.put(SignUpController());
   FocusNode _dropdownFocus1 = FocusNode();
@@ -179,7 +179,7 @@ Future<File?> pickVideo() async {
   String? selectOccupations;
 
 
-
+  String? selectLocalGender;
   var genderItems = ["male", "female", "other"];
 
 
@@ -220,6 +220,8 @@ Future<File?> pickVideo() async {
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
     _dropdownFocus3.addListener(_onDropdownFocusChange3);
+    startdate=null;
+    imgFile=null;
   }
   @override
   Widget build(BuildContext context) {
@@ -619,7 +621,7 @@ Future<File?> pickVideo() async {
                     onChanged: (String? value) {
                       setState(() {
                         dropdownvalue = value!;
-                        Ocupasion = value;
+                        Ocupasion = dropdownvalue;
                         print(Ocupasion);
                       });
                     },
@@ -636,7 +638,7 @@ Future<File?> pickVideo() async {
 
 
                     ),
-                    iconStyleData:selectGender==null
+                    iconStyleData:dropdownvalue==null
                         ? IconStyleData(
                       icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
                       iconSize: 30,
@@ -645,7 +647,7 @@ Future<File?> pickVideo() async {
                         : IconStyleData(
                       icon: InkWell(child: Icon(Icons.close),onTap: (){
                         setState(() {
-                          selectGender=null;
+                          dropdownvalue=null;
                         });
                       },),  // Change to down arrow icon
                       iconSize: 25,
@@ -853,10 +855,11 @@ Future<File?> pickVideo() async {
                      child: Text(items),
                     );
                     }).toList(),
-                  value: selectGender,
+                  value: selectLocalGender,
                   onChanged: (String? value) {
                     setState(() {
                       print(value);
+                      selectLocalGender=value;
                       selectGender = value;
                       print(selectGender);
                     });
@@ -874,7 +877,7 @@ Future<File?> pickVideo() async {
 
 
                   ),
-                  iconStyleData:selectGender==null
+                  iconStyleData:selectLocalGender==null
                       ? IconStyleData(
                     icon: Icon(Icons.keyboard_arrow_down),  // Change to up arrow icon
                     iconSize: 30,
@@ -883,7 +886,7 @@ Future<File?> pickVideo() async {
                       : IconStyleData(
                     icon: InkWell(child: Icon(Icons.close),onTap: (){
                       setState(() {
-                        selectGender=null;
+                        selectLocalGender=null;
                       });
                     },),  // Change to down arrow icon
                     iconSize: 25,
@@ -1096,12 +1099,16 @@ Future<File?> pickVideo() async {
                     padding:  EdgeInsets.symmetric(horizontal: width*.05),
                     child: GestureDetector(
                         onTap: ()  async {
+                          DateTime minimumDate = DateTime.now().subtract(
+                              Duration(
+                                  days: 365 *
+                                      18));
                           startdate  =
                           await showDatePicker(
                             context: context,
-                            initialDate: date,
+                            initialDate: minimumDate,
                             firstDate: DateTime(1900),
-                            lastDate: DateTime(2100),
+                            lastDate: minimumDate,
                           );
                           print(startdate);
                           datestring=DateFormat('dd-MM-yyyy').format(DateTime.parse(startdate.toString()));

@@ -19,6 +19,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_pinput/new_pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:math' as math;
 
@@ -31,6 +32,7 @@ import '../match_seeker/Requests/IncomingRequest.dart';
 import '../match_seeker/Requests/outgoingRequest.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
+import '../views/splash_screen.dart';
 import 'makerRequest/incoming_maker_rqt.dart';
 import 'makerRequest/outgoin_maker_rqt.dart';
 
@@ -76,9 +78,21 @@ class _HomePageState extends State<HomePage> {
           Builder(
             builder: (context) {
               return GestureDetector(
-                  onTap: () {
-                    Scaffold.of(context).openEndDrawer();
-                    MaterialLocalizations.of(context).openAppDrawerTooltip;
+                  onTap: () async {
+                    // Scaffold.of(context).openEndDrawer();
+                    // MaterialLocalizations.of(context).openAppDrawerTooltip;
+                    final SharedPreferences sp=await SharedPreferences.getInstance();
+
+                    // Delete the cached data when the user logs out
+
+                    sp.remove("BarearToken");
+
+                    // You can also clear all data in the storage if needed
+                    // box.erase();
+
+                    // Add any other logout logic you have here
+                    Get.off(SplashScreen());
+                    print("Logged out successfully");
                   },
                   child: Image.asset("assets/icons/menu.png"));
             },

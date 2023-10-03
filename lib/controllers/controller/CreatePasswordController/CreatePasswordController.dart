@@ -21,6 +21,7 @@ class CreatePasswordController extends GetxController {
   final PasswordController = TextEditingController().obs ;
   final ConfirmPasswordController = TextEditingController().obs ;
 
+
   RxBool loading = false.obs;
 
 
@@ -46,5 +47,8 @@ class CreatePasswordController extends GetxController {
       loading.value = false ;
       Utils.snackBar('Error', error.toString());
     });
+
+    PasswordController.value.clear();
+    ConfirmPasswordController.value.clear();
   }
 }

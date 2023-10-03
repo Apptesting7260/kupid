@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -134,6 +135,22 @@ print(videoFile);
         print('File uploaded successfully!');
         Get.to(() => PhotosScreen());
         loading.value = false ;
+        Ocupasion=null;
+        NameController.value.clear();
+        PhoneController.value.clear();
+        OccupationController.value.clear();
+        SalaryController.value.clear();
+        HeightController.value.clear();
+        InchesController.value.clear();
+        SecondanswerController.value.clear();
+        FirstanswerController.value.clear();
+        ThirdanswerController.value.clear();
+
+        CorrectanswerController.value.clear();
+        QuestionController.value.clear();
+        AddressController.value.clear();
+
+
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
         loading.value = false ;
@@ -143,6 +160,9 @@ print(videoFile);
       print(response);
       print('Error occurred while uploading file: $e');
     }
+
+
+
   }
 
 

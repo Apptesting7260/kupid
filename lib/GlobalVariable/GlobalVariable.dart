@@ -11,7 +11,7 @@ String ?SelectedDate;
 DateTime? startdate;
 String? datestring;
  File ?imgFile;
- String?Ocupasion;
+ String? Ocupasion;
 String verification_method="nationality_identity_card";
 String?nationality;
 File? ImagetoUpload;
