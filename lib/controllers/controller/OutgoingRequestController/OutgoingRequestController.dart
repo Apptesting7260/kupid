@@ -16,7 +16,7 @@ class OutgoinRequestController extends GetxController {
   void setUserList(OutgoingRequestModel value) => OutgoingRequestvalue.value = value;
   void setError(String value) => error.value = value;
 
-void seekerListApi() {
+void seekerOutGoingRequest() {
   setRxRequestStatus(Status.LOADING);
 
   if (box.hasData('outgoingRequestData')) {

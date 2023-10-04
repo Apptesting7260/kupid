@@ -16,29 +16,32 @@ class IncomingRequestController extends GetxController {
   void setUserList(IncomingRequestModel value) => IncomingRequestvalue.value = value;
   void setError(String value) => error.value = value;
 
-  void iseekerListApi() {
+  void seekerIncomingGoingRequest() {
     setRxRequestStatus(Status.LOADING);
 
-    if (box.hasData('incomingRequestData')) {
-      // Use cached data if available
-      final cachedData = box.read('incomingRequestData');
-      setUserList(IncomingRequestModel.fromJson(cachedData));
-      setRxRequestStatus(Status.COMPLETED);
-    } else {
-      // Fetch data from the API
+    // if (box.hasData('incomingRequestData')) {
+    //   // Use cached data if available
+    //   final cachedData = box.read('incomingRequestData');
+    //   setUserList(IncomingRequestModel.fromJson(cachedData));
+    //   setRxRequestStatus(Status.COMPLETED);
+    // } else {
+    //   // Fetch data from the API
       _api.IncomingRequestApi().then((value) {
         setRxRequestStatus(Status.COMPLETED);
         setUserList(value);
 
         // Manually convert and cache the data as JSON
-        final jsonData = value.toJson();
-        box.write('incomingRequestData', jsonData);
+        // final jsonData = value.toJson();
+        // box.write('incomingRequestData', jsonData)
 
-        print("faild result");
+        print("354653643++++546536================================================");
       }).onError((error, stackTrace) {
         setError(error.toString());
+
+        print("errrrrrrrrr");
         setRxRequestStatus(Status.ERROR);
       });
     }
   }
-}
+// }
+//

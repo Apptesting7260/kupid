@@ -35,8 +35,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
   bool loading = false;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
-  OutgoinRequestController controller = Get.put(OutgoinRequestController());
-  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+  OutgoinRequestController sekeerOutGoingController = Get.put(OutgoinRequestController());
+  IncomingRequestController sekeerIncomingController = Get.put(IncomingRequestController());
   final ViewSikerProfileDetailsControllernstance =
       Get.put(ViewSikerProfileDetailsController());
   RecentSeekerMatchesController recentSeekerMatchesController =
@@ -60,8 +60,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
   }
 
   homepageapis() {
-    controller.seekerListApi();
-    Incontroller.iseekerListApi();
+    sekeerOutGoingController.seekerOutGoingRequest();
+    sekeerIncomingController.seekerIncomingGoingRequest();
     recentSeekerMatchesController.isrecentSeekermatchesApi();
 
     seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();

@@ -896,13 +896,13 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                   .toString()),),
                                           ),
                                           onTap: () {
-                                            userIdsiker = Incontroller
-                                                .IncomingRequestvalue
-                                                .value
-                                                .requests![index]
-                                                .getSeeker!
-                                                .id
-                                                .toString();
+                                            // userIdsiker = Incontroller
+                                            //     .IncomingRequestvalue
+                                            //     .value
+                                            //     .requests![index]
+                                            //     .getSeeker!
+                                            //     .id
+                                            //     .toString();
 
                                             print(userIdsiker);
                                             if (userIdsiker != null) {
@@ -956,22 +956,22 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                           ),
                                         ),
                                         onTap: () {
-                                          requestid = Incontroller
-                                              .IncomingRequestvalue
-                                              .value
-                                              .requests![index]
-                                              .id
-                                              .toString();
-                                          setState(() {
-                                            requestype = "1";
-                                            requestid;
-                                            print(Incontroller
-                                                .IncomingRequestvalue
-                                                .value
-                                                .requests![index]
-                                                .id
-                                                .toString());
-                                          });
+                                          // requestid = Incontroller
+                                          //     .IncomingRequestvalue
+                                          //     .value
+                                          //     .requests![index]
+                                          //     .id
+                                          //     .toString();
+                                          // setState(() {
+                                          //   requestype = "1";
+                                          //   requestid;
+                                          //   print(Incontroller
+                                          //       .IncomingRequestvalue
+                                          //       .value
+                                          //       .requests![index]
+                                          //       .id
+                                          //       .toString());
+                                          // });
 
                                           if (requestid != null) {
                                             print(requestid);
@@ -1000,14 +1000,14 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                           'https://images.pexels.com/photos/17896249/pexels-photo-17896249/free-photo-of-monschau-overview.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
                                                 ),
                                                 onTap: () {
-                                                  Makerid = Incontroller
-                                                      .IncomingRequestvalue
-                                                      .value
-                                                      .requests![index]
-                                                      .getMaker!
-                                                      .id
-                                                      .toString();
-                                                  showmaker(context);
+                                                  // Makerid = Incontroller
+                                                  //     .IncomingRequestvalue
+                                                  //     .value
+                                                  //     .requests![index]
+                                                  //     .getMaker!
+                                                  //     .id
+                                                  //     .toString();
+                                                  // showmaker(context);
                                                 },
                                               ),
                                             ),
@@ -1050,22 +1050,22 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                                   .underline),
                                                 ),
                                                 onTap: () {
-                                                  requestid = Incontroller
-                                                      .IncomingRequestvalue
-                                                      .value
-                                                      .requests![index]
-                                                      .id
-                                                      .toString();
-                                                  setState(() {
-                                                    requestype = "1";
-                                                    requestid;
-                                                    print(Incontroller
-                                                        .IncomingRequestvalue
-                                                        .value
-                                                        .requests![index]
-                                                        .id
-                                                        .toString());
-                                                  });
+                                                  // requestid = Incontroller
+                                                  //     .IncomingRequestvalue
+                                                  //     .value
+                                                  //     .requests![index]
+                                                  //     .id
+                                                  //     .toString();
+                                                  // setState(() {
+                                                  //   requestype = "1";
+                                                  //   requestid;
+                                                  //   print(Incontroller
+                                                  //       .IncomingRequestvalue
+                                                  //       .value
+                                                  //       .requests![index]
+                                                  //       .id
+                                                  //       .toString());
+                                                  // });
 
                                                   if (requestid != null) {
                                                     print(requestid);

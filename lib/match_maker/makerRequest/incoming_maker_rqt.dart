@@ -986,7 +986,7 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                 .toString())),
                                         onTap: (){
 
-                                          Makerid=Incontroller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
+                                          // Makerid=Incontroller.IncomingRequestvalue.value.requests![index].getMaker!.id.toString();
                                           showmaker(context);
                                         },
                                       ),
@@ -1027,14 +1027,14 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                               TextDecoration.underline),
                                         ),
                                         onTap: () {
-                                          requestid=Incontroller.IncomingRequestvalue.value
-                                              .requests![index].id.toString();
-                                          setState(() {
-                                            requestype="1";
-                                            requestid;
-                                            print(Incontroller.IncomingRequestvalue.value
-                                                .requests![index].id.toString());
-                                          });
+                                          // requestid=Incontroller.IncomingRequestvalue.value
+                                          //     .requests![index].id.toString();
+                                          // setState(() {
+                                          //   requestype="1";
+                                          //   requestid;
+                                          //   print(Incontroller.IncomingRequestvalue.value
+                                          //       .requests![index].id.toString());
+                                          // });
 
                                           if(x!=null){
                                             print(requestid);
