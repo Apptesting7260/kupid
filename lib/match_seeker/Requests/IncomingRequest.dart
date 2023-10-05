@@ -22,8 +22,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
 
 // IncomingRequestController Incontroller = Get.put(IncomingRequestController());
 
-  final IncomingRequestController IncomingRequestControllerins =
-      Get.put(IncomingRequestController());
+  final IncomingSeekerRequestController IncomingRequestControllerins =
+      Get.put(IncomingSeekerRequestController());
 
   @override
   // void initState() {
@@ -145,8 +145,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                 SizedBox(
                   height: Get.height * 0.04,
                 ),
+                // IncomingRequestControllerins.IncomingRequestvalue
+                //     .value.requests!.byMaker != null||
                 IncomingRequestControllerins.IncomingRequestvalue
-                    .value.requests!.byMaker != null &&(requestController.button_maker.value) ?Row(
+                    .value.requests!.byMaker!=[]&&(requestController.button_maker.value) ?Row(
                   children: [
                     SizedBox(
                       width: Get.width * 0.05,
@@ -181,8 +183,11 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                     ),
                   ],
                 ):SizedBox(),
-                IncomingRequestControllerins.IncomingRequestvalue
-                    .value.requests!.bySeeker != null &&(requestController.button_maker.value !=true) ?Row(
+                // IncomingRequestControllerins.IncomingRequestvalue
+                //     .value.requests!.bySeeker != null||
+                    IncomingRequestControllerins.IncomingRequestvalue
+                        .value.requests!.bySeeker!=[]
+                    &&(requestController.button_maker.value !=true) ?Row(
                   children: [
                     SizedBox(
                       width: Get.width * 0.05,
@@ -227,7 +232,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                         width: Get.width * 1,
                         child: IncomingRequestControllerins.IncomingRequestvalue
                                     .value.requests!.byMaker ==
-                                null
+                                null||IncomingRequestControllerins.IncomingRequestvalue
+                            .value.requests!.byMaker==[]
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,

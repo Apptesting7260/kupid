@@ -4,16 +4,16 @@ import '../../../data/response/status.dart';
 import '../../../repository/Auth_Repository/Auth_Repository.dart';
 import 'package:get_storage/get_storage.dart'; // Import GetStorage
 
-class IncomingRequestController extends GetxController {
+class IncomingSeekerRequestController extends GetxController {
   final _api = AuthRepository();
   final rxRequestStatus = Status.LOADING.obs;
-  final IncomingRequestvalue = IncomingRequestModel().obs;
+  final IncomingRequestvalue = IncomingSeekerRequestModel().obs;
   RxString error = ''.obs;
 
   final box = GetStorage(); // Create a GetStorage instance
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-  void setUserList(IncomingRequestModel value) => IncomingRequestvalue.value = value;
+  void setUserList(IncomingSeekerRequestModel value) => IncomingRequestvalue.value = value;
   void setError(String value) => error.value = value;
 
   void seekerIncomingGoingRequest() {
@@ -37,7 +37,7 @@ class IncomingRequestController extends GetxController {
         print("354653643++++546536================================================");
       }).onError((error, stackTrace) {
         setError(error.toString());
-
+print(error.toString());
         print("errrrrrrrrr");
         setRxRequestStatus(Status.ERROR);
       });

@@ -34,6 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:math' as math;
 
+import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 
@@ -45,18 +46,27 @@ class SikerHomeScreen extends StatefulWidget {
 }
 
 class _SikerHomeScreenState extends State<SikerHomeScreen> {
-  OutgoinRequestController controller = Get.put(OutgoinRequestController());
-  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+  // OutgoinRequestController controller = Get.put(OutgoinRequestController());
+  // IncomingSeekerRequestController Incontroller = Get.put(IncomingSeekerRequestController());
   final ViewSikerProfileDetailsControllernstance =
       Get.put(ViewSikerProfileDetailsController());
   RecentSeekerMatchesController recentSeekerMatchesController =
       Get.put(RecentSeekerMatchesController());
   String? Getcurrentuser;
   @override
+  HomeRequestController requestHomeController=Get.put(HomeRequestController());
   void initState() {
+    requestHomeController.homeRequest();
+    // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0]);
+    // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0].getseeker?.gender);
     // TODO: implement initState
     super.initState();
     getcurrentuser();
+    print(  requestHomeController.seekerHomeRequestValue.value
+        .requests!.outgoing![0].getseeker!
+        .name
+        .toString());
+
   }
 
   getcurrentuser() async {
@@ -64,7 +74,6 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
     Getcurrentuser = sp.getString("Tokernid");
     print("$Getcurrentuser======currentuser");
   }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -74,7 +83,11 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
-            "Home",
+            "Home "
+            +  requestHomeController.seekerHomeRequestValue.value
+                .requests!.outgoing![4].getseeker!
+                .name
+                .toString(),
             style: Theme.of(context).textTheme.titleSmall,
           ),
           actions: [
@@ -92,16 +105,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
         ),
         endDrawer: MyDrawer(),
         body: Obx(() {
-          final incomingrequeststatus = Incontroller.rxRequestStatus.value;
-          final outgoingrequeststatus = controller.rxRequestStatus.value;
+
+
           final recentmachesstatus =
               recentSeekerMatchesController.rxRequestStatus.value;
-          if (recentmachesstatus == Status.ERROR ||
-              incomingrequeststatus == Status.ERROR ||
-              outgoingrequeststatus == Status.ERROR) {
-            if (recentSeekerMatchesController.error.value == 'No internet' ||
-                Incontroller.error.value == 'No internet' ||
-                controller.error.value == 'No internet') {
+          if (recentmachesstatus == Status.ERROR
+
+              ) {
+            if (recentSeekerMatchesController.error.value == 'No internet' ) {
               return InterNetExceptionWidget(
                 onPress: () {
                   // questionsViewModal.refreshApi();
@@ -111,9 +122,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
             } else {
               if (recentSeekerMatchesController
                           .RecentSeekerMatchValue.value.status ==
-                      'failed' &&
-                  Incontroller.IncomingRequestvalue.value.status == 'failed' &&
-                  controller.OutgoingRequestvalue.value.status == 'failed') {
+                      'failed') {
                 return Column(
                   children: [
                     Container(
@@ -179,9 +188,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
               }
               return HomeScreenWIdget();
             }
-          } else if (recentmachesstatus == Status.LOADING ||
-              incomingrequeststatus == Status.LOADING ||
-              outgoingrequeststatus == Status.LOADING) {
+          } else if (recentmachesstatus == Status.LOADING ) {
             return Center(child: CircularProgressIndicator());
           } else {
             return Padding(
@@ -194,11 +201,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       children: [
                         if (recentSeekerMatchesController
                                     .RecentSeekerMatchValue.value.message ==
-                                'Data Not Found' &&
-                            Incontroller.IncomingRequestvalue.value.message ==
-                                'No request found' &&
-                            controller.OutgoingRequestvalue.value.message ==
-                                'No request found')
+                                'Data Not Found')
                           Column(
                             children: [
                               Align(
@@ -241,11 +244,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                           ),
                         if (recentSeekerMatchesController
                                     .RecentSeekerMatchValue.value.message !=
-                                'Data Not Found' ||
-                            Incontroller.IncomingRequestvalue.value.message !=
-                                'No request found' ||
-                            controller.OutgoingRequestvalue.value.message !=
-                                'No request found')
+                                'Data Not Found')
                           Container(
                             child: Column(
                               children: [
@@ -534,7 +533,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 // ),
 
                                 //********************* recent conversations *********
-
+    Text("data",style: TextStyle(color: Colors.black)),
                                 Column(
                                   children: [
                                     Row(
@@ -661,7 +660,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                     ),
                                     TextButton(
                                         onPressed: () {
-                                          Get.to(IncomingRequests());
+                                          // Get.to(IncomingRequests());
                                         },
                                         child: Text(
                                           'View All',
@@ -671,9 +670,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                         )),
                                   ],
                                 ),
-                                // SizedBox(
-                                //   height: height * 0.02,
-                                // ),
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
                                 // if (Incontroller.IncomingRequestvalue.value
                                 //     .requests!.isNull)
                                 //   Column(
@@ -689,330 +688,308 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 //       )
                                 //     ],
                                 //   ),
-                                //
-                                // if (Incontroller.IncomingRequestvalue.value
-                                //     .requests!.isNotEmpty)
-                                //   Container(
-                                //     width: width,
-                                //     height: height * .18,
-                                //     child: ListView.builder(
-                                //       scrollDirection: Axis.horizontal,
-                                //       physics: AlwaysScrollableScrollPhysics(),
-                                //       shrinkWrap: true,
-                                //       itemCount: Incontroller
-                                //                   .IncomingRequestvalue
-                                //                   .value
-                                //                   .requests!.byMaker
-                                //                   !.length >
-                                //               2
-                                //           ? 2
-                                //           : 1,
-                                //       itemBuilder: (context, index) {
-                                //         return InkWell(
-                                //           child: Padding(
-                                //             padding: const EdgeInsets.all(8.0),
-                                //             child: Container(
-                                //                 decoration: BoxDecoration(
-                                //                     color: AppColors
-                                //                         .ratingcodeColor,
-                                //                     borderRadius:
-                                //                         BorderRadius.circular(
-                                //                             15)),
-                                //                 width: width * .65,
-                                //                 child: Incontroller
-                                //                             .IncomingRequestvalue
-                                //                             .value
-                                //                             .requests![index]
-                                //                             .getMaker ==
-                                //                         null
-                                //                     ? InkWell(
-                                //                         child: Container(
-                                //                             child: Column(
-                                //                           children: [
-                                //                             Row(
-                                //                               children: [
-                                //                                 Padding(
-                                //                                   padding: const EdgeInsets
-                                //                                       .only(
-                                //                                       left: 20,
-                                //                                       top: 10,
-                                //                                       bottom:
-                                //                                           10),
-                                //                                   child: Text(
-                                //                                     "Seeker ",
-                                //                                     style: TextStyle(
-                                //                                         color: Colors
-                                //                                             .pink),
-                                //                                   ),
-                                //                                 ),
-                                //                                 Text(
-                                //                                   " Requested",
-                                //                                   style: TextStyle(
-                                //                                       color: Colors
-                                //                                           .black),
-                                //                                 )
-                                //                               ],
-                                //                             ),
-                                //                             Row(
-                                //                               crossAxisAlignment:
-                                //                                   CrossAxisAlignment
-                                //                                       .start,
-                                //                               mainAxisAlignment:
-                                //                                   MainAxisAlignment
-                                //                                       .start,
-                                //                               children: [
-                                //                                 Padding(
-                                //                                   padding:
-                                //                                       const EdgeInsets
-                                //                                           .all(
-                                //                                           8.0),
-                                //                                   child:
-                                //                                       Container(
-                                //                                     // width: width * .29,
-                                //                                     child:
-                                //                                         Stack(
-                                //                                       children: [
-                                //                                         CircleAvatar(
-                                //                                             radius:
-                                //                                                 30,
-                                //                                             backgroundColor:
-                                //                                                 AppColors.white,
-                                //                                             backgroundImage: CachedNetworkImageProvider(Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.imgPath.toString())),
-                                //                                       ],
-                                //                                     ),
-                                //                                   ),
-                                //                                 ),
-                                //                                 SizedBox(
-                                //                                   width:
-                                //                                       Get.width *
-                                //                                           0.08,
-                                //                                 ),
-                                //                                 Column(
-                                //                                   children: [
-                                //                                     SizedBox(
-                                //                                       height: Get
-                                //                                               .height *
-                                //                                           0.02,
-                                //                                     ),
-                                //                                     Text(
-                                //                                       Incontroller
-                                //                                           .IncomingRequestvalue
-                                //                                           .value
-                                //                                           .requests![
-                                //                                               index]
-                                //                                           .getSeeker!
-                                //                                           .name
-                                //                                           .toString(),
-                                //                                       style: TextStyle(
-                                //                                           color: Colors
-                                //                                               .pink,
-                                //                                           fontSize:
-                                //                                               20,
-                                //                                           fontWeight:
-                                //                                               FontWeight.bold),
-                                //                                     ),
-                                //                                     SizedBox(
-                                //                                       height: Get
-                                //                                               .height *
-                                //                                           0.01,
-                                //                                     ),
-                                //                                     Text(
-                                //                                       Incontroller
-                                //                                           .IncomingRequestvalue
-                                //                                           .value
-                                //                                           .requests![
-                                //                                               index]
-                                //                                           .getSeeker!
-                                //                                           .dob
-                                //                                           .toString(),
-                                //                                       style: TextStyle(
-                                //                                           color:
-                                //                                               Colors.black),
-                                //                                     )
-                                //                                   ],
-                                //                                 )
-                                //                               ],
-                                //                             )
-                                //                           ],
-                                //                         )),
-                                //                         //  onTap: (){
-                                //                         //      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
-                                //
-                                //                         //     print(userIdsiker);
-                                //                         //     Get.to(ShortProfileSeeker());
-                                //                         // },
-                                //                       )
-                                //                     : Container(
-                                //                         child: Column(
-                                //                         children: [
-                                //                           Row(
-                                //                             children: [
-                                //                               SizedBox(
-                                //                                 height:
-                                //                                     Get.height *
-                                //                                         0.04,
-                                //                               ),
-                                //                               Padding(
-                                //                                 padding:
-                                //                                     const EdgeInsets
-                                //                                         .only(
-                                //                                   left: 20,
-                                //                                 ),
-                                //                                 child: Text(
-                                //                                   "Seeker &",
-                                //                                   style: TextStyle(
-                                //                                       color: Colors
-                                //                                           .black),
-                                //                                 ),
-                                //                               ),
-                                //                               Text(
-                                //                                 "Maker",
-                                //                                 style: TextStyle(
-                                //                                     color: Colors
-                                //                                         .pink),
-                                //                               ),
-                                //                               Text(
-                                //                                 " Requested",
-                                //                                 style: TextStyle(
-                                //                                     color: Colors
-                                //                                         .black),
-                                //                               )
-                                //                             ],
-                                //                           ),
-                                //                           Row(
-                                //                             crossAxisAlignment:
-                                //                                 CrossAxisAlignment
-                                //                                     .start,
-                                //                             mainAxisAlignment:
-                                //                                 MainAxisAlignment
-                                //                                     .start,
-                                //                             children: [
-                                //                               Padding(
-                                //                                 padding:
-                                //                                     const EdgeInsets
-                                //                                         .all(
-                                //                                         8.0),
-                                //                                 child:
-                                //                                     Container(
-                                //                                   width: width *
-                                //                                       .29,
-                                //                                   child: Stack(
-                                //                                     children: [
-                                //                                       Positioned(
-                                //                                         right:
-                                //                                             30,
-                                //                                         child:
-                                //                                             CircleAvatar(
-                                //                                           radius:
-                                //                                               30.0,
-                                //                                           backgroundImage: CachedNetworkImageProvider(Incontroller
-                                //                                               .IncomingRequestvalue
-                                //                                               .value
-                                //                                               .requests![index]
-                                //                                               .getSeeker!
-                                //                                               .imgPath
-                                //                                               .toString()),
-                                //                                           backgroundColor:
-                                //                                               Colors.transparent,
-                                //                                         ),
-                                //                                       ),
-                                //                                       Container(
-                                //                                         decoration:
-                                //                                             BoxDecoration(
-                                //                                           shape:
-                                //                                               BoxShape.circle,
-                                //                                           border: Border.all(
-                                //                                               color: Colors.white,
-                                //                                               width: 2),
-                                //                                         ),
-                                //                                         child:
-                                //                                             CircleAvatar(
-                                //                                           radius:
-                                //                                               30.0,
-                                //                                           backgroundImage: CachedNetworkImageProvider(Incontroller
-                                //                                               .IncomingRequestvalue
-                                //                                               .value
-                                //                                               .requests![index]
-                                //                                               .getMaker!
-                                //                                               .imgPath
-                                //                                               .toString()),
-                                //                                           backgroundColor:
-                                //                                               Colors.transparent,
-                                //                                         ),
-                                //                                       ),
-                                //                                     ],
-                                //                                   ),
-                                //                                 ),
-                                //                               ),
-                                //                               Column(
-                                //                                 children: [
-                                //                                   SizedBox(
-                                //                                     height:
-                                //                                         Get.height *
-                                //                                             0.02,
-                                //                                   ),
-                                //                                   Text(
-                                //                                     Incontroller
-                                //                                         .IncomingRequestvalue
-                                //                                         .value
-                                //                                         .requests![
-                                //                                             index]
-                                //                                         .getSeeker!
-                                //                                         .name
-                                //                                         .toString(),
-                                //                                     style: TextStyle(
-                                //                                         color: Colors
-                                //                                             .pink,
-                                //                                         fontSize:
-                                //                                             20,
-                                //                                         fontWeight:
-                                //                                             FontWeight.bold),
-                                //                                   ),
-                                //                                   SizedBox(
-                                //                                     height:
-                                //                                         Get.height *
-                                //                                             0.01,
-                                //                                   ),
-                                //                                   Text(
-                                //                                     Incontroller
-                                //                                         .IncomingRequestvalue
-                                //                                         .value
-                                //                                         .requests![
-                                //                                             index]
-                                //                                         .getSeeker!
-                                //                                         .dob
-                                //                                         .toString(),
-                                //                                     style: TextStyle(
-                                //                                         color: Colors
-                                //                                             .black),
-                                //                                   )
-                                //                                 ],
-                                //                               )
-                                //                             ],
-                                //                           )
-                                //                         ],
-                                //                       ))),
-                                //           ),
-                                //           onTap: () {
-                                //             setState(() {
-                                //               requestype = "1";
-                                //             });
-                                //             requestid = Incontroller
-                                //                 .IncomingRequestvalue
-                                //                 .value
-                                //                 .requests![index]
-                                //                 .id
-                                //                 .toString();
-                                //
-                                //             if (requestid != null) {
-                                //               print(requestid);
-                                //               Get.to(ChatPage());
-                                //             }
-                                //           },
-                                //         );
-                                //       },
-                                //     ),
-                                //   ),
+
+                                // if (requestHomeController.seekerHomeRequestValue.value
+                                //     .requests!.incoming!.isNotEmpty)
+                                  Container(
+                                    width: width,
+                                    height: height * .18,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      physics: AlwaysScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: requestHomeController.seekerHomeRequestValue.value
+                                          .requests!.incoming
+                                                  !.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: AppColors
+                                                        .ratingcodeColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15)),
+                                                width: width * .65,
+                                                child: requestHomeController.seekerHomeRequestValue.value
+                                                    .requests!.incoming![index]
+                                                            .getmaker ==
+                                                        null
+                                                    ? InkWell(
+                                                        child: Container(
+                                                            child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .only(
+                                                                      left: 20,
+                                                                      top: 10,
+                                                                      bottom:
+                                                                          10),
+                                                                  child: Text(
+                                                                    "Seeker ",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  " Requested",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                  child:
+                                                                      Container(
+                                                                    // width: width * .29,
+                                                                    child:
+                                                                        Stack(
+                                                                      children: [
+                                                                        CircleAvatar(
+                                                                            radius:
+                                                                                30,
+                                                                            backgroundColor:
+                                                                                AppColors.white,
+                                                                            backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
+                                                                                .requests!.incoming![index].getseeker!.imgPath.toString())),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width:
+                                                                      Get.width *
+                                                                          0.08,
+                                                                ),
+                                                                Column(
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      height: Get
+                                                                              .height *
+                                                                          0.02,
+                                                                    ),
+                                                                    Text(
+                                                                      requestHomeController.seekerHomeRequestValue.value
+                                                                          .requests!.incoming![
+                                                                              index]
+                                                                          .getseeker!
+                                                                          .name
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .pink,
+                                                                          fontSize:
+                                                                              20,
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: Get
+                                                                              .height *
+                                                                          0.01,
+                                                                    ),
+                                                                    Text(
+                                                                      requestHomeController.seekerHomeRequestValue.value
+                                                                          .requests!.incoming![
+                                                                              index]
+                                                                          .getseeker!
+                                                                          .dob
+                                                                          .toString(),
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.black),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )),
+                                                        //  onTap: (){
+                                                        //      userIdsiker=Incontroller.IncomingRequestvalue.value.requests![index].getSeeker!.id.toString();
+
+                                                        //     print(userIdsiker);
+                                                        //     Get.to(ShortProfileSeeker());
+                                                        // },
+                                                      )
+                                                    : Container(
+                                                        child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.04,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                  left: 20,
+                                                                ),
+                                                                child: Text(
+                                                                  "Seeker &",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "Maker",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .pink),
+                                                              ),
+                                                              Text(
+                                                                " Requested",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        8.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: width *
+                                                                      .29,
+                                                                  child: Stack(
+                                                                    children: [
+                                                                      Positioned(
+                                                                        right:
+                                                                            30,
+                                                                        child:
+                                                                            CircleAvatar(
+                                                                          radius:
+                                                                              30.0,
+                                                                          backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
+                                                                              .requests!.incoming![index]
+                                                                              .getseeker!
+                                                                              .imgPath
+                                                                              .toString()),
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                          border: Border.all(
+                                                                              color: Colors.white,
+                                                                              width: 2),
+                                                                        ),
+                                                                        child:
+                                                                            CircleAvatar(
+                                                                          radius:
+                                                                              30.0,
+                                                                          backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
+                                                                              .requests!.incoming![index]
+                                                                              .getmaker!
+                                                                              .imgPath
+                                                                              .toString()),
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                    height:
+                                                                        Get.height *
+                                                                            0.02,
+                                                                  ),
+                                                                  Text(
+                                                                    requestHomeController.seekerHomeRequestValue.value
+                                                                        .requests!.incoming![index]
+                                                                        .getseeker!
+                                                                        .name
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink,
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        Get.height *
+                                                                            0.01,
+                                                                  ),
+                                                                  Text(
+                                                                    requestHomeController.seekerHomeRequestValue.value
+                                                                        .requests!.incoming![index]
+                                                                        .getseeker!
+                                                                        .dob
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black),
+                                                                  )
+                                                                ],
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ))),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              requestype = "1";
+                                            });
+                                            requestid = requestHomeController.seekerHomeRequestValue.value
+                                                .requests!.incoming![index]
+                                                .id
+                                                .toString();
+
+                                            if (requestid != null) {
+                                              print(requestid);
+                                              Get.to(ChatPage());
+                                            }
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
 
                                 SizedBox(
                                   height: height * 0.02,
@@ -1047,8 +1024,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 SizedBox(
                                   height: height * 0.02,
                                 ),
-                                if (controller.OutgoingRequestvalue.value
-                                    .requests!.isEmpty)
+                                if (requestHomeController.seekerHomeRequestValue.value
+                                    .requests!.outgoing!.isEmpty)
                                   Column(
                                     children: [
                                       Image.asset(
@@ -1062,8 +1039,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       )
                                     ],
                                   ),
-                                if (controller.OutgoingRequestvalue.value
-                                    .requests!.isNotEmpty)
+                                // if (requestHomeController.seekerHomeRequestValue.value
+                                //     .requests!.outgoing!.isNotEmpty)
                                   Container(
                                     width: width,
                                     height: height * .18,
@@ -1071,11 +1048,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       scrollDirection: Axis.horizontal,
                                       physics: AlwaysScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: controller.OutgoingRequestvalue
-                                                  .value.requests!.length >=
-                                              2
-                                          ? 2
-                                          : 1,
+                                      itemCount: requestHomeController.seekerHomeRequestValue.value
+                                          .requests!.outgoing!.length
+                                         ,
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                           child: Padding(
@@ -1090,11 +1065,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                 width: width * .65,
                                                 // height: Get.height*0.5,
 
-                                                child: controller
-                                                            .OutgoingRequestvalue
-                                                            .value
-                                                            .requests![index]
-                                                            .getMaker ==
+                                                child:
+                                                requestHomeController.seekerHomeRequestValue.value
+                                                    .requests!.outgoing![index].getseeker !=
                                                         null
                                                     ? InkWell(
                                                         child: Container(
@@ -1152,7 +1125,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                                 30,
                                                                             backgroundColor:
                                                                                 AppColors.white,
-                                                                            backgroundImage: CachedNetworkImageProvider(controller.OutgoingRequestvalue.value.requests![index].outgoing_req_getseeker!.imgPath.toString())),
+                                                                            backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
+                                                                                .requests!.outgoing![index].getseeker!.imgPath.toString())),
                                                                       ],
                                                                     ),
                                                                   ),
@@ -1170,12 +1144,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                           0.02,
                                                                     ),
                                                                     Text(
-                                                                      controller
-                                                                          .OutgoingRequestvalue
-                                                                          .value
-                                                                          .requests![
-                                                                              index]
-                                                                          .outgoing_req_getseeker!
+                                                                      requestHomeController.seekerHomeRequestValue.value
+                                                                          .requests!.outgoing![index].getseeker!
                                                                           .name
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -1192,12 +1162,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                           0.01,
                                                                     ),
                                                                     Text(
-                                                                      controller
-                                                                          .OutgoingRequestvalue
-                                                                          .value
-                                                                          .requests![
-                                                                              index]
-                                                                          .outgoing_req_getseeker!
+                                                                      requestHomeController.seekerHomeRequestValue.value
+                                                                          .requests!.outgoing![index].getseeker!
                                                                           .dob
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -1210,14 +1176,16 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                             )
                                                           ],
                                                         )),
-                                                        // onTap: (){
-                                                        //      userIdsiker=controller.OutgoingRequestvalue.value.requests![index].getSeeker!.id.toString();
+                                                        onTap: (){
+                                                             userIdsiker=requestHomeController.seekerHomeRequestValue.value
+                                                                 .requests!.outgoing![index].getseeker!.id.toString();
 
-                                                        //     print(userIdsiker);
-                                                        //     Get.to(ShortProfileSeeker());
-                                                        // },
-                                                      )
-                                                    : Container(
+                                                            print(userIdsiker);
+                                                            Get.to(ShortProfileSeeker());
+                                                        },
+                                                      ):
+
+                                                Container(
                                                         child: Column(
                                                         children: [
                                                           Row(
@@ -1277,13 +1245,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             CircleAvatar(
                                                                           radius:
                                                                               30.0,
-                                                                          backgroundImage: CachedNetworkImageProvider(controller
-                                                                              .OutgoingRequestvalue
-                                                                              .value
-                                                                              .requests![index]
-                                                                              .getMaker!
-                                                                              .imgPath
-                                                                              .toString()),
+                                                                          backgroundImage: CachedNetworkImageProvider(
+                                                                              // requestHomeController.seekerHomeRequestValue.value
+                                                                              // .requests!.outgoing![index]!
+                                                                              // .getMaker!
+                                                                              // .imgPath
+                                                                              // .toString()
+                                                                            ""
+                                                                          ),
                                                                           backgroundColor:
                                                                               Colors.transparent,
                                                                         ),
@@ -1301,13 +1270,16 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             CircleAvatar(
                                                                           radius:
                                                                               30.0,
-                                                                          backgroundImage: CachedNetworkImageProvider(controller
-                                                                              .OutgoingRequestvalue
-                                                                              .value
-                                                                              .requests![index]
-                                                                              .getMaker!
-                                                                              .imgPath
-                                                                              .toString()),
+                                                                          backgroundImage: CachedNetworkImageProvider(
+                                                                              // controller
+                                                                              // .OutgoingRequestvalue
+                                                                              // .value
+                                                                              // .requests![index]
+                                                                              // .getMaker!
+                                                                              // .imgPath
+                                                                              // .toString()
+                                                                            ""
+                                                                          ),
                                                                           backgroundColor:
                                                                               Colors.transparent,
                                                                         ),
@@ -1324,14 +1296,15 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             0.02,
                                                                   ),
                                                                   Text(
-                                                                    controller
-                                                                        .OutgoingRequestvalue
-                                                                        .value
-                                                                        .requests![
-                                                                            index]
-                                                                        .outgoing_req_getseeker!
-                                                                        .name
-                                                                        .toString(),
+                                                                    // controller
+                                                                    //     .OutgoingRequestvalue
+                                                                    //     .value
+                                                                    //     .requests![
+                                                                    //         index]
+                                                                    //     .outgoing_req_getseeker!
+                                                                    //     .name
+                                                                    //     .toString(),
+                                                                    "",
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .pink,
@@ -1346,14 +1319,16 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             0.01,
                                                                   ),
                                                                   Text(
-                                                                    controller
-                                                                        .OutgoingRequestvalue
-                                                                        .value
-                                                                        .requests![
-                                                                            index]
-                                                                        .outgoing_req_getseeker!
-                                                                        .dob
-                                                                        .toString(),
+                                                                    // controller
+                                                                    //     .OutgoingRequestvalue
+                                                                    //     .value
+                                                                    //     .requests![
+                                                                    //         index]
+                                                                    //     .outgoing_req_getseeker!
+                                                                    //     .dob
+                                                                    //     .toString()
+                                                                    ""
+                                                                    ,
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .black),
@@ -1369,12 +1344,12 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                             setState(() {
                                               requestype = "2";
                                             });
-                                            requestid = controller
-                                                .OutgoingRequestvalue
-                                                .value
-                                                .requests![index]
-                                                .id
-                                                .toString();
+                                            // requestid = controller
+                                            //     .OutgoingRequestvalue
+                                            //     .value
+                                            //     .requests![index]
+                                            //     .id
+                                            //     .toString();
 print(requestid);
                                             if (requestid != null) {
                                               print(requestid);

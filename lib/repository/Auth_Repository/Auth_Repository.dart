@@ -42,6 +42,7 @@ import '../../models/OutgoingMakerRequestModle/outgoing_maker_request_model.dart
 import '../../models/RecentSeekerMatches/recent_seeker_matches_Model.dart';
 import '../../models/ResendOtpModel/ResendOtpModel.dart';
 import '../../models/SeekerChatListModel/seeker_chat_list_model.dart';
+import '../../models/SeekerHomePageRequestModel/SeekerHomePageRequest.dart';
 import '../../models/SeekerProfileModel/SeekerProfileModel.dart';
 import '../../models/SetRoleModel/SetRoleModel.dart';
 
@@ -221,12 +222,12 @@ class AuthRepository {
   }
 
 //***************** IncomingRequestApi  *********************
-  Future<IncomingRequestModel> IncomingRequestApi() async {
+  Future<IncomingSeekerRequestModel> IncomingRequestApi() async {
     print("IncomingRequestApdsgfdhsgfdsjhdsjfhdsji");
     dynamic response = await _apiService.getApi2(AppUrl.IncomingRequestUrl);
     // print(response);
     print(response);
-    return IncomingRequestModel.fromJson(response);
+    return IncomingSeekerRequestModel.fromJson(response);
   }
 
 ////////***************RequestDetails***************************** */
@@ -355,7 +356,14 @@ class AuthRepository {
 
 
 
-
+//***************** Home IncomingRequestApi  *********************
+  Future<SeekerHomeRequestModel> HomeIncomingRequestApi() async {
+    print("IncomingRequestApdsgfdhsgfdsjhdsjfhdsji");
+    dynamic response = await _apiService.getApi2(AppUrl.HomeIncomingRequestUrl);
+    // print(response);
+    // print(response);
+    return SeekerHomeRequestModel.fromJson(response);
+  }
 
 
 

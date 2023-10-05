@@ -1,35 +1,51 @@
-// To parse this JSON data, do
-//
-//     final makerRecentMatchesModel = makerRecentMatchesModelFromJson(jsonString);
-
-import 'dart:convert';
-class MakerRecentMatchesModel {
-  MakerRecentMatchesModel({
+class IncomingMakerRequestModel {
+  IncomingMakerRequestModel({
     this.status,
     this.message,
     this.requests,
   });
   String? status;
   String? message;
- List<Requests>? requests;
+  Requests? requests;
 
-  MakerRecentMatchesModel.fromJson(Map<String, dynamic> json){
+  IncomingMakerRequestModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    requests = List.from(json['requests']).map((e)=>Requests.fromJson(e)).toList();
+    requests = Requests.fromJson(json['requests']);
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['message'] = message;
-    _data['requests'] = requests!.map((e)=>e.toJson()).toList();
+    _data['requests'] = requests!.toJson();
     return _data;
   }
 }
 
 class Requests {
   Requests({
+    this.particularProfile,
+    this.randomProfile,
+  });
+  List<ParticularProfile>? particularProfile;
+  List<dynamic>? randomProfile;
+
+  Requests.fromJson(Map<String, dynamic> json){
+    particularProfile = List.from(json['particular_profile']).map((e)=>ParticularProfile.fromJson(e)).toList();
+    randomProfile = List.castFrom<dynamic, dynamic>(json['random_profile']);
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['particular_profile'] = particularProfile!.map((e)=>e.toJson()).toList();
+    _data['random_profile'] = randomProfile;
+    return _data;
+  }
+}
+
+class ParticularProfile {
+  ParticularProfile({
     this.id,
     this.makerId,
     this.matchFrom,
@@ -53,14 +69,14 @@ class Requests {
   var matchWithStatus;
   var matchFromStatus;
   var status;
-  var  roomid;
+  var roomid;
   var createdAt;
   var updatedAt;
   Getmaker? getmaker;
-   Getseeker? getseeker;
-   Getanotherseeker? getanotherseeker;
+  Getseeker? getseeker;
+  Getanotherseeker? getanotherseeker;
 
-  Requests.fromJson(Map<String, dynamic> json){
+  ParticularProfile.fromJson(Map<String, dynamic> json){
     id = json['id'];
     makerId = json['maker_id'];
     matchFrom = json['match_from'];
@@ -70,7 +86,7 @@ class Requests {
     matchFromStatus = json['match_from_status'];
     status = json['status'];
     roomid = null;
-    createdAt = json['created_at'];
+    createdAt = null;
     updatedAt = json['updated_at'];
     getmaker = Getmaker.fromJson(json['getmaker']);
     getseeker = Getseeker.fromJson(json['getseeker']);
@@ -214,7 +230,7 @@ class Getseeker {
   var videoPath;
   var occupationName;
   var likeStatus;
- Details? details;
+  Details? details;
 
   Getseeker.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -222,7 +238,7 @@ class Getseeker {
     email = json['email'];
     phone = json['phone'];
     occupation = json['occupation'];
-    salary = json['salary'];
+    salary = null;
     address = json['address'];
     height = json['height'];
     dob = json['dob'];
@@ -276,7 +292,7 @@ class Details {
   });
   var id;
   var seekerId;
-var profileGallery;
+  var profileGallery;
   var inInterested;
   var interest;
   var bioTitle;
@@ -284,8 +300,8 @@ var profileGallery;
   var status;
   var createdAt;
   var updatedAt;
-   List<String>? gallaryPath;
-   List<InterestName>? interestName;
+  List<String>? gallaryPath;
+  List<InterestName>? interestName;
 
   Details.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -296,9 +312,9 @@ var profileGallery;
     bioTitle = json['bio_title'];
     bioDescription = json['bio_description'];
     status = json['status'];
-    createdAt = null;
+    createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    gallaryPath = json['gallary_path'];
+    gallaryPath = List.castFrom<dynamic, String>(json['gallary_path']);
     interestName = List.from(json['interest_name']).map((e)=>InterestName.fromJson(e)).toList();
   }
 
@@ -368,7 +384,7 @@ class Getanotherseeker {
   var dob;
   var gender;
   var religion;
-  var  currentStep;
+  var currentStep;
   var imgPath;
   var videoPath;
   var occupationName;
@@ -387,7 +403,7 @@ class Getanotherseeker {
     dob = json['dob'];
     gender = json['gender'];
     religion = json['religion'];
-    currentStep = null;
+    currentStep = json['current_step'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
     occupationName = json['occupation_name'];

@@ -1,11 +1,11 @@
-class IncomingSeekerRequestModel {
-  String? status;
-  String? message;
+class SeekerHomeRequestModel {
+  var status;
+  var message;
   Requests? requests;
 
-  IncomingSeekerRequestModel({this.status, this.message, this.requests});
+  SeekerHomeRequestModel({this.status, this.message, this.requests});
 
-  IncomingSeekerRequestModel.fromJson(Map<String, dynamic> json) {
+  SeekerHomeRequestModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     requests = json['requests'] != null
@@ -25,39 +25,39 @@ class IncomingSeekerRequestModel {
 }
 
 class Requests {
-  List<ByMaker>? byMaker;
-  List<BySeeker>? bySeeker;
+  List<Incoming>? incoming;
+  List<Outgoing>? outgoing;
 
-  Requests({this.byMaker, this.bySeeker});
+  Requests({this.incoming, this.outgoing});
 
   Requests.fromJson(Map<String, dynamic> json) {
-    if (json['by_maker'] != null) {
-      byMaker = <ByMaker>[];
-      json['by_maker'].forEach((v) {
-        byMaker!.add(new ByMaker.fromJson(v));
+    if (json['incoming'] != null) {
+      incoming = <Incoming>[];
+      json['incoming'].forEach((v) {
+        incoming!.add(new Incoming.fromJson(v));
       });
     }
-    if (json['by_seeker'] != null) {
-      bySeeker = <BySeeker>[];
-      json['by_seeker'].forEach((v) {
-        bySeeker!.add(new BySeeker.fromJson(v));
+    if (json['outgoing'] != null) {
+      outgoing = <Outgoing>[];
+      json['outgoing'].forEach((v) {
+        outgoing!.add(new Outgoing.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.byMaker != null) {
-      data['by_maker'] = this.byMaker!.map((v) => v.toJson()).toList();
+    if (this.incoming != null) {
+      data['incoming'] = this.incoming!.map((v) => v.toJson()).toList();
     }
-    if (this.bySeeker != null) {
-      data['by_seeker'] = this.bySeeker!.map((v) => v.toJson()).toList();
+    if (this.outgoing != null) {
+      data['outgoing'] = this.outgoing!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class ByMaker {
+class Incoming {
   var id;
   var makerId;
   var matchFrom;
@@ -72,7 +72,7 @@ class ByMaker {
   Getmaker? getmaker;
   Getseeker? getseeker;
 
-  ByMaker(
+  Incoming(
       {this.id,
         this.makerId,
         this.matchFrom,
@@ -87,7 +87,7 @@ class ByMaker {
         this.getmaker,
         this.getseeker});
 
-  ByMaker.fromJson(Map<String, dynamic> json) {
+  Incoming.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     makerId = json['maker_id'];
     matchFrom = json['match_from'];
@@ -298,7 +298,7 @@ class Getseeker {
 class Details {
   var id;
   var seekerId;
-  var profileGallery;
+  bool? profileGallery;
   var inInterested;
   var interest;
   var bioTitle;
@@ -380,9 +380,8 @@ class InterestName {
   }
 }
 
-class BySeeker {
+class Outgoing {
   var id;
-  var makerId;
   var matchFrom;
   var matchWith;
   var matchType;
@@ -394,9 +393,8 @@ class BySeeker {
   var updatedAt;
   Getseeker? getseeker;
 
-  BySeeker(
+  Outgoing(
       {this.id,
-        this.makerId,
         this.matchFrom,
         this.matchWith,
         this.matchType,
@@ -408,9 +406,8 @@ class BySeeker {
         this.updatedAt,
         this.getseeker});
 
-  BySeeker.fromJson(Map<String, dynamic> json) {
+  Outgoing.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    makerId = json['maker_id'];
     matchFrom = json['match_from'];
     matchWith = json['match_with'];
     matchType = json['match_type'];
@@ -428,7 +425,6 @@ class BySeeker {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['maker_id'] = this.makerId;
     data['match_from'] = this.matchFrom;
     data['match_with'] = this.matchWith;
     data['match_type'] = this.matchType;
@@ -444,3 +440,5 @@ class BySeeker {
     return data;
   }
 }
+
+

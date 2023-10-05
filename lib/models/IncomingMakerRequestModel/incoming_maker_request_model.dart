@@ -9,7 +9,7 @@ IncomingMakerRequestModel incomingMakerRequestModelFromJson(String str) => Incom
 String incomingMakerRequestModelToJson(IncomingMakerRequestModel data) => json.encode(data.toJson());
 
 class IncomingMakerRequestModel {
-  String ?status;
+  String ? status;
   List<Request> ?requests;
 
   IncomingMakerRequestModel({

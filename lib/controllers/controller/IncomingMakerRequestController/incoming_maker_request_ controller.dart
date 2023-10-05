@@ -20,22 +20,25 @@ class IncomingMakerRequestController extends GetxController {
 
   void makerListApi() {
     // Check if cached data is available
-    if (box.hasData('incomingMakerRequestData')) {
-      final cachedData = box.read('incomingMakerRequestData');
-      setUserList(cachedData);
-      setRxRequestStatus(Status.COMPLETED);
-    } else {
+    // if (box.hasData('incomingMakerRequestData')) {
+    //   final cachedData = box.read('incomingMakerRequestData');
+    //   setUserList(cachedData);
+    //   setRxRequestStatus(Status.COMPLETED);
+    // } else {
       setRxRequestStatus(Status.LOADING);
       _api.IncomingMakerRequestApi().then((value) {
         setRxRequestStatus(Status.COMPLETED);
         setUserList(value);
-
+        print(value);
+         print("7293874988783b c7388398u9u9b32g 45 345345  35");
         // Cache the data for future use
-        box.write('incomingMakerRequestData', value);
+        // box.write('incomingMakerRequestData', value);
       }).onError((error, stackTrace) {
         setError(error.toString());
         setRxRequestStatus(Status.ERROR);
+        print(error.toString());
+        print("request error maker side 23459uyh87hjjghtagvygdygdygfugsfuygfggfsg233242424235432========");
       });
     }
   }
-}
+// }

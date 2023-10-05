@@ -32,6 +32,8 @@ class AppUrl {
       '$baseUrl/seeker/seeker-outgoing-listing';
   static const String IncomingRequestUrl =
       '$baseUrl/seeker/incomming-request-list';
+  static const String HomeIncomingRequestUrl =
+      '$baseUrl/seeker/seeker-home-page-request';
   static const String RequestDetailsUrl =
       '$baseUrl/seeker/seeker-request-single-page';
   static const String LikeListUrl = '$baseUrl/seeker/seeker-like-list';

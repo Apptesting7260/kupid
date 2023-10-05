@@ -36,7 +36,7 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
   OutgoinRequestController sekeerOutGoingController = Get.put(OutgoinRequestController());
-  IncomingRequestController sekeerIncomingController = Get.put(IncomingRequestController());
+  IncomingSeekerRequestController sekeerIncomingController = Get.put(IncomingSeekerRequestController());
   final ViewSikerProfileDetailsControllernstance =
       Get.put(ViewSikerProfileDetailsController());
   RecentSeekerMatchesController recentSeekerMatchesController =

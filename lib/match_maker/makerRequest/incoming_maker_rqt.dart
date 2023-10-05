@@ -31,14 +31,15 @@ class IncomingMakerRequest extends StatefulWidget {
 
 class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
 
-  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
   IncomingMakerRequestController incomingMakerRequestController = Get.put(IncomingMakerRequestController());
   int x = 5;
   @override
   void initState() {
+    incomingMakerRequestController.makerListApi();
     requestid=null;
     // TODO: implement initState
     super.initState();
+    print(incomingMakerRequestController.IncomingMakerValue.value.requests);
   }
 
   String? selectCityItems;

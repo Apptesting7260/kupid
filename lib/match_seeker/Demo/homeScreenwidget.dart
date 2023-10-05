@@ -47,7 +47,7 @@ class HomeScreenWIdget extends StatefulWidget {
 class _HomeScreenWIdgetState extends State<HomeScreenWIdget> {
 
     OutgoinRequestController controller = Get.put(OutgoinRequestController());
-  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+  IncomingSeekerRequestController Incontroller = Get.put(IncomingSeekerRequestController());
   final ViewSikerProfileDetailsControllernstance=Get.put(ViewSikerProfileDetailsController());
   RecentSeekerMatchesController recentSeekerMatchesController =
       Get.put(RecentSeekerMatchesController());

@@ -55,8 +55,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     incomingMakerRequestController.makerListApi();
+    super.initState();
+
     recentMakerMatchesController.isrecentMakerMatchApi();
     outgoingMakerRequestController.isOutgoingMakerRequestApi();
   }

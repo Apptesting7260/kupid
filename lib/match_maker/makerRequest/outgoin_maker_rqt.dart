@@ -28,7 +28,7 @@ class OutgoingMakerRequest extends StatefulWidget {
 class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
   OutgoingMakerRequestController outgoingMakerRequestController =
       Get.put(OutgoingMakerRequestController());
-  IncomingRequestController Incontroller = Get.put(IncomingRequestController());
+  IncomingSeekerRequestController Incontroller = Get.put(IncomingSeekerRequestController());
   int x = 5;
   @override
   void initState() {
