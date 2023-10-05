@@ -26,13 +26,13 @@ class _IncomingRequestsState extends State<IncomingRequests> {
       Get.put(IncomingSeekerRequestController());
 
   @override
-  // void initState() {
-  // IncomingRequestControllerins.seekerIncomingGoingRequest();
-  // // print(IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![0].getmaker);
-  //   // TODO: implement initState
-  //   super.initState();
-  //
-  // }
+  void initState() {
+  IncomingRequestControllerins.seekerIncomingGoingRequest();
+  // print(IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![0].getmaker);
+    // TODO: implement initState
+    super.initState();
+  
+  }
 
   @override
   Widget build(BuildContext context) {

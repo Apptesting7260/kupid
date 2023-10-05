@@ -55,6 +55,10 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     homepageapis();
     chatpageapis();
     likepagepais();
+      // seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
+      //  recentSeekerMatchesController.isrecentSeekermatchesApi();
+      //      sekeerOutGoingController.seekerOutGoingRequest();
+      //    sekeerIncomingController.seekerIncomingGoingRequest();
     super.initState();
     // studentType = MySharedPreferences.localStorage?.getString(MySharedPreferences.studentType) ?? "";
   }

@@ -19,20 +19,22 @@ class OutgoinRequestController extends GetxController {
 void seekerOutGoingRequest() {
   setRxRequestStatus(Status.LOADING);
 
-  if (box.hasData('outgoingRequestData')) {
-    // Use cached data if available
-    final cachedData = box.read('outgoingRequestData');
-    setUserList(OutgoingRequestModel.fromJson(cachedData));
-    setRxRequestStatus(Status.COMPLETED);
-  } else {
+  // if (box.hasData('outgoingRequestData')) {
+  //   // Use cached data if available
+  //   final cachedData = box.read('outgoingRequestData');
+  //   setUserList(OutgoingRequestModel.fromJson(cachedData));
+  //   setRxRequestStatus(Status.COMPLETED);
+  // } 
+  
+  // else {
     // Fetch data from the API
     _api.OutgoinRequestApi().then((value) {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
 
       // Manually convert and cache the data as JSON
-      final jsonData = value.toJson(); // Assuming you have a method toMap() in your model
-      box.write('outgoingRequestData', jsonData);
+      // final jsonData = value.toJson(); // Assuming you have a method toMap() in your model
+      // box.write('outgoingRequestData', jsonData);
     }).onError((error, stackTrace) {
       setError(error.toString());
       print(error);
@@ -41,4 +43,4 @@ void seekerOutGoingRequest() {
   }
 }
 
-}
+// }

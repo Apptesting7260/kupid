@@ -39,17 +39,18 @@ class ViewSikerProfileDetailsController extends GetxController {
     Map data={
 "user_id":prefs.getString('Tokernid')
     };
-  //  setRxRequestStatus(Status.LOADING);
-  if (box3.hasData('seekrprofiledata')) {
-    // Use cached data if available
-    final cachedData = box3.read('seekrprofiledata');
-    ViewProfileDetails(ViewSikerDetailsToMatchModel.fromJson(cachedData));
-    setRxRequestStatus(Status.COMPLETED);
-  } else {
+  // //  setRxRequestStatus(Status.LOADING);
+  // if (box3.hasData('seekrprofiledata')) {
+  //   // Use cached data if available
+  //   final cachedData = box3.read('seekrprofiledata');
+  //   ViewProfileDetails(ViewSikerDetailsToMatchModel.fromJson(cachedData));
+  //   setRxRequestStatus(Status.COMPLETED);
+  // } else {
     _api.ViewSikerDetailsToMatchApi(data).then((value)async{
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);
+      print("abcd");
   final userchat=    ChatUser(
 id: value.profileDetails![0].id.toString(),
       name:  value.profileDetails![0].name.toString(),
@@ -65,9 +66,9 @@ id: value.profileDetails![0].id.toString(),
       );
    await _firestore.collection("seeker").doc(value.profileDetails![0].id.toString()).set(userchat.toJson());
           final jsonData = value.toJson(); // Assuming you have a method toMap() in your model
-      box3.write('seekrprofiledata', jsonData);
+      // box3.write('seekrprofiledata', jsonData);
 
-         print("fjksdfn");
+        //  print("fjksdfn");
     }).onError((error, stackTrace){
       setError(error.toString());
       print("${error.toString()}+++--*****+");
@@ -77,4 +78,4 @@ id: value.profileDetails![0].id.toString(),
   }
   }
   
-}
+// }

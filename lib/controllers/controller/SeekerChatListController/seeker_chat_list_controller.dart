@@ -22,12 +22,12 @@ final box1 = GetStorage();
 
   void isSeekerChatListApi() {
     setRxRequestStatus(Status.LOADING);
- if (box1.hasData('seekerChatListValue')) {
-    // Use cached data if available
-    final cachedData = box1.read('seekerChatListValue');
-    setUserList(SeekerChatListModel.fromJson(cachedData));
-    setRxRequestStatus(Status.COMPLETED);
-  } else {
+//  if (box1.hasData('seekerChatListValue')) {
+//     // Use cached data if available
+//     final cachedData = box1.read('seekerChatListValue');
+//     setUserList(SeekerChatListModel.fromJson(cachedData));
+//     setRxRequestStatus(Status.COMPLETED);
+//   } else {
    _api.SeekerChatListApi(data).then((value) {
      setRxRequestStatus(Status.COMPLETED);
      setUserList(value);
@@ -61,4 +61,4 @@ final box1 = GetStorage();
 //
 //   });
 // }
-}
+// }

@@ -26,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     // ViewSikerProfileDetailsControllernstance.ViewSikerProfileDetailsApiHit();
+    // seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
 
     setState(() {
       userIdsiker = null;
@@ -52,469 +53,471 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         case Status.COMPLETED:
           return SafeArea(
-            child: ListView(
-              children: [
-                Container(
-                  height: height * 1,
-                  width: width * 1,
-                  child: Stack(
-                    children: [
-                      //ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString()
-                      Container(
-                        width: width * 1,
-                        height: height * 0.4,
-                        child: CachedNetworkImage(
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                          fit: BoxFit.cover,
-                          imageUrl:  seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                              .imgPath
-                              .toString(), // Replace with your actual image URL
-                        ),
-                      ),
-
-                      // Positioned(
-                      //     top: 30,
-                      //     left: 20,
-                      //     child: GestureDetector(
-                      //       onTap: () {
-                      //         Get.back();
-                      //       },
-                      //       child: Icon(
-                      //         Icons.arrow_back,
-                      //         size: 20,
-                      //         color: Colors.black,
-                      //       ),
-                      //     )),
-                      Positioned(
-                        top: 270,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(40)),
-                          height: height * .7,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: height * 1,
+                    width: width * 1,
+                    child: Stack(
+                      children: [
+                        //ViewSikerProfileDetailsControllernstance.ViewProfileDetail.value.profileDetails![0].imgPath.toString()
+                        Container(
                           width: width * 1,
-                          child: Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: ListView(
-                              children: [
-                                SizedBox(height: height * .02),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                           seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                             
-                                                .name
-                                                .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                        Text(
-                                            seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                                        .occupation ==
-                                                    null
-                                                ? ""
-                                                :  seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                                    .occupation
-                                                    .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(color: Colors.grey)),
-                                      ],
-                                    ),
-                                    Image.asset("assets/icons/send.png")
-                                  ],
-                                ),
-                                // SizedBox(height: height * .02),
-                                // Center(
-                                //   child: Image.asset("assets/images/vedio.png"),
-                                // ),
-                                SizedBox(height: height * .02),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Location",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                        Text(
-                                            seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                                .address
-                                                .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium!
-                                                .copyWith(color: Colors.grey)),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: height * .05,
-                                      width: width * .18,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue.shade50,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                          height: height * 0.4,
+                          child: CachedNetworkImage(
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            fit: BoxFit.cover,
+                            imageUrl:  seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                .imgPath
+                                .toString(), // Replace with your actual image URL
+                          ),
+                        ),
+            
+                        // Positioned(
+                        //     top: 30,
+                        //     left: 20,
+                        //     child: GestureDetector(
+                        //       onTap: () {
+                        //         Get.back();
+                        //       },
+                        //       child: Icon(
+                        //         Icons.arrow_back,
+                        //         size: 20,
+                        //         color: Colors.black,
+                        //       ),
+                        //     )),
+                        Positioned(
+                          top: 270,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(40)),
+                            height: height * .7,
+                            width: width * 1,
+                            child: Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: ListView(
+                                children: [
+                                  SizedBox(height: height * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.location_on_outlined,
-                                            size: 20,
-                                            color: Color(0xff000CAA),
+                                          Text(
+                                             seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                               
+                                                  .name
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium),
+                                          SizedBox(
+                                            height: height * .01,
                                           ),
                                           Text(
-                                            "1 km",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    color: Color(0xff000CAA)),
-                                          )
+                                              seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                          .occupation ==
+                                                      null
+                                                  ? ""
+                                                  :  seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                      .occupation
+                                                      .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(color: Colors.grey)),
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: height * .03),
-                                Text("Mobile Number",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text("",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: Colors.grey)),
-                                SizedBox(height: height * .03),
-                                Text("Occupation",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                     seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                                .occupation ==
-                                            null
-                                        ? ""
-                                        :  seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                            .occupation
-                                            .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: Colors.grey)),
-                                SizedBox(height: height * .03),
-                                Text("Birthday Date",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                Text(
-                                     seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                        .dob
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(color: Colors.grey)),
-                                SizedBox(height: height * .03),
-                                Text("About",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
-                                SizedBox(
-                                  height: height * .01,
-                                ),
-                                if ( seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                        .details !=
-                                    null)
+                                      Image.asset("assets/icons/send.png")
+                                    ],
+                                  ),
+                                  // SizedBox(height: height * .02),
+                                  // Center(
+                                  //   child: Image.asset("assets/images/vedio.png"),
+                                  // ),
+                                  SizedBox(height: height * .02),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Location",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall),
+                                          SizedBox(
+                                            height: height * .01,
+                                          ),
+                                          Text(
+                                              seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                  .address
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(color: Colors.grey)),
+                                        ],
+                                      ),
+                                      Container(
+                                        height: height * .05,
+                                        width: width * .18,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue.shade50,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on_outlined,
+                                              size: 20,
+                                              color: Color(0xff000CAA),
+                                            ),
+                                            Text(
+                                              "1 km",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                      color: Color(0xff000CAA)),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: height * .03),
+                                  Text("Mobile Number",
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall),
+                                  SizedBox(
+                                    height: height * .01,
+                                  ),
+                                  Text("",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.grey)),
+                                  SizedBox(height: height * .03),
+                                  Text("Occupation",
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall),
+                                  SizedBox(
+                                    height: height * .01,
+                                  ),
                                   Text(
                                        seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                          .details!
-                                          .bioDescription
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                  .occupation ==
+                                              null
+                                          ? ""
+                                          :  seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                              .occupation
+                                              .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.grey)),
+                                  SizedBox(height: height * .03),
+                                  Text("Birthday Date",
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall),
+                                  SizedBox(
+                                    height: height * .01,
+                                  ),
+                                  Text(
+                                       seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                          .dob
                                           .toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
                                           .copyWith(color: Colors.grey)),
-                                // SizedBox(height: height * .01),
-                                // Text("Read more",
-                                //     style: Theme.of(context)
-                                //         .textTheme
-                                //         .titleSmall!
-                                //         .copyWith(color: Color(0xffFE0091))),
-                                SizedBox(height: height * .03),
-                                Text("Interests",
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall),
-                                SizedBox(height: height * .02),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount:  seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                      .details!
-                                      .interestName!
-                                      .length, // Replace itemCount with the actual item count
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return (index % 3 ==
-                                            0) // Start a new row after every 3 items
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              buildContainer(index),
-                                              buildContainer(index + 1),
-                                              buildContainer(index + 2),
-                                            ],
-                                          )
-                                        : Container(); // Empty container for items that don't start a new row
-                                  },
-                                ),
-                                // Wrap(
-                                //   runSpacing: 15.0,
-                                //   spacing: 10.0,
-                                //   children: [
-
-                                //     Container(
-                                //       decoration: BoxDecoration(
-                                //           border:
-                                //               Border.all(color: Color(0xffFe0091)),
-                                //           borderRadius: BorderRadius.circular(20)),
-                                //       height: height * .04,
-                                //       width: width * .22,
-                                //       child: Row(
-                                //         mainAxisAlignment: MainAxisAlignment.center,
-                                //         children: [
-                                //           Icon(
-                                //             Icons.done_all,
-                                //             size: 15,
-                                //             color: Color(0xffFE0091),
-                                //           ),
-                                //           SizedBox(width: width * .01),
-                                //           Text(
-                                //             "Books",
-                                //             style: Theme.of(context)
-                                //                 .textTheme
-                                //                 .bodySmall!
-                                //                 .copyWith(color: Color(0xffFE0091)),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //     ),
-                                //     Container(
-                                //       decoration: BoxDecoration(
-                                //           border: Border.all(color: Colors.grey),
-                                //           borderRadius: BorderRadius.circular(20)),
-                                //       height: height * .04,
-                                //       width: width * .25,
-                                //       child: Center(
-                                //         child: Text(
-                                //           "Music",
-                                //           style:
-                                //               Theme.of(context).textTheme.bodySmall,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     Container(
-                                //       decoration: BoxDecoration(
-                                //           border: Border.all(color: Colors.grey),
-                                //           borderRadius: BorderRadius.circular(20)),
-                                //       height: height * .04,
-                                //       width: width * .25,
-                                //       child: Center(
-                                //         child: Text(
-                                //           "Dancing",
-                                //           style:
-                                //               Theme.of(context).textTheme.bodySmall,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     Container(
-                                //       decoration: BoxDecoration(
-                                //           border: Border.all(color: Colors.grey),
-                                //           borderRadius: BorderRadius.circular(20)),
-                                //       height: height * .04,
-                                //       width: width * .25,
-                                //       child: Center(
-                                //         child: Text(
-                                //           "Modeling",
-                                //           style:
-                                //               Theme.of(context).textTheme.bodySmall,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
-                                SizedBox(
-                                  height: height * .03,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Gallery",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                    Text(
-                                      "See all",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge!
-                                          .copyWith(color: Color(0xff000CAA)),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: height * .02),
-
-                                if ( seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                            .details !=
-                                        null &&
-                                     seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                            .details!
-                                            .gallaryPath !=
-                                        [])
-                                  Container(
-                                    child: GridView.builder(
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                      ),
-                                      itemCount:
-                                           seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                              .details!
-                                              .gallaryPath!
-                                              .length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CachedNetworkImage(
-                                            imageUrl:
-                                               seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!
-                                                    .details!
-                                                    .gallaryPath![index]
-                                                    .toString(),
-                                            fit: BoxFit.cover,
-                                            placeholder: (context, url) => Center(
-                                                child:
-                                                    CircularProgressIndicator()), // Placeholder widget while loading
-                                            errorWidget: (context, url,
-                                                    error) =>
-                                                Icon(Icons
-                                                    .error), // Error widget if loading fails
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                  SizedBox(height: height * .03),
+                                  Text("About",
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall),
+                                  SizedBox(
+                                    height: height * .01,
                                   ),
-
-                                SizedBox(
-                                  height: Get.height * 0.04,
-                                ),
-                                // StaggeredGrid.count(
-                                //     crossAxisCount: 4,
-                                //     mainAxisSpacing: 7,
-                                //     crossAxisSpacing: 7,
-                                //     children: [
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 2,
-                                //           mainAxisCellCount: 2,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 2,
-                                //           mainAxisCellCount: 2,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 1,
-                                //           mainAxisCellCount: 1,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 1,
-                                //           mainAxisCellCount: 1,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 1,
-                                //           mainAxisCellCount: 1,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //       StaggeredGridTile.count(
-                                //           crossAxisCellCount: 1,
-                                //           mainAxisCellCount: 1,
-                                //           child: imageContainer(
-                                //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
-                                //     ]),
-                                SizedBox(height: height * .1),
-                              ],
+                                  if ( seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                          .details !=
+                                      null)
+                                    Text(
+                                         seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                            .details!
+                                            .bioDescription
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.grey)),
+                                  // SizedBox(height: height * .01),
+                                  // Text("Read more",
+                                  //     style: Theme.of(context)
+                                  //         .textTheme
+                                  //         .titleSmall!
+                                  //         .copyWith(color: Color(0xffFE0091))),
+                                  SizedBox(height: height * .03),
+                                  Text("Interests",
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall),
+                                  SizedBox(height: height * .02),
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:  seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                        .details!
+                                        .interestName!
+                                        .length, // Replace itemCount with the actual item count
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return (index % 3 ==
+                                              0) // Start a new row after every 3 items
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                buildContainer(index),
+                                                buildContainer(index + 1),
+                                                buildContainer(index + 2),
+                                              ],
+                                            )
+                                          : Container(); // Empty container for items that don't start a new row
+                                    },
+                                  ),
+                                  // Wrap(
+                                  //   runSpacing: 15.0,
+                                  //   spacing: 10.0,
+                                  //   children: [
+            
+                                  //     Container(
+                                  //       decoration: BoxDecoration(
+                                  //           border:
+                                  //               Border.all(color: Color(0xffFe0091)),
+                                  //           borderRadius: BorderRadius.circular(20)),
+                                  //       height: height * .04,
+                                  //       width: width * .22,
+                                  //       child: Row(
+                                  //         mainAxisAlignment: MainAxisAlignment.center,
+                                  //         children: [
+                                  //           Icon(
+                                  //             Icons.done_all,
+                                  //             size: 15,
+                                  //             color: Color(0xffFE0091),
+                                  //           ),
+                                  //           SizedBox(width: width * .01),
+                                  //           Text(
+                                  //             "Books",
+                                  //             style: Theme.of(context)
+                                  //                 .textTheme
+                                  //                 .bodySmall!
+                                  //                 .copyWith(color: Color(0xffFE0091)),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //     Container(
+                                  //       decoration: BoxDecoration(
+                                  //           border: Border.all(color: Colors.grey),
+                                  //           borderRadius: BorderRadius.circular(20)),
+                                  //       height: height * .04,
+                                  //       width: width * .25,
+                                  //       child: Center(
+                                  //         child: Text(
+                                  //           "Music",
+                                  //           style:
+                                  //               Theme.of(context).textTheme.bodySmall,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Container(
+                                  //       decoration: BoxDecoration(
+                                  //           border: Border.all(color: Colors.grey),
+                                  //           borderRadius: BorderRadius.circular(20)),
+                                  //       height: height * .04,
+                                  //       width: width * .25,
+                                  //       child: Center(
+                                  //         child: Text(
+                                  //           "Dancing",
+                                  //           style:
+                                  //               Theme.of(context).textTheme.bodySmall,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     Container(
+                                  //       decoration: BoxDecoration(
+                                  //           border: Border.all(color: Colors.grey),
+                                  //           borderRadius: BorderRadius.circular(20)),
+                                  //       height: height * .04,
+                                  //       width: width * .25,
+                                  //       child: Center(
+                                  //         child: Text(
+                                  //           "Modeling",
+                                  //           style:
+                                  //               Theme.of(context).textTheme.bodySmall,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  SizedBox(
+                                    height: height * .03,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Gallery",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                      Text(
+                                        "See all",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(color: Color(0xff000CAA)),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: height * .02),
+            
+                                  if ( seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                              .details !=
+                                          null &&
+                                       seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                              .details!
+                                              .gallaryPath !=
+                                          [])
+                                    Container(
+                                      child: GridView.builder(
+                                        shrinkWrap: true,
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                        ),
+                                        itemCount:
+                                             seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                .details!
+                                                .gallaryPath!
+                                                .length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                 seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!
+                                                      .details!
+                                                      .gallaryPath![index]
+                                                      .toString(),
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => Center(
+                                                  child:
+                                                      CircularProgressIndicator()), // Placeholder widget while loading
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  Icon(Icons
+                                                      .error), // Error widget if loading fails
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+            
+                                  SizedBox(
+                                    height: Get.height * 0.04,
+                                  ),
+                                  // StaggeredGrid.count(
+                                  //     crossAxisCount: 4,
+                                  //     mainAxisSpacing: 7,
+                                  //     crossAxisSpacing: 7,
+                                  //     children: [
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 2,
+                                  //           mainAxisCellCount: 2,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 2,
+                                  //           mainAxisCellCount: 2,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 1,
+                                  //           mainAxisCellCount: 1,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 1,
+                                  //           mainAxisCellCount: 1,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 1,
+                                  //           mainAxisCellCount: 1,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //       StaggeredGridTile.count(
+                                  //           crossAxisCellCount: 1,
+                                  //           mainAxisCellCount: 1,
+                                  //           child: imageContainer(
+                                  //               "https://img.freepik.com/premium-photo/young-handsome-man-with-beard-isolated-keeping-arms-crossed-frontal-position_1368-132662.jpg")),
+                                  //     ]),
+                                  SizedBox(height: height * .1),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           );
       }

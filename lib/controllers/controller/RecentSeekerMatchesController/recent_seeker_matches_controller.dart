@@ -24,13 +24,13 @@ class RecentSeekerMatchesController extends GetxController {
 
   void isrecentSeekermatchesApi() {
     // Check if cached data is available
-    if (box.hasData('recentSeekerMatchesData')) {
-      final cachedData = box.read('recentSeekerMatchesData');
-      setUserList(cachedData);
+//     if (box.hasData('recentSeekerMatchesData')) {
+//       final cachedData = box.read('recentSeekerMatchesData');
+//       setUserList(cachedData);
    
-print(seekerRequestlenght);
-      setRxRequestStatus(Status.COMPLETED);
-    } else {
+// print(seekerRequestlenght);
+//       setRxRequestStatus(Status.COMPLETED);
+//     } else {
       setRxRequestStatus(Status.LOADING);
       _api.RecentSeekerMatchesApi(data).then((value) {
         setRxRequestStatus(Status.COMPLETED);
@@ -43,11 +43,11 @@ print(seekerRequestlenght);
         }
 
         // Cache the data for future use
-        box.write('recentSeekerMatchesData', value);
+        // box.write('recentSeekerMatchesData', value);
       }).onError((error, stackTrace) {
         setError(error.toString());
         setRxRequestStatus(Status.ERROR);
       });
     }
   }
-}
+// }

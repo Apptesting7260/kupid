@@ -59,13 +59,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
     requestHomeController.homeRequest();
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0]);
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0].getseeker?.gender);
+        getcurrentuser();
+    // print(  requestHomeController.seekerHomeRequestValue.value
+    //     .requests!.outgoing![0].getseeker!
+    //     .name
+    //     .toString());
     // TODO: implement initState
     super.initState();
-    getcurrentuser();
-    print(  requestHomeController.seekerHomeRequestValue.value
-        .requests!.outgoing![0].getseeker!
-        .name
-        .toString());
+
 
   }
 
@@ -83,11 +84,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
-            "Home "
-            +  requestHomeController.seekerHomeRequestValue.value
-                .requests!.outgoing![4].getseeker!
-                .name
-                .toString(),
+            "Home ",
+        
             style: Theme.of(context).textTheme.titleSmall,
           ),
           actions: [
@@ -119,7 +117,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                   // myProfileView_vm.refreshApi();
                 },
               );
-            } else {
+            } 
+            else {
               if (recentSeekerMatchesController
                           .RecentSeekerMatchValue.value.status ==
                       'failed') {
@@ -194,7 +193,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
             return Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: width * 0.05, vertical: height * 0.02),
-                child: SingleChildScrollView(
+                child:
+                 SingleChildScrollView(
                   child: Column(
                       // crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -660,7 +660,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                     ),
                                     TextButton(
                                         onPressed: () {
-                                          // Get.to(IncomingRequests());
+                                          Get.to(IncomingRequests());
                                         },
                                         child: Text(
                                           'View All',
