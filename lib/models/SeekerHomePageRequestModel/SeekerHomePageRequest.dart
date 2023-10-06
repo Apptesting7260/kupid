@@ -1,6 +1,6 @@
 class SeekerHomeRequestModel {
-  var status;
-  var message;
+ String? status;
+ String? message;
   Requests? requests;
 
   SeekerHomeRequestModel({this.status, this.message, this.requests});
@@ -63,14 +63,15 @@ class Incoming {
   var matchFrom;
   var matchWith;
   var matchType;
-  var matchWithStatus;
-  var matchFromStatus;
+ var matchWithStatus;
+ var matchFromStatus;
   var status;
   var roomid;
-  var createdAt;
-  var updatedAt;
+ var createdAt;
+ var updatedAt;
   Getmaker? getmaker;
   Getseeker? getseeker;
+  Getseeker? getanotherseeker;
 
   Incoming(
       {this.id,
@@ -85,7 +86,8 @@ class Incoming {
         this.createdAt,
         this.updatedAt,
         this.getmaker,
-        this.getseeker});
+        this.getseeker,
+        this.getanotherseeker});
 
   Incoming.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,6 +106,9 @@ class Incoming {
         : null;
     getseeker = json['getseeker'] != null
         ? new Getseeker.fromJson(json['getseeker'])
+        : null;
+    getanotherseeker = json['getanotherseeker'] != null
+        ? new Getseeker.fromJson(json['getanotherseeker'])
         : null;
   }
 
@@ -126,28 +131,31 @@ class Incoming {
     if (this.getseeker != null) {
       data['getseeker'] = this.getseeker!.toJson();
     }
+    if (this.getanotherseeker != null) {
+      data['getanotherseeker'] = this.getanotherseeker!.toJson();
+    }
     return data;
   }
 }
 
 class Getmaker {
   var id;
-  var name;
-  var email;
-  var phone;
-  var dob;
-  var gender;
-  var location;
-  var profileImg;
-  var profileVideo;
-  var experience;
-  var aboutMaker;
-  var expectation;
-  var headingOfMaker;
+ var name;
+ var email;
+ var phone;
+ var dob;
+ var gender;
+ var location;
+ var profileImg;
+ var profileVideo;
+ var experience;
+ var aboutMaker;
+ var expectation;
+ var headingOfMaker;
   var status;
   var currentStep;
-  var imgPath;
-  var videoPath;
+ var imgPath;
+ var videoPath;
 
   Getmaker(
       {this.id,
@@ -213,20 +221,20 @@ class Getmaker {
 
 class Getseeker {
   var id;
-  var name;
-  var email;
-  var phone;
-  var occupation;
-  var salary;
-  var address;
-  var height;
-  var dob;
-  var gender;
-  var religion;
+ var name;
+ var email;
+ var phone;
+ var occupation;
+ var salary;
+ var address;
+ var height;
+ var dob;
+ var gender;
+ var religion;
   var currentStep;
-  var imgPath;
-  var videoPath;
-  var occupationName;
+ var imgPath;
+ var videoPath;
+ var occupationName;
   var likeStatus;
   Details? details;
 
@@ -298,14 +306,14 @@ class Getseeker {
 class Details {
   var id;
   var seekerId;
-  bool? profileGallery;
-  var inInterested;
-  var interest;
-  var bioTitle;
-  var bioDescription;
+ var profileGallery;
+ var inInterested;
+ var interest;
+ var bioTitle;
+ var bioDescription;
   var status;
-  var createdAt;
-  var updatedAt;
+ var createdAt;
+ var updatedAt;
   List<String>? gallaryPath;
   List<InterestName>? interestName;
 
@@ -365,7 +373,7 @@ class Details {
 }
 
 class InterestName {
-  var title;
+ var title;
 
   InterestName({this.title});
 
@@ -385,12 +393,12 @@ class Outgoing {
   var matchFrom;
   var matchWith;
   var matchType;
-  var matchWithStatus;
-  var matchFromStatus;
+ var matchWithStatus;
+ var matchFromStatus;
   var status;
   var roomid;
-  var createdAt;
-  var updatedAt;
+ var createdAt;
+ var updatedAt;
   Getseeker? getseeker;
 
   Outgoing(
@@ -440,5 +448,4 @@ class Outgoing {
     return data;
   }
 }
-
 
