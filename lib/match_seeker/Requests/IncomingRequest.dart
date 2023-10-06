@@ -260,7 +260,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                 ],
                               )
                             : ListView.builder(
-                                scrollDirection: Axis.vertical,
+                              physics: NeverScrollableScrollPhysics(),
+                                // scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 itemCount: IncomingRequestControllerins
                                     .IncomingRequestvalue
@@ -521,7 +522,9 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                         width: Get.width * 1,
                         child: IncomingRequestControllerins.IncomingRequestvalue
                                     .value.requests!.bySeeker ==
-                                []
+                                []||IncomingRequestControllerins.IncomingRequestvalue
+                                    .value.requests!.bySeeker!.length == 0
+                              
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,

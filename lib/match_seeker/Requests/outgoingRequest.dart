@@ -268,7 +268,8 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                               .toMaker!
                               .isNotEmpty
                           ? ListView.builder(
-                          scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                          // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: seekrOutgoingRequestController
                               .OutgoingRequestvalue
@@ -607,7 +608,8 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                         ],
                       )
                           : ListView.builder(
-                          scrollDirection: Axis.vertical,
+                                 physics: const NeverScrollableScrollPhysics(),
+                          // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: seekrOutgoingRequestController
                               .OutgoingRequestvalue
