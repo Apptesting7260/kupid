@@ -13,11 +13,11 @@ class OutgoingMakerRequestController extends GetxController {
 
   // int? RecentMakerMatchlength ;
   final rxRequestStatus = Status.LOADING.obs ;
-  final OutgoingMakerRequestValue =OutgoingMakerRequestModel().obs ;
+  final OutgoingMakerRequestValue =OutgoingMakerRequestModel1().obs ;
   RxString error = ''.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
-  void setUserList(OutgoingMakerRequestModel value) => OutgoingMakerRequestValue.value = value ;
+  void setUserList(OutgoingMakerRequestModel1 value) => OutgoingMakerRequestValue.value = value ;
   void setError(String value) => error.value = value ;
 
 
@@ -27,6 +27,9 @@ class OutgoingMakerRequestController extends GetxController {
     _api.OutgoingMakerRequestApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
+      print(value);
+      print("out going requeat 54276462c37264782364873672674678328");
+      print( value.requests![0].getanotherseeker!.name);
 
       // if(value.requests!.length>2){
       //   RecentMakerMatchlength = 2;
@@ -37,6 +40,7 @@ class OutgoingMakerRequestController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
+      print(error.toString());
 
     });
   }

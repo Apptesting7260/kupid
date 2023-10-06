@@ -299,12 +299,12 @@ class AuthRepository {
 
   //***************** Outgoing Maker Request ApiServices  *********************
 
-  Future<OutgoingMakerRequestModel> OutgoingMakerRequestApi() async {
+  Future<OutgoingMakerRequestModel1> OutgoingMakerRequestApi() async {
     print("OutgoingMakerRequestApi");
     dynamic response =
         await _apiService.getApi2(AppUrl.OutgoingMakerRequestUrl);
     print(response);
-    return OutgoingMakerRequestModel.fromJson(response);
+    return OutgoingMakerRequestModel1.fromJson(response);
   }
 
   Future<MakersinglepageRequestModel> MakerRequestDetailsApi(var data) async {

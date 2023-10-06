@@ -11,6 +11,9 @@ class IncomingMakerRequestController extends GetxController {
   final IncomingMakerValue = IncomingMakerRequestModel().obs;
   RxString error = ''.obs;
 
+  RxBool button_praticular = true.obs;
+  RxBool button_random = false.obs;
+
   final box = GetStorage(); // Create a GetStorage instance
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
