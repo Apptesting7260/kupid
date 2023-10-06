@@ -714,9 +714,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                             15)),
                                                 width: width * .65,
                                                 child: requestHomeController.seekerHomeRequestValue.value
-                                                    .requests!.incoming![index]
-                                                            .getmaker ==
-                                                        null
+                                                    .requests!.incoming![index].matchType==1
+                                                           
                                                     ? InkWell(
                                                         child: Container(
                                                             child: Column(
@@ -941,12 +940,15 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                         .requests!.incoming![index]
                                                                         .getseeker!
                                                                         .name
+                                                                        .toString()+ "&"+requestHomeController.seekerHomeRequestValue.value
+                                                                        .requests!.incoming![index].getmaker!
+                                                                        .name
                                                                         .toString(),
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .pink,
                                                                         fontSize:
-                                                                            20,
+                                                                            10,
                                                                         fontWeight:
                                                                             FontWeight.bold),
                                                                   ),
@@ -1067,8 +1069,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 
                                                 child:
                                                 requestHomeController.seekerHomeRequestValue.value
-                                                    .requests!.outgoing![index].getseeker !=
-                                                        null
+                                                    .requests!.outgoing![index].matchType==1
                                                     ? InkWell(
                                                         child: Container(
                                                             child: Column(
