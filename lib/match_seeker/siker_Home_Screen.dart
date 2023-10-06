@@ -768,7 +768,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             backgroundColor:
                                                                                 AppColors.white,
                                                                             backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
-                                                                                .requests!.incoming![index].getseeker!.imgPath.toString())),
+                                                                                .requests!.incoming![index].getanotherseeker!.imgPath.toString())),
                                                                       ],
                                                                     ),
                                                                   ),
@@ -789,7 +789,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                       requestHomeController.seekerHomeRequestValue.value
                                                                           .requests!.incoming![
                                                                               index]
-                                                                          .getseeker!
+                                                                          .getanotherseeker!
                                                                           .name
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -809,7 +809,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                       requestHomeController.seekerHomeRequestValue.value
                                                                           .requests!.incoming![
                                                                               index]
-                                                                          .getseeker!
+                                                                          .getanotherseeker!
                                                                           .dob
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -894,7 +894,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                               30.0,
                                                                           backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
                                                                               .requests!.incoming![index]
-                                                                              .getseeker!
+                                                                              .getanotherseeker!
                                                                               .imgPath
                                                                               .toString()),
                                                                           backgroundColor:
@@ -937,7 +937,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                   Text(
                                                                     requestHomeController.seekerHomeRequestValue.value
                                                                         .requests!.incoming![index]
-                                                                        .getseeker!
+                                                                        .getanotherseeker!
                                                                         .name
                                                                         .toString()+ "&"+requestHomeController.seekerHomeRequestValue.value
                                                                         .requests!.incoming![index].getmaker!
@@ -959,7 +959,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                   Text(
                                                                     requestHomeController.seekerHomeRequestValue.value
                                                                         .requests!.incoming![index]
-                                                                        .getseeker!
+                                                                        .getanotherseeker!
                                                                         .dob
                                                                         .toString(),
                                                                     style: TextStyle(
@@ -1008,7 +1008,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                     ),
                                     TextButton(
                                         onPressed: () {
-                                          WidgetsBinding.instance!
+                                          WidgetsBinding.instance
                                               .addPostFrameCallback((_) {
                                             // This code will run after the build is complete
                                             Get.to(OutGoingRequest());
@@ -1126,7 +1126,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             backgroundColor:
                                                                                 AppColors.white,
                                                                             backgroundImage: CachedNetworkImageProvider(requestHomeController.seekerHomeRequestValue.value
-                                                                                .requests!.outgoing![index].getseeker!.imgPath.toString())),
+                                                                                .requests!.outgoing![index].getanotherseeker!.imgPath.toString())),
                                                                       ],
                                                                     ),
                                                                   ),
@@ -1145,7 +1145,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     ),
                                                                     Text(
                                                                       requestHomeController.seekerHomeRequestValue.value
-                                                                          .requests!.outgoing![index].getseeker!
+                                                                          .requests!.outgoing![index].getanotherseeker!
                                                                           .name
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -1163,7 +1163,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     ),
                                                                     Text(
                                                                       requestHomeController.seekerHomeRequestValue.value
-                                                                          .requests!.outgoing![index].getseeker!
+                                                                          .requests!.outgoing![index].getanotherseeker!
                                                                           .dob
                                                                           .toString(),
                                                                       style: TextStyle(
@@ -1178,7 +1178,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                         )),
                                                         onTap: (){
                                                              userIdsiker=requestHomeController.seekerHomeRequestValue.value
-                                                                 .requests!.outgoing![index].getseeker!.id.toString();
+                                                                 .requests!.outgoing![index].getanotherseeker!.id.toString();
 
                                                             print(userIdsiker);
                                                             Get.to(ShortProfileSeeker());

@@ -38,7 +38,7 @@ class HomeRequestController extends GetxController {
       // box.write('incomingRequestData', jsonData)
 
       print("Home Page request  anuragr 354653643++++546536================================================");
-      print(value.requests!.incoming![0].getseeker?.name);
+
     }).onError((error, stackTrace) {
       setError(error.toString());
  print(error.toString());

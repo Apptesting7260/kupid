@@ -183,7 +183,7 @@ Timer(Duration(seconds: 3), () {
                 .toString())
             .collection("massages")
             .add(messages);
-        print("Enter Some Text");
+        print(messages);
         // setState(() {
         //   messagetype = "text";
         //   print(messagetype);
@@ -642,7 +642,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 case Status.COMPLETED:
                   return Expanded(
                     child: StreamBuilder(
-                    stream: APIs.getAllMessages(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString()),
+                    stream: APIs.getAllMessages("4211"),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         //if data is loading

@@ -1,6 +1,6 @@
 class SeekerHomeRequestModel {
- String? status;
- String? message;
+  var status;
+  var message;
   Requests? requests;
 
   SeekerHomeRequestModel({this.status, this.message, this.requests});
@@ -63,31 +63,29 @@ class Incoming {
   var matchFrom;
   var matchWith;
   var matchType;
- var matchWithStatus;
- var matchFromStatus;
+  var matchWithStatus;
+  var matchFromStatus;
   var status;
   var roomid;
- var createdAt;
- var updatedAt;
+  var createdAt;
+  var updatedAt;
   Getmaker? getmaker;
-  Getseeker? getseeker;
-  Getseeker? getanotherseeker;
+  Getanotherseeker? getanotherseeker;
 
   Incoming(
       {this.id,
-        this.makerId,
-        this.matchFrom,
-        this.matchWith,
-        this.matchType,
-        this.matchWithStatus,
-        this.matchFromStatus,
-        this.status,
-        this.roomid,
-        this.createdAt,
-        this.updatedAt,
-        this.getmaker,
-        this.getseeker,
-        this.getanotherseeker});
+      this.makerId,
+      this.matchFrom,
+      this.matchWith,
+      this.matchType,
+      this.matchWithStatus,
+      this.matchFromStatus,
+      this.status,
+      this.roomid,
+      this.createdAt,
+      this.updatedAt,
+      this.getmaker,
+      this.getanotherseeker});
 
   Incoming.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,11 +102,8 @@ class Incoming {
     getmaker = json['getmaker'] != null
         ? new Getmaker.fromJson(json['getmaker'])
         : null;
-    getseeker = json['getseeker'] != null
-        ? new Getseeker.fromJson(json['getseeker'])
-        : null;
     getanotherseeker = json['getanotherseeker'] != null
-        ? new Getseeker.fromJson(json['getanotherseeker'])
+        ? new Getanotherseeker.fromJson(json['getanotherseeker'])
         : null;
   }
 
@@ -128,9 +123,6 @@ class Incoming {
     if (this.getmaker != null) {
       data['getmaker'] = this.getmaker!.toJson();
     }
-    if (this.getseeker != null) {
-      data['getseeker'] = this.getseeker!.toJson();
-    }
     if (this.getanotherseeker != null) {
       data['getanotherseeker'] = this.getanotherseeker!.toJson();
     }
@@ -140,41 +132,41 @@ class Incoming {
 
 class Getmaker {
   var id;
- var name;
- var email;
- var phone;
- var dob;
- var gender;
- var location;
- var profileImg;
- var profileVideo;
- var experience;
- var aboutMaker;
- var expectation;
- var headingOfMaker;
+  var name;
+  var email;
+  var phone;
+  var dob;
+  var gender;
+  var location;
+  var profileImg;
+  var profileVideo;
+  var experience;
+  var aboutMaker;
+  var expectation;
+  var headingOfMaker;
   var status;
   var currentStep;
- var imgPath;
- var videoPath;
+  var imgPath;
+  var videoPath;
 
   Getmaker(
       {this.id,
-        this.name,
-        this.email,
-        this.phone,
-        this.dob,
-        this.gender,
-        this.location,
-        this.profileImg,
-        this.profileVideo,
-        this.experience,
-        this.aboutMaker,
-        this.expectation,
-        this.headingOfMaker,
-        this.status,
-        this.currentStep,
-        this.imgPath,
-        this.videoPath});
+      this.name,
+      this.email,
+      this.phone,
+      this.dob,
+      this.gender,
+      this.location,
+      this.profileImg,
+      this.profileVideo,
+      this.experience,
+      this.aboutMaker,
+      this.expectation,
+      this.headingOfMaker,
+      this.status,
+      this.currentStep,
+      this.imgPath,
+      this.videoPath});
 
   Getmaker.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -219,45 +211,45 @@ class Getmaker {
   }
 }
 
-class Getseeker {
+class Getanotherseeker {
   var id;
- var name;
- var email;
- var phone;
- var occupation;
- var salary;
- var address;
- var height;
- var dob;
- var gender;
- var religion;
+  var name;
+  var email;
+  var phone;
+  var occupation;
+  var salary;
+  var address;
+  var height;
+  var dob;
+  var gender;
+  var religion;
   var currentStep;
- var imgPath;
- var videoPath;
- var occupationName;
+  var imgPath;
+  var videoPath;
+  var occupationName;
   var likeStatus;
   Details? details;
 
-  Getseeker(
+  Getanotherseeker(
       {this.id,
-        this.name,
-        this.email,
-        this.phone,
-        this.occupation,
-        this.salary,
-        this.address,
-        this.height,
-        this.dob,
-        this.gender,
-        this.religion,
-        this.currentStep,
-        this.imgPath,
-        this.videoPath,
-        this.occupationName,
-        this.likeStatus,
-        this.details});
+      this.name,
+      this.email,
+      this.phone,
+      this.occupation,
+      this.salary,
+      this.address,
+      this.height,
+      this.dob,
+      this.gender,
+      this.religion,
+      this.currentStep,
+      this.imgPath,
+      this.videoPath,
+      this.occupationName,
+      this.likeStatus,
+      this.details});
 
-  Getseeker.fromJson(Map<String, dynamic> json) {
+  Getanotherseeker.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -275,7 +267,7 @@ class Getseeker {
     occupationName = json['occupation_name'];
     likeStatus = json['like_status'];
     details =
-    json['details'] != null ? new Details.fromJson(json['details']) : null;
+        json['details'] != null ? new Details.fromJson(json['details']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -306,30 +298,30 @@ class Getseeker {
 class Details {
   var id;
   var seekerId;
- var profileGallery;
- var inInterested;
- var interest;
- var bioTitle;
- var bioDescription;
+  bool? profileGallery;
+  var inInterested;
+  var interest;
+  var bioTitle;
+  var bioDescription;
   var status;
- var createdAt;
- var updatedAt;
+  var createdAt;
+  var updatedAt;
   List<String>? gallaryPath;
   List<InterestName>? interestName;
 
   Details(
       {this.id,
-        this.seekerId,
-        this.profileGallery,
-        this.inInterested,
-        this.interest,
-        this.bioTitle,
-        this.bioDescription,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.gallaryPath,
-        this.interestName});
+      this.seekerId,
+      this.profileGallery,
+      this.inInterested,
+      this.interest,
+      this.bioTitle,
+      this.bioDescription,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.gallaryPath,
+      this.interestName});
 
   Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -373,7 +365,7 @@ class Details {
 }
 
 class InterestName {
- var title;
+  var title;
 
   InterestName({this.title});
 
@@ -393,26 +385,26 @@ class Outgoing {
   var matchFrom;
   var matchWith;
   var matchType;
- var matchWithStatus;
- var matchFromStatus;
+  var matchWithStatus;
+  var matchFromStatus;
   var status;
   var roomid;
- var createdAt;
- var updatedAt;
-  Getseeker? getseeker;
+  var createdAt;
+  var updatedAt;
+  Getanotherseeker? getanotherseeker;
 
   Outgoing(
       {this.id,
-        this.matchFrom,
-        this.matchWith,
-        this.matchType,
-        this.matchWithStatus,
-        this.matchFromStatus,
-        this.status,
-        this.roomid,
-        this.createdAt,
-        this.updatedAt,
-        this.getseeker});
+      this.matchFrom,
+      this.matchWith,
+      this.matchType,
+      this.matchWithStatus,
+      this.matchFromStatus,
+      this.status,
+      this.roomid,
+      this.createdAt,
+      this.updatedAt,
+      this.getanotherseeker});
 
   Outgoing.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -425,8 +417,8 @@ class Outgoing {
     roomid = json['roomid'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    getseeker = json['getseeker'] != null
-        ? new Getseeker.fromJson(json['getseeker'])
+    getanotherseeker = json['getanotherseeker'] != null
+        ? new Getanotherseeker.fromJson(json['getanotherseeker'])
         : null;
   }
 
@@ -442,10 +434,9 @@ class Outgoing {
     data['roomid'] = this.roomid;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    if (this.getseeker != null) {
-      data['getseeker'] = this.getseeker!.toJson();
+    if (this.getanotherseeker != null) {
+      data['getanotherseeker'] = this.getanotherseeker!.toJson();
     }
     return data;
   }
 }
-
