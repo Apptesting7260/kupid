@@ -521,7 +521,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                         width: Get.width * 1,
                         child: IncomingRequestControllerins.IncomingRequestvalue
                                     .value.requests!.bySeeker ==
-                                null
+                                []
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -550,7 +550,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                             : ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
-                                itemCount: 5,
+                                itemCount: IncomingRequestControllerins.IncomingRequestvalue
+                                    .value.requests!.bySeeker!.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 8.0),

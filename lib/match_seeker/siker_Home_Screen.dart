@@ -533,7 +533,6 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 // ),
 
                                 //********************* recent conversations *********
-    Text("data",style: TextStyle(color: Colors.black)),
                                 Column(
                                   children: [
                                     Row(

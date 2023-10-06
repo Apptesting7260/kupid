@@ -44,6 +44,7 @@ import '../../models/ResendOtpModel/ResendOtpModel.dart';
 import '../../models/SeekerChatListModel/seeker_chat_list_model.dart';
 import '../../models/SeekerHomePageRequestModel/SeekerHomePageRequest.dart';
 import '../../models/SeekerProfileModel/SeekerProfileModel.dart';
+import '../../models/SeekerRequestModel.dart';
 import '../../models/SetRoleModel/SetRoleModel.dart';
 
 class AuthRepository {
@@ -364,8 +365,13 @@ class AuthRepository {
     // print(response);
     return SeekerHomeRequestModel.fromJson(response);
   }
-
-
+//***************** Sekker out Going Request Api  *********************
+  Future<SeekerOutgoingRequestModel> SeekerOutgoingRequestListApi() async{
+    dynamic response = await _apiService.getApi2(AppUrl.saeekerOutgoingRequestListApi);
+    print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    print(response);
+    return SeekerOutgoingRequestModel.fromJson(response) ;
+  }
 
 
  
