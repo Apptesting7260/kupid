@@ -26,9 +26,10 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
 
   @override
   void initState() {
-    super.initState();
     seekerUserProfileController.ViewSikerProfileDetailsApiHit();
     seekerMyProfileController.SeekerMyProfileDetailsApiHit();
+    super.initState();
+
 
 
   }
@@ -51,7 +52,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
         backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child: Icon(Icons.arrow_back,color: Color.fromRGBO(90, 90, 90, 1),),
+          child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back,color: Color.fromRGBO(90, 90, 90, 1))),
         ),
       ),
       body: Obx((){
@@ -533,26 +534,26 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             SizedBox(
                               height: Get.height * 0.003,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                (seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!=null )? Row(children: [
-                                  for (var i = 0; seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length > i; i++)
-                                    Text(
-                                      seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName![i].title.toString()+" ",
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontWeight:
-                                          FontWeight.w400),
-                                    ),
-
-                                ],):Container(),
-
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     (seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!=null )? Row(children: [
+                            //       for (var i = 0; seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length > i; i++)
+                            //         Text(
+                            //           seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName![i].title.toString()+" ",
+                            //           style: TextStyle(
+                            //               fontSize: 10,
+                            //               color: Colors.black,
+                            //               fontWeight:
+                            //               FontWeight.w400),
+                            //         ),
+                            //
+                            //     ],):Container(),
+                            //
+                            //   ],
+                            // ),
 
 
                             SizedBox(

@@ -33,6 +33,7 @@ class ViewSikerProfileDetailsController extends GetxController {
 
 
   void ViewSikerProfileDetailsApiHit()async{
+    setRxRequestStatus(Status.LOADING);
  FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final prefs=await SharedPreferences.getInstance();
   final box3 = GetStorage(); 
@@ -51,6 +52,7 @@ class ViewSikerProfileDetailsController extends GetxController {
       ViewProfileDetails(value);
       print(value);
       print("abcd");
+
   final userchat=    ChatUser(
 id: value.profileDetails![0].id.toString(),
       name:  value.profileDetails![0].name.toString(),
@@ -70,6 +72,7 @@ id: value.profileDetails![0].id.toString(),
 
         //  print("fjksdfn");
     }).onError((error, stackTrace){
+      setRxRequestStatus(Status.COMPLETED);
       setError(error.toString());
       print("${error.toString()}+++--*****+");
       setRxRequestStatus(Status.ERROR);

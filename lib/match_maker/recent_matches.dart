@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
 import '../GlobalVariable/GlobalVariable.dart';
+import '../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../data/response/status.dart';
 import '../match_seeker/RecentMatch/SingleRecentMatch.dart';
@@ -22,6 +23,8 @@ class RecentMatches extends StatefulWidget {
 class _RecentMatchesState extends State<RecentMatches> {
   RecentSeekerMatchesController rsmController =
       Get.put(RecentSeekerMatchesController());
+  final SeekerMyProfileDetailsController seekerMyProfileController =
+  Get.put(SeekerMyProfileDetailsController());
 
 
   String? Getcurrentuser;
@@ -203,14 +206,26 @@ class _RecentMatchesState extends State<RecentMatches> {
                             ),
 
                             onTap: () {
-                              userIdsiker=rsmController
+                                setState(() {
+
+                                });
+                              if(rsmController
                                   .RecentSeekerMatchValue
                                   .value
                                   .data![index]
-                                  .getanotherseeker!.id.toString();
+                                  .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
+                                Get.to(SingalRecentMatches());
+                              }
+                              else{
+                                userIdsiker=rsmController
+                                    .RecentSeekerMatchValue
+                                    .value
+                                    .data![index]
+                                    .getanotherseeker!.id.toString();
+                                print("requst id $userIdsiker");
+                                Get.to(SingalRecentMatches());
+                              }
 
-                              print(userIdsiker);
-                              Get.to(SingalRecentMatches());
                             },
                           );
                         },

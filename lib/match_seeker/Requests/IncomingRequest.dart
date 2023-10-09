@@ -479,7 +479,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                         GestureDetector(
                                                           onTap: () {
                                                             // _showDialogProfile(
-                                                            //     context, index);
+                                                            //     \context, index);
+                                                            setState(() {
+
+                                                            });
 
                                                             userIdsiker =  IncomingRequestControllerins
                                                                 .IncomingRequestvalue
