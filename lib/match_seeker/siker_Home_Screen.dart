@@ -37,6 +37,7 @@ import 'dart:math' as math;
 import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import 'RecentMatch/SingleRecentMatch.dart';
 import 'Requests/SeekeerIncominSingalRequestPage.dart';
 import 'Requests/SeekerRequestPage.dart';
 
@@ -345,7 +346,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       shrinkWrap: true,
                                       itemCount: 2,
                                       itemBuilder: (context, index) {
-                                        return Container(
+
+                                        return GestureDetector(child: Container(
                                           width: width * .45,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -360,97 +362,97 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                           color: AppColors
                                                               .ratingcodeColor,
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      18)),
+                                                          BorderRadius
+                                                              .circular(
+                                                              18)),
                                                     ),
                                                     Transform.rotate(
                                                       angle:
-                                                          (math.pi / 390) * 11,
+                                                      (math.pi / 390) * 11,
                                                       origin:
-                                                          Offset(-190.0, 760.0),
+                                                      Offset(-190.0, 760.0),
                                                       child: Container(
                                                         height: height * .2,
                                                         width: width * .2,
                                                         decoration:
-                                                            BoxDecoration(
+                                                        BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(22),
+                                                          BorderRadius
+                                                              .circular(22),
                                                           image: DecorationImage(
                                                               image: recentSeekerMatchesController
-                                                                          .RecentSeekerMatchValue
-                                                                          .value
-                                                                          .data![
-                                                                              index]
-                                                                          .getanotherseeker!
-                                                                          .id
-                                                                          .toString() !=
-                                                                      Getcurrentuser
-                                                                          .toString()
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getanotherseeker!
+                                                                  .id
+                                                                  .toString() !=
+                                                                  Getcurrentuser
+                                                                      .toString()
                                                                   ? CachedNetworkImageProvider(recentSeekerMatchesController
-                                                                      .RecentSeekerMatchValue
-                                                                      .value
-                                                                      .data![
-                                                                          index]
-                                                                      .getseeker!
-                                                                      .imgPath
-                                                                      .toString())
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getseeker!
+                                                                  .imgPath
+                                                                  .toString())
                                                                   : CachedNetworkImageProvider(recentSeekerMatchesController
-                                                                      .RecentSeekerMatchValue
-                                                                      .value
-                                                                      .data![
-                                                                          index]
-                                                                      .getanotherseeker!
-                                                                      .imgPath
-                                                                      .toString()),
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getanotherseeker!
+                                                                  .imgPath
+                                                                  .toString()),
                                                               fit:
-                                                                  BoxFit.cover),
+                                                              BoxFit.cover),
                                                         ),
                                                       ),
                                                     ),
                                                     Transform.rotate(
                                                       angle:
-                                                          (math.pi / 850) * -40,
+                                                      (math.pi / 850) * -40,
                                                       origin:
-                                                          Offset(520.0, -80.0),
+                                                      Offset(520.0, -80.0),
                                                       child: Container(
                                                         height: height * .2,
                                                         width: width * .2,
                                                         decoration:
-                                                            BoxDecoration(
+                                                        BoxDecoration(
                                                           image: DecorationImage(
                                                               image: recentSeekerMatchesController
-                                                                          .RecentSeekerMatchValue
-                                                                          .value
-                                                                          .data![
-                                                                              index]
-                                                                          .getanotherseeker!
-                                                                          .id
-                                                                          .toString() ==
-                                                                      Getcurrentuser
-                                                                          .toString()
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getanotherseeker!
+                                                                  .id
+                                                                  .toString() ==
+                                                                  Getcurrentuser
+                                                                      .toString()
                                                                   ? CachedNetworkImageProvider(recentSeekerMatchesController
-                                                                      .RecentSeekerMatchValue
-                                                                      .value
-                                                                      .data![
-                                                                          index]
-                                                                      .getseeker!
-                                                                      .imgPath
-                                                                      .toString())
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getseeker!
+                                                                  .imgPath
+                                                                  .toString())
                                                                   : CachedNetworkImageProvider(recentSeekerMatchesController
-                                                                      .RecentSeekerMatchValue
-                                                                      .value
-                                                                      .data![
-                                                                          index]
-                                                                      .getanotherseeker!
-                                                                      .imgPath
-                                                                      .toString()),
+                                                                  .RecentSeekerMatchValue
+                                                                  .value
+                                                                  .data![
+                                                              index]
+                                                                  .getanotherseeker!
+                                                                  .imgPath
+                                                                  .toString()),
                                                               fit:
-                                                                  BoxFit.cover),
+                                                              BoxFit.cover),
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(22),
+                                                          BorderRadius
+                                                              .circular(22),
                                                         ),
                                                       ),
                                                     ),
@@ -462,7 +464,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                         child: CircleAvatar(
                                                           radius: 50,
                                                           backgroundColor:
-                                                              AppColors.white,
+                                                          AppColors.white,
                                                           child: Icon(Icons
                                                               .heart_broken),
                                                         ),
@@ -476,7 +478,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                         child: CircleAvatar(
                                                           radius: 50,
                                                           backgroundColor:
-                                                              AppColors.white,
+                                                          AppColors.white,
                                                           child: Icon(Icons
                                                               .heart_broken),
                                                         ),
@@ -493,7 +495,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                       .textTheme
                                                       .titleSmall
                                                       ?.copyWith(
-                                                          color: AppColors.red),
+                                                      color: AppColors.red),
                                                   maxLines: 1,
                                                 ),
                                                 SizedBox(
@@ -508,6 +510,20 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                               ],
                                             ),
                                           ),
+                                        ),
+                                            onTap:   () {
+
+                                              userIdsiker= recentSeekerMatchesController
+                                                  .RecentSeekerMatchValue
+                                                  .value
+                                                  .data![
+                                              index]
+                                                  .getanotherseeker!
+                                                  .id.toString();
+
+                                              print(userIdsiker);
+                                              Get.to(SingalRecentMatches());
+                                            },
                                         );
                                       },
                                     ),

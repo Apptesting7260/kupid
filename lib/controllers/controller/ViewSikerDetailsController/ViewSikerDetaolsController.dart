@@ -37,7 +37,7 @@ class ViewSikerProfileDetailsController extends GetxController {
     final prefs=await SharedPreferences.getInstance();
   final box3 = GetStorage(); 
     Map data={
-"user_id":prefs.getString('Tokernid')
+"user_id":userIdsiker
     };
   // //  setRxRequestStatus(Status.LOADING);
   // if (box3.hasData('seekrprofiledata')) {
