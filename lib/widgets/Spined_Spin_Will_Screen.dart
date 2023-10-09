@@ -9,19 +9,23 @@ import 'package:cupid_match/controllers/TimerControllerSpinwill/TimerControllerS
 import 'package:cupid_match/controllers/controller/MagicProfileController/MagicProfileConrtroller.dart';
 import 'package:cupid_match/controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
 import 'package:cupid_match/controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
+import 'package:cupid_match/controllers/controller/spinRequestController/SpinRequestController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/SeeAllMaker/SeAllMaker.dart';
 import 'package:cupid_match/match_seeker/choose_one.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/lever/StaticLiverPool.dart';
 import 'package:cupid_match/match_seeker/siker_Home_Screen.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
+import 'package:cupid_match/widgets/Spin_Will_Wigdet.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rxdart/subjects.dart';
@@ -37,7 +41,7 @@ class Spined_Spin_Wheel_Widget extends StatefulWidget {
 class _Spined_Spin_Wheel_WidgetState extends State<Spined_Spin_Wheel_Widget> {
   final SpeendReqestControllerinstance = Get.put(SpeendReqestController());
   // final SpinwillTimerControllerinstance = Get.put(SpinwillTimerController());
-
+final spinRequestController=Get.put(SpinRequestController());
 
  late Timer _timer;
 
@@ -492,47 +496,120 @@ SpeendReqestControllerinstance.startTimer();
                                 ],
                               ),
                               SizedBox(width: width * .12),
-                              GestureDetector(
-                                onTap: () {
-                                  // showdilog();
-                                  selectedseekerid=       SpeendReqestControllerinstance
-                                                        .staticLiverPullvalue.value.data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id!
-                                                      .toInt();
-                                  print(selectedseekerid);
-   showdilog(index, selectedseekerid!);
-                                  // if(selectedseekerid == index){
-                                  //   if(selectedseekerid!=null){
-                                  //     showdilog(index, selectedseekerid!);
-                                  //   }
-                                  // }
-                                  // else if(selectedseekerid != index){
-                                  //   print("dhfsdh");
-                                  // }
+  //                             GestureDetector(
+  //                               onTap: () {
+  //                                 // showdilog();
+  //                                 selectedseekerid=       SpeendReqestControllerinstance
+  //                                                       .staticLiverPullvalue.value.data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id!
+  //                                                     .toInt();
+  //                                 print(selectedseekerid);
+  //  showdilog(index, selectedseekerid!);
+  //                                 // if(selectedseekerid == index){
+  //                                 //   if(selectedseekerid!=null){
+  //                                 //     showdilog(index, selectedseekerid!);
+  //                                 //   }
+  //                                 // }
+  //                                 // else if(selectedseekerid != index){
+  //                                 //   print("dhfsdh");
+  //                                 // }
 
 
 
 
-                                  // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                                  // print(selectedseekerid);
-                                },
-                                child: Container(
-                                  height: height * .04,
-                                  width: width * .3,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffFE0091),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Request",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(color: Colors.white),
+  //                                 // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+  //                                 // print(selectedseekerid);
+  //                               },
+  //                               child: Container(
+  //                                 height: height * .04,
+  //                                 width: width * .3,
+  //                                 decoration: BoxDecoration(
+  //                                   color: Color(0xffFE0091),
+  //                                   borderRadius: BorderRadius.circular(15),
+  //                                 ),
+  //                                 child: Center(
+  //                                   child: Text(
+  //                                     "Request",
+  //                                     style: Theme.of(context)
+  //                                         .textTheme
+  //                                         .bodySmall!
+  //                                         .copyWith(color: Colors.white),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                             )
+    if(SpeendReqestControllerinstance.seekerprofilerequested.value==false)               GestureDetector(
+                                    onTap: () {
+                                      selectedseekerid =
+                                           SpeendReqestControllerinstance
+                                                        .staticLiverPullvalue
+                                                        .value
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id;
+                                      if (selectedseekerid != null) {
+                                        showdilog(index, selectedseekerid!);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                            "Request",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
+
+                                       if(SpeendReqestControllerinstance.seekerprofilerequested.value==true&&  SpeendReqestControllerinstance
+                                                        .staticLiverPullvalue
+                                                        .value
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true")               GestureDetector(
+                                    onTap: () {
+                                    
+Fluttertoast.showToast(
+  msg: "You Have Already Requested",
+  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+  backgroundColor: Colors.black54,
+  textColor: Colors.white,
+);
+
+//                                       if( dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true"){
+// // selectedseekerid =
+// //                                           dataofStaticPull.id!.toInt();
+// //                                       if (selectedseekerid != null) {
+// //                                         showdilog(index, selectedseekerid!);
+// //                                       }
+// //                                       }else{
+// //                                         print("Blocked");
+//                                       }
+                                      
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                    "Requested",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white,fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                             ],
                           )
                       );
@@ -705,21 +782,61 @@ SpeendReqestControllerinstance.startTimer();
               ),
               GestureDetector(
                 onTap: () {
+                                          setState(() {
+                    isboxloading=true;
+                  });
                   Get.back();
-                  if ( SpeendReqestControllerinstance
+                         spinedprofilelist[index]['is_requested'] = "true";
+                  spinRequestController.apihit();
+
+                  if(isboxloading==true){
+                    _showProgressDialog(context);
+                  }
+
+                  Timer(Duration(seconds: 2), () {
+                          setState(() {
+                    isboxloading=false;
+                             Get.back();
+                         if (SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
                                                         .value
-                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer ==
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer ==
                       SpeendReqestControllerinstance.selectedAnswer.value
                           .toString()) {
                     showdiog2(index);
                   }
-                  if (SpeendReqestControllerinstance.staticLiverPullvalue.value
-                          .data![index].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer !=
+                  if (SpeendReqestControllerinstance
+                                                        .staticLiverPullvalue
+                                                        .value
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer !=
                       SpeendReqestControllerinstance.selectedAnswer.value
                           .toString()) {
                     showdiologwronganswer(index);
                   }
+
+                  });
+                   });
+                  // Get.back();
+                  // if ( SpeendReqestControllerinstance
+                  //                                       .staticLiverPullvalue
+                  //                                       .value
+                  //                                       .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer ==
+                  //     SpeendReqestControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiog2(index);
+                  // }
+                  // if (SpeendReqestControllerinstance.staticLiverPullvalue.value
+                  //         .data![index].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer !=
+                  //     SpeendReqestControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiologwronganswer(index);
+                  // }
                 },
                 child: Container(
                   height: height * .04,
@@ -977,6 +1094,24 @@ SpeendReqestControllerinstance.startTimer();
       },
     );
   }
+
+    void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );}
 }
 
 

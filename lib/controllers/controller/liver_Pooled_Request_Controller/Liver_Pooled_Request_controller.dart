@@ -7,6 +7,7 @@ import 'package:cupid_match/models/LiverPooledRequestModel/LiverPooledRequestMod
 import 'package:cupid_match/models/MagicProfile/MagicProfiles.dart';
 import 'package:cupid_match/models/likeModel/LikeListModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
+import 'package:cupid_match/widgets/Spin_Will_Wigdet.dart';
 import 'package:get/get.dart';
 
 
@@ -21,6 +22,7 @@ class SpeendReqestController extends GetxController {
   RxString selectedAnswer="".obs;
   final rxRequestStatus = Status.LOADING.obs ;
   final staticLiverPullvalue =SpeendRequestModel().obs ;
+    RxBool  seekerprofilerequested=false.obs;
   RxString error = ''.obs;
   RxList<dynamic> slotImages = [].obs;
   RxList<dynamic> slotname = [].obs;
@@ -72,6 +74,7 @@ RxInt remainingSeconds = 0.obs;
       setRxRequestStatus(Status.COMPLETED);
      SpeendRequest(value);
       print("object====");
+      print("sdfdfdfgkndgknkdgnkjdfngkndfgknffdskgkdsngkndsgkkdsgdsngmfndskgnfdks");
       // for(int i=0; i<value.requests!.length; i++){
       //   slotImages.add(value.requests![i].imgPath.toString());
       //   slotname.add(value.requests![i].name.toString());
@@ -88,9 +91,39 @@ RxInt remainingSeconds = 0.obs;
 print("uuuuuuuuu");
       print("object");
       print("$slotImages===================");
+
+
+      for(int i =0; i<=3;i++){
+    print(value.data![0]
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![i]
+                          .seekerData!.id.toString(),);
+    spinedprofilelist.add({
+      "seeker_id":value.data![0]
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![i]
+                          .seekerData!.id.toString(),
+      "is_requested":value.data![0]
+                          .spinLeverpoolRequestedData!.spinRequestData![i].isRequested.toString()
+    });
+ print(spinedprofilelist);
+ print("againhited------");
+
+  }
+
+  for(int i =0; i<=2;i++){
+
+    if(value.data![0]
+                          .spinLeverpoolRequestedData!.spinRequestData![i].isRequested=="true"){
+                            seekerprofilerequested.value=true;
+                            print(seekerprofilerequested);
+                          }
+                          
+                          }
     }).onError((error, stackTrace){
       setError(error.toString());
-      print(error);
+
+      print("$error"+"zxjksabfcjksdbjkvbdjkvbcjkx");
       setRxRequestStatus(Status.ERROR);
 
     });
