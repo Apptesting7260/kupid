@@ -643,7 +643,7 @@ PODS:
     - BSGridCollectionViewLayout (= 1.2.5)
     - BSImageView (= 1.0.3)
   - BSImageView (1.0.3)
-  - cloud_firestore (4.9.2):
+  - cloud_firestore (4.9.3):
     - Firebase/Firestore (= 10.15.0)
     - firebase_core
     - Flutter
@@ -696,18 +696,18 @@ PODS:
   - Firebase/Storage (10.15.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.15.0)
-  - firebase_core (2.16.0):
+  - firebase_core (2.17.0):
     - Firebase/CoreOnly (= 10.15.0)
     - Flutter
-  - firebase_database (10.2.6):
+  - firebase_database (10.2.7):
     - Firebase/Database (= 10.15.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (14.6.8):
+  - firebase_messaging (14.6.9):
     - Firebase/Messaging (= 10.15.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.2.7):
+  - firebase_storage (11.2.8):
     - Firebase/Storage (= 10.15.0)
     - firebase_core
     - Flutter
@@ -1029,15 +1029,15 @@ SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 333dcb457a5a3bdd9212607ab5756553dcfe06cb
   BSImagePicker: 07404254f2fcdaf5a2eb403c0f8c337267ce8738
   BSImageView: a149459433a2687157d034c78e059d30ac7f2544
-  cloud_firestore: ac000d8c5a79d57dc69238ea06bb422880fb825e
+  cloud_firestore: 9c9fb3500360c9b338e9eb2fec40b38e7a004cac
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
-  firebase_core: 77172d0a9d8d19d07606e24406e4c2fc14d3265b
-  firebase_database: 99bb3411da9863a065d38ef645bf160a2410762a
-  firebase_messaging: 6aff54d420b7ce7080c26dd131b08bc632666852
-  firebase_storage: 0b51a488243202d5bed0d66415fea3425f2d3901
+  firebase_core: 28e84c2a4fcf6a50ef83f47b145ded8c1fa331e4
+  firebase_database: 1af9fdbaef52dd3be040be031db086cd2b450133
+  firebase_messaging: 91ec967913a5d144f951b3c3ac17a57796d38735
+  firebase_storage: 5aa5cd1cfc03814e3417b6718d805e5d1804f990
   FirebaseAppCheckInterop: 82358cff9f33452dd44259e88eea5e562500b1cb
   FirebaseAuthInterop: b79fab8ce80e685145eee5f973d9ad5210e19d44
   FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
