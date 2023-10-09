@@ -1178,8 +1178,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                           ],
                                                         )),
                                                         onTap: (){
-                                                             userIdsiker=requestHomeController.seekerHomeRequestValue.value
-                                                                 .requests!.outgoing![index].getanotherseeker!.id.toString();
+                                                         
+    userIdsiker=requestHomeController.seekerHomeRequestValue.value
+                                                                 .requests!.outgoing![index].id.toString();
 
                                                             print(userIdsiker);
                                                             Get.to(SeekerOutgoingRequestSinglePage());
@@ -1342,20 +1343,22 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                       ))),
                                           ),
                                           onTap: () {
-                                            setState(() {
-                                              requestype = "2";
-                                            });
-                                            // requestid = controller
-                                            //     .OutgoingRequestvalue
-                                            //     .value
-                                            //     .requests![index]
-                                            //     .id
-                                            //     .toString();
-print(requestid);
-                                            if (requestid != null) {
-                                              print(requestid);
-                                              Get.to(ChatPage());
-                                            }
+//                                             setState(() {
+//                                               requestype = "2";
+//                                             });
+//                                             // requestid = controller
+//                                             //     .OutgoingRequestvalue
+//                                             //     .value
+//                                             //     .requests![index]
+//                                             //     .id
+//                                             //     .toString();
+// print(requestid);
+//                                             if (requestid != null) {
+//                                               print(requestid);
+//                                               Get.to(ChatPage());
+//                                             }
+
+
                                           },
                                         );
                                       },

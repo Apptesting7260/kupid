@@ -39,7 +39,7 @@ class ViewRequestDetailsController extends GetxController {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"request_id":"1"
+"request_id":userIdsiker.toString()
     };
    setRxRequestStatus(Status.LOADING);
 

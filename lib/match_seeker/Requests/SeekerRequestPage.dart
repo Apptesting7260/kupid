@@ -44,6 +44,7 @@ class _SeekerOutgoingRequestSinglePageState extends State<SeekerOutgoingRequestS
       appBar: AppBar(
         bottomOpacity: 0.0,
         elevation: 0.0,
+        
         title: Padding(
 
           padding: const EdgeInsets.only(top: 30, left: 40.0),
@@ -55,7 +56,9 @@ class _SeekerOutgoingRequestSinglePageState extends State<SeekerOutgoingRequestS
         backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child: Icon(Icons.arrow_back,color: Color.fromRGBO(90, 90, 90, 1),),
+          child: InkWell(child: Icon(Icons.arrow_back,color: Color.fromRGBO(90, 90, 90, 1),),onTap:(){
+            Get.back();
+          } ,),
         ),
       ),
       body: Obx((){
@@ -85,7 +88,7 @@ class _SeekerOutgoingRequestSinglePageState extends State<SeekerOutgoingRequestS
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchType!='1')?Column(
+                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchType!=1)?Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -492,6 +495,7 @@ class _SeekerOutgoingRequestSinglePageState extends State<SeekerOutgoingRequestS
                                         Text(
                                           seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.salary.toString()+' Monthly',
                                           style: TextStyle(
+                                            color: Colors.black,
                                               fontSize: 6,
                                               fontWeight:
                                               FontWeight.w400),
