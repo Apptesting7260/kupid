@@ -956,7 +956,7 @@ final spinRequestController=Get.put(SpinRequestController());
   int rewards = 0;
 
   bool shouldShowSpinButton = true;
-  bool isTimerVisible = false;
+
   late Timer countdownTimer;
   Duration remainingTime = Duration(hours: 24);
   final SeekerToSeekerRequestControllerinstance =
@@ -981,7 +981,7 @@ final spinRequestController=Get.put(SpinRequestController());
           isVisible =!isVisible;
           isNotVisible =!isNotVisible;
           shouldShowSpinButton = true; // Show the button when time is up
-          isTimerVisible = false;
+          isSpinTimerVisible = false;
           // Hide the timer
           timer.cancel();
         }
@@ -1002,7 +1002,7 @@ final spinRequestController=Get.put(SpinRequestController());
   bool isRequestMade = false;
 
   void handleSpinButtonClick() {
-    if (!isTimerVisible) {
+    if (!isSpinTimerVisible) {
       setState(() {
         MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
         selected.add(Fortune.randomInt(0, items.length));
@@ -1013,7 +1013,7 @@ final spinRequestController=Get.put(SpinRequestController());
 
       setState(() {
         shouldShowSpinButton = false;
-        isTimerVisible = true;
+        isSpinTimerVisible = true;
         remainingTime = Duration(hours: 24);
       });
 spinedprofilelist=[];
@@ -1198,7 +1198,7 @@ spinedprofilelist=[];
                 SizedBox(
                   height: height * .03,
                 ),
-                if(isTimerVisible == false)Visibility(
+                if(isSpinTimerVisible == false)Visibility(
                   visible: shouldShowSpinButton, // Only show the button if shouldShowSpinButton is true
                   child: MyButton(
                     onTap: handleSpinButtonClick,
@@ -1211,9 +1211,9 @@ spinedprofilelist=[];
 
 
                  /// Add some spacing
-                if(isTimerVisible == true)
+                if(isSpinTimerVisible == true)
                   Visibility(
-                    visible: isTimerVisible,
+                    visible: isSpinTimerVisible,
                     child: Column(
                       children: [
                         Text(

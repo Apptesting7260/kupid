@@ -288,7 +288,7 @@ class _SeekerOutgoingRequestSinglePageState extends State<SeekerOutgoingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  seekerMyProfileController.SeekerMyProfileDetail.value!.ProfileDetail!.name.toString(),
+                                  seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.name.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,

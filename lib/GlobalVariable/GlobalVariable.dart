@@ -16,6 +16,7 @@ String verification_method="nationality_identity_card";
 String?nationality;
 File? ImagetoUpload;
 String?Subcriptiontype;
+  bool isSpinTimerVisible = false;
 String?choose;
 String ?listAsString;
   List<File> galleryImageFiles = [];
