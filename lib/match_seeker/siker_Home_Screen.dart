@@ -37,6 +37,7 @@ import 'dart:math' as math;
 import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import 'Requests/SeekerRequestPage.dart';
 
 class SikerHomeScreen extends StatefulWidget {
   const SikerHomeScreen({Key? key}) : super(key: key);
@@ -1181,7 +1182,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                  .requests!.outgoing![index].getanotherseeker!.id.toString();
 
                                                             print(userIdsiker);
-                                                            Get.to(ShortProfileSeeker());
+                                                            Get.to(SeekerOutgoingRequestSinglePage());
                                                         },
                                                       ):
 

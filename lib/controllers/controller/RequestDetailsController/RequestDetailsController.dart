@@ -40,7 +40,6 @@ class ViewRequestDetailsController extends GetxController {
 
     Map data={
 "request_id":"1"
-
     };
    setRxRequestStatus(Status.LOADING);
 
@@ -48,6 +47,7 @@ class ViewRequestDetailsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);
+      print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
 print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
 
    await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
