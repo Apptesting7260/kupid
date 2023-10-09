@@ -37,6 +37,7 @@ import 'dart:math' as math;
 import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import 'Requests/SeekeerIncominSingalRequestPage.dart';
 import 'Requests/SeekerRequestPage.dart';
 
 class SikerHomeScreen extends StatefulWidget {
@@ -978,14 +979,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                             setState(() {
                                               requestype = "1";
                                             });
-                                            requestid = requestHomeController.seekerHomeRequestValue.value
+                                            userIdsiker = requestHomeController.seekerHomeRequestValue.value
                                                 .requests!.incoming![index]
                                                 .id
                                                 .toString();
 
-                                            if (requestid != null) {
+                                            if (userIdsiker != null) {
                                               print(requestid);
-                                              Get.to(ChatPage());
+                                              Get.to(SeekerIncomingRequestSinglePage());
                                             }
                                           },
                                         );
@@ -1179,11 +1180,11 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                         )),
                                                         onTap: (){
                                                          
-    userIdsiker=requestHomeController.seekerHomeRequestValue.value
+                                                      userIdsiker=requestHomeController.seekerHomeRequestValue.value
                                                                  .requests!.outgoing![index].id.toString();
 
                                                             print(userIdsiker);
-                                                            Get.to(SeekerOutgoingRequestSinglePage());
+                                                            Get.to(SeekerOutGoingRequestSinglePage());
                                                         },
                                                       ):
 
@@ -1248,12 +1249,12 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                           radius:
                                                                               30.0,
                                                                           backgroundImage: CachedNetworkImageProvider(
-                                                                              // requestHomeController.seekerHomeRequestValue.value
-                                                                              // .requests!.outgoing![index]!
-                                                                              // .getMaker!
-                                                                              // .imgPath
-                                                                              // .toString()
-                                                                            ""
+                                                                              requestHomeController.seekerHomeRequestValue.value
+                                                                              .requests!.outgoing![index]!
+                                                                              .getanotherseeker!
+                                                                              .imgPath
+                                                                              .toString()
+
                                                                           ),
                                                                           backgroundColor:
                                                                               Colors.transparent,
@@ -1273,14 +1274,11 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                           radius:
                                                                               30.0,
                                                                           backgroundImage: CachedNetworkImageProvider(
-                                                                              // controller
-                                                                              // .OutgoingRequestvalue
-                                                                              // .value
-                                                                              // .requests![index]
-                                                                              // .getMaker!
-                                                                              // .imgPath
-                                                                              // .toString()
-                                                                            ""
+                                                                              requestHomeController.seekerHomeRequestValue.value
+                                                                                  .requests!.outgoing![index]!
+                                                                                  .getanotherseeker!
+                                                                                  .imgPath
+                                                                                  .toString()
                                                                           ),
                                                                           backgroundColor:
                                                                               Colors.transparent,
@@ -1298,15 +1296,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             0.02,
                                                                   ),
                                                                   Text(
-                                                                    // controller
-                                                                    //     .OutgoingRequestvalue
-                                                                    //     .value
-                                                                    //     .requests![
-                                                                    //         index]
-                                                                    //     .outgoing_req_getseeker!
-                                                                    //     .name
-                                                                    //     .toString(),
-                                                                    "",
+
+                                                                        requestHomeController.seekerHomeRequestValue.value
+                                                                            .requests!.outgoing![index]!
+                                                                            .getanotherseeker!
+                                                                            .name
+
+                                                                        .toString(),
+
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .pink,
@@ -1321,15 +1318,13 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             0.01,
                                                                   ),
                                                                   Text(
-                                                                    // controller
-                                                                    //     .OutgoingRequestvalue
-                                                                    //     .value
-                                                                    //     .requests![
-                                                                    //         index]
-                                                                    //     .outgoing_req_getseeker!
-                                                                    //     .dob
-                                                                    //     .toString()
-                                                                    ""
+                                                                    requestHomeController.seekerHomeRequestValue.value
+                                                                        .requests!.outgoing![index]!
+                                                                        .getanotherseeker!
+
+                                                                        .dob
+                                                                        .toString()
+
                                                                     ,
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -1357,6 +1352,15 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 //                                               print(requestid);
 //                                               Get.to(ChatPage());
 //                                             }
+                                          print( requestHomeController.seekerHomeRequestValue.value
+                                              .requests!.outgoing![index]!
+                                              .id);
+
+                                          userIdsiker=requestHomeController.seekerHomeRequestValue.value
+                                              .requests!.outgoing![index].id.toString();
+
+                                          print(userIdsiker);
+                                          Get.to(SeekerOutGoingRequestSinglePage());
 
 
                                           },

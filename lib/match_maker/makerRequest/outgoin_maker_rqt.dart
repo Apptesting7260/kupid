@@ -37,7 +37,7 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
     // TODO: implement initState
     super.initState();
 
-    print( outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getanotherseeker);
+    print( outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getanotherseeker!.name);
   }
 
   String? selectCityItems;
@@ -852,28 +852,32 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                 height: height * .02,
               ),
               Obx(() {
-                // switch (outgoingMakerRequestController.rxRequestStatus.value) {
-                //   case Status.LOADING:
-                //     return const Center(child: CircularProgressIndicator());
-                //   case Status.ERROR:
-                //     if (outgoingMakerRequestController.error.value ==
-                //         'No internet') {
-                //       return InterNetExceptionWidget(
-                //         onPress: () {},
-                //       );
-                //     } else {
-                //       return GeneralExceptionWidget(onPress: () {});
-                //     }
-                //   case Status.COMPLETED:
-                    return  Container(
+                switch (outgoingMakerRequestController.rxRequestStatus.value) {
+                  case Status.LOADING:
+                    return const Center(child: CircularProgressIndicator());
+                  case Status.ERROR:
+                    if (outgoingMakerRequestController.error.value ==
+                        'No internet') {
+                      return InterNetExceptionWidget(
+                        onPress: () {},
+                      );
+                    } else {
+                      return GeneralExceptionWidget(onPress: () {});
+                    }
+                  case Status.COMPLETED:
+                    return Container(
                       // height: Get.height*0.6,
                       width: Get.width * 1,
-                      child:outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!=[]||
-                          outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!.length!=0
-                          ?ListView.builder(
+                      child: outgoingMakerRequestController
+                          .OutgoingMakerRequestValue.value.requests != [] ||
+                          outgoingMakerRequestController
+                              .OutgoingMakerRequestValue.value.requests!
+                              .length != 0
+                          ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!.length,
+                          itemCount: outgoingMakerRequestController
+                              .OutgoingMakerRequestValue.value.requests!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.only(top: 8.0),
@@ -889,17 +893,24 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                             width: Get.width * 0.03,
                                           ),
                                           Container(
-                                              height:   Get.height * 0.07,
+                                              height: Get.height * 0.07,
                                               width: Get.width * 0.13,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                   BorderRadius.circular(40)),
-                                              child:  outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index].getseeker!.imgPath !=
+                                              child: outgoingMakerRequestController
+                                                  .OutgoingMakerRequestValue
+                                                  .value.requests![index]
+                                                  .getseeker!.imgPath !=
                                                   null
                                                   ? CircleAvatar(
                                                   radius: 22,
                                                   backgroundImage: CachedNetworkImageProvider(
-                                                      outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index].getseeker!.imgPath
+                                                      outgoingMakerRequestController
+                                                          .OutgoingMakerRequestValue
+                                                          .value
+                                                          .requests![index]
+                                                          .getseeker!.imgPath
                                                           .toString()))
                                                   : CircleAvatar(
                                                 radius: 22,
@@ -920,18 +931,23 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index].getseeker!.name ,
+                                                outgoingMakerRequestController
+                                                    .OutgoingMakerRequestValue
+                                                    .value.requests![index]
+                                                    .getseeker!.name,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight: FontWeight
+                                                        .w600),
                                               ),
                                               Text(
                                                 'Match Seeker',
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 10,
-                                                    fontWeight: FontWeight.w300),
+                                                    fontWeight: FontWeight
+                                                        .w300),
                                               ),
                                             ],
                                           ),
@@ -946,7 +962,8 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                               height: Get.height * 0.065,
                                               decoration: BoxDecoration(
                                                   color: Colors.white,
-                                                  borderRadius: BorderRadius.only(
+                                                  borderRadius: BorderRadius
+                                                      .only(
                                                       topLeft:
                                                       Radius.circular(10),
                                                       bottomLeft:
@@ -963,12 +980,22 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                           borderRadius:
                                                           BorderRadius.circular(
                                                               40)),
-                                                      child:   outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index]!.getanotherseeker!.imgPath !=
+                                                      child: outgoingMakerRequestController
+                                                          .OutgoingMakerRequestValue
+                                                          .value
+                                                          .requests![index]!
+                                                          .getanotherseeker!
+                                                          .imgPath !=
                                                           null
                                                           ? CircleAvatar(
                                                           radius: 22,
                                                           backgroundImage: CachedNetworkImageProvider(
-                                                              outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index]!.getanotherseeker!.imgPath
+                                                              outgoingMakerRequestController
+                                                                  .OutgoingMakerRequestValue
+                                                                  .value
+                                                                  .requests![index]!
+                                                                  .getanotherseeker!
+                                                                  .imgPath
                                                                   .toString()))
                                                           : CircleAvatar(
                                                         radius: 22,
@@ -991,7 +1018,12 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                     MainAxisAlignment.center,
                                                     children: [
                                                       Text(
-                                                        outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![index]!.getanotherseeker!.name,
+                                                        outgoingMakerRequestController
+                                                            .OutgoingMakerRequestValue
+                                                            .value
+                                                            .requests![index]!
+                                                            .getanotherseeker!
+                                                            .name,
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 9,
@@ -1069,8 +1101,7 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                         ],
                       ),
                     );
-
-
+                }
 
 
 

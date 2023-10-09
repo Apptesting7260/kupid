@@ -13,18 +13,18 @@ import '../../res/components/internet_exceptions_widget.dart';
 
 var myId;
 
-class SeekerOutGoingRequestSinglePage extends StatefulWidget {
-  const SeekerOutGoingRequestSinglePage({super.key});
+class SeekerIncomingRequestSinglePage extends StatefulWidget {
+  const SeekerIncomingRequestSinglePage({super.key});
 
   @override
-  State<SeekerOutGoingRequestSinglePage> createState() =>
-      _SeekerOutGoingRequestSinglePageState();
+  State<SeekerIncomingRequestSinglePage> createState() =>
+      _SeekerIncomingRequestSinglePageState();
 }
 
 final ViewRequestDetailsController seekerOutgoingRequestSinglePageController = Get.put(ViewRequestDetailsController());
 final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
 
-class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestSinglePage> {
+class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
       appBar: AppBar(
         bottomOpacity: 0.0,
         elevation: 0.0,
-        
+
         title: Padding(
 
           padding: const EdgeInsets.only(top: 30, left: 40.0),
@@ -66,16 +66,16 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
           case Status.LOADING:
             return const Center(child: CircularProgressIndicator());
           case Status.ERROR:
-            // if (seekerOutgoingRequestSinglePageController.error.value ==
-            //     'No internet') {
-            //   return InterNetExceptionWidget(onPress: () {
-            //     // seekerOutgoingRequestSinglePageController.refreshApi();
-            //   },);
-            // } else {
-            //   return GeneralExceptionWidget(onPress: () {
-            //     // seekerOutgoingRequestSinglePageController.refreshApi();
-            //   });
-            // }
+          // if (seekerOutgoingRequestSinglePageController.error.value ==
+          //     'No internet') {
+          //   return InterNetExceptionWidget(onPress: () {
+          //     // seekerOutgoingRequestSinglePageController.refreshApi();
+          //   },);
+          // } else {
+          //   return GeneralExceptionWidget(onPress: () {
+          //     // seekerOutgoingRequestSinglePageController.refreshApi();
+          //   });
+          // }
           case Status.COMPLETED:
             myId = seekerMyProfileController.SeekerMyProfileDetail.value!
                 .ProfileDetail!.id.toString();
@@ -192,23 +192,23 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                       height: Get.height * 0.003,
                                     ),
                                     Container(
-                                      width: Get.width * 0.5,
+                                        width: Get.width * 0.5,
 
-                                      child: Expanded(child: Text(
-                                        seekerOutgoingRequestSinglePageController
-                                            .ViewProfileDetail.value.data!
-                                            .getmaker!.aboutMaker.toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 7,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                        flex: 4,
-                                      )
+                                        child: Expanded(child: Text(
+                                          seekerOutgoingRequestSinglePageController
+                                              .ViewProfileDetail.value.data!
+                                              .getmaker!.aboutMaker.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 7,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                          flex: 4,
+                                        )
                                     )
                                   ],
                                 ),
-                              SizedBox(width: Get.width*0.03,),
+                                SizedBox(width: Get.width*0.03,),
                                 Container(
                                   height: Get.height * 0.16,
                                   width: Get.width * 0.07,
@@ -380,7 +380,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                 Text(
                                   'Interest',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                      color: Colors.black,
                                       fontSize: 8,
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -454,15 +454,15 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                           width: Get.width * 0.005,
                                         ),
                                         Container(
-                                          height: Get.height * 0.015,
-                                          width: Get.width * 0.08,
-                                          child: CircleAvatar(
-                                            radius: 10,
-                                            child: Image.asset(
-                                              'assets/icons/religon.png',
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
+                                            height: Get.height * 0.015,
+                                            width: Get.width * 0.08,
+                                            child: CircleAvatar(
+                                              radius: 10,
+                                              child: Image.asset(
+                                                'assets/icons/religon.png',
+                                                fit: BoxFit.contain,
+                                              ),
+                                            )
                                         ),
                                         SizedBox(
                                           width: Get.width * 0.0001,
@@ -584,17 +584,17 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                  height: Get.height * 0.05,
-                                  width: Get.width * 0.05,
-                                  child:CircleAvatar(
-                                    radius: 180,
-                                    child:  CircleAvatar(
+                                    height: Get.height * 0.05,
+                                    width: Get.width * 0.05,
+                                    child:CircleAvatar(
+                                      radius: 180,
+                                      child:  CircleAvatar(
 
-                                      radius: 140,
-                                      child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                      backgroundColor: Colors.white12,
-                                    ),
-                                  ))
+                                        radius: 140,
+                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
+                                        backgroundColor: Colors.white12,
+                                      ),
+                                    ))
                               ],
                             ),
                           ],
@@ -687,7 +687,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                 Text(
                                   myUserUrl.name.toString(),
                                   style: TextStyle(
-                                    color: Colors.black,
+                                      color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600),
                                 ),
@@ -722,7 +722,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                 Text(
                                   myUserUrl.address.toString(),
                                   style: TextStyle(
-                                    color: Colors.black,
+                                      color: Colors.black,
                                       fontSize: 6,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -857,7 +857,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                         Text(
                                           myUserUrl.height.toString(),
                                           style: TextStyle(
-                                            color: Colors.black,
+                                              color: Colors.black,
                                               fontSize: 6,
                                               fontWeight:
                                               FontWeight.w400),
@@ -894,7 +894,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -914,17 +914,17 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                  height: Get.height * 0.05,
-                                  width: Get.width * 0.05,
-                                  child: CircleAvatar(
-                                    radius: 180,
-                                    child:  CircleAvatar(
+                                    height: Get.height * 0.05,
+                                    width: Get.width * 0.05,
+                                    child: CircleAvatar(
+                                      radius: 180,
+                                      child:  CircleAvatar(
 
-                                      radius: 140,
-                                      child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                      backgroundColor: Colors.white12,
-                                    ),
-                                  )
+                                        radius: 140,
+                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
+                                        backgroundColor: Colors.white12,
+                                      ),
+                                    )
                                 ),
                               ],
                             ),
@@ -938,35 +938,11 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                     height: Get.height * 0.03,
                   ),
                   (requestStatus == 'accepted') ? Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-
-
-                    children: [
-
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-        height: Get.height * 0.05,
-        width: Get.width * 0.4,
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(254, 0, 145, 1),
-                            borderRadius: BorderRadius.circular(60)),
-                        child: Center(
-                          child: Text('Chat Now',
-                              style: TextStyle(
-
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ],) : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+
+
                     children: [
-                      // SizedBox(
-                      //   width: Get.width * 0.53,
-                      // ),
+
                       GestureDetector(
                         onTap: () {},
                         child: Container(
@@ -976,37 +952,61 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                               color: Color.fromRGBO(254, 0, 145, 1),
                               borderRadius: BorderRadius.circular(60)),
                           child: Center(
-                            child: Text('Requested',
+                            child: Text('Chat Now',
                                 style: TextStyle(
+
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white)),
                           ),
                         ),
                       ),
-                      // SizedBox(
-                      //   width: Get.width * 0.03,
-                      // ),
-                      // GestureDetector(
-                      //   onTap: () {},
-                      //   child: Container(
-                      //     height: Get.height * 0.038,
-                      //     width: Get.width * 0.2,
-                      //     decoration: BoxDecoration(
-                      //         color: Colors.white,
-                      //         border: Border.all(
-                      //             color: Color.fromRGBO(0, 12, 170, 1),
-                      //             width: 1),
-                      //         borderRadius: BorderRadius.circular(60)),
-                      //     child: Center(
-                      //       child: Text('Declined',
-                      //           style: TextStyle(
-                      //               fontSize: 8,
-                      //               fontWeight: FontWeight.w700,
-                      //               color: Color.fromRGBO(0, 12, 170, 1))),
-                      //     ),
-                      //   ),
-                      // )
+                    ],) : Row(
+
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.5,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: Get.height * 0.038,
+                          width: Get.width * 0.2,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(254, 0, 145, 1),
+                              borderRadius: BorderRadius.circular(60)),
+                          child: Center(
+                            child: Text('Accept',
+                                style: TextStyle(
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: Get.width * 0.03,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: Get.height * 0.038,
+                          width: Get.width * 0.2,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: Color.fromRGBO(0, 12, 170, 1),
+                                  width: 1),
+                              borderRadius: BorderRadius.circular(60)),
+                          child: Center(
+                            child: Text('Declined',
+                                style: TextStyle(
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color.fromRGBO(0, 12, 170, 1))),
+                          ),
+                        ),
+                      )
                     ],
                   )
                 ]

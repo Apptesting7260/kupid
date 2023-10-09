@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../GlobalVariable/GlobalVariable.dart';
 import '../../controllers/controller/IncomingRequestController/IncomingRequestController.dart';
 import '../../controllers/incoming_request.dart';
+import 'SeekeerIncominSingalRequestPage.dart';
 
 class IncomingRequests extends StatefulWidget {
   const IncomingRequests({super.key});
@@ -476,8 +478,21 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
-                                                            _showDialogProfile(
-                                                                context, index);
+                                                            // _showDialogProfile(
+                                                            //     context, index);
+
+                                                            userIdsiker =  IncomingRequestControllerins
+                                                                .IncomingRequestvalue
+                                                                .value
+                                                                .requests!
+                                                                .byMaker![index]
+                                                                .id
+                                                                .toString();
+
+                                                            if (userIdsiker != null) {
+                                                              print(userIdsiker);
+                                                              Get.to(SeekerIncomingRequestSinglePage());
+                                                            }
                                                           },
                                                           child: Text(
                                                             'View',
@@ -650,8 +665,21 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    _showDialogProfile(
-                                                        context, index);
+                                                    // _showDialogProfile(
+                                                    //     context, index);
+
+                                                    userIdsiker =  IncomingRequestControllerins
+                                                        .IncomingRequestvalue
+                                                        .value
+                                                        .requests!
+                                                        .bySeeker![index]
+                                                        .id
+                                                        .toString();
+
+                                                    if (userIdsiker != null) {
+                                                      print(userIdsiker);
+                                                      Get.to(SeekerIncomingRequestSinglePage());
+                                                    }
                                                   },
                                                   child: Text(
                                                     'View',

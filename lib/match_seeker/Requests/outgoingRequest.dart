@@ -15,6 +15,7 @@ import '../../data/response/status.dart';
 import '../../models/SeekerRequestModel.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
+import 'SeekerRequestPage.dart';
 
 class OutGoingRequest extends StatefulWidget {
   const OutGoingRequest({super.key});
@@ -509,8 +510,17 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        _showDialogProfile(
-                                                            context);
+                                                        // _showDialogProfile(
+                                                        //     context);
+
+                                                        userIdsiker= seekrOutgoingRequestController
+                                                            .OutgoingRequestvalue
+                                                            .value
+                                                            .requests!
+                                                            .toMaker![index].id.toString();
+
+                                                        print(userIdsiker);
+                                                        Get.to(SeekerOutGoingRequestSinglePage());
                                                       },
                                                       child: Text(
                                                         'View',
@@ -728,8 +738,17 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              _showDialogProfile(
-                                                  context);
+                                              // _showDialogProfile(
+                                              //     context);
+
+                                              userIdsiker= seekrOutgoingRequestController
+                                                  .OutgoingRequestvalue
+                                                  .value
+                                                  .requests!
+                                                  .toSeeker![index].id.toString();
+
+                                              print(userIdsiker);
+                                              Get.to(SeekerOutGoingRequestSinglePage());
                                             },
                                             child: Text(
                                               'View',
