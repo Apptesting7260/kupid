@@ -44,18 +44,18 @@ class OutgoingMakerRequestController extends GetxController {
 
     });
   }
-//
-// void refreshApi(){
-//
-//     setRxRequestStatus(Status.LOADING);
-//
-//   _api.userListApi().then((value){
-//     setRxRequestStatus(Status.COMPLETED);
-//     setUserList(value);
-//   }).onError((error, stackTrace){
-//     setError(error.toString());
-//     setRxRequestStatus(Status.ERROR);
-//
-//   });
-// }
+
+void refreshApi(){
+
+    setRxRequestStatus(Status.LOADING);
+
+  _api.OutgoingMakerRequestApi().then((value){
+    setRxRequestStatus(Status.COMPLETED);
+    setUserList(value);
+  }).onError((error, stackTrace){
+    setError(error.toString());
+    setRxRequestStatus(Status.ERROR);
+
+  });
+}
 }

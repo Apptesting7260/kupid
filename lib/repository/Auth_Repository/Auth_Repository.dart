@@ -36,6 +36,7 @@ import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
 import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
 import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart';
+import '../../models/MakerHomePage/MakerHomePageModel.dart';
 import '../../models/MakerProfileModel/MakerProfileModel.dart';
 import '../../models/MakerRecentMatchesModel/maker_recent_matches_model.dart';
 import '../../models/OutgoingMakerRequestModle/outgoing_maker_request_model.dart';
@@ -371,6 +372,14 @@ class AuthRepository {
     print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     print(response);
     return SeekerOutgoingRequestModel.fromJson(response) ;
+  }
+  //***************** Incoming Maker Home Request ApiServices  *********************
+  Future<MakerHomePageModel> MakerHomePageRequestApi() async {
+    print("IncomingMakerRequestApi");
+    dynamic response =
+    await _apiService.getApi2(AppUrl.MakerHomeRequestcontroller);
+    print(response);
+    return MakerHomePageModel.fromJson(response);
   }
 
 

@@ -207,7 +207,7 @@ class _RecentMatchesState extends State<RecentMatches> {
 
                             onTap: () {
                                 setState(() {
-
+                                  userIdsiker=null;
                                 });
                               if(rsmController
                                   .RecentSeekerMatchValue

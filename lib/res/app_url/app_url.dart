@@ -42,6 +42,8 @@ class AppUrl {
       '$baseUrl/seeker/request-seeker-to-seeker';
   static const String IncomingMakerRequestUrl =
       '$baseUrl/maker/incoming-request';
+  static const String MakerHomeRequestcontroller =
+      '$baseUrl/maker/maker-home-page-request';
   static const String RecentSeekerMatchesUrl =
       '$baseUrl/seeker/get-recent-matches';
   static const String SeekerChatList = '$baseUrl/seeker/chat-list';

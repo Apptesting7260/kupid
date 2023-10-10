@@ -30,8 +30,9 @@ final SeekrOutgoingRequestController seekrOutgoingRequestController =
 class _OutGoingRequestState extends State<OutGoingRequest> {
   @override
   void initState() {
-    super.initState();
     seekrOutgoingRequestController.seekerOutGoingRequest();
+    super.initState();
+
   }
 
   @override

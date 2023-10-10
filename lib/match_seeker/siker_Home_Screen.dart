@@ -34,6 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:math' as math;
 
+import '../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
@@ -55,6 +56,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
       Get.put(ViewSikerProfileDetailsController());
   RecentSeekerMatchesController recentSeekerMatchesController =
       Get.put(RecentSeekerMatchesController());
+  final SeekerMyProfileDetailsController seekerMyProfileController =
+  Get.put(SeekerMyProfileDetailsController());
   String? Getcurrentuser;
   @override
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
@@ -512,17 +515,32 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                           ),
                                         ),
                                             onTap:   () {
+                                          setState(() {
+                                            userIdsiker=null;
+                                          });
+                                          if(recentSeekerMatchesController
+                                              .RecentSeekerMatchValue
+                                              .value
+                                              .data![
+                                          index]
+                                              .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
+                                            Get.to(SingalRecentMatches());
+                                          }
+                                          else{
+                                            userIdsiker= recentSeekerMatchesController
+                                                .RecentSeekerMatchValue
+                                                .value
+                                                .data![
+                                            index]
+                                                .getanotherseeker!
+                                                .id.toString();
+                                            print("requst id $userIdsiker");
+                                            Get.to(SingalRecentMatches());
+                                          }
 
-                                              userIdsiker= recentSeekerMatchesController
-                                                  .RecentSeekerMatchValue
-                                                  .value
-                                                  .data![
-                                              index]
-                                                  .getanotherseeker!
-                                                  .id.toString();
 
-                                              print(userIdsiker);
-                                              Get.to(SingalRecentMatches());
+                                              // print(userIdsiker);
+                                              // Get.to(SingalRecentMatches());
                                             },
                                         );
                                       },

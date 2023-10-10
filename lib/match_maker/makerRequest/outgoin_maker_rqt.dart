@@ -31,13 +31,16 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
   int x = 5;
   @override
   void initState() {
-    requestid = null;
     outgoingMakerRequestController.isOutgoingMakerRequestApi();
+    requestid = null;
 
+    print("another seeker = ${outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getanotherseeker!}");
+    print("maker ${outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getmaker!}");
+    print("seeker ${ outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getseeker!}");
     // TODO: implement initState
     super.initState();
 
-    print( outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getanotherseeker!.name);
+
   }
 
   String? selectCityItems;
@@ -859,7 +862,9 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                     if (outgoingMakerRequestController.error.value ==
                         'No internet') {
                       return InterNetExceptionWidget(
-                        onPress: () {},
+                        onPress: () {
+                          outgoingMakerRequestController.refreshApi();
+                        },
                       );
                     } else {
                       return GeneralExceptionWidget(onPress: () {});
