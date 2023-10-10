@@ -398,7 +398,7 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
 
                                 (seekerMyProfileController.SeekerMyProfileDetail
                                     .value.ProfileDetail!.details!
-                                    .interestName![0].title != null) ? Row(
+                                    .interestName!=[]) ? Row(
                                   children: [
                                     for (var i = 0; seekerMyProfileController
                                         .SeekerMyProfileDetail.value
@@ -754,7 +754,7 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                (myUserUrl.details!.interestName != null) ? Row(
+                                (myUserUrl.details!.interestName != null||myUserUrl.details!.interestName != null) ? Row(
                                   children: [
                                     for (var i = 0; myUserUrl.details!
                                         .interestName!.length > i; i++)

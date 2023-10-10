@@ -400,7 +400,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
 
                                 (seekerMyProfileController.SeekerMyProfileDetail
                                     .value.ProfileDetail!.details!
-                                    .interestName![0].title != null) ? Row(
+                                    .interestName!=[]) ? Row(
                                   children: [
                                     for (var i = 0; seekerMyProfileController
                                         .SeekerMyProfileDetail.value

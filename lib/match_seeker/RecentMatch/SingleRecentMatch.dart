@@ -229,30 +229,30 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
+                  // if(seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName!=[]||seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName!.length!=0)          Row(
+                  //             children: [
+                  //               SizedBox(
+                  //                 width: Get.width * 0.04,
+                  //               ),
 
 
 
-                                (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName![0].title!=null )? Row(children: [
-                                  for (var i = 0; seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName!.length > i; i++)
-                                    Text(
-                                      seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName![i].title.toString()+" ",
-                                      style: TextStyle(
+                  //               (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName![0].title!=null )? Row(children: [
+                  //                 for (var i = 0; seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName!.length > i; i++)
+                  //                   Text(
+                  //                     seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.details!.interestName![i].title.toString()+" ",
+                  //                     style: TextStyle(
 
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontWeight:
-                                          FontWeight.w400),
-                                    ),
+                  //                         fontSize: 10,
+                  //                         color: Colors.black,
+                  //                         fontWeight:
+                  //                         FontWeight.w400),
+                  //                   ),
 
-                                ],):Container(),
+                  //               ],):Container(),
 
-                              ],
-                            ),
+                  //             ],
+                  //           ),
 
 
                             SizedBox(
