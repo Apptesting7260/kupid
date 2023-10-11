@@ -272,6 +272,17 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                     .byMaker!
                                     .length,
                                 itemBuilder: (BuildContext context, int index) {
+                                if(
+                                IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getseeker!=[]||
+                                IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getseeker!=null||
+                                IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getseeker!=0
+                                ||IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getmaker!=[]
+                                    ||IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getmaker!=null
+                                    ||IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![index].getmaker!=0
+
+
+
+                                ){
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Container(
@@ -290,46 +301,46 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                     width: Get.width * 0.13,
                                                     decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(40)),
+                                                        BorderRadius
+                                                            .circular(40)),
                                                     child: IncomingRequestControllerins
+                                                        .IncomingRequestvalue
+                                                        .value
+                                                        .requests!
+                                                        .byMaker![index]
+                                                        .getseeker!
+                                                        .imgPath !=
+                                                        null
+                                                        ? CircleAvatar(
+                                                        radius: 22,
+                                                        backgroundImage: CachedNetworkImageProvider(
+                                                            IncomingRequestControllerins
                                                                 .IncomingRequestvalue
                                                                 .value
                                                                 .requests!
-                                                                .byMaker![index]
+                                                                .byMaker![
+                                                            index]
                                                                 .getseeker!
-                                                                .imgPath !=
-                                                            null
-                                                        ? CircleAvatar(
-                                                            radius: 22,
-                                                            backgroundImage: CachedNetworkImageProvider(
-                                                                IncomingRequestControllerins
-                                                                    .IncomingRequestvalue
-                                                                    .value
-                                                                    .requests!
-                                                                    .byMaker![
-                                                                        index]
-                                                                    .getseeker!
-                                                                    .imgPath
-                                                                    .toString()))
+                                                                .imgPath
+                                                                .toString()))
                                                         : CircleAvatar(
-                                                            radius: 22,
-                                                            backgroundImage:
-                                                                NetworkImage(
-                                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                            ),
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                          )
-                                                    // Incontroller.IncomingRequestvalue.value.requests!.byMaker[index].getSeeker!.imgPath.toString()
-                                                    ),
+                                                      radius: 22,
+                                                      backgroundImage:
+                                                      NetworkImage(
+                                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                      ),
+                                                      backgroundColor:
+                                                      Colors
+                                                          .transparent,
+                                                    )
+                                                  // Incontroller.IncomingRequestvalue.value.requests!.byMaker[index].getSeeker!.imgPath.toString()
+                                                ),
                                                 SizedBox(
                                                   width: Get.width * 0.03,
                                                 ),
                                                 Column(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       IncomingRequestControllerins
@@ -344,7 +355,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                           color: Colors.white,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w600),
+                                                          FontWeight.w600),
                                                     ),
                                                     Padding(
                                                       padding: EdgeInsets.only(
@@ -355,8 +366,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                             color: Colors.white,
                                                             fontSize: 10,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w300),
+                                                            FontWeight
+                                                                .w300),
                                                       ),
                                                     ),
                                                   ],
@@ -366,77 +377,77 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0),
+                                                  const EdgeInsets.only(
+                                                      top: 8.0),
                                                   child: Container(
                                                     width: Get.width * 0.5,
                                                     height: Get.height * 0.065,
                                                     decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        10),
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        10))),
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(
+                                                                10),
+                                                            bottomLeft: Radius
+                                                                .circular(
+                                                                10))),
                                                     child: Row(
                                                       children: [
                                                         SizedBox(
                                                           width:
-                                                              Get.width * 0.03,
+                                                          Get.width * 0.03,
                                                         ),
                                                         Container(
                                                             height: Get.height *
                                                                 0.06,
                                                             width:
-                                                                Get.width * 0.1,
+                                                            Get.width * 0.1,
                                                             decoration: BoxDecoration(
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            40)),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    40)),
                                                             child: IncomingRequestControllerins
-                                                                        .IncomingRequestvalue
-                                                                        .value
-                                                                        .requests!
-                                                                        .byMaker![
-                                                                            index]
-                                                                        .getseeker!
-                                                                        .imgPath !=
-                                                                    null
+                                                                .IncomingRequestvalue
+                                                                .value
+                                                                .requests!
+                                                                .byMaker![
+                                                            index]
+                                                                .getseeker!
+                                                                .imgPath !=
+                                                                null
                                                                 ? CircleAvatar(
-                                                                    radius: 22,
-                                                                    backgroundImage: CachedNetworkImageProvider(IncomingRequestControllerins
-                                                                        .IncomingRequestvalue
-                                                                        .value
-                                                                        .requests!
-                                                                        .byMaker![index]
-                                                                        .getmaker!
-                                                                        .imgPath
-                                                                        .toString()))
+                                                                radius: 22,
+                                                                backgroundImage: CachedNetworkImageProvider(IncomingRequestControllerins
+                                                                    .IncomingRequestvalue
+                                                                    .value
+                                                                    .requests!
+                                                                    .byMaker![index]
+                                                                    .getmaker!
+                                                                    .imgPath
+                                                                    .toString()))
                                                                 : CircleAvatar(
-                                                                    radius: 22,
-                                                                    backgroundImage:
-                                                                        NetworkImage(
-                                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                                    ),
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                  )),
+                                                              radius: 22,
+                                                              backgroundImage:
+                                                              NetworkImage(
+                                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                              ),
+                                                              backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                            )),
                                                         SizedBox(
                                                           width:
-                                                              Get.width * 0.03,
+                                                          Get.width * 0.03,
                                                         ),
                                                         Column(
                                                           crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                           children: [
                                                             Text(
                                                               IncomingRequestControllerins
@@ -444,7 +455,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                   .value
                                                                   .requests!
                                                                   .byMaker![
-                                                                      index]
+                                                              index]
                                                                   .getmaker!
                                                                   .name
                                                                   .toString(),
@@ -453,8 +464,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                       .black,
                                                                   fontSize: 9,
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
+                                                                  FontWeight
+                                                                      .w600),
                                                             ),
                                                             Padding(
                                                               padding: EdgeInsets
@@ -466,15 +477,15 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                         .black,
                                                                     fontSize: 8,
                                                                     fontWeight:
-                                                                        FontWeight
-                                                                            .w300),
+                                                                    FontWeight
+                                                                        .w300),
                                                               ),
                                                             )
                                                           ],
                                                         ),
                                                         SizedBox(
                                                           width:
-                                                              Get.width * 0.1,
+                                                          Get.width * 0.1,
                                                         ),
                                                         GestureDetector(
                                                           onTap: () {
@@ -501,25 +512,25 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                             'View',
                                                             style: TextStyle(
                                                                 decorationColor:
-                                                                    Color
-                                                                        .fromRGBO(
-                                                                            254,
-                                                                            0,
-                                                                            145,
-                                                                            1),
+                                                                Color
+                                                                    .fromRGBO(
+                                                                    254,
+                                                                    0,
+                                                                    145,
+                                                                    1),
                                                                 decoration:
-                                                                    TextDecoration
-                                                                        .underline,
+                                                                TextDecoration
+                                                                    .underline,
                                                                 fontSize: 9,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                FontWeight
+                                                                    .w500,
                                                                 color: Color
                                                                     .fromRGBO(
-                                                                        254,
-                                                                        0,
-                                                                        145,
-                                                                        1)),
+                                                                    254,
+                                                                    0,
+                                                                    145,
+                                                                    1)),
                                                           ),
                                                         )
                                                       ],
@@ -533,6 +544,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                       ),
                                     ),
                                   );
+                                }
                                 }),
                       )
                     : Container(

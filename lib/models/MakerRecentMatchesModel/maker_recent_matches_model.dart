@@ -65,7 +65,7 @@ class Requests {
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];
     status = json['status'];
-    roomid = null;
+    roomid = json['roomid'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     getmaker = Getmaker.fromJson(json['getmaker']);

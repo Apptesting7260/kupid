@@ -40,7 +40,10 @@ class OutgoingMakerRequestController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
+
+      print("error");
       print(error.toString());
+
 
     });
   }
