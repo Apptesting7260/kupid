@@ -39,6 +39,7 @@ import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart
 import '../../models/MakerHomePage/MakerHomePageModel.dart';
 import '../../models/MakerProfileModel/MakerProfileModel.dart';
 import '../../models/MakerRecentMatchesModel/maker_recent_matches_model.dart';
+import '../../models/MakerSinglepageRequestModel/MakerSingleRequestModel.dart';
 import '../../models/OutgoingMakerRequestModle/outgoing_maker_request_model.dart';
 import '../../models/RecentSeekerMatches/recent_seeker_matches_Model.dart';
 import '../../models/ResendOtpModel/ResendOtpModel.dart';
@@ -381,7 +382,14 @@ class AuthRepository {
     print(response);
     return MakerHomePageModel.fromJson(response);
   }
-
+  //***************** Maker singlerequest List ApiServices  ********************
+  Future<MakersinglepageRequestModel> MakerSingleRequestPageRequestApi(var data ) async {
+    print("IncomingMakerRequestApi");
+    dynamic response =
+    await _apiService.postApi2(data,AppUrl.MakerSinlgeRequestUrl);
+    print(response);
+    return MakersinglepageRequestModel.fromJson(response);
+  }
 
  
 }

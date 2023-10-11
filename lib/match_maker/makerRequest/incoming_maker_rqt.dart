@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../GlobalVariable/GlobalVariable.dart';
 import '../../controllers/controller/IncomingMakerRequestController/incoming_maker_request_ controller.dart';
 import '../../data/response/status.dart';
 import '../../match_seeker/Requests/outgoingRequest.dart';
 import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
+import 'MakerSingleIncomingRequest.dart';
 
 class IncomingMakerRequest extends StatefulWidget {
   const IncomingMakerRequest({super.key});
@@ -152,7 +154,9 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                   ),
                   requestMatchesController.IncomingMakerValue.value.requests!
                                   .particularProfile ==
-                              [] ||
+                              [] ||requestMatchesController.IncomingMakerValue.value.requests!
+                      .particularProfile ==
+                      null ||
                           (requestMatchesController.button_praticular.value)
                       ? Container(
                           // height: Get.height*0.6,
@@ -380,8 +384,25 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                           ),
                                                           GestureDetector(
                                                             onTap: () {
-                                                              _showDialogProfile(
-                                                                  context);
+                                                              // _showDialogProfile(
+                                                              //     context);
+                                                              setState(() {
+                                                                requestid=null;
+                                                              });
+
+                                                              requestid = requestMatchesController
+                                                                  .IncomingMakerValue
+                                                                  .value
+                                                                  .requests!
+                                                                  .particularProfile![
+                                                              index]
+                                                                  .id.toString();
+                                                              print(requestid);
+
+                                                              if (requestid != null) {
+                                                                print(requestid);
+                                                                Get.to(MakerSingleRequstPage(title: 'Incoming Request',));
+                                                              }
                                                             },
                                                             child: Text(
                                                               'View',
@@ -452,7 +473,9 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                           .value.requests!.randomProfile ==
                                       [] ||
                                   requestMatchesController.IncomingMakerValue
-                                      .value.requests!.randomProfile!.isEmpty
+                                      .value.requests!.randomProfile!.isEmpty ||
+          requestMatchesController.IncomingMakerValue
+              .value.requests!.randomProfile==null
                               ? Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -489,118 +512,153 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                       .length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        height: Get.height * 0.08,
-                                        color: Color.fromRGBO(254, 0, 145, 1),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: Get.height * 0.004,
-                                            ),
-                                            Container(
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: Get.width * 0.03,
-                                                  ),
-                                                  Container(
-                                                    height: Get.height * 0.07,
-                                                    width: Get.width * 0.15,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(40)),
-                                                    child: requestMatchesController
-                                                                .IncomingMakerValue
-                                                                .value
-                                                                .requests!
-                                                                .randomProfile![
-                                                                    index]
-                                                                .getanotherseeker!
-                                                                .imgPath !=
-                                                            null
-                                                        ? CircleAvatar(
-                                                            radius: 22,
-                                                            backgroundImage: CachedNetworkImageProvider(
-                                                                requestMatchesController
-                                                                    .IncomingMakerValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .randomProfile![
-                                                                        index]
-                                                                    .getanotherseeker!
-                                                                    .imgPath
-                                                                    .toString()))
-                                                        : CircleAvatar(
-                                                            radius: 22,
-                                                            backgroundImage:
-                                                                NetworkImage(
-                                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                            ),
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                          ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width * 0.03,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Emma',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                      ),
-                                                      Text(
-                                                        'Match Seeker',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w300),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width * 0.5,
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      _showDialogProfile(
-                                                          context);
-                                                    },
-                                                    child: Text(
-                                                      'View',
-                                                      style: TextStyle(
-                                                          decorationColor:
-                                                              Colors.white,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          fontSize: 9,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
+                                   if(requestMatchesController.IncomingMakerValue.value
+                                       .requests!
+                                       .randomProfile![index].matchWith!=null||
+                                       requestMatchesController.IncomingMakerValue.value
+                                       .requests!
+                                       .randomProfile![index].getanotherseeker!=null){
+                                     return Padding(
+                                       padding: const EdgeInsets.only(top: 8.0),
+                                       child: Container(
+                                         height: Get.height * 0.08,
+                                         color: Color.fromRGBO(254, 0, 145, 1),
+                                         child: Column(
+                                           children: [
+                                             SizedBox(
+                                               height: Get.height * 0.004,
+                                             ),
+                                             Container(
+                                               child: Row(
+                                                 children: [
+                                                   SizedBox(
+                                                     width: Get.width * 0.03,
+                                                   ),
+                                                   Container(
+                                                     height: Get.height * 0.07,
+                                                     width: Get.width * 0.15,
+                                                     decoration: BoxDecoration(
+                                                         borderRadius:
+                                                         BorderRadius
+                                                             .circular(40)),
+                                                     child: requestMatchesController
+                                                         .IncomingMakerValue
+                                                         .value
+                                                         .requests!
+                                                         .randomProfile![
+                                                     index]
+                                                         .getanotherseeker!
+                                                         .imgPath !=
+                                                         null
+                                                         ? CircleAvatar(
+                                                         radius: 22,
+                                                         backgroundImage: CachedNetworkImageProvider(
+                                                             requestMatchesController
+                                                                 .IncomingMakerValue
+                                                                 .value
+                                                                 .requests!
+                                                                 .randomProfile![
+                                                             index]
+                                                                 .getanotherseeker!
+                                                                 .imgPath
+                                                                 .toString()))
+                                                         : CircleAvatar(
+                                                       radius: 22,
+                                                       backgroundImage:
+                                                       NetworkImage(
+                                                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                       ),
+                                                       backgroundColor:
+                                                       Colors
+                                                           .transparent,
+                                                     ),
+                                                   ),
+                                                   SizedBox(
+                                                     width: Get.width * 0.03,
+                                                   ),
+                                                   Column(
+                                                     crossAxisAlignment:
+                                                     CrossAxisAlignment
+                                                         .start,
+                                                     children: [
+                                                       Text(
+                                                         'Emma',
+                                                         style: TextStyle(
+                                                             color: Colors.white,
+                                                             fontSize: 12,
+                                                             fontWeight:
+                                                             FontWeight
+                                                                 .w600),
+                                                       ),
+                                                       Text(
+                                                         'Match Seeker',
+                                                         style: TextStyle(
+                                                             color: Colors.white,
+                                                             fontSize: 10,
+                                                             fontWeight:
+                                                             FontWeight
+                                                                 .w300),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                   SizedBox(
+                                                     width: Get.width * 0.5,
+                                                   ),
+                                                   GestureDetector(
+                                                     onTap: () {
+                                                       // _showDialogProfile(
+
+                                                     },
+                                                     child: Text(
+                                                       'View',
+                                                       style: TextStyle(
+                                                           decorationColor:
+                                                           Colors.white,
+                                                           decoration:
+                                                           TextDecoration
+                                                               .underline,
+                                                           fontSize: 9,
+                                                           fontWeight:
+                                                           FontWeight.w500,
+                                                           color: Colors.white),
+                                                     ),
+                                                   )
+                                                 ],
+                                               ),
+                                             )
+                                           ],
+                                         ),
+                                       ),
+                                     );
+                                   }
+                                   else{
+                                     return  Column(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                       crossAxisAlignment: CrossAxisAlignment.center,
+                                       children: [
+                                         SizedBox(
+                                           height: Get.height * 0.10,
+                                         ),
+                                         Container(
+                                           height: Get.height * 0.2,
+                                           width: Get.width * 0.8,
+                                           decoration: BoxDecoration(
+                                               image: DecorationImage(
+                                                   image: AssetImage(
+                                                       "assets/images/recentConversationempty.png"))),
+                                         ),
+                                         SizedBox(
+                                           height: Get.height * 0.01,
+                                         ),
+                                         Center(
+                                             child: Text(
+                                               "Reference site about Lorem Ipsum\n   giving information on its origins",
+                                               style: TextStyle(color: Colors.black),
+                                             ))
+                                       ],
+                                     );
+                                   }
+
                                   }),
                         ),
                 ],

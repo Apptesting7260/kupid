@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
-import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
+import '../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
 import '../../controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_exception.dart';
@@ -15,24 +14,22 @@ import '../../res/components/internet_exceptions_widget.dart';
 
 var myId;
 
-class SeekerIncomingRequestSinglePage extends StatefulWidget {
-  const SeekerIncomingRequestSinglePage({super.key});
-
+class MakerSingleRequstPage extends StatefulWidget {
+   MakerSingleRequstPage({super.key, required this.title});
+  String title;
   @override
-  State<SeekerIncomingRequestSinglePage> createState() =>
-      _SeekerIncomingRequestSinglePageState();
+  State<MakerSingleRequstPage> createState() => _MakerSingleRequstPageState();
 }
 
-final ViewRequestDetailsController seekerOutgoingRequestSinglePageController = Get.put(ViewRequestDetailsController());
-final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
-
-class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
+class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
+  @override
+  final MakerSingleRequestController seekerOutgoingRequestSinglePageController = Get.put(MakerSingleRequestController());
 
   @override
   void initState() {
     super.initState();
     seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
-    seekerMyProfileController.SeekerMyProfileDetailsApiHit();
+    // seekerMyProfileController.SeekerMyProfileDetailsApiHit();
 
 
   }
@@ -51,7 +48,7 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
 
           padding: const EdgeInsets.only(top: 30, left: 40.0),
           child: Text(
-            "Incoming  Requests",
+            widget.title,
             style: TextStyle(fontSize: 18,color: Colors.black, fontWeight: FontWeight.w600),
           ),
         ),
@@ -79,8 +76,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
           //   });
           // }
           case Status.COMPLETED:
-            myId = seekerMyProfileController.SeekerMyProfileDetail.value!
-                .ProfileDetail!.id.toString();
+            myId = seekerOutgoingRequestSinglePageController.ViewProfileDetail.value!
+                .data!.id.toString();
 
             final myUserUrl = seekerOutgoingRequestSinglePageController
                 .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
@@ -102,133 +99,133 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.matchType != 1) ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: Get.height * 0.09,
-                            width: Get.width * 0.9,
-                            decoration:
-                            BoxDecoration(color: Color.fromRGBO(
-                                245, 244, 244, 1)),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: Get.width * 0.01,
-                                  color: Color.fromRGBO(254, 0, 145, 1),
-                                ),
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-
-                                Container(
-                                  width: Get.width * 0.18,
-                                  height: Get.height * 0.067,
-                                  child: CachedNetworkImage(
-                                    imageUrl: seekerOutgoingRequestSinglePageController
-                                        .ViewProfileDetail.value.data!.getmaker!
-                                        .imgPath.toString(),
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                          width: Get.width * 0.18,
-                                          height: Get.height * 0.067,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.contain),
-                                          ),
-                                        ),
-                                    placeholder: (context, url) =>
-                                        Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                ),
-
-                                SizedBox(
-                                  width: Get.width * 0.03,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: Get.height * 0.01),
-                                    Container(
-                                        height: Get.height * 0.018,
-                                        width: Get.width * 0.18,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(
-                                                90)),
-                                        child: Center(
-                                            child: Text(
-                                              'Match Maker',
-                                              style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      254, 0, 145, 1),
-                                                  fontSize: 8,
-
-                                                  fontWeight: FontWeight.w400),
-                                            ))),
-                                    SizedBox(
-                                      height: Get.height * 0.006,
-                                    ),
-                                    Text(
-                                      seekerOutgoingRequestSinglePageController
-                                          .ViewProfileDetail.value.data!
-                                          .getmaker!.name.toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.003,
-                                    ),
-                                    Container(
-                                        width: Get.width * 0.5,
-
-                                        child: Expanded(child: Text(
-                                          seekerOutgoingRequestSinglePageController
-                                              .ViewProfileDetail.value.data!
-                                              .getmaker!.aboutMaker.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 7,
-                                              fontWeight: FontWeight.w300),
-                                        ),
-                                          flex: 4,
-                                        )
-                                    )
-                                  ],
-                                ),
-                                SizedBox(width: Get.width*0.03,),
-                                Container(
-                                  height: Get.height * 0.16,
-                                  width: Get.width * 0.07,
-                                  child: Image.asset(
-                                    'assets/icons/next.png',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: Get.height * 0.05,
-                      ),
-                    ],
-                  ) : Container(),
+                  // (seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                  //     .value.data!.matchType != 1) ? Column(
+                  //   children: [
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Container(
+                  //           height: Get.height * 0.09,
+                  //           width: Get.width * 0.9,
+                  //           decoration:
+                  //           BoxDecoration(color: Color.fromRGBO(
+                  //               245, 244, 244, 1)),
+                  //           child: Row(
+                  //             children: [
+                  //               Container(
+                  //                 width: Get.width * 0.01,
+                  //                 color: Color.fromRGBO(254, 0, 145, 1),
+                  //               ),
+                  //               SizedBox(
+                  //                 width: Get.width * 0.04,
+                  //               ),
+                  //
+                  //               // Container(
+                  //               //   width: Get.width * 0.18,
+                  //               //   height: Get.height * 0.067,
+                  //               //   child: CachedNetworkImage(
+                  //               //     imageUrl: seekerOutgoingRequestSinglePageController
+                  //               //         .ViewProfileDetail.value.data!.getmaker!
+                  //               //         .imgPath.toString(),
+                  //               //     imageBuilder: (context, imageProvider) =>
+                  //               //         Container(
+                  //               //           width: Get.width * 0.18,
+                  //               //           height: Get.height * 0.067,
+                  //               //           decoration: BoxDecoration(
+                  //               //             color: Colors.white,
+                  //               //             shape: BoxShape.circle,
+                  //               //             image: DecorationImage(
+                  //               //                 image: imageProvider,
+                  //               //                 fit: BoxFit.contain),
+                  //               //           ),
+                  //               //         ),
+                  //               //     placeholder: (context, url) =>
+                  //               //         Center(
+                  //               //           child: CircularProgressIndicator(
+                  //               //             color: Colors.grey,
+                  //               //           ),
+                  //               //         ),
+                  //               //     errorWidget: (context, url, error) =>
+                  //               //         Icon(Icons.error),
+                  //               //   ),
+                  //               // ),
+                  //
+                  //               SizedBox(
+                  //                 width: Get.width * 0.03,
+                  //               ),
+                  //               Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   SizedBox(height: Get.height * 0.01),
+                  //                   Container(
+                  //                       height: Get.height * 0.018,
+                  //                       width: Get.width * 0.18,
+                  //                       decoration: BoxDecoration(
+                  //                           color: Colors.white,
+                  //                           borderRadius: BorderRadius.circular(
+                  //                               90)),
+                  //                       child: Center(
+                  //                           child: Text(
+                  //                             'Match Maker',
+                  //                             style: TextStyle(
+                  //                                 color: Color.fromRGBO(
+                  //                                     254, 0, 145, 1),
+                  //                                 fontSize: 8,
+                  //
+                  //                                 fontWeight: FontWeight.w400),
+                  //                           ))),
+                  //                   SizedBox(
+                  //                     height: Get.height * 0.006,
+                  //                   ),
+                  //                   Text(
+                  //                     seekerOutgoingRequestSinglePageController
+                  //                         .ViewProfileDetail.value.data!
+                  //                         .getmaker!.name.toString(),
+                  //                     style: TextStyle(
+                  //                         color: Colors.black,
+                  //                         fontSize: 10,
+                  //                         fontWeight: FontWeight.w700),
+                  //                   ),
+                  //                   SizedBox(
+                  //                     height: Get.height * 0.003,
+                  //                   ),
+                  //                   Container(
+                  //                       width: Get.width * 0.5,
+                  //
+                  //                       child: Expanded(child: Text(
+                  //                         seekerOutgoingRequestSinglePageController
+                  //                             .ViewProfileDetail.value.data!
+                  //                             .getmaker!.aboutMaker.toString(),
+                  //                         style: TextStyle(
+                  //                             color: Colors.black,
+                  //                             fontSize: 7,
+                  //                             fontWeight: FontWeight.w300),
+                  //                       ),
+                  //                         flex: 4,
+                  //                       )
+                  //                   )
+                  //                 ],
+                  //               ),
+                  //               SizedBox(width: Get.width*0.03,),
+                  //               Container(
+                  //                 height: Get.height * 0.16,
+                  //                 width: Get.width * 0.07,
+                  //                 child: Image.asset(
+                  //                   'assets/icons/next.png',
+                  //                   fit: BoxFit.contain,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         )
+                  //       ],
+                  //     ),
+                  //     SizedBox(
+                  //       height: Get.height * 0.05,
+                  //     ),
+                  //   ],
+                  // ) : Container(),
 
 
 // *******************
@@ -281,9 +278,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.4,
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                    seekerMyProfileController
-                                        .SeekerMyProfileDetail.value
-                                        .ProfileDetail!.imgPath.toString(),
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getseeker!.imgPath.toString(),
                                     imageBuilder: (context,
                                         imageProvider) =>
                                         Container(
@@ -323,9 +319,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value!
-                                      .ProfileDetail!.name.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getseeker!.name.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
@@ -342,9 +337,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.occupationName.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getseeker!.occupationName.toString()+"",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 8,
@@ -361,9 +355,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.name.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getanotherseeker!.name.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 6,
@@ -398,18 +391,16 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 ),
 
 
-                                (seekerMyProfileController.SeekerMyProfileDetail
-                                    .value.ProfileDetail!.details!
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getseeker!.details!
                                     .interestName!=[]) ? Row(
                                   children: [
-                                    for (var i = 0; seekerMyProfileController
-                                        .SeekerMyProfileDetail.value
-                                        .ProfileDetail!.details!.interestName!
+                                    for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getseeker!.details!.interestName!
                                         .length > i; i++)
                                       Text(
-                                        seekerMyProfileController
-                                            .SeekerMyProfileDetail.value
-                                            .ProfileDetail!.details!
+                                        seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.getseeker!.details!
                                             .interestName![i].title.toString() +
                                             " ",
                                         style: TextStyle(
@@ -434,11 +425,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (seekerMyProfileController.SeekerMyProfileDetail
-                                    .value.ProfileDetail!.religion == null ||
-                                    seekerMyProfileController
-                                        .SeekerMyProfileDetail.value
-                                        .ProfileDetail!.religion == '')
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getseeker!.religion == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getseeker!.religion == '')
                                     ? Container()
                                     : Container(
                                     height: Get.height * 0.03,
@@ -470,10 +460,9 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                           width: Get.width * 0.0001,
                                         ),
                                         Text(
-                                          seekerMyProfileController
-                                              .SeekerMyProfileDetail.value
-                                              .ProfileDetail!.religion
-                                              .toString(),
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getseeker!.religion
+                                              .toString()+"",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -485,11 +474,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (seekerMyProfileController.SeekerMyProfileDetail
-                                    .value.ProfileDetail!.height == null ||
-                                    seekerMyProfileController
-                                        .SeekerMyProfileDetail.value
-                                        .ProfileDetail!.height == '')
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getseeker!.height == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getseeker!.height == '')
                                     ? Container()
                                     : Container(
                                     height: Get.height * 0.03,
@@ -518,9 +506,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                           width: Get.width * 0.0001,
                                         ),
                                         Text(
-                                          seekerMyProfileController
-                                              .SeekerMyProfileDetail.value
-                                              .ProfileDetail!.height.toString(),
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getseeker!.height.toString(),
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -539,11 +526,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (seekerMyProfileController.SeekerMyProfileDetail
-                                    .value.ProfileDetail!.salary == null ||
-                                    seekerMyProfileController
-                                        .SeekerMyProfileDetail.value
-                                        .ProfileDetail!.salary == '')
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getseeker!.salary == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getseeker!.salary == '')
                                     ? Container(
                                   child: SizedBox(width: Get.width * 0.18,),
                                 )
@@ -570,9 +556,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                         ),
                                         // SizedBox(width: Get.width*0.002,),
                                         Text(
-                                          seekerMyProfileController
-                                              .SeekerMyProfileDetail.value
-                                              .ProfileDetail!.salary
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getseeker!.salary
                                               .toString() + ' Monthly',
                                           style: TextStyle(
                                               color: Colors.black,
@@ -647,7 +632,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.4,
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                    myUserUrl.imgPath.toString(),
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.imgPath.toString(),
                                     imageBuilder: (context,
                                         imageProvider) =>
                                         Container(
@@ -687,7 +673,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  myUserUrl.name.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getanotherseeker!.name.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
@@ -704,7 +691,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  myUserUrl.occupationName.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getanotherseeker!.occupationName.toString()+"",
                                   style: TextStyle(
                                       color: Colors.black,
 
@@ -722,7 +710,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                   width: Get.width * 0.04,
                                 ),
                                 Text(
-                                  myUserUrl.address.toString(),
+                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                      .value.data!.getanotherseeker!.address.toString()+"",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 6,
@@ -751,30 +740,36 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                (myUserUrl.details!.interestName != null||myUserUrl.details!.interestName != null) ? Row(
-                                  children: [
-                                    for (var i = 0; myUserUrl.details!
-                                        .interestName!.length > i; i++)
-                                      Text(
-                                        myUserUrl.details!.interestName![i]
-                                            .title.toString() + " ",
-                                        style: TextStyle(
-
-                                            fontSize: 6,
-                                            color: Colors.black,
-                                            fontWeight:
-                                            FontWeight.w400),
-                                      ),
-
-                                  ],) : Container(),
-
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //         .value.data!.getanotherseeker!.details!.interestName != null
+                            //         ||seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //             .value.data!.getanotherseeker!.details!.interestName != []
+                            //     ) ? Row(
+                            //       children: [
+                            //         for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //             .value.data!.getanotherseeker!.details!
+                            //             .interestName!.length > i; i++)
+                            //           Text(
+                            //             seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //                 .value.data!.getanotherseeker!.details!.interestName![i]
+                            //                 .title.toString() + " ",
+                            //             style: TextStyle(
+                            //
+                            //                 fontSize: 6,
+                            //                 color: Colors.black,
+                            //                 fontWeight:
+                            //                 FontWeight.w400),
+                            //           ),
+                            //
+                            //       ],) : Container(),
+                            //
+                            //   ],
+                            // ),
 
 
                             SizedBox(
@@ -785,8 +780,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (myUserUrl.religion == null ||
-                                    myUserUrl.religion == '')
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getanotherseeker!.religion == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.religion == '')
                                     ? Container()
                                     : Container(
                                     height: Get.height * 0.03,
@@ -815,7 +812,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                           width: Get.width * 0.0001,
                                         ),
                                         Text(
-                                          myUserUrl.religion.toString(),
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getanotherseeker!.religion.toString(),
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -827,8 +825,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (myUserUrl.height == null ||
-                                    myUserUrl.height == '')
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getanotherseeker!.height == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.height == '')
                                     ? Container()
                                     : Container(
                                     height: Get.height * 0.03,
@@ -857,7 +857,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                           width: Get.width * 0.0001,
                                         ),
                                         Text(
-                                          myUserUrl.height.toString(),
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getanotherseeker!.height.toString(),
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -876,8 +877,10 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                 SizedBox(
                                   width: Get.width * 0.02,
                                 ),
-                                (myUserUrl.salary == null ||
-                                    myUserUrl.salary == '') ? Container(
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getanotherseeker!.salary == null ||
+                                    seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.salary == '') ? Container(
                                   child: SizedBox(width: Get.width * 0.18,),
                                 ) : Container(
                                     height: Get.height * 0.03,
@@ -902,7 +905,8 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                                         ),
                                         // SizedBox(width: Get.width*0.002,),
                                         Text(
-                                          myUserUrl.salary.toString() +
+                                          seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                              .value.data!.getanotherseeker!.salary.toString() +
                                               ' Monthly',
                                           style: TextStyle(
                                               color: Colors.black,
@@ -946,15 +950,7 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                     children: [
 
                       GestureDetector(
-                        onTap: () {
-                          roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
-
-if(roomid!=null){
-  print(roomid);
-  Get.to(ChatPage());
-}
-   
-                        },
+                        onTap: () {},
                         child: Container(
                           height: Get.height * 0.05,
                           width: Get.width * 0.4,
@@ -973,51 +969,51 @@ if(roomid!=null){
                       ),
                     ],) : Row(
 
-                    children: [
-                      SizedBox(
-                        width: Get.width * 0.5,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: Get.height * 0.038,
-                          width: Get.width * 0.2,
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(254, 0, 145, 1),
-                              borderRadius: BorderRadius.circular(60)),
-                          child: Center(
-                            child: Text('Accept',
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: Get.width * 0.03,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: Get.height * 0.038,
-                          width: Get.width * 0.2,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                  color: Color.fromRGBO(0, 12, 170, 1),
-                                  width: 1),
-                              borderRadius: BorderRadius.circular(60)),
-                          child: Center(
-                            child: Text('Declined',
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color.fromRGBO(0, 12, 170, 1))),
-                          ),
-                        ),
-                      )
-                    ],
+                    // children: [
+                    //   SizedBox(
+                    //     width: Get.width * 0.5,
+                    //   ),
+                    //   GestureDetector(
+                    //     onTap: () {},
+                    //     child: Container(
+                    //       height: Get.height * 0.038,
+                    //       width: Get.width * 0.2,
+                    //       decoration: BoxDecoration(
+                    //           color: Color.fromRGBO(254, 0, 145, 1),
+                    //           borderRadius: BorderRadius.circular(60)),
+                    //       child: Center(
+                    //         child: Text('Accept',
+                    //             style: TextStyle(
+                    //                 fontSize: 8,
+                    //                 fontWeight: FontWeight.w700,
+                    //                 color: Colors.white)),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   SizedBox(
+                    //     width: Get.width * 0.03,
+                    //   ),
+                    //   GestureDetector(
+                    //     onTap: () {},
+                    //     child: Container(
+                    //       height: Get.height * 0.038,
+                    //       width: Get.width * 0.2,
+                    //       decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           border: Border.all(
+                    //               color: Color.fromRGBO(0, 12, 170, 1),
+                    //               width: 1),
+                    //           borderRadius: BorderRadius.circular(60)),
+                    //       child: Center(
+                    //         child: Text('Declined',
+                    //             style: TextStyle(
+                    //                 fontSize: 8,
+                    //                 fontWeight: FontWeight.w700,
+                    //                 color: Color.fromRGBO(0, 12, 170, 1))),
+                    //       ),
+                    //     ),
+                    //   )
+                    // ],
                   )
                 ]
             );

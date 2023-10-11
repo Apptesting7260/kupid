@@ -35,14 +35,15 @@ class MakerHomePageRequestController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
       print(value);
-      print("7293874988783b c7388398u9u9b32g 45 345345  35");
+      print(" maker home page 7293874988783b c7388398u9u9b32g 45 345345  35");
+
       // Cache the data for future use
       // box.write('incomingMakerRequestData', value);
     }).onError((error, stackTrace) {
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
       print(error.toString());
-      print("request error maker home side 23459uyh87hjjghtagvygdygdygfugsfuygfggfsg233242424235432========");
+      print("request error  maker home side 23459uyh87hjjghtagvygdygdygfugsfuygfggfsg233242424235432========");
     });
   }
 }

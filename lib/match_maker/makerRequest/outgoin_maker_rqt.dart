@@ -17,6 +17,7 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
 import '../../widgets/shortprofilemaker.dart';
 import '../../widgets/shortprofilepopup.dart';
+import 'MakerSingleIncomingRequest.dart';
 
 class OutgoingMakerRequest extends StatefulWidget {
   const OutgoingMakerRequest({Key? key}) : super(key: key);
@@ -34,9 +35,6 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
     outgoingMakerRequestController.isOutgoingMakerRequestApi();
     requestid = null;
 
-    print("another seeker = ${outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getanotherseeker!}");
-    print("maker ${outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getmaker!}");
-    print("seeker ${ outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests![0].getseeker!}");
     // TODO: implement initState
     super.initState();
 
@@ -878,12 +876,28 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                           outgoingMakerRequestController
                               .OutgoingMakerRequestValue.value.requests!
                               .length != 0
+                                      ||outgoingMakerRequestController
+                              .OutgoingMakerRequestValue.value.requests!
+                              .length != null
                           ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: outgoingMakerRequestController
                               .OutgoingMakerRequestValue.value.requests!.length,
                           itemBuilder: (BuildContext context, int index) {
+                          if(outgoingMakerRequestController
+                              .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=[]||
+                              outgoingMakerRequestController
+                                  .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=null||
+                              outgoingMakerRequestController
+                                  .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=0||
+                              outgoingMakerRequestController
+                                  .OutgoingMakerRequestValue.value.requests![index].getseeker!=[]||
+                              outgoingMakerRequestController
+                                  .OutgoingMakerRequestValue.value.requests![index].getseeker!=null||
+                              outgoingMakerRequestController
+                                  .OutgoingMakerRequestValue.value.requests![index].getseeker!=0
+                          ){
                             return Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Container(
@@ -1050,7 +1064,21 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      // _showDialogProfile(context);
+                                                      setState(() {
+                                                        requestid=null;
+                                                      });
+
+                                                      requestid =  outgoingMakerRequestController
+                                                          .OutgoingMakerRequestValue
+                                                          .value
+                                                          .requests![index]!
+                                                          .id.toString();
+                                                      print(requestid);
+
+                                                      if (requestid != null) {
+                                                        print(requestid);
+                                                        Get.to(MakerSingleRequstPage(title: 'Outgoing Request',));
+                                                      }
                                                     },
                                                     child: Text(
                                                       'View',
@@ -1079,6 +1107,7 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                 ),
                               ),
                             );
+                          }
                           })
                           : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
