@@ -334,13 +334,13 @@ class Details {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    gallaryPath = json['gallary_path'].cast<String>();
-    if (json['interest_name'] != null) {
-      interestName = <InterestName>[];
-      json['interest_name'].forEach((v) {
-        interestName!.add(new InterestName.fromJson(v));
-      });
-    }
+    // gallaryPath = json['gallary_path'].cast<String>();
+    // if (json['interest_name'] != null) {
+    //   interestName = <InterestName>[];
+    //   json['interest_name'].forEach((v) {
+    //     interestName!.add(new InterestName.fromJson(v));
+    //   });
+    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -355,11 +355,11 @@ class Details {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    data['gallary_path'] = this.gallaryPath;
-    if (this.interestName != null) {
-      data['interest_name'] =
-          this.interestName!.map((v) => v.toJson()).toList();
-    }
+    // data['gallary_path'] = this.gallaryPath;
+    // if (this.interestName != null) {
+    //   data['interest_name'] =
+    //       this.interestName!.map((v) => v.toJson()).toList();
+    // }
     return data;
   }
 }

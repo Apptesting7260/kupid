@@ -5,7 +5,9 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/ChataController/ChatController.dart';
+import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
@@ -145,12 +147,12 @@ class _ChatPageState extends State<ChatPage> {
       messageFocusNode.addListener(_onFocusChange);
      
                 
-ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
-Timer(Duration(seconds: 3), () {
-  setState(() {
-        ispageloading=true;
-  });
- });
+// ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+// Timer(Duration(seconds: 3), () {
+//   setState(() {
+//         ispageloading=true;
+//   });
+//  });
   // _initAudioRecorder();// TODO: implement initState
 
   
@@ -159,18 +161,19 @@ Timer(Duration(seconds: 3), () {
 
   final ViewSikerProfileDetailsControllerinstance =
       Get.put(ViewSikerProfileDetailsController());
+      final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
   final ScrollController _scrollController = ScrollController();
 
   void onSendMessage() async {
     switch (messagetype) {
       case "text":
         Map<String, dynamic> messages = {
-          "sentby": ViewSikerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.profileDetails![0].id
+          "sentby": seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
               .toString(),
                "sendertype":"seeker" ,
-                 "profileimage":ViewSikerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.profileDetails![0].imgPath,
+                 "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.imgPath,
           "message": messagecontroller.text,
           "type": "text",
           "time": FieldValue.serverTimestamp(),
@@ -178,9 +181,7 @@ Timer(Duration(seconds: 3), () {
         messagecontroller.clear();
         await _firestore
             .collection("RoomId's")
-            .doc(ViewRequestDetailsControllerinstance
-                .ViewProfileDetail.value.data!.roomid
-                .toString())
+            .doc(roomid)
             .collection("massages")
             .add(messages);
         print(messages);
@@ -192,12 +193,12 @@ Timer(Duration(seconds: 3), () {
         break;
       case "img":
         messages = {
-          "sentby": ViewSikerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.profileDetails![0].id
+          "sentby": seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
               .toString(),
                "sendertype":"seeker" ,
-   "profileimage":ViewSikerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.profileDetails![0].imgPath,
+   "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.imgPath,
           "message": messagecontroller.text,
           "imageurl": messageimgurl,
           "type": "img",
@@ -206,7 +207,7 @@ Timer(Duration(seconds: 3), () {
         messagecontroller.clear();
     await _firestore
           .collection("RoomId's")
-          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
+          .doc(roomid)
 .collection("massages").add(messages!);
       print("Enter Some Text");
        setState(() {
@@ -217,18 +218,19 @@ Timer(Duration(seconds: 3), () {
       break;
     case "audio":
      messages = {
-        "sentby": ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString(),
+        "sentby": seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString(),
         "message": messagecontroller.text,
         "audiourl":messagaudiourl,
                "sendertype":"seeker" ,
-           "profileimage":ViewSikerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.profileDetails![0].imgPath,
+           "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.imgPath,
         "type": "audio",
         "time": FieldValue.serverTimestamp(),
       };
        await _firestore
           .collection("RoomId's")
-          .doc(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
+          .doc(roomid)
 .collection("massages").add(messages!);
       print("Enter Some Text");
        setState(() {
@@ -620,42 +622,23 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
           children: [
             // SizedBox(height: height*.03),
         
-            AcceptRequestwidget(),
+           
         
             SizedBox(
               height: Get.height * 0.02,
             ),
-            Obx(() {
-              switch (
-                  ViewRequestDetailsControllerinstance.rxRequestStatus.value) {
-                case Status.LOADING:
-                  return const Center(child: Text(""));
-                case Status.ERROR:
-                  if (ViewRequestDetailsControllerinstance.error.value ==
-                      'No internet') {
-                    return InterNetExceptionWidget(
-                      onPress: () {},
-                    );
-                  } else {
-                    return GeneralExceptionWidget(onPress: () {});
-                  }
-                case Status.COMPLETED:
-                  return Expanded(
-                    child: StreamBuilder(
-                    stream: APIs.getAllMessages("4211"),
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        //if data is loading
-                        case ConnectionState.waiting:
-                        return Center(child: CircularProgressIndicator());
-                        case ConnectionState.none:
-                          // return const SizedBox();
-        
-                        //if some or all data is loaded then show it
-                        case ConnectionState.active:
-                        case ConnectionState.done:
-        
-                        return ListView.builder(
+         Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                                  stream: _firestore
+                                      .collection("RoomId's")
+                                      .doc(roomid)
+                                      .collection('massages')
+                                      .orderBy("time", descending: true)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    return snapshot.data != null
+                                        ? ListView.builder(
                           shrinkWrap: true,
                           reverse: true,
                           itemCount: snapshot.data!.docs.length,
@@ -668,10 +651,8 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                             final isSentByCurrentUser = snapshot
                                     .data!.docs[index]['sentby']
                                     .toString() ==
-                                ViewSikerProfileDetailsControllerinstance
-                                    .ViewProfileDetail
-                                    .value
-                                    .profileDetails![0]
+                                seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!
                                     .id
                                     .toString();
         
@@ -688,10 +669,8 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                if(snapshot
                                     .data!.docs[index]['sentby']
                                     .toString() !=
-                                ViewSikerProfileDetailsControllerinstance
-                                    .ViewProfileDetail
-                                    .value
-                                    .profileDetails![0]
+                                seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!
                                     .id
                                     .toString())   CircleAvatar(radius: 10,backgroundImage: NetworkImage(snapshot
                                                     .data!.docs[index]['profileimage']
@@ -874,11 +853,11 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
             ),
           ]));
         },
-        );
+        ):Container();
         
-                    }},
+                    }
         ),
-        );}}) ,
+        ),
         
             // Obx(() {
             //   switch (

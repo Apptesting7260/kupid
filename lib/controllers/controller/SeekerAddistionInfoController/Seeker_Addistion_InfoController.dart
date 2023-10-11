@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cupid_match/match_seeker/Chose_Role_FirstTime.dart';
 import 'package:cupid_match/match_seeker/Chose_role_Type.dart';
 import 'package:cupid_match/match_seeker/Siker_TabView.dart';
+import 'package:cupid_match/match_seeker/profile/interest.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
@@ -180,7 +181,7 @@ class SeekerAddistionInfoController extends GetxController {
       request.fields['bio_title'] = BioTitleController.value.text;
       request.fields['bio_description'] = BioDescriptionController.value.text;
       request.fields['intrested_in'] = IntrestedIn.toString();
-      request.fields['interests'] = listAsString.toString();
+      request.fields['interests'] = selectedInterests.toString();
       request.headers['Authorization'] = "Bearer ${prefs.getString("BarearToken")}";
 //       var videoStream = http.ByteStream(videoFile!.openRead());
 //       var videoLength = await videoFile!.length();

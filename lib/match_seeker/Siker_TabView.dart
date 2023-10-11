@@ -64,8 +64,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
   }
 
   homepageapis() {
-    sekeerOutGoingController.seekerOutGoingRequest();
-    sekeerIncomingController.seekerIncomingGoingRequest();
+    // sekeerOutGoingController.seekerOutGoingRequest();
+    // sekeerIncomingController.seekerIncomingGoingRequest();
     recentSeekerMatchesController.isrecentSeekermatchesApi();
 
     seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();

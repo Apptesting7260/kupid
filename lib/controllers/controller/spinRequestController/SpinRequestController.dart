@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/controllers/controller/StaticLiverPoolController/StaticLiverPoolController.dart';
+import 'package:cupid_match/controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
 import 'package:cupid_match/match_seeker/home_screen.dart';
 import 'package:cupid_match/match_seeker/lever/new_liver.dart';
 import 'package:cupid_match/models/IncomingRequestModel/IncomingRequestModel.dart';
@@ -31,7 +32,7 @@ class SpinRequestController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs;
   final SpinRequestDetails =  SpinrequestModel().obs;
   RxString error = ''.obs;
-
+final SpeendReqestControllerinstance = Get.put(SpeendReqestController());
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void LiverPoolRequest( SpinrequestModel value) =>
       SpinRequestDetails.value = value;
@@ -66,20 +67,23 @@ Map Data={
   try {
     final response = await dio.post(
       'https://urlsdemo.xyz/kupid/api/seeker/after-spin-seeker-request-profile',
-      data:Data,
+      data:jsonEncode(Data),
       options: Options(headers: headers),
     );
 
     if (response.statusCode == 200) {
       print(response.data);
       print(spinedprofilelist);
+
+
               
               seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
+                  SpeendReqestControllerinstance.SpeendRequestApihit();
               // staticLiverpullController.staticLiverPullmethodapihit();
-              print("poooooooold");
-            Timer(Duration(seconds: 4), () {
+              print("poooooooold=============");
+            // Timer(Duration(seconds: 4), () {
                  Get.off((DomatchscreenSiker()));
-             });
+            //  });
     } else {
       print('Error: ${response.statusCode} - ${response.statusMessage}');
     }

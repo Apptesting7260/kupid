@@ -113,90 +113,91 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 
           final recentmachesstatus =
               recentSeekerMatchesController.rxRequestStatus.value;
-          if (recentmachesstatus == Status.ERROR
+          // if (recentmachesstatus == Status.ERROR
 
-              ) {
-            if (recentSeekerMatchesController.error.value == 'No internet' ) {
-              return InterNetExceptionWidget(
-                onPress: () {
-                  // questionsViewModal.refreshApi();
-                  // myProfileView_vm.refreshApi();
-                },
-              );
-            } 
-            else {
-              if (recentSeekerMatchesController
-                          .RecentSeekerMatchValue.value.status ==
-                      'failed') {
-                return Column(
-                  children: [
-                    Container(
-                      child: Center(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: Get.height * 0.01,
-                              ),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(Chose_Role_Type());
-                                      },
-                                      child: Image.asset(
-                                          'assets/images/match.png'))),
-                              SizedBox(
-                                height: Get.height * 0.1,
-                              ),
-                              Container(
-                                height: Get.height * .3,
-                                width: Get.width * .9,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/skikerhomeempty.png"))),
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.02,
-                              ),
-                              Text(
-                                "Outgoing Request",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.02,
-                              ),
-                              Text(
-                                "Find your perfect match",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.02,
-                              ),
-                              MyButton(
-                                  title: "Find Match",
-                                  onTap: () {
-                                    Get.to(Chose_Role_Type());
-                                  })
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }
-              return HomeScreenWIdget();
-            }
-          } else if (recentmachesstatus == Status.LOADING ) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return Padding(
+          //     ) {
+          //   if (recentSeekerMatchesController.error.value == 'No internet' ) {
+          //     return InterNetExceptionWidget(
+          //       onPress: () {
+          //         // questionsViewModal.refreshApi();
+          //         // myProfileView_vm.refreshApi();
+          //       },
+          //     );
+          //   } 
+          //   else {
+          //     if (recentSeekerMatchesController
+          //                 .RecentSeekerMatchValue.value.status ==
+          //             'failed') {
+          //       return Column(
+          //         children: [
+          //           Container(
+          //             child: Center(
+          //               child: Container(
+          //                 child: Column(
+          //                   children: [
+          //                     SizedBox(
+          //                       height: Get.height * 0.01,
+          //                     ),
+          //                     Align(
+          //                         alignment: Alignment.center,
+          //                         child: GestureDetector(
+          //                             onTap: () {
+          //                               Get.to(Chose_Role_Type());
+          //                             },
+          //                             child: Image.asset(
+          //                                 'assets/images/match.png'))),
+          //                     SizedBox(
+          //                       height: Get.height * 0.1,
+          //                     ),
+          //                     Container(
+          //                       height: Get.height * .3,
+          //                       width: Get.width * .9,
+          //                       decoration: BoxDecoration(
+          //                           image: DecorationImage(
+          //                               image: AssetImage(
+          //                                   "assets/images/skikerhomeempty.png"))),
+          //                     ),
+          //                     SizedBox(
+          //                       height: Get.height * 0.02,
+          //                     ),
+          //                     Text(
+          //                       "Outgoing Request",
+          //                       style: TextStyle(
+          //                           color: Colors.black, fontSize: 18),
+          //                     ),
+          //                     SizedBox(
+          //                       height: Get.height * 0.02,
+          //                     ),
+          //                     Text(
+          //                       "Find your perfect match",
+          //                       style: TextStyle(
+          //                           color: Colors.black,
+          //                           fontSize: 18,
+          //                           fontWeight: FontWeight.bold),
+          //                     ),
+          //                     SizedBox(
+          //                       height: Get.height * 0.02,
+          //                     ),
+          //                     MyButton(
+          //                         title: "Find Match",
+          //                         onTap: () {
+          //                           Get.to(Chose_Role_Type());
+          //                         })
+          //                   ],
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       );
+          //     }
+          //     return HomeScreenWIdget();
+          //   }
+          // } else if (recentmachesstatus == Status.LOADING ) {
+          //   return Center(child: CircularProgressIndicator());
+          // } else {
+            return
+             Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: width * 0.05, vertical: height * 0.02),
                 child:
@@ -205,52 +206,52 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       // crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-                        if (recentSeekerMatchesController
-                                    .RecentSeekerMatchValue.value.message ==
-                                'Data Not Found')
-                          Column(
-                            children: [
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(Chose_Role_Type());
-                                      },
-                                      child: Image.asset(
-                                          'assets/images/match.png'))),
-                              SizedBox(
-                                height: Get.height * 0.05,
-                              ),
-                              Center(
-                                child:
-                                    Image.asset('assets/images/homeempty.png'),
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.04,
-                              ),
-                              Text(
-                                "Outgoing Request",
-                                style: Get.theme.textTheme.bodySmall,
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.01,
-                              ),
-                              Text(
-                                "Find your perfect match",
-                                style: Get.theme.textTheme.labelMedium!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.black),
-                              ),
-                              SizedBox(
-                                height: Get.height * 0.04,
-                              ),
-                              MyButton(title: 'Find Match', onTap: () { Get.to(Chose_Role_Type());})
-                            ],
-                          ),
-                        if (recentSeekerMatchesController
-                                    .RecentSeekerMatchValue.value.message !=
-                                'Data Not Found')
+                        // if (recentSeekerMatchesController
+                        //             .RecentSeekerMatchValue.value.message ==
+                        //         'Data Not Found')
+                        //   Column(
+                        //     children: [
+                        //       Align(
+                        //           alignment: Alignment.center,
+                        //           child: GestureDetector(
+                        //               onTap: () {
+                        //                 Get.to(Chose_Role_Type());
+                        //               },
+                        //               child: Image.asset(
+                        //                   'assets/images/match.png'))),
+                        //       SizedBox(
+                        //         height: Get.height * 0.05,
+                        //       ),
+                        //       Center(
+                        //         child:
+                        //             Image.asset('assets/images/homeempty.png'),
+                        //       ),
+                        //       SizedBox(
+                        //         height: Get.height * 0.04,
+                        //       ),
+                        //       Text(
+                        //         "Outgoing Request",
+                        //         style: Get.theme.textTheme.bodySmall,
+                        //       ),
+                        //       SizedBox(
+                        //         height: Get.height * 0.01,
+                        //       ),
+                        //       Text(
+                        //         "Find your perfect match",
+                        //         style: Get.theme.textTheme.labelMedium!
+                        //             .copyWith(
+                        //                 fontWeight: FontWeight.w600,
+                        //                 color: AppColors.black),
+                        //       ),
+                        //       SizedBox(
+                        //         height: Get.height * 0.04,
+                        //       ),
+                        //       MyButton(title: 'Find Matc', onTap: () { Get.to(Chose_Role_Type());})
+                          //   ],
+                          // ),
+                        // if (recentSeekerMatchesController
+                        //             .RecentSeekerMatchValue.value.message !=
+                        //         'Data Not Found')
                           Container(
                             child: Column(
                               children: [
@@ -335,12 +336,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       )
                                     ],
                                   ),
-                                if (recentSeekerMatchesController
-                                    .RecentSeekerMatchValue
-                                    .value
-                                    .data!
-                                    .isNotEmpty)
-                                  Container(
+                                // if (recentSeekerMatchesController
+                                //     .RecentSeekerMatchValue
+                                //     .value
+                                //     .data!
+                                //     .isNotEmpty)
+                                  if (recentSeekerMatchesController
+                                    .RecentSeekerMatchValue.value.message !=
+                                'Data Not Found')        Container(
                                     width: width,
                                     height: height * .45,
                                     child: ListView.builder(
@@ -524,6 +527,17 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                               .data![
                                           index]
                                               .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
+
+                                                        userIdsiker= recentSeekerMatchesController
+                                                .RecentSeekerMatchValue
+                                                .value
+                                                .data![
+                                            index]
+                                                .getseeker!
+                                                .id.toString();
+                                                   setState(() {
+                                                  userIdsiker;
+                                                });
                                             Get.to(SingalRecentMatches());
                                           }
                                           else{
@@ -534,6 +548,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                             index]
                                                 .getanotherseeker!
                                                 .id.toString();
+
+                                                setState(() {
+                                                  userIdsiker;
+                                                });
                                             print("requst id $userIdsiker");
                                             Get.to(SingalRecentMatches());
                                           }
@@ -1408,7 +1426,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                       ]),
                 ));
           }
-        }));
+        ));
   }
 
   List images = [

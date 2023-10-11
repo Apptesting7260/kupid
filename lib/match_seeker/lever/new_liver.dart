@@ -807,7 +807,7 @@ class _SlotMachineState extends State<SlotMachine> {
   bool shouldShowSpinButton = true;
   bool isTimerVisible = false;
   late Timer countdownTimer;
-  Duration remainingTime = Duration(hours: 24);
+  Duration remainingTime = Duration(hours: 2);
   void startCountdownTimer() {
     countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
@@ -1329,7 +1329,7 @@ Fluttertoast.showToast(
       shouldShowSpinButton = false;
       isTimerVisible = !isTimerVisible;
       islivierpooled=true;
-      remainingTime = Duration(hours: 24);
+      remainingTime = Duration(hours: 2);
       startCountdownTimer();
     });
 

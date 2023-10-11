@@ -204,29 +204,71 @@ class _RecentMatchesState extends State<RecentMatches> {
                                 ),
                               ),
                             ),
+  onTap:   () {
+                                          setState(() {
+                                            userIdsiker=null;
+                                          });
+                                          if(rsmController
+                                              .RecentSeekerMatchValue
+                                              .value
+                                              .data![
+                                          index]
+                                              .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
 
-                            onTap: () {
-                                setState(() {
-                                  userIdsiker=null;
-                                });
-                              if(rsmController
-                                  .RecentSeekerMatchValue
-                                  .value
-                                  .data![index]
-                                  .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
-                                Get.to(SingalRecentMatches());
-                              }
-                              else{
-                                userIdsiker=rsmController
-                                    .RecentSeekerMatchValue
-                                    .value
-                                    .data![index]
-                                    .getanotherseeker!.id.toString();
-                                print("requst id $userIdsiker");
-                                Get.to(SingalRecentMatches());
-                              }
+                                                        userIdsiker= rsmController
+                                                .RecentSeekerMatchValue
+                                                .value
+                                                .data![
+                                            index]
+                                                .getseeker!
+                                                .id.toString();
+                                                   setState(() {
+                                                  userIdsiker;
+                                                });
+                                            Get.to(SingalRecentMatches());
+                                          }
+                                          else{
+                                            userIdsiker= rsmController
+                                                .RecentSeekerMatchValue
+                                                .value
+                                                .data![
+                                            index]
+                                                .getanotherseeker!
+                                                .id.toString();
 
-                            },
+                                                setState(() {
+                                                  userIdsiker;
+                                                });
+                                            print("requst id $userIdsiker");
+                                            Get.to(SingalRecentMatches());
+                                          }
+
+
+                                              // print(userIdsiker);
+                                              // Get.to(SingalRecentMatches());
+                                            },
+                            // onTap: () {
+                            //     setState(() {
+                            //       userIdsiker=null;
+                            //     });
+                            //   if(ˇ
+                            //       .RecentSeekerMatchValue
+                            //       .value
+                            //       .data![index]
+                            //       .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
+                            //     Get.to(SingalRecentMatches());
+                            //   }
+                            //   else{
+                            //     userIdsiker=rsmController
+                            //         .RecentSeekerMatchValue
+                            //         .value
+                            //         .data![index]
+                            //         .getanotherseeker!.id.toString();
+                            //     print("requst id $userIdsiker");
+                            //     Get.to(SingalRecentMatches());
+                            //   }
+
+                            // },
                           );
                         },
                       ):Column(

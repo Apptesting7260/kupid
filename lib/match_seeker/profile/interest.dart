@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/controller/SeekerAddistionInfoController/Seeker_Addistion_InfoController.dart';
 
+  List<String> selectedInterests = []; // Track selected interests
 class Interest extends StatefulWidget {
   const Interest({Key? key}) : super(key: key);
 
@@ -20,7 +21,6 @@ class Interest extends StatefulWidget {
 class _InterestState extends State<Interest> {
 //****************************************************************
 
-  List<String> selectedInterests = []; // Track selected interests
 
   
   
@@ -58,6 +58,10 @@ class _InterestState extends State<Interest> {
   @override
   void initState() {
     SeekersAllInterstsControllerInstanse.SeekersAllInterestsApi();
+  
+    setState(() {
+        selectedInterests=[];
+    });
     // TODO: implement initState
     super.initState();
   }

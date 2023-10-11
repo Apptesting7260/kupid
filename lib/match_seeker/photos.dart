@@ -68,6 +68,14 @@ class _PhotosScreenState extends State<PhotosScreen> {
   //   return compressedFile;
   // }
   //
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+             selectedImagesFiles.clear();
+    });
+    super.initState();
+  }
 
   File imgFile = File("");
 
@@ -305,7 +313,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 title: "Next",
                 onTap: () {
                   Get.to(()=>InterstedIn());
-                  selectedImagesFiles.clear();
+           
                 },
               ),
             ),

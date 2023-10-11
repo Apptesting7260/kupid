@@ -19,6 +19,7 @@ String?Subcriptiontype;
   bool isSpinTimerVisible = false;
 String?choose;
 String ?listAsString;
+String ?roomid;
   List<File> galleryImageFiles = [];
 List <String>  interests=[];
   String? selectGender;

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -944,7 +946,15 @@ class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestS
                     children: [
 
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
+
+if(roomid!=null){
+  print(roomid);
+  Get.to(ChatPage());
+}
+   
+                        },
                         child: Container(
                           height: Get.height * 0.05,
                           width: Get.width * 0.4,

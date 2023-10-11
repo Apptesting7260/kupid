@@ -46,23 +46,26 @@ class ViewRequestDetailsController extends GetxController {
     _api.RequestDetailsApi(data).then((value)async{
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
-      print(value);
-      print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
-print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
+      // print(value);
+       await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});
+      // print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
+// print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
 
-   await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
-    "getseeker":value.data!.getseeker!.id.toString(),
-    "getmaker":value.data!.getmaker==null?"": value.data!.getmaker!.id.toString(),
-    "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
-    "requestid":value.data!.id.toString()
-   });
-
- if(value.data!.roomid==null) {
+  //  await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
+  //   "getseeker":value.data!.getseeker!.id.toString(),
+  //   "getmaker":value.data!.getmaker==null?"": value.data!.getmaker!.id.toString(),
+  //   "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
+  //   "requestid":value.data!.id.toString()
+  //  });
+  // await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});S
+ 
+//  if(value.data!.roomid==null) {
   
   
- }else{
-  await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});
-  }
+//  }else{
+//   print("");
+
+//   }
 
 
          print("fjksdfn");

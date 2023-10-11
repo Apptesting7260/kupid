@@ -958,7 +958,7 @@ final spinRequestController=Get.put(SpinRequestController());
   bool shouldShowSpinButton = true;
 
   late Timer countdownTimer;
-  Duration remainingTime = Duration(hours: 24);
+  Duration remainingTime = Duration(hours: 2);
   final SeekerToSeekerRequestControllerinstance =
       Get.put(SeekerToSeekerRequestController());
 
@@ -1014,7 +1014,7 @@ final spinRequestController=Get.put(SpinRequestController());
       setState(() {
         shouldShowSpinButton = false;
         isSpinTimerVisible = true;
-        remainingTime = Duration(hours: 24);
+        remainingTime = Duration(hours: 2);
       });
 spinedprofilelist=[];
        for(int i =0; i<=3;i++){
@@ -1028,7 +1028,7 @@ spinedprofilelist=[];
  print(spinedprofilelist.length);
 
     if(spinedprofilelist.length==4){
-      print("spined");
+      print("spined===================");
       spinRequestController.apihit();
         //  LiverPoolControllerinstance.apihit();
     }

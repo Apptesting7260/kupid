@@ -93,10 +93,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              setState(() {
-                                requestype = "2";
-                              });
-                              requestid =  seekerChatListController.seekerChatListValue.value.chat![index].requestid
+                             
+                              roomid =  seekerChatListController.seekerChatListValue.value.chat![index].roomid
               
                                   .toString();
               
