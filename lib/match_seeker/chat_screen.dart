@@ -1023,7 +1023,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
           ),
         ),
 
-        bottomSheet: TapRegion(
+        bottomNavigationBar: TapRegion(
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
        child: Container(
          padding: MediaQuery.of(context).viewInsets,
