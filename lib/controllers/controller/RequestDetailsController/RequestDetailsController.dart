@@ -47,7 +47,22 @@ class ViewRequestDetailsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       // print(value);
-       await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});
+
+      Map <String, dynamic> roomdetails={
+        "seeker_name1":value.data!.getseeker!.name.toString(),
+        "seeker_name2":value.data!.getanotherseeker!.name.toString(),
+
+        "seeker_id1":value.data!.getseeker!.id.toString(),
+
+        "seeker_id2":value.data!.getanotherseeker!.id.toString(),
+        "maker_id":value.data!.getmaker!.id.toString(),
+        "maker_name":value.data!.getmaker!.name.toString(),
+        "maker_image":value.data!.getmaker!.imgPath.toString(),
+        "seeker_inage1":value.data!.getseeker!.imgPath.toString(),
+        "seeker_inage2":value.data!.getanotherseeker!.imgPath.toString(),
+        "roomname":value.data!.getseeker!.name.toString()+value.data!.getanotherseeker!.name.toString()+value.data!.getmaker!.name.toString()
+      };
+       await _firestore.collection(value.data!.getseeker!.name.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
       // print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
 // print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
 

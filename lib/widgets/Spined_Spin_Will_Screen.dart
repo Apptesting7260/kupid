@@ -806,6 +806,14 @@ Fluttertoast.showToast(
                           .correctAnswer ==
                       SpeendReqestControllerinstance.selectedAnswer.value
                           .toString()) {
+                              match_withid =  SpeendReqestControllerinstance
+                                                        .staticLiverPullvalue
+                                                        .value
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id
+                      .toString();
+                  print(match_withid);
+                  SeekerToSeekerRequestControllerinstance
+                      .SikerTOSikerRequestApiHit(); // T
                     showdiog2(index);
                   }
                   if (SpeendReqestControllerinstance
@@ -931,14 +939,14 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
-                  match_withid =  SpeendReqestControllerinstance
-                                                        .staticLiverPullvalue
-                                                        .value
-                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id
-                      .toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit(); // Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
+                  // match_withid =  SpeendReqestControllerinstance
+                  //                                       .staticLiverPullvalue
+                  //                                       .value
+                  //                                       .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id
+                  //     .toString();
+                  // print(match_withid);
+                  // SeekerToSeekerRequestControllerinstance
+                  //     .SikerTOSikerRequestApiHit(); // Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
                 },
                 child: Container(
                   height: height * .04,

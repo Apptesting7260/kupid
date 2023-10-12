@@ -5,6 +5,7 @@ import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/ChataController/ChatController.dart';
 import 'package:cupid_match/controllers/controller/MakerRequestDetailViewController/MakerRequestDetailViewController.dart';
 import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
@@ -74,9 +75,7 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
     // Replace 'users' with your collection name and 'documentId' with the specific document ID
     DocumentReference docRef = firestore
         .collection("RoomId's")
-        .doc(MakerRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
+        .doc(roomid)
         .collection("typestatus")
         .doc("userstypingstatus");
 
@@ -96,9 +95,7 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
     // Replace 'users' with your collection name and 'documentId' with the specific document ID
     DocumentReference docRef = firestore
         .collection("RoomId's")
-        .doc(MakerRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
+        .doc(roomid)
         .collection("typestatus")
         .doc("userstypingstatus");
 
@@ -133,9 +130,7 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
 
     await _firestore
         .collection("RoomId's")
-        .doc(MakerRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
+        .doc(roomid)
         .collection("typestatus")
         .doc("userstypingstatus")
         .set(typestatus);
@@ -147,8 +142,8 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
     _initialiseControllers();
       messageFocusNode.addListener(_onFocusChange);
      
-MakerRequestDetailsControllerinstance.MakerRequestDetailsApiHit();
-  // _initAudioRecorder();// TODO: implement initState
+ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+
 
   Timer(Duration(seconds: 3), () {setState(() {
     ispageloading=true;
@@ -175,9 +170,7 @@ MakerRequestDetailsControllerinstance.MakerRequestDetailsApiHit();
         messagecontroller.clear();
         await _firestore
             .collection("RoomId's")
-            .doc(MakerRequestDetailsControllerinstance
-                .ViewProfileDetail.value.data!.roomid
-                .toString())
+            .doc(roomid)
             .collection("massages")
             .add(messages);
         print("Enter Some Text");
@@ -626,36 +619,34 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
             SizedBox(
               height: Get.height * 0.02,
             ),
-            Obx(() {
-              switch (
-                  MakerRequestDetailsControllerinstance.rxRequestStatus.value) {
-                case Status.LOADING:
-                  return const Center(child: Text(""));
-                case Status.ERROR:
-                  if (MakerRequestDetailsControllerinstance.error.value ==
-                      'No internet') {
-                    return InterNetExceptionWidget(
-                      onPress: () {},
-                    );
-                  } else {
-                    return GeneralExceptionWidget(onPress: () {});
-                  }
-                case Status.COMPLETED:
-                  return Expanded(
-                    child: StreamBuilder(
-                    stream: APIs.getAllMessages(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString()),
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        //if data is loading
-                        case ConnectionState.waiting:
-                        case ConnectionState.none:
-                          // return const SizedBox();
+           
+              // switch (
+              //     MakerRequestDetailsControllerinstance.rxRequestStatus.value) {
+              //   case Status.LOADING:
+              //     return const Center(child: Text(""));
+              //   case Status.ERROR:
+              //     if (MakerRequestDetailsControllerinstance.error.value ==
+              //         'No internet') {
+              //       return InterNetExceptionWidget(
+              //         onPress: () {},
+              //       );
+              //     } else {
+              //       return GeneralExceptionWidget(onPress: () {});
+              //     }
 
-                        //if some or all data is loaded then show it
-                        case ConnectionState.active:
-                        case ConnectionState.done:
-
-                        return ListView.builder(
+                  
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                                  stream: _firestore
+                                      .collection("RoomId's")
+                                      .doc(roomid)
+                                      .collection('massages')
+                                      .orderBy("time", descending: true)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    return snapshot.data != null
+                                        ?  ListView.builder(
                           reverse: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
@@ -881,11 +872,11 @@ SizedBox(width: Get.width*0.02,),
                               ),
     );
   },
-);
+):Container();
 
-                    }},
+                    },
         ),
-        );}}) ,
+        ),
 
             // Obx(() {
             //   switch (
