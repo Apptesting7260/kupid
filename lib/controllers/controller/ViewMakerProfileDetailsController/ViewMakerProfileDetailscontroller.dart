@@ -29,9 +29,10 @@ class ViewMakerProfileDetailsController extends GetxController {
 
   void ViewMakerProfileDetailsApiHit()async{
         final SharedPreferences prefs = await SharedPreferences.getInstance();
+        SharedPreferences sp = await SharedPreferences.getInstance();
 
     Map data={
-"user_id":Makerid
+"user_id":sp.getString('Tokernid')
 
 
     };

@@ -36,16 +36,14 @@ class RecentSeekerMatchesController extends GetxController {
         setRxRequestStatus(Status.COMPLETED);
         setUserList(value);
 
-        if (value.data!.length > 2) {
-          seekerRequestlenght = 2;
-        } else {
-          seekerRequestlenght = 1;
-        }
-
+  
+print("DONE==========");
         // Cache the data for future use
         // box.write('recentSeekerMatchesData', value);
       }).onError((error, stackTrace) {
         setError(error.toString());
+print("NOTDONE==========");
+
         setRxRequestStatus(Status.ERROR);
       });
     }
