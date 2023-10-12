@@ -16,6 +16,7 @@ import 'package:cupid_match/models/MakerSinglepageRequestModel/MakerSinglepageRe
 import 'package:cupid_match/models/OtpVerrificationModel/OtpverificationModel.dart';
 import 'package:cupid_match/models/OutgoingRequestModel/OutgoingRequestModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
+import 'package:cupid_match/models/RequestAcceptModel/RequestAcceptModel.dart';
 import 'package:cupid_match/models/RequestActionModel/RequestActionModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/SeekerMyProfileDetailsModel/SeekerMyProfileDetailsModel.dart';
@@ -399,5 +400,13 @@ class AuthRepository {
     dynamic data = CreateNewMatchesModel.fromJson(response) ;
     return data;
   }
+ Future<RequestAcceptModel> RequestAcceptModelApi(var data ) async {
+    print("IncomingMakerRequestApi");
+    dynamic response =
+    await _apiService.postApi2(data,AppUrl.RequestAcceptApi);
+    print(response);
+    return RequestAcceptModel.fromJson(response);
+  }
+  
 }
 

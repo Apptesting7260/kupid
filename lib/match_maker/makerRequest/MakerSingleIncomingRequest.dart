@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -965,7 +966,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                           if (roomid != null) {
                             print(roomid);
-                            Get.to(ChatPage());
+                            Get.to(MakerChatScreen());
                           }
                         },
                         child: Container(

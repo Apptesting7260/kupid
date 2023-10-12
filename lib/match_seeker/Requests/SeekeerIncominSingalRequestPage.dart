@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/RequestAcceptController/RequestAcceptController.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ final ViewRequestDetailsController seekerOutgoingRequestSinglePageController = G
 final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
 
 class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
-
+final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
   @override
   void initState() {
     super.initState();
@@ -978,7 +979,27 @@ if(roomid!=null){
                         width: Get.width * 0.5,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                            final myid = seekerOutgoingRequestSinglePageController
+                .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
+                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getseeker!.id!
+                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getanotherseeker!.id!;
+
+                         final otherid = seekerOutgoingRequestSinglePageController
+                .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
+                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getanotherseeker!.id!
+                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getseeker!.id;
+requestid=seekerOutgoingRequestSinglePageController
+                .ViewProfileDetail.value.data!.id;
+
+                print(myid);
+                print(otherid);
+                          // RequestAcceptControllerinstance.RequestAcceptApiHit();
+                        },
                         child: Container(
                           height: Get.height * 0.038,
                           width: Get.width * 0.2,
