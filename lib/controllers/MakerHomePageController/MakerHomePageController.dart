@@ -46,5 +46,18 @@ class MakerHomePageRequestController extends GetxController {
       print("request error  maker home side 23459uyh87hjjghtagvygdygdygfugsfuygfggfsg233242424235432========");
     });
   }
+  void refreshApi(){
+
+    setRxRequestStatus(Status.LOADING);
+
+    _api.MakerHomePageRequestApi().then((value){
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+
+    });
+  }
 }
 // }

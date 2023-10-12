@@ -871,7 +871,7 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                     return Container(
                       // height: Get.height*0.6,
                       width: Get.width * 1,
-                      child: outgoingMakerRequestController
+                      child: outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!="No request found"|| outgoingMakerRequestController
                           .OutgoingMakerRequestValue.value.requests != [] ||
                           outgoingMakerRequestController
                               .OutgoingMakerRequestValue.value.requests!

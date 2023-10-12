@@ -152,7 +152,7 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                   SizedBox(
                     height: Get.height * 0.04,
                   ),
-                  requestMatchesController.IncomingMakerValue.value.requests!
+                  requestMatchesController.IncomingMakerValue.value.requests=="No request found"|| requestMatchesController.IncomingMakerValue.value.requests!
                                   .particularProfile ==
                               [] ||requestMatchesController.IncomingMakerValue.value.requests!
                       .particularProfile ==
@@ -466,42 +466,42 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                   ],
                                 ),
                         )
+                      :requestMatchesController.IncomingMakerValue.value.requests=="No request found"|| requestMatchesController.IncomingMakerValue
+                      .value.requests!.randomProfile ==
+                      [] ||
+                      requestMatchesController.IncomingMakerValue
+                          .value.requests!.randomProfile!.isEmpty ||
+                      requestMatchesController.IncomingMakerValue
+                          .value.requests!.randomProfile==null
+                      ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: Get.height * 0.10,
+                      ),
+                      Container(
+                        height: Get.height * 0.2,
+                        width: Get.width * 0.8,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/recentConversationempty.png"))),
+                      ),
+                      SizedBox(
+                        height: Get.height * 0.01,
+                      ),
+                      Center(
+                          child: Text(
+                            "Reference site about Lorem Ipsum\n   giving information on its origins",
+                            style: TextStyle(color: Colors.black),
+                          ))
+                    ],
+                  )
                       : Container(
                           // height: Get.height*0.6,
                           width: Get.width * 1,
-                          child: requestMatchesController.IncomingMakerValue
-                                          .value.requests!.randomProfile ==
-                                      [] ||
-                                  requestMatchesController.IncomingMakerValue
-                                      .value.requests!.randomProfile!.isEmpty ||
-          requestMatchesController.IncomingMakerValue
-              .value.requests!.randomProfile==null
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: Get.height * 0.10,
-                                    ),
-                                    Container(
-                                      height: Get.height * 0.2,
-                                      width: Get.width * 0.8,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/recentConversationempty.png"))),
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.01,
-                                    ),
-                                    Center(
-                                        child: Text(
-                                      "Reference site about Lorem Ipsum\n   giving information on its origins",
-                                      style: TextStyle(color: Colors.black),
-                                    ))
-                                  ],
-                                )
-                              : ListView.builder(
+                          child: ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
                                   itemCount: requestMatchesController
@@ -517,7 +517,7 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                        .randomProfile![index].matchWith!=null||
                                        requestMatchesController.IncomingMakerValue.value
                                        .requests!
-                                       .randomProfile![index].getanotherseeker!=null){
+                                       .randomProfile![index].getanotherseeker!=null)
                                      return Padding(
                                        padding: const EdgeInsets.only(top: 8.0),
                                        child: Container(
@@ -630,34 +630,8 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                          ),
                                        ),
                                      );
-                                   }
-                                   else{
-                                     return  Column(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       crossAxisAlignment: CrossAxisAlignment.center,
-                                       children: [
-                                         SizedBox(
-                                           height: Get.height * 0.10,
-                                         ),
-                                         Container(
-                                           height: Get.height * 0.2,
-                                           width: Get.width * 0.8,
-                                           decoration: BoxDecoration(
-                                               image: DecorationImage(
-                                                   image: AssetImage(
-                                                       "assets/images/recentConversationempty.png"))),
-                                         ),
-                                         SizedBox(
-                                           height: Get.height * 0.01,
-                                         ),
-                                         Center(
-                                             child: Text(
-                                               "Reference site about Lorem Ipsum\n   giving information on its origins",
-                                               style: TextStyle(color: Colors.black),
-                                             ))
-                                       ],
-                                     );
-                                   }
+
+
 
                                   }),
                         ),
