@@ -66,4 +66,5 @@ class AppUrl {
   static const String saeekerOutgoingRequestListApi  = '$baseUrl/seeker/seeker-outgoing-listing';
   static const String createNewMatchesApi  = '$baseUrl/maker/ramdom-request-profiles-scroll';
   static const String RequestAcceptApi  = '$baseUrl/seeker/seeker-accept-incoming-request';
+  static const String SeekerToMakerRequest  = '$baseUrl/seeker/request-seeker-to-maker';
 }

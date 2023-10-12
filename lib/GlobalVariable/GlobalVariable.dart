@@ -11,6 +11,7 @@ String ?SelectedDate;
 DateTime? startdate;
 String? datestring;
  File ?imgFile;
+ String?Matchtype;
  String?match_with_id;
  String?match_from_id;
  String?Requeststatus;

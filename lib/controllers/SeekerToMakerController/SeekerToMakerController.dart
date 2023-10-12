@@ -5,37 +5,43 @@ import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
 import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
+import 'package:cupid_match/models/SeekerToMakerRequest/SeekerTomakerRequestModel.dart';
 import 'package:cupid_match/models/SeekerToSeekerRequestModel/SeekerToSeekerRequestModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:get/get.dart';
 
 import '../../../data/response/status.dart';
 
-class SeekerToSeekerRequestController extends GetxController {
+class SeekerToMakerRequestController extends GetxController {
 
   final _api = AuthRepository();
 
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final DoMatches =SikerTOSikerRequestModel().obs ;
+  final DoMatches =SeekerToMakerRequestModel().obs ;
   RxString error = ''.obs;
   RxBool loading=false.obs;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
-  void SikerTOSikerRequest(SikerTOSikerRequestModel _value) => DoMatches.value = _value ;
+  void SeekerToMakerRequest(SeekerToMakerRequestModel _value) => DoMatches.value = _value ;
   void setError(String _value) => error.value = _value ;
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
 
-  void SikerTOSikerRequestApiHit(){
+  void SeekerToMakerRequestApiHit(){
    setRxRequestStatus(Status.LOADING);
    loading.value=true;
    Map Data={
-"match_with":match_withid,
+"match_with":"",
+"maker_id":Makerid.toString()
+   };
+      Map Data1={
+
+"maker_id":Makerid.toString()
    };
 
-    _api.SeekerToSeekerRequestApi(Data).then((value){
+    _api.SeekerToMakerRequestApi(Data1).then((value){
       setRxRequestStatus(Status.COMPLETED);
-      SikerTOSikerRequest(value);
+      SeekerToMakerRequest(value);
       print(value.msg);
           Get.back();
         //  Get.to( Siker_Tab_View(index: 0));

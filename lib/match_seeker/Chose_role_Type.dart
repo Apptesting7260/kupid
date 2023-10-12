@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
+import 'package:cupid_match/controllers/SeekerToMakerController/SeekerToMakerController.dart';
 import 'package:cupid_match/controllers/controller/GetAllMakerContrioller/GetAllMakerController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
@@ -33,7 +34,7 @@ class _Chose_Role_TypeState extends State<Chose_Role_Type> {
   final seekerMyProfileDetailsController =
       Get.put(SeekerMyProfileDetailsController());
         final ListAllMakerControllerinstance = Get.put(ListAllMakerController());
-
+SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(SeekerToMakerRequestController());
 
   bool isloadding = false;
   ChoseRole() async {
@@ -269,6 +270,11 @@ Row(
 
                                   // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
                                   // print(selectedseekerid);
+
+                                  Makerid=ListAllMakerControllerinstance
+                                          .userList.value.allmakers![index].id.toString();
+
+                                          SeekerToMakerRequestControllerinstance.SeekerToMakerRequestApiHit();
                                 },
                                 child: Container(
                                   height: height * .04,

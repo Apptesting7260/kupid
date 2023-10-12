@@ -52,7 +52,7 @@ class ViewRequestDetailsController extends GetxController {
         "seeker_name1":value.data!.getseeker!.name.toString(),
         "seeker_name2":value.data!.getanotherseeker!.name.toString(),
 
-        "seeker_id1":value.data!.getseeker!.id.toString(),
+        "seeker_id1":value.data!.getanotherseeker!.id.toString(),
 
         "seeker_id2":value.data!.getanotherseeker!.id.toString(),
         "maker_id":value.data!.getmaker!.id.toString(),

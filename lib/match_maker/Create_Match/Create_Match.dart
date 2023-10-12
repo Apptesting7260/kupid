@@ -161,7 +161,7 @@ final DoMatchesControllerinstance=Get.put(DoMatchesController());
                   height: MediaQuery.of(context).size.width * 0.29,
                   width: MediaQuery.of(context).size.width * 0.29,
                   child: FloatingActionButton(
-                    onPressed: () {
+                    onPressed: () async{final SharedPreferences prefs = await SharedPreferences.getInstance();
 setState(() {
   isloading=true;
 });
@@ -174,6 +174,8 @@ name1=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_
                       print(ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem2].name.toString());
 name2=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem1].name.toString();
 im2=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Femal![_topItem2].imgPath.toString();
+Makerid=prefs.getString('Tokernid');
+Matchtype="0";
   DoMatchesControllerinstance.DoMatchesApiHit();
 
   img1=ProfileScrollControllerinstance.ProfileScrollList.value.allseekers!.Mal![_topItem1].name.toString();

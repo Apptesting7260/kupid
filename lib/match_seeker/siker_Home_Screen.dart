@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/SeekerToMakerController/SeekerToMakerController.dart';
 import 'package:cupid_match/controllers/controller/IncomingRequestController/IncomingRequestController.dart';
 import 'package:cupid_match/controllers/controller/OutgoingRequestController/OutgoingRequestController.dart';
 import 'package:cupid_match/data/response/status.dart';
@@ -58,6 +59,8 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
       Get.put(RecentSeekerMatchesController());
   final SeekerMyProfileDetailsController seekerMyProfileController =
   Get.put(SeekerMyProfileDetailsController());
+
+  
   String? Getcurrentuser;
   @override
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
