@@ -95,6 +95,9 @@ class SeekrOutgoingRequestController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
       print('dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+
+      
       print(value);
     }).onError((error, stackTrace){
       setError(error.toString());

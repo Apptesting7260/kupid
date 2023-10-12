@@ -24,10 +24,10 @@ class DoMatchesController extends GetxController {
   void DoMatchesApiHit(){
    setRxRequestStatus(Status.LOADING);
    Map Data={
-"match_type":"1",
+"match_type":Matchtype.toString(),
 "match_from":match_fromid,
 "match_with":match_withid,
-"maker_id":""
+"maker_id":Makerid
    };
 
     _api.DoMatcchesapi(Data).then((value){

@@ -20,6 +20,7 @@ import 'package:cupid_match/models/RequestAcceptModel/RequestAcceptModel.dart';
 import 'package:cupid_match/models/RequestActionModel/RequestActionModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/SeekerMyProfileDetailsModel/SeekerMyProfileDetailsModel.dart';
+import 'package:cupid_match/models/SeekerToMakerRequest/SeekerTomakerRequestModel.dart';
 import 'package:cupid_match/models/SeekerToSeekerRequestModel/SeekerToSeekerRequestModel.dart';
 import 'package:cupid_match/models/SeekersallInterestsModel/SeekersAllInterestsModel.dart';
 import 'package:cupid_match/models/SignUpModel/SinUpModel.dart';
@@ -407,6 +408,14 @@ class AuthRepository {
     print(response);
     return RequestAcceptModel.fromJson(response);
   }
+   Future<SeekerToMakerRequestModel> SeekerToMakerRequestApi(var data ) async {
+    print("IncomingMakerRequestApi");
+    dynamic response =
+    await _apiService.postApi2(data,AppUrl.SeekerToMakerRequest);
+    print(response);
+    return SeekerToMakerRequestModel.fromJson(response);
+  }
+
   
 }
 
