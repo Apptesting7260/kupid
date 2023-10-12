@@ -33,6 +33,7 @@ import 'package:cupid_match/res/app_url/app_url.dart';
 import '../../models/AllOcupationsModel/AllOcupationsModel.dart';
 import '../../models/CountryModel/country_model.dart';
 import '../../models/CreatePasswordModel/CreatePasswordModel.dart';
+import '../../models/FindMatch/FindMatchesController.dart';
 import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
 import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart';
@@ -391,6 +392,12 @@ class AuthRepository {
     return MakersinglepageRequestModel.fromJson(response);
   }
 
- 
+  Future<CreateNewMatchesModel> CreateNewMatchesApi() async{
+    dynamic response = await _apiService.getApi2(AppUrl.createNewMatchesApi);
+    print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    print(response);
+    dynamic data = CreateNewMatchesModel.fromJson(response) ;
+    return data;
+  }
 }
 

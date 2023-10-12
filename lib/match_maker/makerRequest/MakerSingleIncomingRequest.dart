@@ -1,16 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
+import '../../GlobalVariable/GlobalVariable.dart';
 import '../../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
 import '../../controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
+import '../createplanMonthley/FindNewMatches/FindNewMatches.dart';
 
 var myId;
 
@@ -950,7 +953,21 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                     children: [
 
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+
+                          setState(() {
+                            roomid=null;
+                          });
+
+                          roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.roomid.toString();
+                          print(roomid);
+
+                          if (roomid != null) {
+                            print(roomid);
+                            Get.to(ChatPage());
+                          }
+                        },
                         child: Container(
                           height: Get.height * 0.05,
                           width: Get.width * 0.4,
@@ -967,54 +984,46 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                           ),
                         ),
                       ),
-                    ],) : Row(
+                    ],) :
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
 
-                    // children: [
-                    //   SizedBox(
-                    //     width: Get.width * 0.5,
-                    //   ),
-                    //   GestureDetector(
-                    //     onTap: () {},
-                    //     child: Container(
-                    //       height: Get.height * 0.038,
-                    //       width: Get.width * 0.2,
-                    //       decoration: BoxDecoration(
-                    //           color: Color.fromRGBO(254, 0, 145, 1),
-                    //           borderRadius: BorderRadius.circular(60)),
-                    //       child: Center(
-                    //         child: Text('Accept',
-                    //             style: TextStyle(
-                    //                 fontSize: 8,
-                    //                 fontWeight: FontWeight.w700,
-                    //                 color: Colors.white)),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   SizedBox(
-                    //     width: Get.width * 0.03,
-                    //   ),
-                    //   GestureDetector(
-                    //     onTap: () {},
-                    //     child: Container(
-                    //       height: Get.height * 0.038,
-                    //       width: Get.width * 0.2,
-                    //       decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           border: Border.all(
-                    //               color: Color.fromRGBO(0, 12, 170, 1),
-                    //               width: 1),
-                    //           borderRadius: BorderRadius.circular(60)),
-                    //       child: Center(
-                    //         child: Text('Declined',
-                    //             style: TextStyle(
-                    //                 fontSize: 8,
-                    //                 fontWeight: FontWeight.w700,
-                    //                 color: Color.fromRGBO(0, 12, 170, 1))),
-                    //       ),
-                    //     ),
-                    //   )
-                    // ],
-                  )
+
+                    children: [
+
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            userIdsiker=null;
+                          });
+
+                          userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.getanotherseeker!
+                              .id.toString();
+                          print(userIdsiker);
+
+                          if (userIdsiker != null) {
+                            print(userIdsiker);
+                            Get.to(CreateNewMatches());
+                          }
+                        },
+                        child: Container(
+                          height: Get.height * 0.05,
+                          width: Get.width * 0.4,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(254, 0, 145, 1),
+                              borderRadius: BorderRadius.circular(60)),
+                          child: Center(
+                            child: Text('Find Now',
+                                style: TextStyle(
+
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ],)
                 ]
             );
         }
