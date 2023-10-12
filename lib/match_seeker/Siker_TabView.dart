@@ -53,8 +53,8 @@ class _Siker_Tab_ViewState extends State<Siker_Tab_View> {
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
     homepageapis();
-    // chatpageapis();
-    // likepagepais();
+    chatpageapis();
+    likepagepais();
       // seekerMyProfileDetailsController.SeekerMyProfileDetailsApiHit();
       //  recentSeekerMatchesController.isrecentSeekermatchesApi();
       //      sekeerOutGoingController.seekerOutGoingRequest();

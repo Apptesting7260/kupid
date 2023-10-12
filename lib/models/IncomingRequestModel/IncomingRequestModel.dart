@@ -8,9 +8,13 @@ class IncomingSeekerRequestModel {
   IncomingSeekerRequestModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    requests = json['requests'] != null
-        ? new Requests.fromJson(json['requests'])
-        : null;
+    final requestsData = json['requests'];
+
+    if (requestsData is List) {
+      requests = Requests.empty();
+    } else if (requestsData is Map<String, dynamic>) {
+      requests = Requests.fromJson(requestsData);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -29,6 +33,9 @@ class Requests {
   List<BySeeker>? bySeeker;
 
   Requests({this.byMaker, this.bySeeker});
+
+  // Create an empty Requests object
+  Requests.empty();
 
   Requests.fromJson(Map<String, dynamic> json) {
     if (json['by_maker'] != null) {
@@ -56,6 +63,11 @@ class Requests {
     return data;
   }
 }
+
+
+
+// Rest of your model classes remain the same
+
 
 class ByMaker {
   var id;

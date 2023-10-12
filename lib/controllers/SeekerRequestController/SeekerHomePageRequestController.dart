@@ -46,4 +46,17 @@ class HomeRequestController extends GetxController {
       setRxRequestStatus(Status.ERROR);
     });
   }
+  void refreshApi(){
+
+    setRxRequestStatus(Status.LOADING);
+
+    _api.HomeIncomingRequestApi().then((value){
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+
+    });
+  }
 }

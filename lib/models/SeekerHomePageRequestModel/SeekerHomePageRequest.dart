@@ -8,9 +8,16 @@ class SeekerHomeRequestModel {
   SeekerHomeRequestModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    requests = json['requests'] != null
-        ? new Requests.fromJson(json['requests'])
-        : null;
+
+    // Check if 'requests' is an array or object
+    if (json['requests'] is List) {
+      requests = Requests(incoming: [], outgoing: []);
+    } else if (json['requests'] is Map) {
+      requests = Requests.fromJson(json['requests']);
+    } else {
+      // Handle any other cases or set requests to null if needed.
+      requests = null;
+    }
   }
 
   Map<String, dynamic> toJson() {

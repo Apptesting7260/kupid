@@ -43,17 +43,17 @@ print("${value.SpinLeverRequestedDat!.leverpool.toString()}");
     });
   }
 //
-// void refreshApi(){
-//
-//     setRxRequestStatus(Status.LOADING);
-//
-//   _api.userListApi().then((value){
-//     setRxRequestStatus(Status.COMPLETED);
-//     setUserList(value);
-//   }).onError((error, stackTrace){
-//     setError(error.toString());
-//     setRxRequestStatus(Status.ERROR);
-//
-//   });
-// }
+void refreshApi(){
+
+    setRxRequestStatus(Status.LOADING);
+
+  _api.SeekerMyProfileDetailsApi().then((value){
+    setRxRequestStatus(Status.COMPLETED);
+    SekerMyProfileDetails(value);
+  }).onError((error, stackTrace){
+    setError(error.toString());
+    setRxRequestStatus(Status.ERROR);
+
+  });
+}
 }

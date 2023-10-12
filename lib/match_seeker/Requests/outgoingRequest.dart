@@ -257,7 +257,9 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                         ? Container(
                       // height: Get.height*0.6,
                       width: Get.width * 1,
-                      child: seekrOutgoingRequestController
+                      child:seekrOutgoingRequestController
+                          .OutgoingRequestvalue.value.message !=
+                      'No request found'|| seekrOutgoingRequestController
                           .OutgoingRequestvalue
                           .value
                           .requests!
@@ -587,12 +589,18 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                         : Container(
                       // height: Get.height*0.6,
                       width: Get.width * 1,
-                      child: seekrOutgoingRequestController
+                      child:seekrOutgoingRequestController
+                          .OutgoingRequestvalue.value.message ==
+                          'No request found'|| seekrOutgoingRequestController
                           .OutgoingRequestvalue
                           .value
                           .requests!
                           .toSeeker ==
-                          []
+                          []||seekrOutgoingRequestController
+                .OutgoingRequestvalue
+                .value
+                .requests!
+                .toSeeker ==0
                           ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

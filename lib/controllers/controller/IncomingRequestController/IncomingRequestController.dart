@@ -42,6 +42,20 @@ print(error.toString());
         setRxRequestStatus(Status.ERROR);
       });
     }
+
+  void refreshApi(){
+
+    setRxRequestStatus(Status.LOADING);
+
+    _api.IncomingRequestApi().then((value){
+      setRxRequestStatus(Status.COMPLETED);
+      setUserList(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      setRxRequestStatus(Status.ERROR);
+
+    });
+  }
   }
 // }
 //
