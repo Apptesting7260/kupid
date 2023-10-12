@@ -31,7 +31,7 @@ usercheck()async{
       if(prefs.getString("BarearToken")!=null){
 
 
-        if(prefs.getString('Usertype')==1){
+        if(prefs.getString('Usertype')=="1"){
                  Timer(Duration(seconds: 3), () {Get.off(Maker_TabView(index: 0,)); });
 
         }else{

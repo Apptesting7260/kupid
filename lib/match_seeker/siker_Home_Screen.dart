@@ -744,7 +744,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 
                                 // if (requestHomeController.seekerHomeRequestValue.value
                                 //     .requests!.incoming!.isNotEmpty)
-                                  Container(
+                         if (requestHomeController.seekerHomeRequestValue.value.message !=
+                                'Data Not Found'||requestHomeController.seekerHomeRequestValue.value
+                                          .requests!.incoming!=[]
+                                                  )           Container(
                                     width: width,
                                     height: height * .18,
                                     child: ListView.builder(
