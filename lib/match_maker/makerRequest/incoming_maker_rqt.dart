@@ -152,294 +152,290 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                   SizedBox(
                     height: Get.height * 0.04,
                   ),
-                  requestMatchesController.IncomingMakerValue.value.requests=="No request found"|| requestMatchesController.IncomingMakerValue.value.requests!
-                                  .particularProfile ==
-                              [] ||requestMatchesController.IncomingMakerValue.value.requests!
-                      .particularProfile ==
-                      null ||
                           (requestMatchesController.button_praticular.value)
                       ? Container(
                           // height: Get.height*0.6,
                           width: Get.width * 1,
-                          child: requestMatchesController.IncomingMakerValue
-                                          .value.requests!.particularProfile !=
-                                      [] ||
-                                  requestMatchesController
-                                          .IncomingMakerValue
-                                          .value
-                                          .requests!
-                                          .particularProfile!
-                                          .length !=
-                                      0
-                              ? ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  itemCount: requestMatchesController
-                                      .IncomingMakerValue
-                                      .value
-                                      .requests!
-                                      .particularProfile!
-                                      .length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        height: Get.height * 0.08,
-                                        color: Color.fromRGBO(254, 0, 145, 1),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: Get.width * 0.03,
-                                                  ),
-                                                  Container(
-                                                      height: Get.height * 0.07,
-                                                      width: Get.width * 0.13,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      40)),
-                                                      child: requestMatchesController
-                                                                  .IncomingMakerValue
-                                                                  .value
-                                                                  .requests!
-                                                                  .particularProfile![
-                                                                      index]
-                                                                  .getseeker!
-                                                                  .imgPath !=
-                                                              null
-                                                          ? CircleAvatar(
-                                                              radius: 22,
-                                                              backgroundImage: CachedNetworkImageProvider(
+                          child:requestMatchesController.IncomingMakerValue.value.message!="No request found"
+
+
+                              ? Container(
+                                child:requestMatchesController
+                                    .IncomingMakerValue
+                                    .value
+                                    .requests!
+              .particularProfile!
+              .length !=
+          0? ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: requestMatchesController
+                                        .IncomingMakerValue
+                                        .value
+                                        .requests!
+                                        .particularProfile!
+                                        .length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Container(
+                                          height: Get.height * 0.08,
+                                          color: Color.fromRGBO(254, 0, 145, 1),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: Get.width * 0.03,
+                                                    ),
+                                                    Container(
+                                                        height: Get.height * 0.07,
+                                                        width: Get.width * 0.13,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        40)),
+                                                        child: requestMatchesController
+                                                                    .IncomingMakerValue
+                                                                    .value
+                                                                    .requests!
+                                                                    .particularProfile![
+                                                                        index]
+                                                                    .getseeker!
+                                                                    .imgPath !=
+                                                                null
+                                                            ? CircleAvatar(
+                                                                radius: 22,
+                                                                backgroundImage: CachedNetworkImageProvider(
+                                                                    requestMatchesController
+                                                                        .IncomingMakerValue
+                                                                        .value
+                                                                        .requests!
+                                                                        .particularProfile![
+                                                                            index]
+                                                                        .getseeker!
+                                                                        .imgPath
+                                                                        .toString()))
+                                                            : CircleAvatar(
+                                                                radius: 22,
+                                                                backgroundImage:
+                                                                    NetworkImage(
+                                                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                                ),
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                              )),
+                                                    SizedBox(
+                                                      width: Get.width * 0.03,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          requestMatchesController
+                                                              .IncomingMakerValue
+                                                              .value
+                                                              .requests!
+                                                              .particularProfile![
+                                                                  index]
+                                                              .getseeker!
+                                                              .name,
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                        Text(
+                                                          'Match Seeker',
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      width: Get.width * 0.12,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 8.0),
+                                                      child: Container(
+                                                        width: Get.width * 0.5,
+                                                        height:
+                                                            Get.height * 0.065,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius.only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            10),
+                                                                    bottomLeft: Radius
+                                                                        .circular(
+                                                                            10))),
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: Get.width *
+                                                                  0.03,
+                                                            ),
+                                                            Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.06,
+                                                                width: Get.width *
+                                                                    0.1,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            40)),
+                                                                child: requestMatchesController
+                                                                            .IncomingMakerValue
+                                                                            .value
+                                                                            .requests!
+                                                                            .particularProfile![
+                                                                                index]
+                                                                            .getanotherseeker!
+                                                                            .imgPath !=
+                                                                        null
+                                                                    ? CircleAvatar(
+                                                                        radius:
+                                                                            22,
+                                                                        backgroundImage: CachedNetworkImageProvider(requestMatchesController
+                                                                            .IncomingMakerValue
+                                                                            .value
+                                                                            .requests!
+                                                                            .particularProfile![index]
+                                                                            .getanotherseeker!
+                                                                            .imgPath
+                                                                            .toString()))
+                                                                    : CircleAvatar(
+                                                                        radius:
+                                                                            22,
+                                                                        backgroundImage:
+                                                                            NetworkImage(
+                                                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                                        ),
+                                                                        backgroundColor:
+                                                                            Colors
+                                                                                .transparent,
+                                                                      )),
+                                                            SizedBox(
+                                                              width: Get.width *
+                                                                  0.03,
+                                                            ),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
                                                                   requestMatchesController
                                                                       .IncomingMakerValue
                                                                       .value
                                                                       .requests!
                                                                       .particularProfile![
                                                                           index]
-                                                                      .getseeker!
-                                                                      .imgPath
-                                                                      .toString()))
-                                                          : CircleAvatar(
-                                                              radius: 22,
-                                                              backgroundImage:
-                                                                  NetworkImage(
-                                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                              ),
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                            )),
-                                                  SizedBox(
-                                                    width: Get.width * 0.03,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        requestMatchesController
-                                                            .IncomingMakerValue
-                                                            .value
-                                                            .requests!
-                                                            .particularProfile![
-                                                                index]
-                                                            .getseeker!
-                                                            .name,
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                      ),
-                                                      Text(
-                                                        'Match Seeker',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w300),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: Get.width * 0.12,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8.0),
-                                                    child: Container(
-                                                      width: Get.width * 0.5,
-                                                      height:
-                                                          Get.height * 0.065,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          10),
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          10))),
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: Get.width *
-                                                                0.03,
-                                                          ),
-                                                          Container(
-                                                              height:
-                                                                  Get.height *
-                                                                      0.06,
-                                                              width: Get.width *
-                                                                  0.1,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          40)),
-                                                              child: requestMatchesController
-                                                                          .IncomingMakerValue
-                                                                          .value
-                                                                          .requests!
-                                                                          .particularProfile![
-                                                                              index]
-                                                                          .getanotherseeker!
-                                                                          .imgPath !=
-                                                                      null
-                                                                  ? CircleAvatar(
-                                                                      radius:
-                                                                          22,
-                                                                      backgroundImage: CachedNetworkImageProvider(requestMatchesController
-                                                                          .IncomingMakerValue
-                                                                          .value
-                                                                          .requests!
-                                                                          .particularProfile![index]
-                                                                          .getanotherseeker!
-                                                                          .imgPath
-                                                                          .toString()))
-                                                                  : CircleAvatar(
-                                                                      radius:
-                                                                          22,
-                                                                      backgroundImage:
-                                                                          NetworkImage(
-                                                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                                      ),
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                    )),
-                                                          SizedBox(
-                                                            width: Get.width *
-                                                                0.03,
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                requestMatchesController
+                                                                      .getanotherseeker!
+                                                                      .name,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize: 9,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                ),
+                                                                Text(
+                                                                  'Match Seeker',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize: 8,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              width:
+                                                                  Get.width * 0.1,
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                // _showDialogProfile(
+                                                                //     context);
+                                                                setState(() {
+                                                                  requestid=null;
+                                                                });
+
+                                                                requestid = requestMatchesController
                                                                     .IncomingMakerValue
                                                                     .value
                                                                     .requests!
                                                                     .particularProfile![
-                                                                        index]
-                                                                    .getanotherseeker!
-                                                                    .name,
+                                                                index]
+                                                                    .id.toString();
+                                                                print(requestid);
+
+                                                                if (requestid != null) {
+                                                                  print(requestid);
+                                                                  Get.to(MakerSingleRequstPage(title: 'Incoming Request',));
+                                                                }
+                                                              },
+                                                              child: Text(
+                                                                'View',
                                                                 style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
+                                                                    decorationColor:
+                                                                        Color.fromRGBO(
+                                                                            254,
+                                                                            0,
+                                                                            145,
+                                                                            1),
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .underline,
                                                                     fontSize: 9,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w600),
+                                                                            .w500,
+                                                                    color: Color
+                                                                        .fromRGBO(
+                                                                            254,
+                                                                            0,
+                                                                            145,
+                                                                            1)),
                                                               ),
-                                                              Text(
-                                                                'Match Seeker',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize: 8,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w300),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            width:
-                                                                Get.width * 0.1,
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              // _showDialogProfile(
-                                                              //     context);
-                                                              setState(() {
-                                                                requestid=null;
-                                                              });
-
-                                                              requestid = requestMatchesController
-                                                                  .IncomingMakerValue
-                                                                  .value
-                                                                  .requests!
-                                                                  .particularProfile![
-                                                              index]
-                                                                  .id.toString();
-                                                              print(requestid);
-
-                                                              if (requestid != null) {
-                                                                print(requestid);
-                                                                Get.to(MakerSingleRequstPage(title: 'Incoming Request',));
-                                                              }
-                                                            },
-                                                            child: Text(
-                                                              'View',
-                                                              style: TextStyle(
-                                                                  decorationColor:
-                                                                      Color.fromRGBO(
-                                                                          254,
-                                                                          0,
-                                                                          145,
-                                                                          1),
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .underline,
-                                                                  fontSize: 9,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          254,
-                                                                          0,
-                                                                          145,
-                                                                          1)),
-                                                            ),
-                                                          )
-                                                        ],
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  })
+                                      );
+                                    }):Container(),
+                              )
                               : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -466,13 +462,8 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                   ],
                                 ),
                         )
-                      :requestMatchesController.IncomingMakerValue.value.requests=="No request found"|| requestMatchesController.IncomingMakerValue
-                      .value.requests!.randomProfile ==
-                      [] ||
-                      requestMatchesController.IncomingMakerValue
-                          .value.requests!.randomProfile!.isEmpty ||
-                      requestMatchesController.IncomingMakerValue
-                          .value.requests!.randomProfile==null
+                      :requestMatchesController.IncomingMakerValue.value.message=="No request found"
+
                       ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

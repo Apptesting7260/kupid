@@ -928,25 +928,41 @@ class _SlotMachineState extends State<SlotMachine> {
                                             "assets/images/liverup.PNG"))),
                               ),
                               onTap: () {
-                            if(staticLiverpullController.seekerprofilerequested.value==false){
- if (pulled == false) {
-                                  _startSpinning();
-                                }
-                                if (pulled == true)
-                                  Timer(Duration(seconds: 2), () {
-                                    _stopSpinning();
-                                  });
-                            }else{
 
-Fluttertoast.showToast(
-  msg: "You Have Already Pooled",
-  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
-  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
-  backgroundColor: Colors.black54,
-  textColor: Colors.white,
-);
-         
-                            }
+
+                                if(MagicProfileControllerinstance.MagicProfileList.value
+                                    .requests!.length> 3){
+                                  if(staticLiverpullController.seekerprofilerequested.value==false){
+                                    if (pulled == false) {
+                                      _startSpinning();
+                                    }
+                                    if (pulled == true)
+                                      Timer(Duration(seconds: 2), () {
+                                        _stopSpinning();
+                                      });
+                                  }else{
+
+                                    Fluttertoast.showToast(
+                                      msg: "You Have Already Pooled",
+                                      toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+                                      gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+                                      backgroundColor: Colors.black54,
+                                      textColor: Colors.white,
+                                    );
+
+                                  }
+                                }else{
+
+                                  Fluttertoast.showToast(
+                                    msg: "Dont Have Enough Seekers",
+                                    toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+                                    gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+                                    backgroundColor: Colors.black54,
+                                    textColor: Colors.white,
+                                  );
+
+                                }
+
                                
                               },
                             )
@@ -1175,7 +1191,7 @@ SizedBox(height:Get.height*0.05,),
                                   ),
                                   SizedBox(height: height * .01),
                                   Text(
-                                    "Match Maker",
+                                    "Match Seeker",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!

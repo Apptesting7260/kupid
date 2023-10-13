@@ -43,7 +43,8 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
         child: Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
+            child: ListAllMakerControllerinstance
+                .userList.value.allmakers!.length!=0 ?Container(
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: ListAllMakerControllerinstance
@@ -144,7 +145,18 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                       ));
                 },
               ),
-            ),
+            ): Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: height *0.4,
+              ),
+
+
+              Center(child: Text("Data is Empty",style: TextStyle(color: Colors.black)),)
+            ],
+          ),
           ),
         ),
       ),

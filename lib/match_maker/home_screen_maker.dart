@@ -595,7 +595,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           TextButton(
                               onPressed: () {
-                                // Get.to(IncomingMakerRequest());
+                                Get.to(IncomingMakerRequest());
 
                                 print("abcdaa");
                               },
@@ -629,27 +629,27 @@ class _HomePageState extends State<HomePage> {
                       //       }
                       //     case Status.COMPLETED:
 
-                          // makerRequestController
-                          //     .makerHomePageValue
-                          //     .value
-                          //     .requests!
-                          //     .incoming!.length ==
-                          //     0
-                          // ?
-                          // Column(
-                          //   children: [
-                          //     Image.asset(
-                          //       'assets/images/incomingr.png',
-                          //       width: Get.width * 0.83,
-                          //     ),
-                          //     Text(
-                          //       "Reference site about Lorem Ipsum, giving information on its origins",
-                          //       style: Get.theme.textTheme.bodySmall,
-                          //       textAlign: TextAlign.center,
-                          //     )
-                          //   ],
-                          //
-                          // ):
+                          makerRequestController
+                              .makerHomePageValue
+                              .value
+                              .requests!
+                              .incoming!.length ==
+                              0
+                          ?
+                          Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/incomingr.png',
+                                width: Get.width * 0.83,
+                              ),
+                              Text(
+                                "Reference site about Lorem Ipsum, giving information on its origins",
+                                style: Get.theme.textTheme.bodySmall,
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+
+                          ):
                       Container(
                           width: width,
                           height: height * .18,
@@ -671,8 +671,7 @@ class _HomePageState extends State<HomePage> {
                                   .value
                                   .requests!
                                   .incoming![index]
-                                  .getanotherseeker !=
-                                  null) {
+                                  .getanotherseeker !=null) {
                                 return InkWell(
                                   child: Padding(
                                     padding:
@@ -1005,6 +1004,340 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 );
                               }
+                              else{
+                                InkWell(
+                                  child: Padding(
+                                    padding:
+                                    const EdgeInsets.all(
+                                        8.0),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            color: AppColors
+                                                .ratingcodeColor,
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(
+                                                15)),
+                                        width: width * .65,
+                                        child: x == 5
+                                            ? InkWell(
+                                          child:
+                                          Container(
+                                              child:
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                            left: 20,
+                                                            top: 10,
+                                                            bottom: 10),
+                                                        child:
+                                                        Text(
+                                                          "Maker ",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .pink),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        " Requested",
+                                                        style:
+                                                        TextStyle(color: Colors
+                                                            .black),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                        child:
+                                                        Container(
+                                                          width: width * .21,
+                                                          child: Stack(
+                                                            children: [
+                                                              makerRequestController
+                                                                  .makerHomePageValue
+                                                                  .value
+                                                                  .requests!
+                                                                  .incoming![index]
+                                                                  .getanotherseeker!
+                                                                  .imgPath !=
+                                                                  null||makerRequestController
+                                                                  .makerHomePageValue
+                                                                  .value
+                                                                  .requests!
+                                                                  .incoming![index]
+                                                                  .getseeker!
+                                                                  .imgPath !=[]
+                                                                  ? CircleAvatar(
+                                                                backgroundImage: CachedNetworkImageProvider(
+                                                                    makerRequestController
+                                                                        .makerHomePageValue
+                                                                        .value
+                                                                        .requests!
+                                                                        .incoming![index]
+                                                                        .getseeker!
+                                                                        .imgPath
+                                                                        .toString()),
+                                                                radius: 30,
+                                                                backgroundColor: AppColors
+                                                                    .white,
+                                                              )
+                                                                  : CircleAvatar(
+                                                                radius: 30.0,
+                                                                backgroundColor: Colors
+                                                                    .transparent,
+                                                                backgroundImage: NetworkImage(
+                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                              ),
+                                                              // Positioned(
+                                                              //   left: 25,
+                                                              //   child:makerRequestController
+                                                              //       .makerHomePageValue
+                                                              //       .value
+                                                              //       .requests!
+                                                              //       .incoming![
+                                                              //   index]
+                                                              //       .getanotherseeker!
+                                                              //       .imgPath !=null ?
+                                                              //   CircleAvatar(
+                                                              //     backgroundImage: CachedNetworkImageProvider(
+                                                              //         makerRequestController
+                                                              //             .makerHomePageValue
+                                                              //             .value
+                                                              //             .requests!
+                                                              //             .incoming![
+                                                              //         index]
+                                                              //             .getanotherseeker!
+                                                              //             .imgPath
+                                                              //             .toString()),
+                                                              //     radius: 30,
+                                                              //     backgroundColor:
+                                                              //     AppColors
+                                                              //         .white,
+                                                              //   ):CircleAvatar(
+                                                              //     radius: 30.0,
+                                                              //     backgroundColor:
+                                                              //     Colors
+                                                              //         .transparent,
+                                                              //     backgroundImage:
+                                                              //     NetworkImage(
+                                                              //         'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                              //   ),
+                                                              // ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                        Get.width * 0.08,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: Get.height *
+                                                                0.02,
+                                                          ),
+                                                          Text(
+                                                            makerRequestController
+                                                                .makerHomePageValue
+                                                                .value.requests!
+                                                                .incoming![index]
+                                                                .getseeker!
+                                                                .name
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .pink,
+                                                                fontSize: 20,
+                                                                fontWeight: FontWeight
+                                                                    .bold),
+                                                          ),
+                                                          SizedBox(
+                                                            height: Get.height *
+                                                                0.01,
+                                                          ),
+                                                          Text(
+                                                            makerRequestController
+                                                                .makerHomePageValue
+                                                                .value.requests!
+                                                                .incoming![index]
+                                                                .getseeker!
+                                                                .dob.toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )),
+                                        )
+                                            : Container(
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      height:
+                                                      Get.height * 0.04,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                        left:
+                                                        20,
+                                                      ),
+                                                      child:
+                                                      Text(
+                                                        "Seeker &",
+                                                        style:
+                                                        TextStyle(color: Colors
+                                                            .black),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Maker",
+                                                      style:
+                                                      TextStyle(
+                                                          color: Colors.pink),
+                                                    ),
+                                                    Text(
+                                                      " Requested",
+                                                      style:
+                                                      TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .all(
+                                                          8.0),
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        width * .29,
+                                                        child:
+                                                        Stack(
+                                                          children: [
+                                                            Positioned(
+                                                              right: 50,
+                                                              child: CircleAvatar(
+                                                                radius: 30.0,
+                                                                backgroundColor: Colors
+                                                                    .transparent,
+                                                                backgroundImage: NetworkImage(
+                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                border: Border
+                                                                    .all(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    width: 2),
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                backgroundImage: NetworkImage(
+                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                                radius: 30.0,
+                                                                backgroundColor: Colors
+                                                                    .transparent,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        SizedBox(
+                                                          height: Get.height *
+                                                              0.02,
+                                                        ),
+                                                        Text(
+                                                          "hhh",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .pink,
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight
+                                                                  .bold),
+                                                        ),
+                                                        SizedBox(
+                                                          height: Get.height *
+                                                              0.01,
+                                                        ),
+                                                        Text(
+                                                          "mmnnhnn",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ))),
+                                  ),
+                                  onTap: () {
+                                    // setState(() {
+                                    //   requestype = "1";
+                                    // });
+                                    setState(() {
+                                      requestid = null;
+                                    });
+                                    requestid =
+                                        makerRequestController
+                                            .makerHomePageValue
+                                            .value
+                                            .requests!
+                                            .incoming![index]
+                                            .id
+                                            .toString();
+
+                                    print(requestid);
+
+                                    if (requestid != null) {
+                                      print(requestid);
+                                      Get.to(MakerSingleRequstPage(
+                                          title:
+                                          'Incoming Request'));
+                                    }
+                                    print("makerrequest");
+                                  },
+                                );
+                              }
+
                             },
                           )),
                       //   }

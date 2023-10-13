@@ -29,7 +29,7 @@ class OutgoingMakerRequestController extends GetxController {
       setUserList(value);
       print(value);
       print("out going requeat 54276462c37264782364873672674678328");
-      print( value.requests![0].getanotherseeker!.name);
+      // print( value.requests![0].getanotherseeker!.name);
 
       // if(value.requests!.length>2){
       //   RecentMakerMatchlength = 2;

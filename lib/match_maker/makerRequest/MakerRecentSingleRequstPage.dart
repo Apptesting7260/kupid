@@ -703,14 +703,21 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.address.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                             Container(
+                               width: Get.width*0.3,
+                               child:    Text(
+                                 seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                     .value.data!.getanotherseeker!.address.toString()+"",
+                                 style: TextStyle(
+                                     color: Colors.black,
+                                     fontSize: 6,
+                                     fontWeight: FontWeight.w400),
+                                 softWrap: true, // Allows text to wrap to the next line
+                                 // Set the maximum number of lines
+                                 overflow: TextOverflow.ellipsis,
+                               ),
+                             )
+
                               ],
                             ),
                             SizedBox(

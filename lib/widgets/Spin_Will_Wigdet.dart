@@ -919,6 +919,7 @@ import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rxdart/subjects.dart';
@@ -1002,45 +1003,59 @@ final spinRequestController=Get.put(SpinRequestController());
   bool isRequestMade = false;
 
   void handleSpinButtonClick() {
-    if (!isSpinTimerVisible) {
-      setState(() {
-        MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
-        selected.add(Fortune.randomInt(0, items.length));
-        isVisible = !isVisible;
-        isNotVisible = !isNotVisible;
-        isspinedwill=true;
-      });
+   if(MagicProfileControllerinstance
+       .MagicProfileList
+       .value
+       .requests!.length>4){
+     if (!isSpinTimerVisible) {
+       setState(() {
+         MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
+         selected.add(Fortune.randomInt(0, items.length));
+         isVisible = !isVisible;
+         isNotVisible = !isNotVisible;
+         isspinedwill=true;
+       });
 
-      setState(() {
-        shouldShowSpinButton = false;
-        isSpinTimerVisible = true;
-        remainingTime = Duration(hours: 2);
-      });
-spinedprofilelist=[];
+       setState(() {
+         shouldShowSpinButton = false;
+         isSpinTimerVisible = true;
+         remainingTime = Duration(hours: 2);
+       });
+       spinedprofilelist=[];
        for(int i =0; i<=3;i++){
 
-    print(  MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
-    spinedprofilelist.add({
-      "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
-      "is_requested":"false"
-    });
- print(spinedprofilelist);
- print(spinedprofilelist.length);
+         print(  MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
+         spinedprofilelist.add({
+           "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
+           "is_requested":"false"
+         });
+         print(spinedprofilelist);
+         print(spinedprofilelist.length);
 
-    if(spinedprofilelist.length==4){
-      print("spined===================");
-      spinRequestController.apihit();
-        //  LiverPoolControllerinstance.apihit();
-    }
-   
-  }
+         if(spinedprofilelist.length==4){
+           print("spined===================");
+           spinRequestController.apihit();
+           //  LiverPoolControllerinstance.apihit();
+         }
 
-      // Save the current time as the last spin time
-      saveLastSpinTime();
+       }
 
-      // Start the countdown timer
-      startCountdownTimer();
-    }
+       // Save the current time as the last spin time
+       saveLastSpinTime();
+
+       // Start the countdown timer
+       startCountdownTimer();
+     }
+   }
+   else {
+     Fluttertoast.showToast(
+       msg: "Dont Have Enough Seekers",
+       toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+       gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+       backgroundColor: Colors.black54,
+       textColor: Colors.white,
+     );
+   }
   }
 
   @override
@@ -1437,7 +1452,7 @@ spinedprofilelist=[];
                                         height: height * .01,
                                       ),
                                       Text(
-                                        "Match Maker",
+                                        "Match Seeker",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!

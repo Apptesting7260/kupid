@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/SeekerToMakerController/SeekerToMakerController.dart';
@@ -180,7 +182,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
               SizedBox(
                 height: Get.height * 0.04,
               ),
-              MyButton(title: 'Find Matc', onTap: () {
+              MyButton(title: 'Find Match', onTap: () {
                 Get.to(Chose_Role_Type());
               })
             ],
@@ -292,11 +294,15 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                               Container(
                                 width: width,
                                 height: height * .45,
+
                                 child: ListView.builder(
+
                                   scrollDirection: Axis.horizontal,
                                   physics: AlwaysScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: 2,
+
+                                  itemCount: recentSeekerMatchesController
+                                    .RecentSeekerMatchValue.value.data!.length>=2?2:1  ,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(child: Container(
                                       width: width * .45,
@@ -1147,22 +1153,22 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                               SizedBox(
                                 height: height * 0.02,
                               ),
-                              if (requestHomeController.seekerHomeRequestValue
-                                  .value
-                                  .requests!.outgoing!.isEmpty)
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/outgoinc.png',
-                                      width: Get.width * 0.83,
-                                    ),
-                                    Text(
-                                      "Reference site about Lorem Ipsum, giving information on its origins",
-                                      style: Get.theme.textTheme.bodySmall,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
+                              // if (requestHomeController.seekerHomeRequestValue
+                              //     .value
+                              //     .requests!.outgoing!.isEmpty)
+                              //   Column(
+                              //     children: [
+                              //       Image.asset(
+                              //         'assets/images/outgoinc.png',
+                              //         width: Get.width * 0.83,
+                              //       ),
+                              //       Text(
+                              //         "Reference site about Lorem Ipsum, giving information on its origins",
+                              //         style: Get.theme.textTheme.bodySmall,
+                              //         textAlign: TextAlign.center,
+                              //       )
+                              //     ],
+                              //   ),
                               // if (requestHomeController.seekerHomeRequestValue.value
                               //
                               //     .requests!.outgoing!.isNotEmpty)

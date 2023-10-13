@@ -82,7 +82,7 @@ Map Data={
               // staticLiverpullController.staticLiverPullmethodapihit();
               print("poooooooold=============");
             // Timer(Duration(seconds: 4), () {
-                 Get.off((DomatchscreenSiker()));
+                 Get.off((DomatchscreenSiker(title: 'Spin Wheel',)));
             //  });
     } else {
       print('Error: ${response.statusCode} - ${response.statusMessage}');

@@ -72,7 +72,7 @@ Map Data={
               staticLiverpullController.staticLiverPullmethodapihit();
               print("poooooooold");
             Timer(Duration(seconds: 4), () {
-                 Get.off((DomatchscreenSiker()));
+                 Get.off((DomatchscreenSiker(title: 'Lever Pull',)));
              });
     } else {
       print('Error: ${response.statusCode} - ${response.statusMessage}');

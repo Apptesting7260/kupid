@@ -1,6 +1,6 @@
 class MakerHomePageModel {
-  String? status;
-  String? message;
+ var status;
+ var message;
   Requests? requests;
 
   MakerHomePageModel({this.status, this.message, this.requests});
@@ -65,17 +65,17 @@ class Requests {
 }
 
 class Incoming {
-  int? id;
-  int? makerId;
-  int? matchFrom;
-  int? matchWith;
-  int? matchType;
-  String? matchWithStatus;
-  String? matchFromStatus;
-  int? status;
+  var id;
+  var makerId;
+  var matchFrom;
+  var matchWith;
+  var matchType;
+ var matchWithStatus;
+ var matchFromStatus;
+  var status;
   var roomid;
-  String? createdAt;
-  String? updatedAt;
+ var createdAt;
+ var updatedAt;
   Getmaker? getmaker;
   Getanotherseeker? getseeker;
   Getanotherseeker? getanotherseeker;
@@ -146,23 +146,23 @@ class Incoming {
 }
 
 class Getmaker {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? dob;
-  String? gender;
-  String? location;
-  String? profileImg;
-  String? profileVideo;
-  String? experience;
-  String? aboutMaker;
-  String? expectation;
-  String? headingOfMaker;
-  int? status;
-  int? currentStep;
-  String? imgPath;
-  String? videoPath;
+  var id;
+ var name;
+ var email;
+ var phone;
+ var dob;
+ var gender;
+ var location;
+ var profileImg;
+ var profileVideo;
+ var experience;
+ var aboutMaker;
+ var expectation;
+ var headingOfMaker;
+  var status;
+  var currentStep;
+ var imgPath;
+ var videoPath;
 
   Getmaker(
       {this.id,
@@ -227,22 +227,22 @@ class Getmaker {
 }
 
 class Getseeker {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? occupation;
+  var id;
+ var name;
+ var email;
+ var phone;
+ var occupation;
   var salary;
-  String? address;
-  String? height;
-  String? dob;
-  String? gender;
-  String? religion;
-  int? currentStep;
-  String? imgPath;
-  String? videoPath;
-  String? occupationName;
-  int? likeStatus;
+ var address;
+ var height;
+ var dob;
+ var gender;
+ var religion;
+  var currentStep;
+ var imgPath;
+ var videoPath;
+ var occupationName;
+  var likeStatus;
   Details? details;
 
   Getseeker(
@@ -311,16 +311,16 @@ class Getseeker {
 }
 
 class Details {
-  int? id;
-  int? seekerId;
+  var id;
+  var seekerId;
   var profileGallery;
-  String? inInterested;
-  String? interest;
-  String? bioTitle;
-  String? bioDescription;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
+ var inInterested;
+ var interest;
+ var bioTitle;
+ var bioDescription;
+  var status;
+ var createdAt;
+ var updatedAt;
   List<String>? gallaryPath;
   List<InterestName>? interestName;
 
@@ -380,7 +380,7 @@ class Details {
 }
 
 class InterestName {
-  String? title;
+ var title;
 
   InterestName({this.title});
 
@@ -396,22 +396,22 @@ class InterestName {
 }
 
 class Getanotherseeker {
-  int? id;
-  String? name;
-  String? email;
-  String? phone;
-  String? occupation;
-  String? salary;
-  String? address;
-  String? height;
-  String? dob;
-  String? gender;
-  String? religion;
-  int? currentStep;
-  String? imgPath;
-  String? videoPath;
-  String? occupationName;
-  int? likeStatus;
+  var id;
+ var name;
+ var email;
+ var phone;
+ var occupation;
+ var salary;
+ var address;
+ var height;
+ var dob;
+ var gender;
+ var religion;
+  var currentStep;
+ var imgPath;
+ var videoPath;
+ var occupationName;
+  var likeStatus;
   Details? details;
 
   Getanotherseeker(
@@ -482,17 +482,17 @@ class Getanotherseeker {
 
 
 class Outgoing {
-  int? id;
-  int? makerId;
-  int? matchFrom;
-  int? matchWith;
-  int? matchType;
-  String? matchWithStatus;
-  String? matchFromStatus;
-  int? status;
-  int? roomid;
-  String? createdAt;
-  String? updatedAt;
+  var id;
+  var makerId;
+  var matchFrom;
+  var matchWith;
+  var matchType;
+ var matchWithStatus;
+ var matchFromStatus;
+  var status;
+  var roomid;
+ var createdAt;
+ var updatedAt;
   Getmaker? getmaker;
   Getanotherseeker? getseeker;
   Getanotherseeker? getanotherseeker;

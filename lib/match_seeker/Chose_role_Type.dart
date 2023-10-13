@@ -159,16 +159,20 @@ SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(Se
                   });
 
                   ChoseRole();
-                  Timer(Duration(seconds: 2), () {
+
                     if (selectedrole != null) {
                       isloadding = false;
 
                       setState(() {
                         isloadding;
                       });
-                      Get.to(DomatchscreenSiker());
+                      if( rolevalue == 1){
+                      Get.to(DomatchscreenSiker(title:"Spin Wheel"));}
+                      else{
+                        Get.to(DomatchscreenSiker(title:"Lever Pull"));
+                      }
                     }
-                  });
+
 
                   //    ;
                 },
@@ -203,12 +207,15 @@ Row(
                       ],
                     ),
                   ),
-
+            ListAllMakerControllerinstance.userList
+               .value.allmakers!.length!=0?
                   Container(
                 
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: ListAllMakerControllerinstance.userList
+                          .value.allmakers!.length >4?4:ListAllMakerControllerinstance.userList
+                          .value.allmakers!.length,
                       // itemExtent: 80,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
@@ -302,7 +309,19 @@ Row(
                         );
                       },
                     ),
-                  )
+                  ):
+              Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: height *0.2,
+                  ),
+
+
+                 Text("Data is Empty",style: TextStyle(color: Colors.black))
+                ],
+              )
             
           ],
         ),

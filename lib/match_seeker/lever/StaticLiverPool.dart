@@ -364,7 +364,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                       ),
                                       SizedBox(height: height * .01),
                                       Text(
-                                        "Match Maker",
+                                        "Match Seeker",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -691,14 +691,14 @@ Fluttertoast.showToast(
                           .spinRequestData![index]
                           .seekerData!
                           .questions!
-                          .secondAnswer
+                          .thirdAnswer
                           .toString()),
                       value: dataofStaticPull
                           .spinLeverpoolRequestedData!
                           .spinRequestData![index]
                           .seekerData!
                           .questions!
-                          .secondAnswer
+                          .thirdAnswer
                           .toString(),
                       groupValue: staticLiverpullController.selectedAnswer.value
                           .toString(),

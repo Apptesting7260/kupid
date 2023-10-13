@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../match_seeker/Siker_TabView.dart';
 import '../match_seeker/profile/profile_page.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -120,7 +121,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             ListTile(
               onTap: () {
-                Get.to(() => Maker_TabView(index: 0));
+                Get.to(() => Siker_Tab_View(index: 0));
               },
               leading: Image.asset(
                 'assets/maker/Mask group (1).png',
@@ -347,6 +348,7 @@ class _MyDrawerState extends State<MyDrawer> {
     
     // Add any other logout logic you have here
     Get.off(SplashScreen());
+
     print("Logged out successfully");
   }
 }

@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 String ?BarrierToken;
+String? userId;
 int ProfileType=1;
 class SetRoleController extends GetxController {
   final SignUpControllerinstance=Get.put(SignUpController());
@@ -32,15 +33,20 @@ class SetRoleController extends GetxController {
     _api.SetRoleApiApi(data).then((value){
       loading.value = false ;
       print(value);
-      BarrierToken =value.token;
+      BarrierToken =value!.token;
+      userId=value.userId!.toString();
+      print(userId);
       print(
           BarrierToken
       );
 
 
 // String Tokernid=value.tokenId.toString();
+
 prefs.setString('BarearToken', BarrierToken!);
+prefs.setString('Tokernid', userId!);
 print(prefs.getString("BarearToken"));
+      print(prefs.getString("Tokernid"));
       // Utils.snackBar( "Message",value.msg.toString());
 
      Timer(Duration(seconds: 2),(){

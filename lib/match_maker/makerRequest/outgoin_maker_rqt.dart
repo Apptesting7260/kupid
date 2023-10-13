@@ -868,18 +868,18 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                       return GeneralExceptionWidget(onPress: () {});
                     }
                   case Status.COMPLETED:
-                    return Container(
+                    return outgoingMakerRequestController.OutgoingMakerRequestValue.value.message!="No request found"||
+                    //     outgoingMakerRequestController
+                    // .OutgoingMakerRequestValue.value.requests != []
+                outgoingMakerRequestController
+                    .OutgoingMakerRequestValue.value.requests!
+                    .length != 0
+                // ||outgoingMakerRequestController
+                //     .OutgoingMakerRequestValue.value.requests != null
+                ? Container(
                       // height: Get.height*0.6,
                       width: Get.width * 1,
-                      child: outgoingMakerRequestController.OutgoingMakerRequestValue.value.requests!="No request found"|| outgoingMakerRequestController
-                          .OutgoingMakerRequestValue.value.requests != [] ||
-                          outgoingMakerRequestController
-                              .OutgoingMakerRequestValue.value.requests!
-                              .length != 0
-                                      ||outgoingMakerRequestController
-                              .OutgoingMakerRequestValue.value.requests!
-                              .length != null
-                          ? ListView.builder(
+                      child:  ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: outgoingMakerRequestController
@@ -1108,33 +1108,34 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                               ),
                             );
                           }
+
                           })
-                          : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: Get.height * 0.10,
-                          ),
-                          Container(
-                            height: Get.height * 0.2,
-                            width: Get.width * 0.8,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/recentConversationempty.png"))),
-                          ),
-                          SizedBox(
-                            height: Get.height * 0.01,
-                          ),
-                          Center(
-                              child: Text(
-                                "Reference site about Lorem Ipsum\n   giving information on its origins",
-                                style: TextStyle(color: Colors.black),
-                              ))
-                        ],
-                      ),
-                    );
+
+                    )  : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                SizedBox(
+                height: Get.height * 0.10,
+                ),
+                Container(
+                height: Get.height * 0.2,
+                width: Get.width * 0.8,
+                decoration: BoxDecoration(
+                image: DecorationImage(
+                image: AssetImage(
+                "assets/images/recentConversationempty.png"))),
+                ),
+                SizedBox(
+                height: Get.height * 0.01,
+                ),
+                Center(
+                child: Text(
+                "Reference site about Lorem Ipsum\n   giving information on its origins",
+                style: TextStyle(color: Colors.black),
+                ))
+                ],
+                );
                 }
 
 

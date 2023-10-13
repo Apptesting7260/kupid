@@ -25,8 +25,8 @@ import '../controllers/controller/SeekerToSeekerRequestController/SeekerToSeeker
 import '../controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
 
 class DomatchscreenSiker extends StatefulWidget {
-  const DomatchscreenSiker({Key? key}) : super(key: key);
-
+   DomatchscreenSiker({Key? key, required this.title}) : super(key: key);
+  String title;
   @override
   State<DomatchscreenSiker> createState() => _DomatchscreenSikerState();
 }
@@ -65,8 +65,9 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
         key: _scaffoldKey,
         endDrawer: MyDrawer(),
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
-            "Home",
+            widget.title,
             style: Theme.of(context).textTheme.titleSmall,
           ),
           actions: [
@@ -198,7 +199,8 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                       ],
                     ),
                   ),
-
+                  ListAllMakerControllerinstance.userList
+                      .value.allmakers!.length!=0?
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
@@ -294,6 +296,17 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                         },
                       ),
                     ),
+                  ): Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: height *0.1,
+                      ),
+
+
+                      Text("Data is Empty",style: TextStyle(color: Colors.black))
+                    ],
                   )
                 ],
               ),

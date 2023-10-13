@@ -1,3 +1,63 @@
+// class IncomingMakerRequestModel {
+//   String? status;
+//   String? message;
+//   Requests? requests;
+//
+//   IncomingMakerRequestModel({this.status, this.message, this.requests});
+//
+//   IncomingMakerRequestModel.fromJson(Map<String, dynamic> json) {
+//     status = json['status'];
+//     message = json['message'];
+//     requests = json['requests'] != null
+//         ? new Requests.fromJson(json['requests'])
+//         : null;
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['status'] = this.status;
+//     data['message'] = this.message;
+//     if (this.requests != null) {
+//       data['requests'] = this.requests!.toJson();
+//     }
+//     return data;
+//   }
+// }
+//
+// class Requests {
+//   List<ParticularProfile>? particularProfile;
+//   List<RandomProfile>? randomProfile;
+//
+//   Requests({this.particularProfile, this.randomProfile});
+//
+//   Requests.fromJson(Map<String, dynamic> json) {
+//     if (json['particular_profile'] != null) {
+//       particularProfile = <ParticularProfile>[];
+//       json['particular_profile'].forEach((v) {
+//         particularProfile!.add(new ParticularProfile.fromJson(v));
+//       });
+//     }
+//     if (json['random_profile'] != null) {
+//       randomProfile = <RandomProfile>[];
+//       json['random_profile'].forEach((v) {
+//         randomProfile!.add(new RandomProfile.fromJson(v));
+//       });
+//     }
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     if (this.particularProfile != null) {
+//       data['particular_profile'] =
+//           this.particularProfile!.map((v) => v.toJson()).toList();
+//     }
+//     if (this.randomProfile != null) {
+//       data['random_profile'] =
+//           this.randomProfile!.map((v) => v.toJson()).toList();
+//     }
+//     return data;
+//   }
+// }
 class IncomingMakerRequestModel {
   String? status;
   String? message;
@@ -8,9 +68,13 @@ class IncomingMakerRequestModel {
   IncomingMakerRequestModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    requests = json['requests'] != null
-        ? new Requests.fromJson(json['requests'])
-        : null;
+    final requestsData = json['requests'];
+
+    if (requestsData is List) {
+      requests = Requests.empty();
+    } else if (requestsData is Map<String, dynamic>) {
+      requests = Requests.fromJson(requestsData);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -26,9 +90,12 @@ class IncomingMakerRequestModel {
 
 class Requests {
   List<ParticularProfile>? particularProfile;
-  List<RandomProfile>? randomProfile;
+ List<RandomProfile>? randomProfile;
 
   Requests({this.particularProfile, this.randomProfile});
+
+  // Create an empty Requests object
+  Requests.empty();
 
   Requests.fromJson(Map<String, dynamic> json) {
     if (json['particular_profile'] != null) {
@@ -48,17 +115,14 @@ class Requests {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.particularProfile != null) {
-      data['particular_profile'] =
-          this.particularProfile!.map((v) => v.toJson()).toList();
+      data['particular_profile'] = this.particularProfile!.map((v) => v.toJson()).toList();
     }
     if (this.randomProfile != null) {
-      data['random_profile'] =
-          this.randomProfile!.map((v) => v.toJson()).toList();
+      data['random_profile'] = this.randomProfile!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
-
 class ParticularProfile {
   var id;
   var makerId;

@@ -99,8 +99,8 @@ class SeekerProfileController extends GetxController {
       print(request.fields['dob'] = datestring.toString());
       print(request.fields['correct_answer'] = choose!);
       print(request.fields['third_answer'] = ThirdanswerController.value.text);
-      print(request.fields['second_answer'] =SikerReligon.toString());
-      print(request.fields['first_answer'] =SikerReligon.toString());
+      print(request.fields['second_answer'] =FirstanswerController.value.text);
+      print(request.fields['first_answer'] =SecondanswerController.value.text);
       print(request.fields['question'] = QuestionController.value.text);
       print(request.fields['height'] = HeightController.value.text + "." + InchesController.value.text);
       print(request.fields['address'] = Sikeraddress.toString());
@@ -123,7 +123,7 @@ var videoStream = http.ByteStream(videoFile!.openRead());
 print(videoFile);
       print(BarrierToken);
 
-   }  
+   }
       print( request.fields['phone'] = PhoneController.value.text);
       // Send the request and get the response
        response = await request.send();

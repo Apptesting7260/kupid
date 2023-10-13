@@ -189,6 +189,9 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                       color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400),
+                                  softWrap: true, // Allows text to wrap to the next line
+                                  maxLines: 2,    // Set the maximum number of lines
+                                  overflow: TextOverflow.ellipsis, // Sp
                                 ),
                               ],
                             ),
@@ -200,13 +203,19 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.address.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                               Container(
+                                 width: Get.width * 0.3,
+                                 child:  Text(
+                                   seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.address.toString(),
+                                   style: TextStyle(
+                                       color: Colors.black,
+                                       fontSize: 10,
+                                       fontWeight: FontWeight.w400),
+                                   softWrap: true, // Allows text to wrap to the next line
+                              // Set the maximum number of lines
+                                   overflow: TextOverflow.ellipsis,
+                                 ),
+                               )
                               ],
                             ),
                             SizedBox(
@@ -365,7 +374,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/icons/moeny.png',
+                                            "assets/icons/money.png",
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -491,9 +500,12 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                 Text(
                                   seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].occupationName.toString(),
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                  softWrap: true, // Allows text to wrap to the next line
+                                  maxLines: 2,    // Set the maximum number of lines
+                                  overflow: TextOverflow.ellipsis, // Sp
                                 ),
                               ],
                             ),
@@ -505,13 +517,18 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].address.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                           Container(
+                             width: Get.width*0.3,
+                             child:      Text(
+                               seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].address.toString(),
+                               style: TextStyle(
+                                   color: Colors.black,
+                                   fontSize: 10,
+                                   fontWeight: FontWeight.w400),
+                               softWrap: true, // Allows text to wrap to the next line// Set the maximum number of lines
+                               overflow: TextOverflow.ellipsis, // Sp
+                             ),
+                           )
                               ],
                             ),
                             SizedBox(
@@ -542,7 +559,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             //     (seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!=null )? Row(children: [
                             //       for (var i = 0; seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName!.length > i; i++)
                             //         Text(
-                            //           seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName![i].title.toString()+" ",
+                            //           seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].details!.interestName![i]" ",
                             //           style: TextStyle(
                             //               fontSize: 10,
                             //               color: Colors.black,

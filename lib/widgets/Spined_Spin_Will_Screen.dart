@@ -487,7 +487,7 @@ SpeendReqestControllerinstance.startTimer();
                                     height: height * .01,
                                   ),
                                   Text(
-                                    "Match Maker",
+                                    "Match Seeker",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!

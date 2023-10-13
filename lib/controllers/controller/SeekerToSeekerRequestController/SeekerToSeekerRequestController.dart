@@ -1,6 +1,7 @@
 
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
+import 'package:cupid_match/controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/models/DoMachesModel.dart/DoMatchesModel.dart';
@@ -20,7 +21,8 @@ class SeekerToSeekerRequestController extends GetxController {
   final DoMatches =SikerTOSikerRequestModel().obs ;
   RxString error = ''.obs;
   RxBool loading=false.obs;
-
+  RecentSeekerMatchesController recentSeekerMatchesController =
+  Get.put(RecentSeekerMatchesController());
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void SikerTOSikerRequest(SikerTOSikerRequestModel _value) => DoMatches.value = _value ;
   void setError(String _value) => error.value = _value ;
@@ -46,7 +48,10 @@ class SeekerToSeekerRequestController extends GetxController {
 
                                     if(requestid!=null){
                                       print(requestid);
-                                      requestHomeController.homeRequest();}
+                                      requestHomeController.homeRequest();
+                                      recentSeekerMatchesController.isrecentSeekermatchesApi();
+
+                                    }
     // Get.to(ChatPage());}
           }
     }).onError((error, stackTrace){
