@@ -1070,15 +1070,8 @@ class _HomePageState extends State<HomePage> {
                                                                   .value
                                                                   .requests!
                                                                   .incoming![index]
-                                                                  .getanotherseeker!
-                                                                  .imgPath !=
-                                                                  null||makerRequestController
-                                                                  .makerHomePageValue
-                                                                  .value
-                                                                  .requests!
-                                                                  .incoming![index]
                                                                   .getseeker!
-                                                                  .imgPath !=[]
+                                                                  .imgPath !=null
                                                                   ? CircleAvatar(
                                                                 backgroundImage: CachedNetworkImageProvider(
                                                                     makerRequestController
