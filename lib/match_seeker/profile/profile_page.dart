@@ -152,59 +152,66 @@ class _ProfilePageState extends State<ProfilePage> {
                                   //   child: Image.asset("assets/images/vedio.png"),
                                   // ),
                                   SizedBox(height: height * .02),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text("Location",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall),
-                                          SizedBox(
-                                            height: height * .01,
-                                          ),
-                                          Text(
-                                              seekerMyProfileDetailsController
-                                                  .SeekerMyProfileDetail
-                                                  .value.ProfileDetail!
-                                                  .address
-                                                  .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        height: height * .05,
-                                        width: width * .18,
-                                        decoration: BoxDecoration(
-                                          color: Colors.blue.shade50,
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Icon(
-                                              Icons.location_on_outlined,
-                                              size: 20,
-                                              color: Color(0xff000CAA),
+                                            Text("Location",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall),
+                                            SizedBox(
+                                              height: height * .01,
                                             ),
-                                            Text(
-                                              "1 km",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                      color: Color(0xff000CAA)),
-                                            )
+                                            Container(
+width: Get.width*0.7,
+                                              child: Text(
+                                                  seekerMyProfileDetailsController
+                                                      .SeekerMyProfileDetail
+                                                      .value.ProfileDetail!
+                                                      .address
+                                                      .toString(),
+                                                style: TextStyle(color: Colors.black),
+
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
                                           ],
                                         ),
-                                      ),
-                                    ],
+                                        Container(
+                                          height: height * .05,
+                                          width: width * .18,
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue.shade50,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                size: 20,
+                                                color: Color(0xff000CAA),
+                                              ),
+                                              Text(
+                                                "1 km",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        color: Color(0xff000CAA)),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(height: height * .03),
                                   Text("Mobile Number",
