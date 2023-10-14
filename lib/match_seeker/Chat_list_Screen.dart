@@ -97,7 +97,22 @@ class _ChatListScreenState extends State<ChatListScreen> {
                               roomid =  seekerChatListController.seekerChatListValue.value.chat![index].roomid
               
                                   .toString();
-              
+              chatname=seekerChatListController
+                  .seekerChatListValue
+                  .value
+                  .chat![index]
+                  .seekerfromName!
+                  .toString();
+              chatimage=seekerChatListController
+                  .seekerChatListValue
+                  .value
+                  .chat![index]
+                  .seekerwithImg!
+                  .toString();
+              setState(() {
+                chatname;
+                chatimage;
+              });
                               if (requestid != null) {
                                 print(requestid);
                                 Get.to(ChatPage());

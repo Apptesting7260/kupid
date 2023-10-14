@@ -173,10 +173,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   .value.ProfileDetail!
                                                   .address
                                                   .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(color: Colors.grey)),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ],
                                       ),
                                       Container(

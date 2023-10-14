@@ -60,8 +60,29 @@ class _RecentMatchesState extends State<RecentMatches> {
             child: Column(
               children: [
                 Obx(() {
-                  return
-                  rsmController.RecentSeekerMatchValue.value.status=="success" ?GridView.builder(
+                  final questionsStatus = rsmController.rxRequestStatus.value;
+                  if (questionsStatus == Status.ERROR) {
+                    if (rsmController.rxRequestStatus.value == 'No internet') {
+                      return InterNetExceptionWidget(
+                        onPress: () {
+                          rsmController.refreshApi();
+                        },
+                      );
+                    } else {
+                      return GeneralExceptionWidget(onPress: () {
+                        rsmController.refreshApi();
+                      });
+                    }
+                  } else if (rsmController == Status.LOADING ||
+                      questionsStatus == Status.LOADING) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.pink,
+                        ));
+                  } else {
+                    if (rsmController.RecentSeekerMatchValue.value.status !=
+                        "Data Not Found") {
+                      return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 10,
@@ -87,7 +108,7 @@ class _RecentMatchesState extends State<RecentMatches> {
                                           decoration: BoxDecoration(
                                               color: AppColors.ratingcodeColor,
                                               borderRadius:
-                                                  BorderRadius.circular(18)),
+                                              BorderRadius.circular(18)),
                                         ),
                                         Transform.rotate(
                                           angle: (math.pi / 390) * 11,
@@ -97,20 +118,24 @@ class _RecentMatchesState extends State<RecentMatches> {
                                             width: width * .2,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(22),
+                                              BorderRadius.circular(22),
                                               image: DecorationImage(
-                                                  image:rsmController
+                                                  image: rsmController
                                                       .RecentSeekerMatchValue
                                                       .value
                                                       .data![index]
-                                                      .getanotherseeker!.id!=int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                      .getanotherseeker!.id !=
+                                                      int.parse(Getcurrentuser
+                                                          .toString())
+                                                      ? CachedNetworkImageProvider(
                                                       rsmController
                                                           .RecentSeekerMatchValue
                                                           .value
                                                           .data![index]
                                                           .getseeker!
                                                           .imgPath
-                                                          .toString()):CachedNetworkImageProvider(
+                                                          .toString())
+                                                      : CachedNetworkImageProvider(
                                                       rsmController
                                                           .RecentSeekerMatchValue
                                                           .value
@@ -134,14 +159,18 @@ class _RecentMatchesState extends State<RecentMatches> {
                                                       .RecentSeekerMatchValue
                                                       .value
                                                       .data![index]
-                                                      .getanotherseeker!.id==int.parse(Getcurrentuser.toString())? CachedNetworkImageProvider(
+                                                      .getanotherseeker!.id ==
+                                                      int.parse(Getcurrentuser
+                                                          .toString())
+                                                      ? CachedNetworkImageProvider(
                                                       rsmController
                                                           .RecentSeekerMatchValue
                                                           .value
                                                           .data![index]
                                                           .getseeker!
                                                           .imgPath
-                                                          .toString()):CachedNetworkImageProvider(
+                                                          .toString())
+                                                      : CachedNetworkImageProvider(
                                                       rsmController
                                                           .RecentSeekerMatchValue
                                                           .value
@@ -151,7 +180,7 @@ class _RecentMatchesState extends State<RecentMatches> {
                                                           .toString()),
                                                   fit: BoxFit.cover),
                                               borderRadius:
-                                                  BorderRadius.circular(22),
+                                              BorderRadius.circular(22),
                                             ),
                                           ),
                                         ),
@@ -186,7 +215,8 @@ class _RecentMatchesState extends State<RecentMatches> {
                                     ),
                                     Text(
                                       "It’s a match, Jake!",
-                                      style: Theme.of(context)
+                                      style: Theme
+                                          .of(context)
                                           .textTheme
                                           .titleSmall
                                           ?.copyWith(color: AppColors.red),
@@ -198,55 +228,60 @@ class _RecentMatchesState extends State<RecentMatches> {
                                     Text(
                                       "Start a conversation now with each other",
                                       style:
-                                          Theme.of(context).textTheme.labelSmall,
+                                      Theme
+                                          .of(context)
+                                          .textTheme
+                                          .labelSmall,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-  onTap:   () {
-                                          setState(() {
-                                            userIdsiker=null;
-                                          });
-                                          if(rsmController
-                                              .RecentSeekerMatchValue
-                                              .value
-                                              .data![
-                                          index]
-                                              .getseeker!.id!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id){
+                            onTap: () {
+                              setState(() {
+                                userIdsiker = null;
+                              });
+                              if (rsmController
+                                  .RecentSeekerMatchValue
+                                  .value
+                                  .data![
+                              index]
+                                  .getseeker!.id !=
+                                  seekerMyProfileController
+                                      .SeekerMyProfileDetail.value
+                                      .ProfileDetail!.id) {
+                                userIdsiker = rsmController
+                                    .RecentSeekerMatchValue
+                                    .value
+                                    .data![
+                                index]
+                                    .getseeker!
+                                    .id.toString();
+                                setState(() {
+                                  userIdsiker;
+                                });
+                                Get.to(SingalRecentMatches());
+                              }
+                              else {
+                                userIdsiker = rsmController
+                                    .RecentSeekerMatchValue
+                                    .value
+                                    .data![
+                                index]
+                                    .getanotherseeker!
+                                    .id.toString();
 
-                                                        userIdsiker= rsmController
-                                                .RecentSeekerMatchValue
-                                                .value
-                                                .data![
-                                            index]
-                                                .getseeker!
-                                                .id.toString();
-                                                   setState(() {
-                                                  userIdsiker;
-                                                });
-                                            Get.to(SingalRecentMatches());
-                                          }
-                                          else{
-                                            userIdsiker= rsmController
-                                                .RecentSeekerMatchValue
-                                                .value
-                                                .data![
-                                            index]
-                                                .getanotherseeker!
-                                                .id.toString();
-
-                                                setState(() {
-                                                  userIdsiker;
-                                                });
-                                            print("requst id $userIdsiker");
-                                            Get.to(SingalRecentMatches());
-                                          }
+                                setState(() {
+                                  userIdsiker;
+                                });
+                                print("requst id $userIdsiker");
+                                Get.to(SingalRecentMatches());
+                              }
 
 
-                                              // print(userIdsiker);
-                                              // Get.to(SingalRecentMatches());
-                                            },
+                              // print(userIdsiker);
+                              // Get.to(SingalRecentMatches());
+                            },
                             // onTap: () {
                             //     setState(() {
                             //       userIdsiker=null;
@@ -271,25 +306,31 @@ class _RecentMatchesState extends State<RecentMatches> {
                             // },
                           );
                         },
-                      ):Column(
+                      );
+                    }
+                    else {
+                    return  Column(
 
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(height:Get.height*0.15,),
-                                  Container(
-                                          
-                                          height: Get.height*0.2,
-                                          width: Get.width*0.8,
-                                          decoration:BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/recentConversationempty.png"))),),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: Get.height * 0.15,),
+                          Container(
 
-                                          SizedBox(height: Get.height*0.01,),
-                                          Center(child: Text("Reference site about Lorem Ipsum\n   giving information on its origins",style: TextStyle(color: Colors.black),))
-                                ],
-                              );
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.8,
+                            decoration: BoxDecoration(image: DecorationImage(image: AssetImage(
+                                "assets/images/recentConversationempty.png"))),),
+
+                          SizedBox(height: Get.height * 0.01,),
+                          Center(child: Text(
+                            "Reference site about Lorem Ipsum\n   giving information on its origins",
+                            style: TextStyle(color: Colors.black),))
+                        ],
+                      );
+                    }
                   }
-                
-            )],
+                } )],
             ),
           ),
         ));

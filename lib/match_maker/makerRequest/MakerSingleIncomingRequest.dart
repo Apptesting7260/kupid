@@ -80,15 +80,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
           //   });
           // }
           case Status.COMPLETED:
-            myId = seekerOutgoingRequestSinglePageController.ViewProfileDetail.value!
-                .data!.id.toString();
 
-            final myUserUrl = seekerOutgoingRequestSinglePageController
-                .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
-                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                .value.data!.getanotherseeker!
-                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                .value.data!.getseeker!;
             final requestStatus;
             (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value
                 .data!.matchWith == myId) ?
@@ -358,14 +350,20 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
+                              Container(
+                                  width: Get.width * 0.04,
+                                child:   Text(
                                   seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.name.toString(),
+                                      .value.data!.getseeker!.address,
+
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 6,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w400) ,
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
+                              )
                               ],
                             ),
                             SizedBox(
@@ -472,6 +470,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                               fontSize: 6,
                                               fontWeight:
                                               FontWeight.w400),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )),
@@ -554,7 +554,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -568,6 +568,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                               fontSize: 6,
                                               fontWeight:
                                               FontWeight.w400),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )),
@@ -595,7 +597,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                       SizedBox(width: Get.width * 0.04,),
 
                       //    // ******************
-                      Container(
+                 if( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                     .value.data!.matchWith.toString()!="null")     Container(
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(244, 244, 244, 1),
                             borderRadius: BorderRadius.circular(10),
@@ -702,7 +705,10 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                                       fontSize: 8,
                                       fontWeight: FontWeight.w400),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
+
                               ],
                             ),
                             SizedBox(
@@ -713,14 +719,20 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.address.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                             Container(
+                                 width: Get.width * 0.04,
+                               child:    Text(
+                                 seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                     .value.data!.getanotherseeker!.address.toString()+"",
+                                 style: TextStyle(
+                                     color: Colors.black,
+                                     fontSize: 6,
+                                     fontWeight: FontWeight.w400),
+                                 softWrap: true,
+                                 overflow: TextOverflow.ellipsis,
+                               ),
+                             )
+
                               ],
                             ),
                             SizedBox(
@@ -738,6 +750,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                                       fontSize: 8,
                                       fontWeight: FontWeight.w600),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
@@ -917,7 +931,10 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                               fontSize: 6,
                                               fontWeight:
                                               FontWeight.w400),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
+
                                       ],
                                     )),
                                 SizedBox(
@@ -947,13 +964,15 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  (requestStatus == 'accepted') ? Row(
+                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                      .value.data!.matchWith.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                      .value.data!.matchFrom=="accepted") ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
 
 
                     children: [
 
-                      GestureDetector(
+               GestureDetector(
                         onTap: () {
 
                           setState(() {
@@ -992,36 +1011,59 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                     children: [
 
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            userIdsiker=null;
-                          });
+                      Container(
+                        height: Get.height * 0.05,
+                        width: Get.width * 0.4,
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(254, 0, 145, 1),
+                            borderRadius: BorderRadius.circular(60)),
+                        child:seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            .value.data!.matchWith.toString()=="null"? Center(
+        child: InkWell(
+          child: Text('Find Now',
+          style: TextStyle(
 
-                          userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                              .value.data!.getanotherseeker!
-                              .id.toString();
-                          print(userIdsiker);
+          fontSize: 15,
+          fontWeight: FontWeight.w700,
+          color: Colors.white)),
+          onTap: (){
+            setState(() {
+              userIdsiker=null;
+            });
 
-                          if (userIdsiker != null) {
-                            print(userIdsiker);
-                            Get.to(CreateNewMatches());
-                          }
-                        },
-                        child: Container(
-                          height: Get.height * 0.05,
-                          width: Get.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(254, 0, 145, 1),
-                              borderRadius: BorderRadius.circular(60)),
-                          child: Center(
-                            child: Text('Find Now',
+            userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.matchFrom.toString()
+            ;
+            print(userIdsiker);
+
+            if (userIdsiker != null) {
+              print(userIdsiker);
+              Get.to(CreateNewMatches());
+            }
+          },
+        ),
+                        ):Center(
+                          child: seekerOutgoingRequestSinglePageController.ViewProfileDetail
+            .value.data!.matchWithStatus.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+            .value.data!.matchFromStatus.toString()=="accepted"? InkWell(
+              child: Text('chat now',
                                 style: TextStyle(
 
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white)),
-                          ),
+                            onTap: (){
+                roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.roomid.toString();
+
+                Get.to(MakerChatScreen());
+                            },
+            ):Text('pending',
+                              style: TextStyle(
+
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white)),
                         ),
                       ),
                     ],)

@@ -81,10 +81,19 @@ class _RecentMakerMatchesViewAllState extends State<RecentMakerMatchesViewAll> {
                           .RecentMakerMatchesValue.value.requests==[]|| recentMakerMatchesController
                           .RecentMakerMatchesValue.value.requests==null) {
                         return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+
+
                           children: [
-                            Image.asset(
-                              'assets/images/recentmatchempt.png',
-                              width: Get.width * 0.83,
+                               SizedBox(
+                                 height: Get.height*0.2,
+                               ),
+                            Center(
+                              child: Image.asset(
+                                'assets/images/recentmatchempt.png',
+                                width: Get.width * 0.83,
+                              ),
                             ),
                             Text(
                               "Reference site about Lorem Ipsum, giving information on its origins",

@@ -35,6 +35,8 @@ File? videoFile;
   String? selectExperience;
 String ?match_fromid;
 String ?match_withid;
+String?chatimage;
+String?chatname;
 String ?Makerid;
 String ?Sikeraddress;
 String? BioTitle;

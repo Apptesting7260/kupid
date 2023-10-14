@@ -43,48 +43,54 @@ class ViewRequestDetailsController extends GetxController {
     };
    setRxRequestStatus(Status.LOADING);
 
-    _api.RequestDetailsApi(data).then((value)async{
+    _api.RequestDetailsApi(data).then((value)async {
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       // print(value);
+      Map <String, dynamic> roomdetails = {};
+      if (value.data!.matchWith.toString() != "null") {
+        roomdetails = {
+          "seeker_name1": value.data!.getseeker!.name.toString(),
+          "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 
-      Map <String, dynamic> roomdetails={
-        "seeker_name1":value.data!.getseeker!.name.toString(),
-        "seeker_name2":value.data!.getanotherseeker!.name.toString(),
+          "seeker_id1": value.data!.getanotherseeker!.id.toString(),
 
-        "seeker_id1":value.data!.getanotherseeker!.id.toString(),
+          "seeker_id2": value.data!.getanotherseeker!.id.toString(),
+          "maker_id": value.data!.getmaker!.id.toString(),
+          "maker_name": value.data!.getmaker!.name.toString(),
+          "maker_image": value.data!.getmaker!.imgPath.toString(),
+          "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
+          "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
+          "roomname": value.data!.getseeker!.name.toString() +
+              value.data!.getanotherseeker!.name.toString() +
+              value.data!.getmaker!.name.toString()
+        };
+      }
 
-        "seeker_id2":value.data!.getanotherseeker!.id.toString(),
-        "maker_id":value.data!.getmaker!.id.toString(),
-        "maker_name":value.data!.getmaker!.name.toString(),
-        "maker_image":value.data!.getmaker!.imgPath.toString(),
-        "seeker_inage1":value.data!.getseeker!.imgPath.toString(),
-        "seeker_inage2":value.data!.getanotherseeker!.imgPath.toString(),
-        "roomname":value.data!.getseeker!.name.toString()+value.data!.getanotherseeker!.name.toString()+value.data!.getmaker!.name.toString()
-      };
        await _firestore.collection(value.data!.getseeker!.name.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
-      // print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
+       // print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
 // print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
 
-  //  await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
-  //   "getseeker":value.data!.getseeker!.id.toString(),
-  //   "getmaker":value.data!.getmaker==null?"": value.data!.getmaker!.id.toString(),
-  //   "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
-  //   "requestid":value.data!.id.toString()
-  //  });
-  // await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});S
- 
+       //  await _firestore.collection("seeker").doc(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString()).collection("Request").doc(value.data!.id.toString()).set({
+       //   "getseeker":value.data!.getseeker!.id.toString(),
+       //   "getmaker":value.data!.getmaker==null?"": value.data!.getmaker!.id.toString(),
+       //   "getanotherseeker":value.data!.getanotherseeker!.id.toString(),
+       //   "requestid":value.data!.id.toString()
+       //  });
+       // await _firestore.collection("RoomId's").doc(value.data!.roomid.toString()).set({});S
+
 //  if(value.data!.roomid==null) {
-  
-  
+
+
 //  }else{
 //   print("");
 
 //   }
 
 
-         print("fjksdfn");
-    }).onError((error, stackTrace){
+       print("fjksdfn");
+     }
+    ).onError((error, stackTrace){
       setError(error.toString());
       print("${error.toString()}===============+++=");
       setRxRequestStatus(Status.ERROR);

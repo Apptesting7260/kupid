@@ -1213,6 +1213,34 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       .requests!.outgoing!.length
                                   ,
                                   itemBuilder: (context, index) {
+                                    dynamic anotheruser;
+
+
+
+                                    if(
+                                    requestHomeController
+                                        .seekerHomeRequestValue.value
+                                        .requests!.outgoing![index].getanotherseeker==null
+                                    ){
+                                      anotheruser=requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getseeker;
+
+                                    }else{
+
+                                      anotheruser=  seekerMyProfileController
+                                          .SeekerMyProfileDetail.value
+                                          .ProfileDetail!.id== requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getseeker!.id?requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getanotherseeker:requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getseeker;
+
+                                    }
+
+
                                     return InkWell(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -1289,12 +1317,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                       AppColors
                                                                           .white,
                                                                       backgroundImage: CachedNetworkImageProvider(
-                                                                          requestHomeController
-                                                                              .seekerHomeRequestValue
-                                                                              .value
-                                                                              .requests!
-                                                                              .outgoing![index]
-                                                                              .getanotherseeker!
+                                                                          anotheruser!
                                                                               .imgPath
                                                                               .toString())),
                                                                 ],
@@ -1314,12 +1337,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     0.02,
                                                               ),
                                                               Text(
-                                                                requestHomeController
-                                                                    .seekerHomeRequestValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .outgoing![index]
-                                                                    .getanotherseeker!
+                                                                anotheruser
                                                                     .name
                                                                     .toString(),
                                                                 style: TextStyle(
@@ -1337,12 +1355,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     0.01,
                                                               ),
                                                               Text(
-                                                                requestHomeController
-                                                                    .seekerHomeRequestValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .outgoing![index]
-                                                                    .getanotherseeker!
+                                                                anotheruser
                                                                     .dob
                                                                     .toString(),
                                                                 style: TextStyle(
@@ -1432,12 +1445,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     radius:
                                                                     30.0,
                                                                     backgroundImage: CachedNetworkImageProvider(
-                                                                        requestHomeController
-                                                                            .seekerHomeRequestValue
-                                                                            .value
-                                                                            .requests!
-                                                                            .outgoing![index]!
-                                                                            .getanotherseeker!
+                                                                        anotheruser!
                                                                             .imgPath
                                                                             .toString()
 
@@ -1460,7 +1468,11 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                         width: 2),
                                                                   ),
                                                                   child:
-                                                                  CircleAvatar(
+                                                                  requestHomeController
+                                                                      .seekerHomeRequestValue
+                                                                      .value
+                                                                      .requests!
+                                                                      .outgoing![index].getanotherseeker==null?      CircleAvatar(
                                                                     radius:
                                                                     30.0,
                                                                     backgroundImage: CachedNetworkImageProvider(
@@ -1468,10 +1480,20 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                             .seekerHomeRequestValue
                                                                             .value
                                                                             .requests!
-                                                                            .outgoing![index]!
-                                                                            .getanotherseeker!
+                                                                            .outgoing![index].getmaker!.imgPath.toString()
+
+                                                                    ),
+                                                                    backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                  ):CircleAvatar(
+                                                                    radius:
+                                                                    40.0,
+                                                                    backgroundImage: CachedNetworkImageProvider(
+                                                                        anotheruser
                                                                             .imgPath
                                                                             .toString()
+
                                                                     ),
                                                                     backgroundColor:
                                                                     Colors
@@ -1489,14 +1511,27 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                               Get.height *
                                                                   0.02,
                                                             ),
-                                                            Text(
+                                                            requestHomeController
+                                                                .seekerHomeRequestValue
+                                                                .value
+                                                                .requests!
+                                                                .outgoing![index].getanotherseeker==null?   Text(
+                                                                requestHomeController
+                                                                    .seekerHomeRequestValue
+                                                                    .value
+                                                                    .requests!
+                                                                    .outgoing![index].getmaker!.name.toString(),
 
-                                                              requestHomeController
-                                                                  .seekerHomeRequestValue
-                                                                  .value
-                                                                  .requests!
-                                                                  .outgoing![index]!
-                                                                  .getanotherseeker!
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .pink,
+                                                                  fontSize:
+                                                                  20,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ): Text(
+                                                              anotheruser!
                                                                   .name
                                                                   .toString(),
 
@@ -1514,13 +1549,23 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                               Get.height *
                                                                   0.01,
                                                             ),
-                                                            Text(
+                                                            requestHomeController
+                                                                .seekerHomeRequestValue
+                                                                .value
+                                                                .requests!
+                                                                .outgoing![index].getanotherseeker==null?  Text(
                                                               requestHomeController
                                                                   .seekerHomeRequestValue
                                                                   .value
                                                                   .requests!
-                                                                  .outgoing![index]!
-                                                                  .getanotherseeker!
+                                                                  .outgoing![index].getmaker!.dob.toString()
+
+                                    ,
+                                    style: TextStyle(
+                                    color: Colors
+                                        .black),
+                                    ): Text(
+                                                              anotheruser!
                                                                   .dob
                                                                   .toString()
 
@@ -1553,7 +1598,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 //                                             }
                                         print(requestHomeController
                                             .seekerHomeRequestValue.value
-                                            .requests!.outgoing![index]!
+                                            .requests!.outgoing![index]
                                             .id);
 
                                         userIdsiker = requestHomeController

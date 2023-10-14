@@ -58,7 +58,7 @@ class Data {
     id = json['id'];
     makerId = json['maker_id'];
     matchFrom = json['match_from'];
-    matchWith = json['match_with'];
+    matchWith = json['match_with'].toString();
     matchType = json['match_type'];
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];

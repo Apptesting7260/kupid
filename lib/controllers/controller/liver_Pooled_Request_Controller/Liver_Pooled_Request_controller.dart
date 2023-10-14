@@ -111,12 +111,12 @@ print("uuuuuuuuu");
 
   }
 
-  for(int i =0; i<=2;i++){
+  for(int i =0; i<=3;i++){
 
     if(value.data![0]
                           .spinLeverpoolRequestedData!.spinRequestData![i].isRequested=="true"){
                             seekerprofilerequested.value=true;
-                            print(seekerprofilerequested);
+                            print("${seekerprofilerequested.value}==============================");
                           }
                           
                           }

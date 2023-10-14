@@ -589,7 +589,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
               CircleAvatar(
                 radius: 30.0,
                 backgroundImage: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                    chatimage.toString()),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(width: width * .05),
@@ -598,7 +598,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "John Deo",
+                   chatname.toString(),
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(

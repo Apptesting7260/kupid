@@ -1005,7 +1005,7 @@ class _HomePageState extends State<HomePage> {
                                 );
                               }
                               else{
-                                InkWell(
+                             return   InkWell(
                                   child: Padding(
                                     padding:
                                     const EdgeInsets.all(
@@ -1752,7 +1752,7 @@ class _HomePageState extends State<HomePage> {
                                                           .requests!
                                                           .outgoing![
                                                       index]
-                                                          .getmaker!
+                                                          .getanotherseeker!
                                                           .dob
                                                           .toString(),
                                                       style: TextStyle(

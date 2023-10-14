@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/RequestAcceptController/RequestAcceptController.dart';
@@ -29,6 +31,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 
 class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
 final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
+bool isLoding=false;
   @override
   void initState() {
     super.initState();
@@ -197,7 +200,7 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                     Container(
                                         width: Get.width * 0.5,
 
-                                        child: Expanded(child: Text(
+                                        child:  Text(
                                           seekerOutgoingRequestSinglePageController
                                               .ViewProfileDetail.value.data!
                                               .getmaker!.aboutMaker.toString(),
@@ -205,9 +208,10 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                               color: Colors.black,
                                               fontSize: 7,
                                               fontWeight: FontWeight.w300),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                          flex: 4,
-                                        )
+
                                     )
                                   ],
                                 ),
@@ -350,6 +354,8 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                       color: Colors.black,
                                       fontSize: 8,
                                       fontWeight: FontWeight.w400),
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
@@ -361,15 +367,21 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.name.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                            Container(
+                              width: Get.width * 0.03,
+                              child:     Text(
+                                seekerMyProfileController
+                                    .SeekerMyProfileDetail.value
+                                    .ProfileDetail!.address.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 6,
+                                    fontWeight: FontWeight.w400),
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+
+                              ),
+                            )
                               ],
                             ),
                             SizedBox(
@@ -565,7 +577,7 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -722,13 +734,18 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  myUserUrl.address.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                               Container(
+                                 width:Get.width * 0.04 ,
+                                child: Text(
+                                   myUserUrl.address.toString(),
+                                   style: TextStyle(
+                                       color: Colors.black,
+                                       fontSize: 6,
+                                       fontWeight: FontWeight.w400),
+                                   softWrap: true,
+                                   overflow: TextOverflow.ellipsis,
+                                 ),
+                               )
                               ],
                             ),
                             SizedBox(
@@ -940,7 +957,9 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  (requestStatus == 'accepted') ? Row(
+                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid!=null) ?
+                  Row(
+
                     mainAxisAlignment: MainAxisAlignment.center,
 
 
@@ -949,6 +968,14 @@ final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
                       GestureDetector(
                         onTap: () {
                           roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
+
+                          chatimage=myUserUrl.imgPath.toString();
+                          chatname=myUserUrl.name.toString();
+                          setState(() {
+                            chatimage;
+                            chatname;
+                          });
+
 
 if(roomid!=null){
   print(roomid);
@@ -972,13 +999,15 @@ if(roomid!=null){
                           ),
                         ),
                       ),
-                    ],) : Row(
-
+                    ],) :  myId==seekerOutgoingRequestSinglePageController
+                      .ViewProfileDetail.value.data!.matchWith.toString()&&seekerOutgoingRequestSinglePageController
+                      .ViewProfileDetail.value.data!.matchWithStatus=="pending"||myId==seekerOutgoingRequestSinglePageController
+                      .ViewProfileDetail.value.data!.matchFrom.toString()&&seekerOutgoingRequestSinglePageController
+                      .ViewProfileDetail.value.data!.matchFromStatus=="pending"? Row(
+mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: Get.width * 0.5,
-                      ),
-                      GestureDetector(
+
+                 GestureDetector(
                         onTap: () {
                             final myid = seekerOutgoingRequestSinglePageController
                 .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
@@ -993,12 +1022,40 @@ if(roomid!=null){
                 .value.data!.getanotherseeker!.id!
                 : seekerOutgoingRequestSinglePageController.ViewProfileDetail
                 .value.data!.getseeker!.id;
+                            userIdsiker==seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
 requestid=seekerOutgoingRequestSinglePageController
-                .ViewProfileDetail.value.data!.id;
-
-                print(myid);
+                .ViewProfileDetail.value.data!.id.toString();
+                            match_from_id=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchFrom.toString();
+                            match_with_id=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchWith.toString();
+                            requestid=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+                            Requeststatus="accepted"
+;                print(myid);
                 print(otherid);
-                          // RequestAcceptControllerinstance.RequestAcceptApiHit();
+
+
+
+                          RequestAcceptControllerinstance.RequestAcceptApiHit();
+
+                          setState(() {
+
+                            isLoding=true;
+                          });
+                            if(isLoding==true){
+                              _showProgressDialog(context);
+                            }
+
+        Timer(Duration(seconds: 4), () {
+        setState(() {
+          isLoding = false;
+          Get.back();
+        });
+        });
+
+
                         },
                         child: Container(
                           height: Get.height * 0.038,
@@ -1039,11 +1096,55 @@ requestid=seekerOutgoingRequestSinglePageController
                         ),
                       )
                     ],
-                  )
+                  ):Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+        GestureDetector(
+        onTap: () {
+
+        },
+        child: Container(
+        height: Get.height * 0.038,
+        width: Get.width * 0.2,
+        decoration: BoxDecoration(
+        color: Color.fromRGBO(254, 0, 145, 1),
+        borderRadius: BorderRadius.circular(60)),
+        child: Center(
+        child: Text('pending',
+        style: TextStyle(
+        fontSize: 8,
+        fontWeight: FontWeight.w700,
+        color: Colors.white)),
+        ),
+        ),
+        ),
+        SizedBox(
+        width: Get.width * 0.03,
+        ),
+
                 ]
-            );
+        )] );
         }
       }),
     );
   }
+
+void _showProgressDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16.0),
+            Text("Loading..."),
+          ],
+        ),
+      );
+    },
+  );}
 }

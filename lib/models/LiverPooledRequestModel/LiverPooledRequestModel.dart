@@ -165,7 +165,7 @@ class SpinLeverpoolRequestedData {
 
 class SpinRequestData {
   SeekerData? seekerData;
-  var isRequested;
+var isRequested;
 
   SpinRequestData({this.seekerData, this.isRequested});
 

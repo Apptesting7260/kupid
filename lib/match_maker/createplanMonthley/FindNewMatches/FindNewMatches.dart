@@ -191,6 +191,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                               color: Colors.black,
                                               fontSize: 8,
                                               fontWeight: FontWeight.w400),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     ),
@@ -202,7 +204,9 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                         SizedBox(
                                           width: Get.width * 0.04,
                                         ),
-                                        Text(
+                                      Container(
+                                          width:Get.width * .3  ,
+                                        child:   Text(
                                           seekerViewMyProfileController
                                               .ViewProfileDetail
                                               .value
@@ -211,7 +215,10 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                               color: Colors.black,
                                               fontSize: 6,
                                               fontWeight: FontWeight.w400),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
+                                      )
                                       ],
                                     ),
                                     SizedBox(
@@ -315,6 +322,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                       fontSize: 6,
                                                       fontWeight:
                                                       FontWeight.w400),
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             )),
@@ -363,6 +372,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                       fontSize: 6,
                                                       fontWeight:
                                                       FontWeight.w400),
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             )),
@@ -410,12 +421,14 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                   seekerViewMyProfileController
                                                       .ViewProfileDetail
                                                       .value
-                                                      .profileDetails![0].religion.toString()+' Monthly',
+                                                      .profileDetails![0].salary.toString()+' Monthly',
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 6,
                                                       fontWeight:
                                                       FontWeight.w400),
+                                                  softWrap: true,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             )),
@@ -589,6 +602,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                           fontSize: 8,
                                                           fontWeight:
                                                           FontWeight.w400),
+                                                      softWrap: true,
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ],
                                                 ),
@@ -600,14 +615,19 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                     SizedBox(
                                                       width: Get.width * 0.04,
                                                     ),
-                                                    Text(
-                                                      createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].address.toString(),
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 6,
-                                                          fontWeight:
-                                                          FontWeight.w400),
-                                                    ),
+                                                   Container(
+                                                     width: Get.width * .3,
+                                                     child:  Text(
+                                                       createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].address.toString(),
+                                                       style: TextStyle(
+                                                           color: Colors.black,
+                                                           fontSize: 6,
+                                                           fontWeight:
+                                                           FontWeight.w400),
+                                                       softWrap: true,
+                                                       overflow: TextOverflow.ellipsis,
+                                                     ),
+                                                   )
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -652,6 +672,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                               color: Colors.black,
                                                               fontWeight:
                                                               FontWeight.w400),
+                                                          softWrap: true,
+                                                          overflow: TextOverflow.ellipsis,
                                                         ),
 
                                                     ],):Container(),
@@ -709,6 +731,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                                   fontWeight:
                                                                   FontWeight
                                                                       .w400),
+                                                              softWrap: true,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ],
                                                         )),
@@ -757,6 +781,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                                   fontWeight:
                                                                   FontWeight
                                                                       .w400),
+                                                              softWrap: true,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ],
                                                         )),
@@ -806,6 +832,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                                   fontWeight:
                                                                   FontWeight
                                                                       .w400),
+                                                              softWrap: true,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ],
                                                         )

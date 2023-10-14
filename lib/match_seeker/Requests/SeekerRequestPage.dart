@@ -79,15 +79,22 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
             //   });
             // }
           case Status.COMPLETED:
+          var myUserUrl;
             myId = seekerMyProfileController.SeekerMyProfileDetail.value!
                 .ProfileDetail!.id.toString();
+if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
+    .value.data!.matchWith.toString()=="null"){
 
-            final myUserUrl = seekerOutgoingRequestSinglePageController
-                .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
-                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                .value.data!.getanotherseeker!
-                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                .value.data!.getseeker!;
+
+    }else{
+  myUserUrl = seekerOutgoingRequestSinglePageController
+      .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
+      ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+      .value.data!.getanotherseeker!
+      : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+      .value.data!.getseeker!;
+    }
+
             final requestStatus;
             (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value
                 .data!.matchWith == myId) ?
@@ -204,6 +211,8 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                             color: Colors.black,
                                             fontSize: 7,
                                             fontWeight: FontWeight.w300),
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                         flex: 4,
                                       )
@@ -362,15 +371,20 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.name.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                               Container(
+                                 width: Get.width * 0.04,
+                                 child:  Text(
+                                   seekerMyProfileController
+                                       .SeekerMyProfileDetail.value
+                                       .ProfileDetail!.address.toString(),
+                                   style: TextStyle(
+                                       color: Colors.black,
+                                       fontSize: 6,
+                                       fontWeight: FontWeight.w400),
+                                   softWrap: true,
+                                   overflow: TextOverflow.ellipsis,
+                                 ),
+                               )
                               ],
                             ),
                             SizedBox(
@@ -566,7 +580,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -608,7 +622,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                       SizedBox(width: Get.width * 0.04,),
 
                       //    // ******************
-                      Container(
+                 myUserUrl==null ?Container():   Container(
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(244, 244, 244, 1),
                             borderRadius: BorderRadius.circular(10),
@@ -723,13 +737,18 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                 SizedBox(
                                   width: Get.width * 0.04,
                                 ),
-                                Text(
-                                  myUserUrl.address.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                      fontSize: 6,
-                                      fontWeight: FontWeight.w400),
-                                ),
+                               Container(
+                                 width: Get.width * 0.04,
+                                 child:  Text(
+                                   myUserUrl.address.toString(),
+                                   style: TextStyle(
+                                       color: Colors.black,
+                                       fontSize: 6,
+                                       fontWeight: FontWeight.w400),
+                                   softWrap: true,
+                                   overflow: TextOverflow.ellipsis,
+                                 ),
+                               )
                               ],
                             ),
                             SizedBox(
@@ -898,7 +917,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -951,6 +970,8 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
                       onTap: () {
 
 roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
+chatname="";
+chatname="";
 
 if(roomid!=null){
   print(roomid);

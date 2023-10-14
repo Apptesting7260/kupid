@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/RequestDetailsController/RequestDetailsController.dart';
+
 class RequestAcceptController extends GetxController {
 
   final _api = AuthRepository();
@@ -31,7 +33,7 @@ class RequestAcceptController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void RequestAccepts(RequestAcceptModel _value) => RequestAccept.value = _value ;
   void setError(String _value) => error.value = _value ;
-
+  final ViewRequestDetailsController seekerOutgoingRequestSinglePageController = Get.put(ViewRequestDetailsController());
 
   void RequestAcceptApiHit()async{
     setRxRequestStatus(Status.LOADING);
@@ -40,9 +42,10 @@ class RequestAcceptController extends GetxController {
   final box3 = GetStorage(); 
     Map data={
 "request_id":requestid,
-"match_with_id":match_with_id==null?"":match_with_id,
-"match_from_id":match_from_id==null?"":match_from_id,
-"status":Requeststatus
+"match_with_id":match_with_id,
+"match_from_id":match_from_id,
+"status":Requeststatus,
+   "match_type"  :"0"
     };
   // //  setRxRequestStatus(Status.LOADING);
   // if (box3.hasData('seekrprofiledata')) {
@@ -56,7 +59,7 @@ class RequestAcceptController extends GetxController {
       RequestAccepts(value);
       print(value);
       print("abcd");
-
+      seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
         //  print("fjksdfn");
     }).onError((error, stackTrace){
       setRxRequestStatus(Status.COMPLETED);
