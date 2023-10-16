@@ -169,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               height: height * .01,
                                             ),
                                             Container(
-width: Get.width*0.7,
+                                                      width: Get.width*0.7,
                                               child: Text(
                                                   seekerMyProfileDetailsController
                                                       .SeekerMyProfileDetail

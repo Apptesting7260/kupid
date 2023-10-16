@@ -970,8 +970,8 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                       onTap: () {
 
 roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
-chatname="";
-chatname="";
+chatname=myUserUrl.name.toString();
+chatimage=  myUserUrl.imgPath.toString();
 
 if(roomid!=null){
   print(roomid);

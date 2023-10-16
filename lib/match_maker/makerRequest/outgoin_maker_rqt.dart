@@ -855,7 +855,10 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
               Obx(() {
                 switch (outgoingMakerRequestController.rxRequestStatus.value) {
                   case Status.LOADING:
-                    return const Center(child: CircularProgressIndicator());
+                    return Container(
+
+                        child:  Center(child: CircularProgressIndicator()),
+                    height: Get.height *0.5,);
                   case Status.ERROR:
                     if (outgoingMakerRequestController.error.value ==
                         'No internet') {

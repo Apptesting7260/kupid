@@ -29,6 +29,8 @@ import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
+
+import '../utils/app_colors.dart';
 String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
@@ -577,20 +579,55 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
         title: Container(
           child: Row(
             children: [
-              SizedBox(width: width * .02),
-              CircleAvatar(
-                radius: 30.0,
-                backgroundImage: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                backgroundColor: Colors.transparent,
-              ),
-              SizedBox(width: width * .05),
+              SizedBox(width: width * .04),
+              Container(width: width * .15,child: Stack(
+                children: [
+                  chatimage1 !=
+                      null
+                      ? CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        chatimage1
+                            .toString()),
+                    radius: 20,
+                    backgroundColor: AppColors
+                        .white,
+                  )
+                      : CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                    radius: 20.0,
+                    backgroundColor: Colors
+                        .transparent,
+                  ),
+                  Positioned(
+                    left:
+                    15,
+                    child: chatimage !=
+                        null
+                        ? CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(
+                          chatimage
+                              .toString()),
+                      radius: 20,
+
+                    )
+                        : CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                      radius: 20.0,
+                      backgroundColor: Colors
+                          .transparent,
+                    ),
+                  ),
+                ],
+              ),),
+              SizedBox(width: width * .01),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "John Deo",
+                    "$chatname & $chatname1",
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(

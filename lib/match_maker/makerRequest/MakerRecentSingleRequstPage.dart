@@ -544,7 +544,7 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                           height: Get.height * 0.015,
                                           width: Get.width * 0.08,
                                           child: Image.asset(
-                                            'assets/salary_icon.png',
+                                            'assets/icons/money.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),

@@ -62,7 +62,16 @@ class _RecentMakerMatchesViewAllState extends State<RecentMakerMatchesViewAll> {
                 Obx(() {
                   switch (recentMakerMatchesController.rxRequestStatus.value) {
                     case Status.LOADING:
-                      return const Center(child: CircularProgressIndicator());
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+
+
+                        children: [
+                          const Center(
+
+                              child: CircularProgressIndicator()),
+                        ],
+                      );
                     case Status.ERROR:
                       if (recentMakerMatchesController.error.value ==
                           'No internet') {
@@ -78,7 +87,7 @@ class _RecentMakerMatchesViewAllState extends State<RecentMakerMatchesViewAll> {
                       if (recentMakerMatchesController
                               .RecentMakerMatchesValue.value.message ==
                           'No request found'|| recentMakerMatchesController
-                          .RecentMakerMatchesValue.value.requests==[]|| recentMakerMatchesController
+                          .RecentMakerMatchesValue.value.requests!.length==0|| recentMakerMatchesController
                           .RecentMakerMatchesValue.value.requests==null) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,

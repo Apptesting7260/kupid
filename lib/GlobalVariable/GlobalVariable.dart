@@ -37,6 +37,8 @@ String ?match_fromid;
 String ?match_withid;
 String?chatimage;
 String?chatname;
+String?chatimage1;
+String?chatname1;
 String ?Makerid;
 String ?Sikeraddress;
 String? BioTitle;

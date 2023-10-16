@@ -258,20 +258,37 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                       // height: Get.height*0.6,
                       width: Get.width * 1,
                       child:seekrOutgoingRequestController
-                          .OutgoingRequestvalue.value.message !=
+                          .OutgoingRequestvalue.value.message ==
                       'No request found'|| seekrOutgoingRequestController
                           .OutgoingRequestvalue
                           .value
                           .requests!
-                          .toMaker !=
-                          [] ||
-                          seekrOutgoingRequestController
-                              .OutgoingRequestvalue
-                              .value
-                              .requests!
-                              .toMaker!
-                              .isNotEmpty
-                          ? ListView.builder(
+                          .toMaker!.length ==0
+                          ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: Get.height * 0.10,
+                          ),
+                          Container(
+                            height: Get.height * 0.2,
+                            width: Get.width * 0.8,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/recentConversationempty.png"))),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.01,
+                          ),
+                          Center(
+                              child: Text(
+                                "Reference site about Lorem Ipsum\n   giving information on its origins",
+                                style: TextStyle(color: Colors.black),
+                              ))
+                        ],
+                      ):ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                           // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
@@ -560,31 +577,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                   ),
                                 ));
                           })
-                          : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: Get.height * 0.10,
-                          ),
-                          Container(
-                            height: Get.height * 0.2,
-                            width: Get.width * 0.8,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/recentConversationempty.png"))),
-                          ),
-                          SizedBox(
-                            height: Get.height * 0.01,
-                          ),
-                          Center(
-                              child: Text(
-                                "Reference site about Lorem Ipsum\n   giving information on its origins",
-                                style: TextStyle(color: Colors.black),
-                              ))
-                        ],
-                      ),
+                          ,
                     )
                         : Container(
                       // height: Get.height*0.6,
@@ -600,7 +593,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                 .OutgoingRequestvalue
                 .value
                 .requests!
-                .toSeeker ==0
+                .toSeeker!.length ==0
                           ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -609,7 +602,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                             height: Get.height * 0.10,
                           ),
                           Container(
-                            // height: Get.height * 0.2,
+                            height: Get.height * 0.2,
                             width: Get.width * 0.8,
                             decoration: BoxDecoration(
                                 image: DecorationImage(

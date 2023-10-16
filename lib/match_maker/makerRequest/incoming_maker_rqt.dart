@@ -435,7 +435,31 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                           ),
                                         ),
                                       );
-                                    }):Container(),
+                                    }) : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: Get.height * 0.10,
+                                    ),
+                                    Container(
+                                      height: Get.height * 0.2,
+                                      width: Get.width * 0.8,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/recentConversationempty.png"))),
+                                    ),
+                                    SizedBox(
+                                      height: Get.height * 0.01,
+                                    ),
+                                    Center(
+                                        child: Text(
+                                          "Reference site about Lorem Ipsum\n   giving information on its origins",
+                                          style: TextStyle(color: Colors.black),
+                                        ))
+                                  ],
+                                ),
                               )
                               : Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -687,7 +711,13 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                          .start,
                                                      children: [
                                                        Text(
-                                                         'Emma',
+                                                         requestMatchesController
+                                                             .IncomingMakerValue
+                                                             .value
+                                                             .requests!
+                                                             .randomProfile![
+                                                         index]
+                                                             .getseeker!.name.toString(),
                                                          style: TextStyle(
                                                              color: Colors.white,
                                                              fontSize: 12,

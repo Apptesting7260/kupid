@@ -978,10 +978,20 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                           setState(() {
                             roomid=null;
                           });
+                           setState(() {
 
+                           });
                           roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
                               .value.data!.roomid.toString();
                           print(roomid);
+                          chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.getanotherseeker!.imgPath.toString();
+                          chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.getanotherseeker!.name.toString();
+                          chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.getseeker!.imgPath.toString();
+                          chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                              .value.data!.getseeker!.name.toString();
 
                           if (roomid != null) {
                             print(roomid);
@@ -1055,6 +1065,17 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                             onTap: (){
                 roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
                     .value.data!.roomid.toString();
+                roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.roomid.toString();
+                print(roomid);
+                chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.getanotherseeker!.imgPath.toString();
+                chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.getanotherseeker!.name.toString();
+                chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.getseeker!.imgPath.toString();
+                chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                    .value.data!.getseeker!.name.toString();
 
                 Get.to(MakerChatScreen());
                             },

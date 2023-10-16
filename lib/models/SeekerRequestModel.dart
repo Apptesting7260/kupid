@@ -1,16 +1,6 @@
-// To parse this JSON data, do
-//
-//     final seekerOutgoingRequestModel = seekerOutgoingRequestModelFromJson(jsonString);
-
-import 'dart:convert';
-
-SeekerOutgoingRequestModel seekerOutgoingRequestModelFromJson(String str) => SeekerOutgoingRequestModel.fromJson(json.decode(str));
-
-String seekerOutgoingRequestModelToJson(SeekerOutgoingRequestModel data) => json.encode(data.toJson());
-
 class SeekerOutgoingRequestModel {
   String? status;
-  String?  message;
+  String? message;
   Requests? requests;
 
   SeekerOutgoingRequestModel({
@@ -19,11 +9,15 @@ class SeekerOutgoingRequestModel {
     this.requests,
   });
 
-  factory SeekerOutgoingRequestModel.fromJson(Map<String, dynamic> json) => SeekerOutgoingRequestModel(
-    status: json["status"],
-    message: json["message"],
-    requests: json["requests"] == null ? null : Requests.fromJson(json["requests"]),
-  );
+  factory SeekerOutgoingRequestModel.fromJson(Map<String, dynamic> json) {
+    return SeekerOutgoingRequestModel(
+      status: json["status"],
+      message: json["message"],
+      requests: json["requests"] is List
+          ? Requests(toMaker: [], toSeeker: [])
+          : Requests.fromJson(json["requests"]),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "status": status,
@@ -41,16 +35,28 @@ class Requests {
     this.toSeeker,
   });
 
-  factory Requests.fromJson(Map<String, dynamic> json) => Requests(
-    toMaker: json["to_maker"] == null ? [] : List<ToKer>.from(json["to_maker"]!.map((x) => ToKer.fromJson(x))),
-    toSeeker: json["to_seeker"] == null ? [] : List<ToKer>.from(json["to_seeker"]!.map((x) => ToKer.fromJson(x))),
-  );
+  factory Requests.fromJson(Map<String, dynamic> json) {
+    if (json["to_maker"] is List && json["to_seeker"] is List) {
+      return Requests(
+        toMaker: List<ToKer>.from(json["to_maker"].map((x) => ToKer.fromJson(x))),
+        toSeeker: List<ToKer>.from(json["to_seeker"].map((x) => ToKer.fromJson(x))),
+      );
+    } else {
+      return Requests(toMaker: [], toSeeker: []);
+    }
+  }
 
   Map<String, dynamic> toJson() => {
-    "to_maker": toMaker == null ? [] : List<dynamic>.from(toMaker!.map((x) => x.toJson())),
-    "to_seeker": toSeeker == null ? [] : List<dynamic>.from(toSeeker!.map((x) => x.toJson())),
+    "to_maker": toMaker == null
+        ? []
+        : List<dynamic>.from(toMaker!.map((x) => x.toJson())),
+    "to_seeker": toSeeker == null
+        ? []
+        : List<dynamic>.from(toSeeker!.map((x) => x.toJson())),
   };
 }
+
+
 
 class ToKer {
  var id;

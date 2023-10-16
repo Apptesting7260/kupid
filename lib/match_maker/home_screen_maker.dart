@@ -28,6 +28,7 @@ import '../controllers/MakerHomePageController/MakerHomePageController.dart';
 import '../controllers/controller/IncomingMakerRequestController/incoming_maker_request_ controller.dart';
 import '../controllers/controller/MakerRecentMatchesController/maker_recent_matches_controller.dart';
 import '../controllers/controller/OutgoingMakerRequestController/outgoing_maker_request_controller.dart';
+import '../controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
 import '../data/response/status.dart';
 import '../match_seeker/Chose_role_Type.dart';
 import '../match_seeker/Requests/IncomingRequest.dart';
@@ -56,11 +57,15 @@ class _HomePageState extends State<HomePage> {
   //
   MakerHomePageRequestController makerRequestController =
       Get.put(MakerHomePageRequestController());
+  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+
 
   @override
   void initState() {
     makerRequestController.makerListApi();
     recentMakerMatchesController.isrecentMakerMatchApi();
+    ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+
     super.initState();
 
     // outgoingMakerRequestController.isOutgoingMakerRequestApi();
@@ -130,10 +135,13 @@ class _HomePageState extends State<HomePage> {
     }
     } else if (myProfileStatus == Status.LOADING ||
     questionsStatus == Status.LOADING) {
-    return Center(
-    child: CircularProgressIndicator(
-    color: Colors.pink,
-    ));
+    return Container(
+      height: Get.height *0.9,
+      child: Center(
+      child: CircularProgressIndicator(
+      color: Colors.pink,
+      )),
+    );
     } else {
       if (recentMakerMatchesController
           .RecentMakerMatchesValue.value.message ==
@@ -457,8 +465,7 @@ class _HomePageState extends State<HomePage> {
                                       recentMakerMatchesController
                                           .RecentMakerMatchesValue
                                           .value
-                                          .requests![index]!
-                                          .id
+                                          .requests![index]!.id
                                           .toString();
                                   print(requestid);
 

@@ -91,7 +91,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                               width: Get.width * 0.03,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 178.0),
+                              padding: const EdgeInsets.only(top: 165),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Color.fromRGBO(244, 244, 244, 1),

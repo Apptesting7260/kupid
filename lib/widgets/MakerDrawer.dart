@@ -31,7 +31,7 @@ final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsC
 
   @override
   void initState() {
-ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+// ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
 
     // TODO: implement initState
     super.initState();
@@ -46,7 +46,7 @@ final box = GetStorage();
     return   Obx(() {
           switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {
             case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
+              // return const Center(child: CircularProgressIndicator());
             case Status.ERROR:
               if (ViewMakerProfileDetailsControllerinstance.error.value == 'No internet') {
                 return InterNetExceptionWidget(
