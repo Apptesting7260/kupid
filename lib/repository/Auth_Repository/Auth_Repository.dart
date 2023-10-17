@@ -366,7 +366,7 @@ class AuthRepository {
   Future<SeekerHomeRequestModel> HomeIncomingRequestApi() async {
     print("IncomingRequestApdsgfdhsgfdsjhdsjfhdsji");
     dynamic response = await _apiService.getApi2(AppUrl.HomeIncomingRequestUrl);
-    // print(response);
+    print(response);
     // print(response);
     return SeekerHomeRequestModel.fromJson(response);
   }

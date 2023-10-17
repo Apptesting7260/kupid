@@ -916,7 +916,7 @@ class _SlotMachineState extends State<SlotMachine> {
                       top: pulled == false
                           ? Get.height * 0.04
                           : Get.height * 0.08,
-                      right: -Get.width * 0.01,
+                      right: Get.width * 0.02,
                       child: pulled == false
                           ? GestureDetector(
                               child: Container(
@@ -932,11 +932,11 @@ class _SlotMachineState extends State<SlotMachine> {
 
                                 if(MagicProfileControllerinstance.MagicProfileList.value
                                     .requests!.length> 3){
-                                  if(staticLiverpullController.seekerprofilerequested.value==false){
-                                    if (pulled == false) {
+                                  if(staticLiverpullController.seekerprofilerequested.value.toString()=="false"){
+                                    // if (pulled == false) {
                                       _startSpinning();
-                                    }
-                                    if (pulled == true)
+                                    // }
+                                    // else if (pulled == true)
                                       Timer(Duration(seconds: 2), () {
                                         _stopSpinning();
                                       });
@@ -1286,8 +1286,8 @@ Fluttertoast.showToast(
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
-        width: Get.width * 0.28,
-        height: Get.height * 0.25,
+        width: Get.width * 0.25,
+        height: Get.height * 0.24,
         decoration: BoxDecoration(
           border: Border.all(width: 2, color: Color(0xffDC9F3C)),
           borderRadius: BorderRadius.all(Radius.circular(10)),

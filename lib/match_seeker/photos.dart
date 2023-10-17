@@ -72,8 +72,10 @@ class _PhotosScreenState extends State<PhotosScreen> {
   void initState() {
     // TODO: implement initState
     setState(() {
+      galarylength==[];
              selectedImagesFiles.clear();
     });
+
     super.initState();
   }
 

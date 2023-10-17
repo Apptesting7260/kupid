@@ -81,10 +81,14 @@ class _IncomingRequestsState extends State<IncomingRequests> {
               });
             }
           } else if (myProfileStatus == Status.LOADING) {
-            return Center(
-                child: CircularProgressIndicator(
-              color: Colors.pink,
-            ));
+            return  Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: Get.height *0.45,),
+                const Center(child: CircularProgressIndicator()),
+              ],
+            );
           } else {
 
               return Column(

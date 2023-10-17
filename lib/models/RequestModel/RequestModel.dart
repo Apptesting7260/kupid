@@ -36,7 +36,7 @@ class Data {
  var id;
  var makerId;
  var matchFrom;
-var matchWith;
+String? matchWith;
  var matchType;
   var matchWithStatus;
   var matchFromStatus;

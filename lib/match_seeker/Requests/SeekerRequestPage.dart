@@ -196,6 +196,9 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                           color: Colors.black,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w700),
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+
                                     ),
                                     SizedBox(
                                       height: Get.height * 0.003,
@@ -203,7 +206,7 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                     Container(
                                       width: Get.width * 0.5,
 
-                                      child: Expanded(child: Text(
+                                      child: Text(
                                         seekerOutgoingRequestSinglePageController
                                             .ViewProfileDetail.value.data!
                                             .getmaker!.aboutMaker.toString(),
@@ -213,8 +216,6 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                             fontWeight: FontWeight.w300),
                                         softWrap: true,
                                         overflow: TextOverflow.ellipsis,
-                                      ),
-                                        flex: 4,
                                       )
                                     )
                                   ],
@@ -622,7 +623,9 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                       SizedBox(width: Get.width * 0.04,),
 
                       //    // ******************
-                 myUserUrl==null ?Container():   Container(
+                 myUserUrl==null ?Container(
+                   child: Center(child: Text("Match is Pending",style: TextStyle(color: Colors.black),)),
+                 ):   Container(
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(244, 244, 244, 1),
                             borderRadius: BorderRadius.circular(10),
@@ -936,7 +939,7 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                 SizedBox(
                                   width: Get.width * 0.15,
                                 ),
-                                Container(
+                              Container(
                                   height: Get.height * 0.05,
                                   width: Get.width * 0.05,
                                   child: CircleAvatar(
@@ -960,7 +963,7 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  (requestStatus == 'accepted') ? Row(
+                  (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid!=null) ? Row(
         mainAxisAlignment: MainAxisAlignment.center,
 
 

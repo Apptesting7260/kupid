@@ -64,7 +64,14 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
           child:  Obx(() {
             switch (seekrOutgoingRequestController.rxRequestStatus.value) {
               case Status.LOADING:
-                return const Center(child: CircularProgressIndicator());
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: Get.height *0.45,),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
+                );
               case Status.ERROR:
                 if (seekrOutgoingRequestController.error.value == 'No internet') {
                   return InterNetExceptionWidget(
@@ -79,6 +86,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                 }
               case Status.COMPLETED:
                 return Column(
+
                   children: [
                     SizedBox(height: Get.height * 0.05),
                     Row(

@@ -655,7 +655,7 @@ bool isLoding=false;
                                 //   ),
                                 // ),
 
-                                Container(
+                         Container(
                                   height: Get.height * 0.25,
                                   width: Get.width * 0.4,
                                   child: CachedNetworkImage(
@@ -688,7 +688,7 @@ bool isLoding=false;
                                         (context, url, error) =>
                                         Icon(Icons.error),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                             SizedBox(

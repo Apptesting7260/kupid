@@ -32,7 +32,6 @@ class HomeRequestController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setUserList(value);
 
-
       // Manually convert and cache the data as JSON
       // final jsonData = value.toJson();
       // box.write('incomingRequestData', jsonData)

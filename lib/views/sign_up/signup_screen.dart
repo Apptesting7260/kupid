@@ -1,10 +1,13 @@
 
+import 'dart:io';
 import 'package:cupid_match/views/sign_up/sign_up.dart';
 import 'package:cupid_match/views/user/login_Screen.dart';
 import 'package:cupid_match/widgets/my_button.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -16,10 +19,11 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
 @override
   void initState() {
-
+  _checkStoragePermission();
     
     // TODO: implement initState
     super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -141,4 +145,33 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+_checkStoragePermission() async {
+  PermissionStatus status;
+  if (Platform.isAndroid) {
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    final AndroidDeviceInfo info = await deviceInfoPlugin.androidInfo;
+    if ((info.version.sdkInt) >= 33) {
+      status = await Permission.manageExternalStorage.request();
+    } else {
+      status = await Permission.storage.request();
+    }
+  } else {
+    status = await Permission.storage.request();
+  }
+
+  switch (status) {
+    case PermissionStatus.denied:
+      return false;
+    case PermissionStatus.granted:
+      return true;
+    case PermissionStatus.restricted:
+      return false;
+    case PermissionStatus.limited:
+      return true;
+    case PermissionStatus.permanentlyDenied:
+      return false;
+    case PermissionStatus.provisional:
+      // TODO: Handle this case.
+  }
+}
 }

@@ -197,7 +197,7 @@ class SeekerAddistionInfoController extends GetxController {
       // Check the response status
       if (response.statusCode== 200) {
         print('File uploaded successfully!');
-        Get.off(() =>    Siker_Tab_View(index: 0,)  );
+        Get.offAll(() =>    Siker_Tab_View(index: 0,)  );
         loading.value = false ;
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');

@@ -1179,15 +1179,19 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                               //         .seekerHomeRequestValue.value
                               //         .requests!.outgoing != [] ?
 
+                              // requestHomeController
+                              //     .seekerHomeRequestValue.value
+                              //     .requests!.outgoing!.isEmpty ||
+                              //     requestHomeController
+                              //         .seekerHomeRequestValue.value
+                              //         .requests!.outgoing ==
+                              //         null || requestHomeController
+                              //     .seekerHomeRequestValue.value
+                              //     .requests!.outgoing == [] ?
+
                               requestHomeController
                                   .seekerHomeRequestValue.value
-                                  .requests!.outgoing!.isEmpty ||
-                                  requestHomeController
-                                      .seekerHomeRequestValue.value
-                                      .requests!.outgoing ==
-                                      null || requestHomeController
-                                  .seekerHomeRequestValue.value
-                                  .requests!.outgoing == [] ?
+                                  .requests!.outgoing!.isEmpty?
                               Column(
                                 children: [
                                   Image.asset(
@@ -1207,7 +1211,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                 child:  ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: AlwaysScrollableScrollPhysics(),
-                                  shrinkWrap: true,
+                                  // shrinkWrap: true,
                                   itemCount: requestHomeController
                                       .seekerHomeRequestValue.value
                                       .requests!.outgoing!.length
