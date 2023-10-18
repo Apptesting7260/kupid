@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:cupid_match/controllers/UserLoginController/UserLoginController.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/utils/utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image/image.dart' as imgLib;
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:country_picker/country_picker.dart';
@@ -19,13 +21,17 @@ import 'package:flutter/material.dart';
 // import 'package:country_picker/country_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:new_pinput/new_pinput.dart';
 import 'package:video_player/video_player.dart';
 // import 'package:intl_phone_field/countries.dart';
 
 import '../GlobalVariable/GlobalVariable.dart';
+import '../controllers/UserNumberAndNuberverfyController.dart';
 import '../controllers/controller/MakerProfileController/MakerProfileController.dart';
 
 import 'package:http/http.dart' as http;
+
+import '../controllers/controller/OtpVarificationController/OtpVarificationController.dart';
 
 enum SelectProfile { gender }
 
@@ -38,8 +44,11 @@ class MakerProfileDetails extends StatefulWidget {
 }
 
 class _MakerProfileDetailsState extends State<MakerProfileDetails> {
+  final FocusNode _pinPutFocusNode = FocusNode();
 
   final UserLoginControllerinstance=Get.put(UserLoginController());
+  final UserotpControllerinstance=Get.put(OtpVarificationController());
+  final UserEmailAndphone=Get.put(UserEmailAndPhoneVerifyController());
   //DateTime? startdate;
   FocusNode _dropdownFocus1 = FocusNode();
   FocusNode _dropdownFocus2 = FocusNode();
@@ -52,6 +61,9 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
       print(_isDropdownOpen1);
     });
   }
+
+
+
 
   void _onDropdownFocusChange2() {
     setState(() {
@@ -226,12 +238,15 @@ Future<File?> pickVideo() async {
       };
     });
   }
-
+bool containerBoeder=false;
+  bool phoneContainerBorder=false;
   @override
   void initState() {
     // TODO: implement initState
     setState(() {
       pachedemail;
+      phoneContainerBorder=false;
+      containerBoeder=false;
     });
     super.initState();
 
@@ -239,6 +254,7 @@ Future<File?> pickVideo() async {
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
     startdate=null;
     imgFile=null;
+    selectGender=null;
   }
 
   final imgPicker = ImagePicker();
@@ -294,8 +310,37 @@ Future<File?> pickVideo() async {
   SelectProfile selectProfile = SelectProfile.gender;
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+
+    final BoxDecoration _pinPutDecoration = BoxDecoration(
+        color:  Colors.white,
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all());
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(
+          fontSize: 30, color: Colors.white, fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(40),
+      ),
+    );
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      color: Color(0xffFE0091),
+      border: Border.all(color: Colors.green),
+      borderRadius: BorderRadius.circular(50),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration!.copyWith(
+          color: Color(0xffFE0091),
+          borderRadius: BorderRadius.circular(50)
+      ),
+    );
+
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -325,7 +370,7 @@ Future<File?> pickVideo() async {
           child: ListView(
             children: [
               Column(
-                children: [
+                children: <Widget>[
                   Center(
                     child: SizedBox(
                       height: height * .14,
@@ -562,30 +607,134 @@ Future<File?> pickVideo() async {
                   ),
 // Check if the user is not registered (pachedemail is null)
                   if (pachedemail == null)
-                    TextFormField(
-                      controller: SignUpControllerInstanse.credentialsController.value,
-                      enabled: true, // Set to true to enable the field
-                      decoration: InputDecoration(
-                        hintText: "example@gmail.com", // Placeholder text
-                        contentPadding: EdgeInsets.all(20),
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: AppColors.subtitletextcolor),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.pinkAccent),
-                        ),
-                        // ... Other decoration properties ...
+                    Container(
+                      width: Get.width,
+                      height: Get.height*0.07,
+                      decoration: BoxDecoration(
+
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color:containerBoeder==false? Colors.grey: Colors.pinkAccent)
                       ),
-                      // Validation logic can be added here
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email cannot be empty!';
-                        }
-                        // Additional email validation logic can be added here
-                        return null; // Return null if validation passes
-                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: Get.width*0.7,
+                            child: TextFormField(
+
+                              controller:  SignUpControllerInstanse.credentialsController.value.text.contains("@")?
+                              SignUpControllerInstanse.credentialsController.value:UserEmailAndphone.ehaniAndPhoneVerifyController.value,
+
+                              enabled: SignUpControllerInstanse.credentialsController.value.text.contains("@")?false:true, // Set to true to enable the field
+                              decoration: InputDecoration(
+                                //************** *****alert box************************************
+                                //  suffixText: verify==true?"Verifyed":"Verify",
+                                //  suffixStyle: TextStyle(color:verify==true?Colors.green:Colors.pinkAccent, ),
+                                //
+                                // suffixIcon: IconButton(onPressed: () {
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //   showAlert();
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //
+                                // }, icon: Icon(Icons.verified_outlined)),
+                                // suffixIconColor:Colors.pinkAccent ,
+                                hintText: "example@gmail.com", // Placeholder text
+                                contentPadding: EdgeInsets.all(20),
+                                // contentPadding: EdgeInsets.all(20),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(color: AppColors.subtitletextcolor),
+                                border: InputBorder.none,
+
+                                // focusedBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(30),
+                                //   borderSide: BorderSide(color: Colors.pinkAccent),
+                                // ),
+                                // enabledBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(30),
+                                //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                // ),
+                                // errorBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                //   borderSide: BorderSide(color: Colors.red),
+                                // ),
+                                // disabledBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                // ),
+                                // focusedErrorBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                //   borderSide: BorderSide(color: Colors.pink),
+                                // ),
+                                // border: OutlineInputBorder(
+                                //   borderSide: BorderSide(
+                                //     color: Color(0xffBABABA),
+                                //   ),
+                                //   borderRadius: BorderRadius.circular(30),
+                                // ),
+                                // hintStyle: Theme.of(context)
+                                //     .textTheme
+                                //     .bodyLarge
+                                //     ?.copyWith(color: AppColors.subtitletextcolor),
+                                // focusedBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(30),
+                                //   borderSide: BorderSide(color: Colors.pinkAccent),
+                                // ),
+                                // ... Other decoration properties ...
+                              ),
+                              // Validation logic can be added here
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  setState(() {
+                                    containerBoeder=true;
+                                  });
+                                  return null;
+
+                                }
+                                // Additional email validation logic can be added here
+                                setState(() {
+                                  containerBoeder=false;
+                                });
+                                return null; // Return null if validation passes
+                              },
+                            ),
+                          ),
+                          
+                        // Obx(() =>  InkWell(
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.only(right: 10),
+                        //       child: UserotpControllerinstance.verify==false?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                        //     ),
+                        //     onTap: (){
+                        //       UserEmailAndphone. SignUpapiHit();
+                        //       showAlert();
+                        //     },
+                        //   )),
+                        ],
+                      ),
                     )
 // User is already registered (pachedemail is not null)
                   else
@@ -665,6 +814,13 @@ Future<File?> pickVideo() async {
                   //           color: Color(0xffBABABA),
                   //         )),
                   //   ),),
+                  if(containerBoeder==true)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("Email cannot be empty!",style: TextStyle(color: Colors.red),),
+                    ],
+                  ),
                   SizedBox(
                     height: height * 0.03,
                   ),
@@ -678,79 +834,131 @@ Future<File?> pickVideo() async {
                     height: height * .01,
                   ),
 
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          maxLength: 15,
-                          controller: MakerProfileControllerInstanse
-                              .PhoneController.value,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            prefixIcon: CountryListPick(
-                              theme: CountryTheme(
+                  Container(
+                    width: Get.width,
+                    height: Get.height*0.07,
+                    decoration: BoxDecoration(
+
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color:phoneContainerBorder==false? Colors.grey: Colors.pinkAccent)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: Get.width*0.7,
+                          child: TextFormField(
+
+                           maxLength: 15,
+
+
+                            controller:   SignUpControllerInstanse.credentialsController.value.text.contains("@")?
+                            UserEmailAndphone.ehaniAndPhoneVerifyController.value:SignUpControllerInstanse.credentialsController.value,
+                            // SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false
+                            enabled:SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false ,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                  counter: Offstage(),
+
+                              prefixIcon: CountryListPick(
+                                theme: CountryTheme(
+                                  initialSelection: '+91',
+                                  isShowFlag: true,
+                                  isShowTitle: false,
+                                  isShowCode: true,
+                                  isDownIcon: true,
+                                  showEnglishName: true,
+                                  labelColor: Colors.blueAccent,
+                                ),
                                 initialSelection: '+91',
-                                isShowFlag: true,
-                                isShowTitle: false,
-                                isShowCode: true,
-                                isDownIcon: true,
-                                showEnglishName: true,
-                                labelColor: Colors.blueAccent,
+                                onChanged: (code) {},
                               ),
-                              initialSelection: '+91',
-                              onChanged: (code) {},
+                              hintText: "Mobile number",
+
+                              // contentPadding: EdgeInsets.all(20),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: AppColors.subtitletextcolor),
+                                border: InputBorder.none
+                              //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                              // focusedBorder: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(30),
+                              //   borderSide: BorderSide(color: Colors.pinkAccent),
+                              // ),
+                              // enabledBorder: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(30),
+                              //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                              // ),
+                              // errorBorder: OutlineInputBorder(
+                              //   borderRadius:
+                              //       BorderRadius.all(Radius.circular(35.0)),
+                              //   borderSide: BorderSide(color: Colors.red),
+                              // ),
+                              // disabledBorder: OutlineInputBorder(
+                              //   borderRadius:
+                              //       BorderRadius.all(Radius.circular(35.0)),
+                              //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                              // ),
+                              // focusedErrorBorder: OutlineInputBorder(
+                              //   borderRadius:
+                              //       BorderRadius.all(Radius.circular(35.0)),
+                              //   borderSide: BorderSide(color: Colors.pink),
+                              // ),
+                              // border: OutlineInputBorder(
+                              //     borderRadius: BorderRadius.circular(30),
+                              //     borderSide: BorderSide(
+                              //       color: Color(0xffBABABA),
+                              //     )),
+
                             ),
-                            hintText: "Mobile number",
-                            contentPadding: EdgeInsets.all(20),
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: AppColors.subtitletextcolor),
-                            //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.pinkAccent),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Color(0xffBABABA)),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                              borderSide: BorderSide(color: Colors.red),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                              borderSide: BorderSide(color: Color(0xffBABABA)),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                              borderSide: BorderSide(color: Colors.pink),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color: Color(0xffBABABA),
-                                )),
+
+                            onFieldSubmitted: (value) {},
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                setState(() {
+                                  phoneContainerBorder=true;
+
+                                });
+                                return null;
+                              } else if (!RegExp(
+                                      r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                  .hasMatch(value)) {
+                                setState(() {
+                                  phoneContainerBorder=true;
+
+                                });
+                                setState(() {
+                                  phoneContainerBorder=false;
+
+                                });
+                                return null;
+
+                              }
+                            },
                           ),
-                          onFieldSubmitted: (value) {},
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please Enter a Phone Number";
-                            } else if (!RegExp(
-                                    r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
-                                .hasMatch(value)) {
-                              return "Please Enter a Valid Phone Number";
-                            }
-                          },
                         ),
-                      ),
-                    ],
+                       // Obx(() =>  InkWell(
+                       //   child: Padding(
+                       //     padding: const EdgeInsets.only(right: 10),
+                       //     child: UserotpControllerinstance.verify==false?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                       //   ),
+                       //   onTap: (){
+                       //     UserEmailAndphone. SignUpapiHit();
+                       //     showAlert();
+                       //   },
+                       // )),
+                      ],
+                    ),
                   ),
+                  if(phoneContainerBorder==true)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text("Plesse Enter Valid number!",style: TextStyle(color: Colors.red),),
+                      ],
+                    ),
 
                   SizedBox(
                     height: height * 0.04,
@@ -1279,8 +1487,8 @@ Future<File?> pickVideo() async {
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          _submit();
-                          MakerProfileControllerInstanse.MakerProfileApiHit();
+                          validate();
+
                         }
                       },
                     ),
@@ -1333,4 +1541,151 @@ Future<File?> pickVideo() async {
       print("*****lat ${lat} : ${long}**********long");
     });
   }
+
+  validate(){
+    if(startdate==null){
+      Fluttertoast.showToast(
+          msg: "Pless Select birth date",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }else if(imgFile==null){
+      Fluttertoast.showToast(
+          msg: "Pless Select your profile picture",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }else if(selectGender==null){
+      Fluttertoast.showToast(
+          msg: "Pless Select gender",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    else{
+      _submit();
+      MakerProfileControllerInstanse.MakerProfileApiHit();
+    }
+
+}
+  void _showSnackBar(String pin, BuildContext context) {
+    final snackBar = SnackBar(
+      content: Container(
+        height: 80.0,
+        child: Center(
+          child: Text(
+            'Pin Submitted. Value: $pin',
+            style: const TextStyle(fontSize: 25.0),
+          ),
+        ),
+      ),
+      backgroundColor: Theme.of(context).highlightColor,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
+  showAlert( ){
+    showDialog(context: context,
+      barrierDismissible: false,
+      builder: (context) {
+      return   AlertDialog(
+
+
+        // Color(0xffFFFFFF)
+        backgroundColor:Color(0xffFFFFFF) ,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        content: Container(
+
+          height: Get.height*0.35,
+          width:Get.width*1,
+          child: Column(
+            children: [
+
+              SizedBox(
+                height: Get.height * .05,
+              ),
+              Center(
+                child: Text(
+                  "Type the verification code\n         we've sent you",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: Colors.black),
+                ),
+              ),
+              SizedBox(
+                height: Get.height * .05,
+              ),
+             Obx(() =>  Center(
+                child: Pinput(
+                  validator: (value) {
+                    if (value!.isEmpty && value.length != 6) {
+                      return "Please enter your 6 digit pin";
+                    } else {
+                      return null;
+                    }
+                  },
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  length: 6,
+                  autofocus: true,
+                  //
+                  // validator: (s) {
+                  //   if (s?.contains('1')??false) return null;
+                  //   return 'NOT VALID';
+                  // },
+                  useNativeKeyboard: true,
+                  keyboardType: TextInputType.number,
+                  // defaultPinTheme: defaultPinTheme,
+                  // focusedPinTheme: focusedPinTheme,
+                  // submittedPinTheme: submittedPinTheme,
+                  onSubmitted: (String pin) => _showSnackBar(pin, context),
+                  focusNode: _pinPutFocusNode,
+                  controller: UserotpControllerinstance.OtpController.value,
+                  // submittedPinTheme: PinTheme(
+                  //     height: 56,
+                  //     width: 56,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(40.0),
+                  //         border: Border.all(color: Color(0xffFE0091)),
+                  //         color: Color(0xffFe0091))),
+                  // focusedPinTheme: defaultPinTheme,
+                  // followingPinTheme: defaultPinTheme,
+                ),
+              ),),
+              SizedBox(height: Get.height * .05),
+              Obx(() => Center(
+                child: MyButton(
+                  loading: UserotpControllerinstance.loading.value,
+                  title: "Verify",
+                  onTap: () {
+                    UserotpControllerinstance.OtpVerificationapiiHit();
+                   if (UserotpControllerinstance.verify==true) {
+                     Navigator.pop(context);
+                   }
+
+                  },
+                ),
+              ),)
+            ],
+          ),
+        )
+
+      );
+
+    },);
+  }
+
 }

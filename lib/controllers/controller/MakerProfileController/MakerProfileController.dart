@@ -42,6 +42,8 @@ class MakerProfileController extends GetxController {
 Future<void> MakerProfileApiHit() async {
   final prefs=await SharedPreferences.getInstance();
    loading.value = true ;
+   print(EmailController.value.text);
+   print(PhoneController.value.text);
   try {
     var url = Uri.parse('https://urlsdemo.xyz/kupid/api/user-profile-update');
     var request = http.MultipartRequest('POST', url);
@@ -84,7 +86,7 @@ Future<void> MakerProfileApiHit() async {
       var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);
     request.files.add(videoFileField);
     }
-     
+
 
 print(BarrierToken);
     // Send the request and get the response
