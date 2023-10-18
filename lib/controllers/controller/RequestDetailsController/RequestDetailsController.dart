@@ -5,8 +5,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
+import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
 import 'package:cupid_match/models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
@@ -20,6 +23,7 @@ class ViewRequestDetailsController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ViewSikerProfileDetailsControllerinstance=Get.put(ViewSikerProfileDetailsController
 ());
+final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
   final _api = AuthRepository();
 
 
@@ -29,7 +33,7 @@ class ViewRequestDetailsController extends GetxController {
   
 
 
-
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void ViewProfileDetails(RequestDetailsModel _value) => ViewProfileDetail.value = _value ;
   void setError(String _value) => error.value = _value ;
@@ -53,21 +57,31 @@ class ViewRequestDetailsController extends GetxController {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 
-          "seeker_id1": value.data!.getanotherseeker!.id.toString(),
+          "seeker_id1": value.data!.getseeker!.id.toString(),
 
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
-          "maker_id": value.data!.getmaker!.id.toString(),
-          "maker_name": value.data!.getmaker!.name.toString(),
-          "maker_image": value.data!.getmaker!.imgPath.toString(),
+     if(value.data!.getmaker.toString()!="null")     "maker_id": value.data!.getmaker!.id.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_name": value.data!.getmaker!.name.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_image": value.data!.getmaker!.imgPath.toString(),
+       if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
+
           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
-          "roomname": value.data!.getseeker!.name.toString() +
+        if(value.data!.getmaker.toString()!="null")   "roomname": value.data!.getseeker!.name.toString() +
               value.data!.getanotherseeker!.name.toString() +
-              value.data!.getmaker!.name.toString()
+              value.data!.getmaker!.name.toString(),
+              if(value.data!.getmaker.toString()=="null")"roomname": value.data!.getseeker!.name.toString() +
+              value.data!.getanotherseeker!.name.toString()
         };
+        await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+       await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+
+       anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
       }
 
-       await _firestore.collection(value.data!.getseeker!.name.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+
+       
+
        // print("hit request api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
 // print(ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].id.toString());
 
@@ -97,6 +111,14 @@ class ViewRequestDetailsController extends GetxController {
 
     });
   }
-
+  // Stream<QuerySnapshot> getMessagesStream() {
+  //   return firestore
+  //       .collection(widget.collectionName)
+  //       .orderBy('timestamp', descending: true)
+  //       .snapshots();
+  // }
+  //    var data = snapshot.data?.docs[index];
   
 }
+
+

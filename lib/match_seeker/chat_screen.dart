@@ -31,6 +31,7 @@ import 'package:video_player/video_player.dart';
 String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
+String ? anotherchatuser;
  var playerx;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -178,13 +179,36 @@ class _ChatPageState extends State<ChatPage> {
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
-        messagecontroller.clear();
+  
         await _firestore
-            .collection("RoomId's")
+            .collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await _firestore
+            .collection(anotherchatuser.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
         print(messages);
+
+           DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+  
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
+          messagecontroller.clear();
         // setState(() {
         //   messagetype = "text";
         //   print(messagetype);
@@ -206,7 +230,13 @@ class _ChatPageState extends State<ChatPage> {
         };
         messagecontroller.clear();
     await _firestore
-          .collection("RoomId's")
+          .collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString())
+          .doc(roomid)
+.collection("massages").add(messages!);
+
+  await _firestore
+          .collection(anotherchatuser.toString())
           .doc(roomid)
 .collection("massages").add(messages!);
       print("Enter Some Text");
@@ -214,6 +244,20 @@ class _ChatPageState extends State<ChatPage> {
         messagetype="text";
         print(messagetype);
       });
+         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
       // Add your logic for handling image messages here
       break;
     case "audio":
@@ -229,10 +273,17 @@ class _ChatPageState extends State<ChatPage> {
         "time": FieldValue.serverTimestamp(),
       };
        await _firestore
-          .collection("RoomId's")
+          .collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString())
           .doc(roomid)
 .collection("massages").add(messages!);
       print("Enter Some Text");
+         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+
+
+    
        setState(() {
         messagetype="text";
         messagaudiourl=null;
@@ -630,7 +681,9 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
          Expanded(
                     child: StreamBuilder<QuerySnapshot>(
                                   stream: _firestore
-                                      .collection("RoomId's")
+                                      .collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
+              .toString())
                                       .doc(roomid)
                                       .collection('massages')
                                       .orderBy("time", descending: true)

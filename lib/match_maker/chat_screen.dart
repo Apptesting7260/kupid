@@ -34,6 +34,7 @@ import '../utils/app_colors.dart';
 String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
+
  var playerx;
  bool ismessage=false;
 
@@ -61,6 +62,7 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
   TextEditingController messagecontroller = TextEditingController();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
   final MakerRequestDetailsControllerinstance =
       Get.put(MakerRequestDetailsController());
 
@@ -152,9 +154,9 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
   }); });
     super.initState();
   }
+  
 
   final ScrollController _scrollController = ScrollController();
-
   void onSendMessage() async {
     switch (messagetype) {
       case "text":
@@ -169,14 +171,19 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
+
+
+
         messagecontroller.clear();
         await _firestore
-            .collection("RoomId's")
+            .collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id)
             .doc(roomid)
             .collection("massages")
             .add(messages);
         print("Enter Some Text");
         print(messages);
+     
         // setState(() {
         //   messagetype = "text";
         //   print(messagetype);

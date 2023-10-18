@@ -30,9 +30,9 @@ class IncomingSeekerRequestController extends GetxController {
         setRxRequestStatus(Status.COMPLETED);
         setUserList(value);
 
-        // Manually convert and cache the data as JSON
-        // final jsonData = value.toJson();
-        // box.write('incomingRequestData', jsonData)
+          // Manually convert and cache the data as JSON
+          // final jsonData = value.toJson();
+          // box.write('incomingRequestData', jsonData)
 
         print("354653643++++546536================================================");
       }).onError((error, stackTrace) {
