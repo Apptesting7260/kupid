@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as imgLib;
 import 'dart:io';
 
-import 'package:multi_image_picker/multi_image_picker.dart';
+// import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -119,10 +119,22 @@ class _PhotosScreenState extends State<PhotosScreen> {
     List<Asset> selectedImages = [];
 
     try {
-      selectedImages = await MultiImagePicker.pickImages(
-        maxImages: 9-galleryImageFiles.length,
-        enableCamera: true,
-      );
+
+
+             final List<XFile>? images = await ImagePicker().pickMultiImage();
+               if (images != null) {
+                 setState(() {
+                   selectedImagesFiles = images.map((image) => File(image.path)).toList();
+                 });
+               }
+
+
+
+
+
+
+
+
     } on Exception catch (e) {
       print(e.toString());
     }

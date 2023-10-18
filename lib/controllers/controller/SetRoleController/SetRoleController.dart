@@ -33,9 +33,9 @@ class SetRoleController extends GetxController {
     _api.SetRoleApiApi(data).then((value){
       loading.value = false ;
       print(value);
-      BarrierToken =value!.token;
+      BarrierToken =value.token;
       userId=value.userId!.toString();
-      print(userId);
+      print("user id maker ===================================${userId}");
       print(
           BarrierToken
       );

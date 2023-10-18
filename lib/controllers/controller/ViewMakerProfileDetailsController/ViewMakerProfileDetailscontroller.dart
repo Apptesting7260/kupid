@@ -37,6 +37,8 @@ class ViewMakerProfileDetailsController extends GetxController {
 
     };
    setRxRequestStatus(Status.LOADING);
+   print("user id ========== ${sp.getString('Tokernid')}");
+   print("user id ===================$Makerid");
 
     _api.ViewMakerProfileDetailsApi(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
