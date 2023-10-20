@@ -42,11 +42,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyTheme.light,
-      home: MakerProfileDetails(),
-      // home:  SplashScreen(),
+   
+      home:  SplashScreen(),
     );
   }
 }
+
+
+
+
+
 // import 'dart:io';
 
 // import 'package:audio_waveforms/audio_waveforms.dart';

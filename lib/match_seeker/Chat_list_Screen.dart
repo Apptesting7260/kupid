@@ -126,7 +126,9 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
                                         SizedBox(
                                           height: height * .01,
                                         ),
-                                        Text(data['roomname'],
+                                        Text(
+                                 
+                                          data['roomname'],
                                           // (seekerChatListController
                                           //     .seekerChatListValue
                                           //     .value
@@ -140,7 +142,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
                                           //         .chat![index]
                                           //         .seekerwithName!
                                           //         .toString()),
-                                          style: Theme.of(context).textTheme.titleSmall,
+                                          style: TextStyle(overflow: TextOverflow.ellipsis,color: Colors.black ,fontWeight: FontWeight.bold),
                                         ),
                                       
                                         SizedBox(
