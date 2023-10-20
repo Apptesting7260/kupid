@@ -19,6 +19,7 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
   RxBool loading = false.obs;
   RxBool  verify = false.obs;
 
+
   void OtpVerificationapiiHit(){
     loading.value = true ;
     print(loading.value);
@@ -27,21 +28,18 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
       'otp' : OtpController.value.text,
     };
     print(data);
-    _api.OtpVarificationApi(data).then((value){
-
-      loading.value = false ;
-      verify.value = true ;
-      Verificationotp=OtpController.value.text;
-print(value);
+    _api.OtpVarificationApi(data).then((value) {
+      loading.value = false;
+      verify.value = true;
+      Verificationotp = OtpController.value.text;
+      print(value);
       // Utils.snackBar( "Message",value.msg.toString());
 
-      if(value.msg=="OTP Verified"){
-  Get.to(() => CreatePassword());
-
+      if (value.msg == "OTP Verified") {
+        Get.to(() => CreatePassword());
       }
-
-
-    }).onError((error, stackTrace){
+    }
+).onError((error, stackTrace){
       print("error");
       loading.value = false ;
       Utils.snackBar('Error', error.toString());

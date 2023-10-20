@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../views/user/verification.dart';
+import '../../UserNumberAndNuberverfyController.dart';
 import '../ForgotPasswordController/ForgotPasswordController.dart';
 import '../OtpVarificationController/OtpVarificationController.dart';
 import 'package:http/http.dart' as http;
@@ -36,6 +37,7 @@ class MakerProfileController extends GetxController {
   final ExpectFromSeekerController = TextEditingController().obs;
   final HandlingOfMakerController = TextEditingController().obs;
   final TypeController = TextEditingController().obs;
+  final credencial=Get.put(UserEmailAndPhoneVerifyController());
 
 
 
@@ -76,7 +78,10 @@ Future<void> MakerProfileApiHit() async {
     request.fields['heading_of_maker'] = HandlingOfMakerController.value.text;
     request.fields['gender'] = selectGender.toString();
     request.fields['type'] = "1";
+
     request.headers['Authorization'] = "Bearer ${prefs.getString('BarearToken')}";
+
+
 
     if(videoFile==null){
 

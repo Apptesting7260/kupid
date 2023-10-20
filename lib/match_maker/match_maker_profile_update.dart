@@ -32,6 +32,10 @@ import '../controllers/controller/MakerProfileController/MakerProfileController.
 import 'package:http/http.dart' as http;
 
 import '../controllers/controller/OtpVarificationController/OtpVarificationController.dart';
+import '../data/response/status.dart';
+import '../data/response/status.dart';
+import '../data/response/status.dart';
+import '../data/response/status.dart';
 
 enum SelectProfile { gender }
 
@@ -45,7 +49,7 @@ class MakerProfileDetails extends StatefulWidget {
 
 class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   final FocusNode _pinPutFocusNode = FocusNode();
-
+  final TextEditingController _pinPutController = TextEditingController();
   final UserLoginControllerinstance=Get.put(UserLoginController());
   final UserotpControllerinstance=Get.put(OtpVarificationController());
   final UserEmailAndphone=Get.put(UserEmailAndPhoneVerifyController());
@@ -240,11 +244,13 @@ Future<File?> pickVideo() async {
   }
 bool containerBoeder=false;
   bool phoneContainerBorder=false;
+  bool verify=true;
   @override
   void initState() {
     // TODO: implement initState
     setState(() {
       pachedemail;
+      verify=true;
       phoneContainerBorder=false;
       containerBoeder=false;
     });
@@ -623,7 +629,7 @@ bool containerBoeder=false;
                             child: TextFormField(
 
                               controller:  SignUpControllerInstanse.credentialsController.value.text.contains("@")?
-                              SignUpControllerInstanse.credentialsController.value:UserEmailAndphone.ehaniAndPhoneVerifyController.value,
+                              SignUpControllerInstanse.credentialsController.value:UserEmailAndphone.emailAndPhoneVerifyController.value,
 
                               enabled: SignUpControllerInstanse.credentialsController.value.text.contains("@")?false:true, // Set to true to enable the field
                               decoration: InputDecoration(
@@ -722,17 +728,22 @@ bool containerBoeder=false;
                               },
                             ),
                           ),
-                          
-                        // Obx(() =>  InkWell(
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.only(right: 10),
-                        //       child: UserotpControllerinstance.verify==false?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                        //     ),
-                        //     onTap: (){
-                        //       UserEmailAndphone. SignUpapiHit();
-                        //       showAlert();
-                        //     },
-                        //   )),
+
+        if(!SignUpControllerInstanse.credentialsController.value.text.contains("@")) InkWell(
+
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+
+                              child: verify==true?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                            ),
+                            onTap: (){
+
+                              UserEmailAndphone. PhoneAndEmailVerifiyed();
+
+                                showAlert();
+
+                            },
+                          ),
                         ],
                       ),
                     )
@@ -854,7 +865,7 @@ bool containerBoeder=false;
 
 
                             controller:   SignUpControllerInstanse.credentialsController.value.text.contains("@")?
-                            UserEmailAndphone.ehaniAndPhoneVerifyController.value:SignUpControllerInstanse.credentialsController.value,
+                            UserEmailAndphone.emailAndPhoneVerifyController.value:SignUpControllerInstanse.credentialsController.value,
                             // SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false
                             enabled:SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false ,
                             keyboardType: TextInputType.number,
@@ -939,20 +950,20 @@ bool containerBoeder=false;
                             },
                           ),
                         ),
-                       // Obx(() =>  InkWell(
-                       //   child: Padding(
-                       //     padding: const EdgeInsets.only(right: 10),
-                       //     child: UserotpControllerinstance.verify==false?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                       //   ),
-                       //   onTap: (){
-                       //     UserEmailAndphone. SignUpapiHit();
-                       //     showAlert();
-                       //   },
-                       // )),
+                       if(SignUpControllerInstanse.credentialsController.value.text.contains("@")) InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: verify==true?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                          ),
+                          onTap: (){
+                            UserEmailAndphone. PhoneAndEmailVerifiyed();
+                            showAlert();
+                          },
+                        ),
                       ],
                     ),
                   ),
-                  if(phoneContainerBorder==true)
+                  if(phoneContainerBorder==false)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -1577,13 +1588,13 @@ bool containerBoeder=false;
     }
 
 }
-  void _showSnackBar(String pin, BuildContext context) {
+  void _showSnackBar( BuildContext context) {
     final snackBar = SnackBar(
       content: Container(
         height: 80.0,
         child: Center(
           child: Text(
-            'Pin Submitted. Value: $pin',
+            'Plesse Enter Vaild otp',
             style: const TextStyle(fontSize: 25.0),
           ),
         ),
@@ -1593,6 +1604,7 @@ bool containerBoeder=false;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
+
   }
   showAlert( ){
     showDialog(context: context,
@@ -1628,7 +1640,7 @@ bool containerBoeder=false;
               SizedBox(
                 height: Get.height * .05,
               ),
-             Obx(() =>  Center(
+            Center(
                 child: Pinput(
                   validator: (value) {
                     if (value!.isEmpty && value.length != 6) {
@@ -1651,9 +1663,9 @@ bool containerBoeder=false;
                   // defaultPinTheme: defaultPinTheme,
                   // focusedPinTheme: focusedPinTheme,
                   // submittedPinTheme: submittedPinTheme,
-                  onSubmitted: (String pin) => _showSnackBar(pin, context),
+                  onSubmitted: (String pin) => _showSnackBar(context),
                   focusNode: _pinPutFocusNode,
-                  controller: UserotpControllerinstance.OtpController.value,
+                  controller: UserEmailAndphone.otpController.value,
                   // submittedPinTheme: PinTheme(
                   //     height: 56,
                   //     width: 56,
@@ -1664,21 +1676,34 @@ bool containerBoeder=false;
                   // focusedPinTheme: defaultPinTheme,
                   // followingPinTheme: defaultPinTheme,
                 ),
-              ),),
+              ),
               SizedBox(height: Get.height * .05),
-              Obx(() => Center(
-                child: MyButton(
-                  loading: UserotpControllerinstance.loading.value,
-                  title: "Verify",
-                  onTap: () {
-                    UserotpControllerinstance.OtpVerificationapiiHit();
-                   if (UserotpControllerinstance.verify==true) {
-                     Navigator.pop(context);
-                   }
+            Center(
+             child: MyButton(
+               loading: UserEmailAndphone.loading.value,
+               title: "Verify",
+               onTap: () {
+                 if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
+                   UserEmailAndphone.email_verify.value=1;
+                 }
+                 else{
+                   UserEmailAndphone.phone_verify.value=1;
+                 }
+                 UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
+                 // UserotpControllerinstance.OtpVerificationapiiHit();
+                 if (UserEmailAndphone.loading.value==false) {
 
-                  },
-                ),
-              ),)
+                   Navigator.pop(context);
+                   verify=false;
+                 }
+                 else{
+                   _showSnackBar(context);
+                 }
+
+               },
+             ),
+           ),
+
             ],
           ),
         )

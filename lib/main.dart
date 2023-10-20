@@ -41,9 +41,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: MyTheme.light,
-      home: MakerProfileDetails(),
-      // home:  SplashScreen(),
+      theme: MyTheme.light, // home: MakerProfileDetails(),
+      home:  SplashScreen(),
     );
   }
 }
