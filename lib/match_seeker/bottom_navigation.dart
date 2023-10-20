@@ -65,6 +65,7 @@ class _BottomState extends State<Bottom> {
       onTap: (index) => widget.bottomTapped(index),
       selectedFontSize: 12,
       unselectedFontSize: 10,
+      
     );
   }
 }

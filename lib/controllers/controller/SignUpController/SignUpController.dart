@@ -6,7 +6,7 @@ import 'package:cupid_match/views/user/otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-
+String? sigupcredencial;
 class SignUpController extends GetxController {
 
   final _api = AuthRepository();
@@ -28,10 +28,12 @@ class SignUpController extends GetxController {
     _api.SignUpApi(data).then((value){
       loading.value = false ;
 print(value);
+
       // Utils.snackBar( "Message",value.msg.toString());
 
    Timer(Duration(seconds: 2),(){
    if(value.msg!="User Already Exist") {
+    sigupcredencial=credentialsController.value.text;
 Get.to(() => PinFields(
        pinPutFocusNode: FocusNode(),
 

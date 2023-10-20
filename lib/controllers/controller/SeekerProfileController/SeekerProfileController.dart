@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cupid_match/controllers/UserNumberAndNuberverfyController.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
@@ -50,6 +51,7 @@ class SeekerProfileController extends GetxController {
 
   Future<void> SeekerProfileApiHit() async {
     final sp= await SharedPreferences.getInstance();
+    UserEmailAndPhoneVerifyController UserEmailAndPhoneVerifyControllerinstance=Get.put(UserEmailAndPhoneVerifyController());
     loading.value = true ;
     try {
       // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
@@ -72,9 +74,24 @@ class SeekerProfileController extends GetxController {
       }
      
       // Add other text fields to the request+
+      request.fields['update_type'] = "profile";
+
       request.fields['name'] = NameController.value.text;
-      request.fields['email'] = SignUpControllerinstance.credentialsController.toString();
-      request.fields['phone'] = PhoneController.value.text;
+      if(UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text.contains("@")){
+        String email =UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text;
+ request.fields['email'] =email.toString();
+request.fields['email_otp_verified_status'] = "1";
+print("${email}email==============");
+
+      }else{
+         String phone =UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text;
+request.fields['phone'] = phone.toString();
+      
+        request.fields['phone_otp_verified_status'] = "1";
+        print("${phone}phone==============");
+      }
+      
+      
       request.fields['address'] = Sikeraddress.toString();
       request.fields['height'] = HeightController.value.text + "." + InchesController.value.text;
       request.fields['question'] = QuestionController.value.text;
@@ -105,7 +122,7 @@ class SeekerProfileController extends GetxController {
       print(request.fields['height'] = HeightController.value.text + "." + InchesController.value.text);
       print(request.fields['address'] = Sikeraddress.toString());
       print(request.fields['phone'] = PhoneController.value.text);
-      print(request.fields['email'] = SignUpControllerinstance.credentialsController.toString());
+      print(request.fields['email'] = SignUpControllerinstance.credentialsController.value.text.toString());
       print(request.fields['name'] = NameController.value.text);
 
 

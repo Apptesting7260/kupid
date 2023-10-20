@@ -36,7 +36,7 @@ class _InterstedInState extends State<InterstedIn> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "I am a",
+              "I am Interested In",
               style: Theme.of(context).textTheme.displayLarge,
             ),
             SizedBox(

@@ -63,7 +63,9 @@ class AuthRepository {
 
   Future<SignUpModel> UserPhoneAndNumberVerfyApi(var data) async {
     dynamic response = await _apiService.postApi2(data, AppUrl.MakerProfileUrl);
+    print("============$response");
     return SignUpModel.fromJson(response);
+    
   }
 
   Future<OtpVerificationModel> OtpVarificationApi(var data) async {

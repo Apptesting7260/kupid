@@ -145,7 +145,7 @@ Future<dynamic> getApi2(String url)async{
         badresponse=jsonDecode(response.body);
 
         badresponseextrac=badresponse['message'];
-
+ 
 
 
         throw BadRequestException(badresponseextrac.toString());
