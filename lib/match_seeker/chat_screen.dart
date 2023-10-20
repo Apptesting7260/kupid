@@ -32,6 +32,7 @@ String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
 String ? anotherchatuser;
+String ? makerchatuser;
  var playerx;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -208,6 +209,21 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
       "lastmsg": messagecontroller.text,
       // Add other room metadata if needed
     });
+
+    if(makerchatuser.toString()!="null"){
+      DocumentReference makerref = _firestore.collection(makerchatuser.toString()).doc(roomid);
+   await _firestore
+            .collection(makerchatuser.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await makerref.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+
+      // Add other room metadata if needed
+    });
+    }
           messagecontroller.clear();
         // setState(() {
         //   messagetype = "text";

@@ -41,11 +41,21 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+
       theme: MyTheme.light, // home: MakerProfileDetails(),
+
+
+   
+
       home:  SplashScreen(),
     );
   }
 }
+
+
+
+
+
 // import 'dart:io';
 
 // import 'package:audio_waveforms/audio_waveforms.dart';
