@@ -23,22 +23,20 @@ import '../OtpVarificationController/OtpVarificationController.dart';
 import '../SetRoleController/SetRoleController.dart';
 import 'package:get/get.dart';
 
-
 var response;
+
 class SeekerProfileController extends GetxController {
-  final SignUpControllerinstance=Get.put(SignUpController());
+  final SignUpControllerinstance = Get.put(SignUpController());
 
   final _api = AuthRepository();
 
   RxBool loading = false.obs;
 
-
-
   final NameController = TextEditingController().obs;
   final EmailController = TextEditingController().obs;
   final PhoneController = TextEditingController().obs;
   final TypeController = TextEditingController().obs;
-   final OccupationController = TextEditingController().obs;
+  final OccupationController = TextEditingController().obs;
   final AddressController = TextEditingController().obs;
   final HeightController = TextEditingController().obs;
   final InchesController = TextEditingController().obs;
@@ -46,13 +44,15 @@ class SeekerProfileController extends GetxController {
   final FirstanswerController = TextEditingController().obs;
   final SecondanswerController = TextEditingController().obs;
   final ThirdanswerController = TextEditingController().obs;
-   final CorrectanswerController = TextEditingController().obs;
-   final SalaryController = TextEditingController().obs;
+  final CorrectanswerController = TextEditingController().obs;
+  final SalaryController = TextEditingController().obs;
 
   Future<void> SeekerProfileApiHit() async {
-    final sp= await SharedPreferences.getInstance();
-    UserEmailAndPhoneVerifyController UserEmailAndPhoneVerifyControllerinstance=Get.put(UserEmailAndPhoneVerifyController());
-    loading.value = true ;
+    final sp = await SharedPreferences.getInstance();
+    UserEmailAndPhoneVerifyController
+        UserEmailAndPhoneVerifyControllerinstance =
+        Get.put(UserEmailAndPhoneVerifyController());
+    loading.value = true;
     try {
       // Replace 'your_api_endpoint' with the actual URL of your API endpoint for file upload
       var url = Uri.parse('https://urlsdemo.xyz/kupid/api/user-profile-update');
@@ -61,39 +61,41 @@ class SeekerProfileController extends GetxController {
       var request = http.MultipartRequest('POST', url);
 
       // Add the file to the request
-      if(ImagetoUpload==null){
-
-      }else{
+      if (ImagetoUpload == null) {
+      } else {
         print("object");
-         var fileStream = http.ByteStream(ImagetoUpload!.openRead());
-      var length = await ImagetoUpload!.length();
-      var multipartFile = http.MultipartFile('pro_img', fileStream, length,
-          filename: ImagetoUpload!.path.split('/').last);
-      request.files.add(multipartFile);
-  print(ImagetoUpload);
+        var fileStream = http.ByteStream(ImagetoUpload!.openRead());
+        var length = await ImagetoUpload!.length();
+        var multipartFile = http.MultipartFile('pro_img', fileStream, length,
+            filename: ImagetoUpload!.path.split('/').last);
+        request.files.add(multipartFile);
+        print(ImagetoUpload);
       }
-     
+
       // Add other text fields to the request+
       request.fields['update_type'] = "profile";
 
       request.fields['name'] = NameController.value.text;
-      if(UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text.contains("@")){
-        String email =UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text;
- request.fields['email'] =email.toString();
-request.fields['email_otp_verified_status'] = "1";
-print("${email}email==============");
+      if (UserEmailAndPhoneVerifyControllerinstance
+          .emailAndPhoneVerifyController.value.text
+          .contains("@")) {
+        String email = UserEmailAndPhoneVerifyControllerinstance
+            .emailAndPhoneVerifyController.value.text;
+        request.fields['email'] = email.toString();
+        request.fields['email_otp_verified_status'] = "1";
+        print("${email}email==============");
+      } else {
+        String phone = UserEmailAndPhoneVerifyControllerinstance
+            .emailAndPhoneVerifyController.value.text;
+        request.fields['phone'] = phone.toString();
 
-      }else{
-         String phone =UserEmailAndPhoneVerifyControllerinstance.emailAndPhoneVerifyController.value.text;
-request.fields['phone'] = phone.toString();
-      
         request.fields['phone_otp_verified_status'] = "1";
         print("${phone}phone==============");
       }
-      
-      
+
       request.fields['address'] = Sikeraddress.toString();
-      request.fields['height'] = HeightController.value.text + "." + InchesController.value.text;
+      request.fields['height'] =
+          HeightController.value.text + "." + InchesController.value.text;
       request.fields['question'] = QuestionController.value.text;
       request.fields['first_answer'] = FirstanswerController.value.text;
       request.fields['second_answer'] = SecondanswerController.value.text;
@@ -103,56 +105,35 @@ request.fields['phone'] = phone.toString();
       request.fields['location'] = SelectedLocation.toString();
       request.fields['occupation'] = Ocupasion.toString();
       request.fields['gender'] = selectGender.toString();
-      request.fields['type'] = "2";
-      request.fields['salary'] =SalaryController.value.text;
-      request.fields['religion'] =SikerReligon.toString();
+      request.fields['type'] = "${2}";
+      request.fields['salary'] = SalaryController.value.text;
+      request.fields['religion'] = SikerReligon.toString();
 
-      print(request.fields['religion'] =SikerReligon.toString());
-      print(request.fields['salary'] =SalaryController.value.text);
-      print(request.fields['type'] = "2");
-      print(request.fields['gender'] = selectGender.toString());
-      print(request.fields['occupation'] = Ocupasion.toString());
-      print(request.fields['location'] = SelectedLocation.toString());
-      print(request.fields['dob'] = datestring.toString());
-      print(request.fields['correct_answer'] = choose!);
-      print(request.fields['third_answer'] = ThirdanswerController.value.text);
-      print(request.fields['second_answer'] =FirstanswerController.value.text);
-      print(request.fields['first_answer'] =SecondanswerController.value.text);
-      print(request.fields['question'] = QuestionController.value.text);
-      print(request.fields['height'] = HeightController.value.text + "." + InchesController.value.text);
-      print(request.fields['address'] = Sikeraddress.toString());
+      request.headers['Authorization'] =
+          "Bearer ${sp.getString("BarearToken")}";
+      if (videoFile == null) {
+      } else {
+        var videoStream = http.ByteStream(videoFile!.openRead());
+        var videoLength = await videoFile!.length();
+        var videoFileField = http.MultipartFile(
+            'pro_vedio', videoStream, videoLength,
+            filename: videoFile!.path.split('/').last);
+        request.files.add(videoFileField);
+        print(videoFile);
+        print(BarrierToken);
+      }
       print(request.fields['phone'] = PhoneController.value.text);
-      print(request.fields['email'] = SignUpControllerinstance.credentialsController.value.text.toString());
-      print(request.fields['name'] = NameController.value.text);
-
-
-
-
-
-      request.headers['Authorization'] = "Bearer ${sp.getString("BarearToken")}";
-   if(videoFile==null){
-
-   } else{
-var videoStream = http.ByteStream(videoFile!.openRead());
-      var videoLength = await videoFile!.length();
-      var videoFileField = http.MultipartFile('pro_vedio', videoStream, videoLength, filename: videoFile!.path.split('/').last);
-      request.files.add(videoFileField);
-print(videoFile);
-      print(BarrierToken);
-
-   }
-      print( request.fields['phone'] = PhoneController.value.text);
       // Send the request and get the response
-       response = await request.send();
+      response = await request.send();
       var responseBody = await response.stream.bytesToString();
 
       print(responseBody);
       // Check the response status
-      if (response.statusCode== 200) {
+      if (response.statusCode == 200) {
         print('File uploaded successfully!');
         Get.to(() => PhotosScreen());
-        loading.value = false ;
-        Ocupasion=null;
+        loading.value = false;
+        Ocupasion = null;
         NameController.value.clear();
         PhoneController.value.clear();
         OccupationController.value.clear();
@@ -166,22 +147,14 @@ print(videoFile);
         CorrectanswerController.value.clear();
         QuestionController.value.clear();
         AddressController.value.clear();
-
-
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
-        loading.value = false ;
+        loading.value = false;
       }
     } catch (e) {
-      loading.value = false ;
+      loading.value = false;
       print(response);
       print('Error occurred while uploading file: $e');
     }
-
-
-
   }
-
-
-
-  }
+}

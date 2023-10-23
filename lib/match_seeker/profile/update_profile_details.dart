@@ -41,7 +41,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   // MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
 
   final SignUpControllerinstance = Get.put(SignUpController());
-  final UserEmailAndphone=Get.put(UserEmailAndPhoneVerifyController());
+  final UserEmailAndphone = Get.put(UserEmailAndPhoneVerifyController());
   final FocusNode _pinPutFocusNode = FocusNode();
 
   FocusNode _dropdownFocus1 = FocusNode();
@@ -53,7 +53,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
   bool _chooseAnswer1 = false;
   bool _chooseAnswer2 = false;
   bool _chooseAnswer3 = false;
-
 
   final _formKey = GlobalKey<FormState>();
 
@@ -231,23 +230,24 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
       print(_isDropdownOpen3);
     });
   }
-  bool containerBoeder=false;
-  bool phoneContainerBorder=false;
+
+  bool containerBoeder = false;
+  bool phoneContainerBorder = false;
   @override
   void initState() {
-
     GetAllOcupationsControllerInstanse.GetAllOcupationsListApiHit();
+    UserEmailAndphone.verified.value = false;
     // TODO: implement initState
     super.initState();
-    phoneContainerBorder=false;
-    containerBoeder=false;
-UserEmailAndphone.verified.value;
+    phoneContainerBorder = false;
+    containerBoeder = false;
+
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
     _dropdownFocus3.addListener(_onDropdownFocusChange3);
     startdate = null;
-    selectGender=null;
-    datestring=null;
+    selectGender = null;
+    datestring = null;
     imgFile = null;
   }
 
@@ -256,20 +256,20 @@ UserEmailAndphone.verified.value;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      // drawer: MyDrawer(),
-      appBar: AppBar(
-        // leading: Icon(
-        //   Icons.menu,
-        //   size: 25,
-        //   color: Colors.black,
-        // ),
-        title: Text(
-          "Profile Details",
-          style: Theme.of(context).textTheme.titleLarge,
+        // drawer: MyDrawer(),
+        appBar: AppBar(
+          // leading: Icon(
+          //   Icons.menu,
+          //   size: 25,
+          //   color: Colors.black,
+          // ),
+          title: Text(
+            "Profile Details",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
+        body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: ListView(
             children: <Widget>[
@@ -297,7 +297,7 @@ UserEmailAndphone.verified.value;
                   //           showOptionsDialog(context);
                   //         },
                   //         child: Image.asset("assets/icons/cameraa.png")))
-      
+
                   Center(
                     child: SizedBox(
                       height: height * .14,
@@ -330,7 +330,8 @@ UserEmailAndphone.verified.value;
                                   onTap: () {
                                     showOptionsDialog(context);
                                   },
-                                  child: Image.asset("assets/icons/cameraa.png")))
+                                  child:
+                                      Image.asset("assets/icons/cameraa.png")))
                           // Positioned(
                           //   bottom: 0,
                           //   right: -8,
@@ -447,8 +448,8 @@ UserEmailAndphone.verified.value;
                       SizedBox(height: height * .01),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        controller:
-                            SeekerProfileControllerInstanse.NameController.value,
+                        controller: SeekerProfileControllerInstanse
+                            .NameController.value,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Enter your name';
@@ -459,18 +460,21 @@ UserEmailAndphone.verified.value;
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffFE0091))),
-                            hintStyle:
-                                TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+                                borderSide:
+                                    BorderSide(color: Color(0xffFE0091))),
+                            hintStyle: TextStyle(
+                                fontSize: 16, color: Color(0xffBABABA)),
                             contentPadding: EdgeInsets.all(18),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffBABABA))),
+                                borderSide:
+                                    BorderSide(color: Color(0xffBABABA))),
                             errorBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffBABABA))),
+                                borderSide:
+                                    BorderSide(color: Color(0xffBABABA))),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(35.0)),
@@ -481,7 +485,7 @@ UserEmailAndphone.verified.value;
                             fillColor: Colors.white),
                       ),
                       SizedBox(height: height * .03),
-      
+
                       Text(
                         "Phone Number",
                         style: Theme.of(context).textTheme.titleSmall,
@@ -526,26 +530,35 @@ UserEmailAndphone.verified.value;
                       // ),
                       Container(
                         width: Get.width,
-                        height: Get.height*0.07,
+                        height: Get.height * 0.07,
                         decoration: BoxDecoration(
-      
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color:phoneContainerBorder==false? Colors.grey: Colors.pinkAccent)
-                          // border: Border.all(color: Colors.grey)
-                        ),
+                            border: Border.all(
+                                color: phoneContainerBorder == false
+                                    ? Colors.grey
+                                    : Colors.pinkAccent)
+                            // border: Border.all(color: Colors.grey)
+                            ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: Get.width*0.7,
+                              width: Get.width * 0.7,
                               child: TextFormField(
-                                
                                 maxLength: 15,
-                                                      
-                                controller:   SignUpControllerinstance.credentialsController.value.text.contains("@")?
-                                UserEmailAndphone.emailAndPhoneVerifyController.value:SignUpControllerinstance.credentialsController.value,
-                                enabled:SignUpControllerinstance.credentialsController.value.text.contains("@")?true:false ,
+                                controller: SignUpControllerinstance
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? UserEmailAndphone
+                                        .emailAndPhoneVerifyController.value
+                                    : SignUpControllerinstance
+                                        .credentialsController.value,
+                                enabled: SignUpControllerinstance
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? true
+                                    : false,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -564,7 +577,7 @@ UserEmailAndphone.verified.value;
                                     onChanged: (code) {},
                                   ),
                                   hintText: "Mobile number",
-                                                      
+
                                   // contentPadding: EdgeInsets.all(20),
                                   hintStyle: Theme.of(context)
                                       .textTheme
@@ -607,40 +620,58 @@ UserEmailAndphone.verified.value;
                                 onFieldSubmitted: (value) {},
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                  setState(() {
-                                    phoneContainerBorder=true;
-                                  });
+                                    setState(() {
+                                      phoneContainerBorder = true;
+                                    });
                                     return null;
                                   } else if (!RegExp(
                                           r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
                                       .hasMatch(value)) {
-                                 setState(() {
-                                   phoneContainerBorder=true;
-                                 });
+                                    setState(() {
+                                      phoneContainerBorder = true;
+                                    });
                                     return null;
                                   }
                                 },
                               ),
                             ),
-                            if(SignUpControllerinstance.credentialsController.value.text.contains("@")) InkWell(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: UserEmailAndphone.verified.value==true?InkWell(child: Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),),
-                                    onTap: (){
-                                UserEmailAndphone. PhoneAndEmailVerifiyed();
-                                if(UserEmailAndphone.optsent.value==true){
-               showAlert();
-                                }
-                   
-                              },
-                                ):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                            if (SignUpControllerinstance
+                                .credentialsController.value.text
+                                .contains("@"))
+                              InkWell(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: UserEmailAndphone.verified.value ==
+                                          false
+                                      ? InkWell(
+                                          child: Text(
+                                            "Verify",
+                                            style: TextStyle(
+                                                color: Colors.pinkAccent,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          onTap: () {
+                                            UserEmailAndphone
+                                                .PhoneAndEmailVerifiyed();
+                                            if (UserEmailAndphone
+                                                    .optsent.value ==
+                                                true) {
+                                              showAlert();
+                                            }
+                                          },
+                                        )
+                                      : Text(
+                                          "Verifyed",
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                ),
                               ),
-                          
-                            ),
                           ],
                         ),
                       ),
-      
+
                       SizedBox(height: height * .03),
                       Text(
                         "Email Id",
@@ -649,27 +680,36 @@ UserEmailAndphone.verified.value;
                       SizedBox(height: height * .01),
                       Container(
                         width: Get.width,
-                        height: Get.height*0.07,
+                        height: Get.height * 0.07,
                         decoration: BoxDecoration(
-      
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color:containerBoeder==false? Colors.grey: Colors.pinkAccent)
-                          // border: Border.all(color: Colors.grey)
-                        ),
+                            border: Border.all(
+                                color: containerBoeder == false
+                                    ? Colors.grey
+                                    : Colors.pinkAccent)
+                            // border: Border.all(color: Colors.grey)
+                            ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-      
                             // Container(
                             //    width: Get.width*0.7,
                             //   child: TextFormField(),),
                             Container(
-                              width: Get.width*0.7,
+                              width: Get.width * 0.7,
                               child: TextFormField(
-                                controller:
-                                SignUpControllerinstance.credentialsController.value.text.contains("@")?SignUpControllerinstance.credentialsController.value:
-                                UserEmailAndphone.emailAndPhoneVerifyController.value,
-                                enabled: UserEmailAndphone.emailAndPhoneVerifyController.value==""?false:true,
+                                controller: SignUpControllerinstance
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? SignUpControllerinstance
+                                        .credentialsController.value
+                                    : UserEmailAndphone
+                                        .emailAndPhoneVerifyController.value,
+                                enabled: SignUpControllerinstance
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? false
+                                    : true,
                                 decoration: InputDecoration(
                                   hintText: "example@gmail.com",
                                   border: InputBorder.none,
@@ -677,7 +717,8 @@ UserEmailAndphone.verified.value;
                                   hintStyle: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
-                                      ?.copyWith(color: AppColors.subtitletextcolor),
+                                      ?.copyWith(
+                                          color: AppColors.subtitletextcolor),
                                   //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                                   // focusedBorder: OutlineInputBorder(
                                   //   borderRadius: BorderRadius.circular(30),
@@ -710,56 +751,75 @@ UserEmailAndphone.verified.value;
                                   if (value!.isEmpty ||
                                       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                           .hasMatch(value)) {
-                                   setState(() {
-                                     containerBoeder=true;
-                                   });
+                                    setState(() {
+                                      containerBoeder = true;
+                                    });
                                     return null;
                                   }
-                                 setState(() {
-                                   containerBoeder=false;
-                                 });
+                                  setState(() {
+                                    containerBoeder = false;
+                                  });
                                   return null;
                                 },
                               ),
                             ),
-      
-                            if(!SignUpControllerinstance.credentialsController.value.text.contains("@")) InkWell(
-      
-                              child:UserEmailAndphone. verified.value==false? InkWell(
-                                  
-                                                 onTap: (){
-         UserEmailAndphone. PhoneAndEmailVerifiyed();
-         Timer(Duration(seconds: 3), () { 
-          
-          setState(() {
-          UserEmailAndphone.  optsent;
-          }); if(UserEmailAndphone.  optsent.value==true){
-               showAlert();
-                                } });
-                              
-      
-                              },
-                                  child: Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),)): Padding(
-                                padding: const EdgeInsets.only(right: 10),
-      
-                             child: Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                              )  
-        //                       onTap: (){
-        //  UserEmailAndphone. PhoneAndEmailVerifiyed();
-        //                         if(UserEmailAndphone.otpsent.value==true){
-        //        showAlert();
-        //                         }
-      
-        //                       },
-                            ),
+
+                            if (!SignUpControllerinstance
+                                .credentialsController.value.text
+                                .contains("@"))
+                              InkWell(
+                                  child: UserEmailAndphone.verified.value ==
+                                          false
+                                      ? InkWell(
+                                          onTap: () {
+                                            UserEmailAndphone
+                                                .PhoneAndEmailVerifiyed();
+                                            Timer(Duration(seconds: 3), () {
+                                              setState(() {
+                                                UserEmailAndphone.optsent;
+                                              });
+                                              if (UserEmailAndphone
+                                                      .optsent.value ==
+                                                  true) {
+                                                showAlert();
+                                              }
+                                            });
+                                          },
+                                          child: Text(
+                                            "Verify",
+                                            style: TextStyle(
+                                                color: Colors.pinkAccent,
+                                                fontWeight: FontWeight.bold),
+                                          ))
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: Text(
+                                            "Verifyed",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                  //                       onTap: (){
+                                  //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                                  //                         if(UserEmailAndphone.otpsent.value==true){
+                                  //        showAlert();
+                                  //                         }
+
+                                  //                       },
+                                  ),
                           ],
                         ),
                       ),
-                      if(containerBoeder==true)
+                      if (containerBoeder == true)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text("Email cannot be empty!",style: TextStyle(color: Colors.red),),
+                            Text(
+                              "Email cannot be empty!",
+                              style: TextStyle(color: Colors.red),
+                            ),
                           ],
                         ),
                       SizedBox(height: height * .01),
@@ -768,7 +828,7 @@ UserEmailAndphone.verified.value;
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       SizedBox(height: height * .01),
-      
+
                       if (GetAllOcupationsControllerInstanse
                           .Ocupations.isNotEmpty)
                         Focus(
@@ -780,8 +840,8 @@ UserEmailAndphone.verified.value;
                                 "Select Occupation",
                                 style: TextStyle(color: Colors.black),
                               ),
-                              items: GetAllOcupationsControllerInstanse.Ocupations
-                                  .map((String items) {
+                              items: GetAllOcupationsControllerInstanse
+                                  .Ocupations.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),
@@ -837,7 +897,8 @@ UserEmailAndphone.verified.value;
                                 offset: const Offset(10, 0),
                                 scrollbarTheme: ScrollbarThemeData(
                                   radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
+                                  thickness:
+                                      MaterialStateProperty.all<double>(6),
                                   thumbVisibility:
                                       MaterialStateProperty.all<bool>(true),
                                 ),
@@ -849,9 +910,9 @@ UserEmailAndphone.verified.value;
                             ),
                           ),
                         ),
-      
+
                       // ***************************   Occupation Pjdfgjdsfds ***************************
-      
+
                       SizedBox(height: height * .03),
                       Text(
                         "Salary",
@@ -860,7 +921,6 @@ UserEmailAndphone.verified.value;
                       SizedBox(height: height * .01),
                       TextFormField(
                         maxLength: 2,
-      
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -872,22 +932,25 @@ UserEmailAndphone.verified.value;
                         controller: SeekerProfileControllerInstanse
                             .SalaryController.value,
                         decoration: InputDecoration(
-                          suffixText: "LPA",
+                            suffixText: "LPA",
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffFE0091))),
-                            hintStyle:
-                                TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+                                borderSide:
+                                    BorderSide(color: Color(0xffFE0091))),
+                            hintStyle: TextStyle(
+                                fontSize: 16, color: Color(0xffBABABA)),
                             contentPadding: EdgeInsets.all(18),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffBABABA))),
+                                borderSide:
+                                    BorderSide(color: Color(0xffBABABA))),
                             errorBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffBABABA))),
+                                borderSide:
+                                    BorderSide(color: Color(0xffBABABA))),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(35.0)),
@@ -897,7 +960,7 @@ UserEmailAndphone.verified.value;
                             filled: true,
                             fillColor: Colors.white),
                       ),
-      
+
                       SizedBox(height: height * .03),
                       Text(
                         "Location",
@@ -969,15 +1032,18 @@ UserEmailAndphone.verified.value;
                             borderSide: BorderSide(color: Color(0xffBABABA)),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Colors.red),
                           ),
                           disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Color(0xffBABABA)),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Colors.pink),
                           ),
                         ),
@@ -993,9 +1059,11 @@ UserEmailAndphone.verified.value;
                                     onTap: () {
                                       setState(() {
                                         locationcntroller.text =
-                                            searchPlace[index].description ?? "";
+                                            searchPlace[index].description ??
+                                                "";
                                         _getLatLang();
-                                        SelectedLocation = locationcntroller.text;
+                                        SelectedLocation =
+                                            locationcntroller.text;
                                         // print(SelectedLocation);
                                         Sikeraddress = SelectedLocation;
                                         print("$Sikeraddress=============");
@@ -1014,7 +1082,7 @@ UserEmailAndphone.verified.value;
                         ),
                       ),
                       SizedBox(height: height * .03),
-      
+
                       Text(
                         "Gender",
                         style: Theme.of(context).textTheme.titleSmall,
@@ -1044,7 +1112,8 @@ UserEmailAndphone.verified.value;
                             },
                             buttonStyleData: ButtonStyleData(
                               height: Get.height * 0.07,
-                              padding: const EdgeInsets.only(left: 14, right: 14),
+                              padding:
+                                  const EdgeInsets.only(left: 14, right: 14),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
@@ -1096,14 +1165,14 @@ UserEmailAndphone.verified.value;
                         ),
                       ),
                       SizedBox(height: height * .03),
-      
+
                       // ****************  select Religion dropdown ***********************
                       Text(
                         "Religion",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       SizedBox(height: height * .01),
-      
+
                       Focus(
                         focusNode: _dropdownFocus2,
                         child: DropdownButtonHideUnderline(
@@ -1125,7 +1194,8 @@ UserEmailAndphone.verified.value;
                             },
                             buttonStyleData: ButtonStyleData(
                               height: Get.height * 0.07,
-                              padding: const EdgeInsets.only(left: 14, right: 14),
+                              padding:
+                                  const EdgeInsets.only(left: 14, right: 14),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
@@ -1176,9 +1246,9 @@ UserEmailAndphone.verified.value;
                           ),
                         ),
                       ),
-      
+
                       SizedBox(height: height * .03),
-      
+
                       Text(
                         "Height",
                         style: Theme.of(context).textTheme.titleSmall,
@@ -1193,7 +1263,7 @@ UserEmailAndphone.verified.value;
                               keyboardType: TextInputType.emailAddress,
                               controller: SeekerProfileControllerInstanse
                                   .HeightController.value,
-                                   maxLength: 1,
+                              maxLength: 1,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please Enter Hieght";
@@ -1203,21 +1273,21 @@ UserEmailAndphone.verified.value;
                               },
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffFE0091))),
                                   hintStyle: TextStyle(
                                       fontSize: 16, color: Color(0xffBABABA)),
                                   contentPadding: EdgeInsets.all(18),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffBABABA))),
                                   errorBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffBABABA))),
                                   focusedErrorBorder: OutlineInputBorder(
@@ -1247,21 +1317,21 @@ UserEmailAndphone.verified.value;
                               },
                               decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffFE0091))),
                                   hintStyle: TextStyle(
                                       fontSize: 16, color: Color(0xffBABABA)),
                                   contentPadding: EdgeInsets.all(18),
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffBABABA))),
                                   errorBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(35.0)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0)),
                                       borderSide:
                                           BorderSide(color: Color(0xffBABABA))),
                                   focusedErrorBorder: OutlineInputBorder(
@@ -1278,7 +1348,7 @@ UserEmailAndphone.verified.value;
                         ],
                       ),
                       SizedBox(height: height * .03),
-      
+
                       //no changes **********************************
                       Container(
                         height: height * .08,
@@ -1324,10 +1394,11 @@ UserEmailAndphone.verified.value;
                                       lastDate: minimumDate,
                                     );
                                     print(startdate);
-                                    datestring = DateFormat('dd-MM-yyyy').format(
-                                        DateTime.parse(startdate.toString()));
+                                    datestring = DateFormat('dd-MM-yyyy')
+                                        .format(DateTime.parse(
+                                            startdate.toString()));
                                     print(datestring);
-      
+
                                     setState(() {
                                       datestring;
                                     });
@@ -1341,9 +1412,9 @@ UserEmailAndphone.verified.value;
                           ],
                         ),
                       ),
-      
+
                       SizedBox(height: height * .03),
-      
+
                       Text(
                         "Add Question",
                         style: Theme.of(context).textTheme.titleSmall,
@@ -1384,7 +1455,8 @@ UserEmailAndphone.verified.value;
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(35.0)),
-                                borderSide: BorderSide(color: Color(0xffBABABA)),
+                                borderSide:
+                                    BorderSide(color: Color(0xffBABABA)),
                               ),
                               hintText: "Enter your questions",
                               filled: true,
@@ -1439,15 +1511,18 @@ UserEmailAndphone.verified.value;
                                       filled: true,
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1490,15 +1565,18 @@ UserEmailAndphone.verified.value;
                                       filled: true,
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1543,15 +1621,18 @@ UserEmailAndphone.verified.value;
                                       filled: true,
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1654,7 +1735,7 @@ UserEmailAndphone.verified.value;
                       SizedBox(height: 5),
                     ],
                   )),
-      
+
               // Padding(
               //   padding: const EdgeInsets.only(right: 40, left: 40),
               //   child: Row(
@@ -1768,12 +1849,11 @@ UserEmailAndphone.verified.value;
               SizedBox(height: Get.height * 0.05)
             ],
           ),
-    )
-      );
-    
+        ));
   }
-  validation(){
-    if(selectReligion==null){
+
+  validation() {
+    if (selectReligion == null) {
       Fluttertoast.showToast(
           msg: "Pless Select Religion",
           toastLength: Toast.LENGTH_SHORT,
@@ -1782,8 +1862,7 @@ UserEmailAndphone.verified.value;
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-   else if(Ocupasion==null){
+    } else if (Ocupasion == null) {
       Fluttertoast.showToast(
           msg: "Pless Select Ocupasion",
           toastLength: Toast.LENGTH_SHORT,
@@ -1792,8 +1871,7 @@ UserEmailAndphone.verified.value;
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-   else if (selectGender==null) {
+    } else if (selectGender == null) {
       Fluttertoast.showToast(
           msg: "Pless Select Gender",
           toastLength: Toast.LENGTH_SHORT,
@@ -1802,8 +1880,7 @@ UserEmailAndphone.verified.value;
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-   else if(imgFile==null) {
+    } else if (imgFile == null) {
       Fluttertoast.showToast(
           msg: "Pless Select profile picture",
           toastLength: Toast.LENGTH_SHORT,
@@ -1812,8 +1889,7 @@ UserEmailAndphone.verified.value;
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-   else if(datestring==null) {
+    } else if (datestring == null) {
       Fluttertoast.showToast(
           msg: "Pless Select birth date",
           toastLength: Toast.LENGTH_SHORT,
@@ -1822,13 +1898,11 @@ UserEmailAndphone.verified.value;
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-   else if ( _chooseAnswer1 == true ||
+    } else if (_chooseAnswer1 == true ||
         _chooseAnswer2 == true ||
         _chooseAnswer3 == true) {
       SeekerProfileControllerInstanse.SeekerProfileApiHit();
-    }
-    else {
+    } else {
       Fluttertoast.showToast(
           msg: " Select One currect answer",
           toastLength: Toast.LENGTH_SHORT,
@@ -1919,9 +1993,7 @@ UserEmailAndphone.verified.value;
     });
   }
 
-
-
-  void _showSnackBar( BuildContext context) {
+  void _showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       content: Container(
         height: 80.0,
@@ -1937,27 +2009,25 @@ UserEmailAndphone.verified.value;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
-
   }
-  showAlert( ){
-    showDialog(context: context,
+
+  showAlert() {
+    showDialog(
+      context: context,
       barrierDismissible: false,
       builder: (context) {
-        return   AlertDialog(
+        return AlertDialog(
 
-
-          // Color(0xffFFFFFF)
-            backgroundColor:Color(0xffFFFFFF) ,
+            // Color(0xffFFFFFF)
+            backgroundColor: Color(0xffFFFFFF),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
             content: Container(
-
-              height: Get.height*0.35,
-              width:Get.width*1,
+              height: Get.height * 0.35,
+              width: Get.width * 1,
               child: Column(
                 children: [
-
                   SizedBox(
                     height: Get.height * .05,
                   ),
@@ -2013,27 +2083,22 @@ UserEmailAndphone.verified.value;
                   SizedBox(height: Get.height * .05),
                   Center(
                     child: MyButton(
-                      loading: UserEmailAndphone.loading.value,
-                      title: "Verify",
-                      onTap: () {
-                        // if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
-                        //   // UserEmailAndphone.email_verify.value=1;
-                        // }
-                        // else{
-                        //   // UserEmailAndphone.phone_verify.value=1;
-                        // }
-                        UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
-                    
-                      }
-                    ),
+                        loading: UserEmailAndphone.loading.value,
+                        title: "Verify",
+                        onTap: () {
+                          // if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
+                          //   // UserEmailAndphone.email_verify.value=1;
+                          // }
+                          // else{
+                          //   // UserEmailAndphone.phone_verify.value=1;
+                          // }
+                          UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
+                        }),
                   ),
-
                 ],
               ),
-            )
-
-        );
-
-      },);
+            ));
+      },
+    );
   }
 }
