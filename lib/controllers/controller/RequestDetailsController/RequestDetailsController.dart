@@ -55,79 +55,79 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
       Map <String, dynamic> roomdetails = {};
       Map <String, dynamic> roomdetailsmaker = {};
       Map <String, dynamic> roomdetailsanotherseeker = {};
-//       if (value.data!.matchWith.toString() != "null") {
-//         roomdetails = {
-//           "seeker_name1": value.data!.getseeker!.name.toString(),
-//           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
+      if (value.data!.matchWith.toString() != "null") {
+        roomdetails = {
+          "seeker_name1": value.data!.getseeker!.name.toString(),
+          "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 
-//           "seeker_id1": value.data!.getseeker!.id.toString(),
+          "seeker_id1": value.data!.getseeker!.id.toString(),
 
-//           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
-//      if(value.data!.getmaker.toString()!="null")     "maker_id": value.data!.getmaker!.id.toString(),
-//        if(value.data!.getmaker.toString()!="null")    "maker_name": value.data!.getmaker!.name.toString(),
-//        if(value.data!.getmaker.toString()!="null")    "maker_image": value.data!.getmaker!.imgPath.toString(),
-//        if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
+          "seeker_id2": value.data!.getanotherseeker!.id.toString(),
+     if(value.data!.getmaker.toString()!="null")     "maker_id": value.data!.getmaker!.id.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_name": value.data!.getmaker!.name.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_image": value.data!.getmaker!.imgPath.toString(),
+       if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
 
-//           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
-//           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
-//         if(value.data!.getmaker.toString()!="null")   "roomname":  value.data!.getseeker!.id.toString()==seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
+          "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
+          "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
+        if(value.data!.getmaker.toString()!="null")   "roomname":  value.data!.getseeker!.id.toString()==seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
 
-//               value.data!.getanotherseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString():value.data!.getseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString(),
-//               if(value.data!.getmaker.toString()=="null")"roomname": value.data!.getseeker!.id.toString()==seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
+              value.data!.getanotherseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString():value.data!.getseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString(),
+              if(value.data!.getmaker.toString()=="null")"roomname": value.data!.getseeker!.id.toString()==seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
 
-//               value.data!.getanotherseeker!.name.toString():value.data!.getseeker!.name.toString()
-//         };
+              value.data!.getanotherseeker!.name.toString():value.data!.getseeker!.name.toString()
+        };
 
-//        roomdetailsmaker = {
-//           "seeker_name1": value.data!.getseeker!.name.toString(),
-//           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
+       roomdetailsmaker = {
+          "seeker_name1": value.data!.getseeker!.name.toString(),
+          "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 
-//           "seeker_id1": value.data!.getseeker!.id.toString(),
+          "seeker_id1": value.data!.getseeker!.id.toString(),
 
-//           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
-//    "maker_id": value.data!.getmaker!.id.toString(),
-//       "maker_name": value.data!.getmaker!.name.toString(),
-//     "maker_image": value.data!.getmaker!.imgPath.toString(),
-//        "roomid": value.data!.roomid!.toString(),
+          "seeker_id2": value.data!.getanotherseeker!.id.toString(),
+   "maker_id": value.data!.getmaker!.id.toString(),
+      "maker_name": value.data!.getmaker!.name.toString(),
+    "maker_image": value.data!.getmaker!.imgPath.toString(),
+       "roomid": value.data!.roomid!.toString(),
 
-//           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
-//           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
-//       "roomname":
+          "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
+          "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
+      "roomname":
 
-//               value.data!.getanotherseeker!.name.toString()+" & "+value.data!.getseeker!.name.toString(),
+              value.data!.getanotherseeker!.name.toString()+" & "+value.data!.getseeker!.name.toString(),
       
 
            
-//         };
+        };
 
-//            roomdetailsanotherseeker = {
-//           "seeker_name1": value.data!.getseeker!.name.toString(),
-//           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
+           roomdetailsanotherseeker = {
+          "seeker_name1": value.data!.getseeker!.name.toString(),
+          "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 
-//           "seeker_id1": value.data!.getseeker!.id.toString(),
+          "seeker_id1": value.data!.getseeker!.id.toString(),
 
-//           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
-//      if(value.data!.getmaker.toString()!="null")     "maker_id": value.data!.getmaker!.id.toString(),
-//        if(value.data!.getmaker.toString()!="null")    "maker_name": value.data!.getmaker!.name.toString(),
-//        if(value.data!.getmaker.toString()!="null")    "maker_image": value.data!.getmaker!.imgPath.toString(),
-//        if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
+          "seeker_id2": value.data!.getanotherseeker!.id.toString(),
+     if(value.data!.getmaker.toString()!="null")     "maker_id": value.data!.getmaker!.id.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_name": value.data!.getmaker!.name.toString(),
+       if(value.data!.getmaker.toString()!="null")    "maker_image": value.data!.getmaker!.imgPath.toString(),
+       if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
 
-//           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
-//           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
-//         if(value.data!.getmaker.toString()!="null")   "roomname":  value.data!.getseeker!.id.toString()!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
+          "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
+          "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
+        if(value.data!.getmaker.toString()!="null")   "roomname":  value.data!.getseeker!.id.toString()!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
 
-//               value.data!.getanotherseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString():value.data!.getseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString(),
-//               if(value.data!.getmaker.toString()=="null")"roomname": value.data!.getseeker!.id.toString()!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
+              value.data!.getanotherseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString():value.data!.getseeker!.name.toString()+" & "+ value.data!.getmaker!.name.toString(),
+              if(value.data!.getmaker.toString()=="null")"roomname": value.data!.getseeker!.id.toString()!=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?
 
-//               value.data!.getanotherseeker!.name.toString():value.data!.getseeker!.name.toString()
-//         };
+              value.data!.getanotherseeker!.name.toString():value.data!.getseeker!.name.toString()
+        };
 
-//         await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
-//        await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsanotherseeker);
-// if(value.data!.getmaker.toString()!="null")  await _firestore.collection(value.data!.makerId.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsmaker);
-//     if(value.data!.getmaker.toString()!="null") makerchatuser= value.data!.makerId.toString();
-//        anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
-//       }
+        await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+       await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsanotherseeker);
+if(value.data!.getmaker.toString()!="null")  await _firestore.collection(value.data!.makerId.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsmaker);
+    if(value.data!.getmaker.toString()!="null") makerchatuser= value.data!.makerId.toString();
+       anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
+      }
 
 
 
