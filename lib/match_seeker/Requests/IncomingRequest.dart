@@ -184,8 +184,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                   // IncomingRequestControllerins.IncomingRequestvalue
                   //     .value.requests!.byMaker != null||
                   IncomingRequestControllerins.IncomingRequestvalue.value
-                                  .requests!.byMaker !=
-                              [] &&
+                                  .requests!.byMaker!.length !=
+                              0 &&
                           (requestController.button_maker.value)
                       ? Row(
                           children: [
@@ -226,8 +226,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                   // IncomingRequestControllerins.IncomingRequestvalue
                   //     .value.requests!.bySeeker != null||
                   IncomingRequestControllerins.IncomingRequestvalue.value
-                                  .requests!.bySeeker !=
-                              [] &&
+                                  .requests!.bySeeker!.length !=
+                              0 &&
                           (requestController.button_maker.value != true)
                       ? Row(
                           children: [
@@ -280,8 +280,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                           .IncomingRequestvalue
                                           .value
                                           .requests!
-                                          .byMaker ==
-                                      null ||
+                                          .byMaker!.length ==
+                                      0 ||
                                   IncomingRequestControllerins
                                           .IncomingRequestvalue
                                           .value

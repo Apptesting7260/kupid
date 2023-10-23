@@ -351,16 +351,23 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        dataofStaticPull
-                                            .spinLeverpoolRequestedData!
-                                            .spinRequestData![index]
-                                            .seekerData!
-                                            .name
-                                            .toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
+                                      Container(
+
+
+                                        child: Text(
+                                          dataofStaticPull
+                                              .spinLeverpoolRequestedData!
+                                              .spinRequestData![index]
+                                              .seekerData!
+                                              .name
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        width: Get.width*0.3,
                                       ),
                                       SizedBox(height: height * .01),
                                       Text(

@@ -220,8 +220,18 @@ class _GalleryAccessState extends State<GalleryAccess> {
                                 BorderSide(color: Color(0xff000CAA), width: 2),
                             fixedSize: Size(150, 60)),
                         onPressed: () {
-                          AdditonalInfpMakerControllerinstance
-                              .MakerAditonalApiHit();
+                          if(imgFile != null){
+                            AdditonalInfpMakerControllerinstance
+                                .MakerAditonalApiHit();
+                          }
+                          else{
+                            Get.snackbar(
+                              "Alert",
+                              "Please upload Document",
+                              backgroundColor: Color(0xffFE008F),
+                            );
+                          }
+
                           // Get.to(PaymentScreen());
                         },
                         child: AdditonalInfpMakerControllerinstance

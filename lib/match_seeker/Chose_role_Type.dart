@@ -150,28 +150,23 @@ SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(Se
             ),
             Center(
               child: MyButton(
-                loading: isloadding,
+
                 title: "Next",
                 onTap: () {
                   setState(() {
                     isloadding = true;
-                    
+
                   });
 
                   ChoseRole();
 
-                    if (selectedrole != null) {
-                      isloadding = false;
 
-                      setState(() {
-                        isloadding;
-                      });
                       if( rolevalue == 1){
                       Get.to(DomatchscreenSiker(title:"Spin Wheel"));}
                       else{
                         Get.to(DomatchscreenSiker(title:"Lever Pull"));
                       }
-                    }
+
 
 
                   //    ;

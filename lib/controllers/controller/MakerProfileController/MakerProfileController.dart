@@ -120,7 +120,7 @@ print(responseBody);
     // Check the response status
     if (response.statusCode== 200) {
       print('File uploaded successfully!');
-      Get.to(VerifyScreen());
+      Get.offAll(VerifyScreen());
        loading.value = false ;
     } else {
       print('Failed to upload file. Status code: ${response.statusCode}');

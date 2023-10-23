@@ -269,9 +269,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             ),
                             Row(
                               children: [
-                                SizedBox(
-                                  width: Get.width * 0.02,
-                                ),
+
                                 (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion==null || seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion=='')?Container():Container(
                                     height: Get.height * 0.03,
                                     width: Get.width * 0.19,
@@ -285,7 +283,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                     child: Row(
                                       children: [
                                         SizedBox(
-                                          width: Get.width * 0.005,
+                                          width: Get.width * 0.001,
                                         ),
                                         Container(
                                           height: Get.height * 0.015,
@@ -295,9 +293,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                             fit: BoxFit.contain,
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: Get.width * 0.0001,
-                                        ),
+
                                         Text(
                                           seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion.toString(),
                                           style: TextStyle(
@@ -305,11 +301,12 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                               fontSize: 10,
                                               fontWeight:
                                               FontWeight.w400),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )),
                                 SizedBox(
-                                  width: Get.width * 0.02,
+                                  height: Get.height * 0.03,
                                 ),
                                 (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.height==null || seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.height=='')?Container():Container(
                                     height: Get.height * 0.03,
@@ -349,7 +346,9 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                     )),
                               ],
                             ),
-
+                            SizedBox(
+                              width: Get.width * 0.01,
+                            ),
                             Row(
                               children: [
                                 SizedBox(
@@ -392,19 +391,19 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                 SizedBox(
                                   width: Get.width * 0.15,
                                 ),
-                                Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child: CircleAvatar(
-                                      radius: 200,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    )
-                                ),
+                                // Container(
+                                //     height: Get.height * 0.05,
+                                //     width: Get.width * 0.05,
+                                //     child: CircleAvatar(
+                                //       radius: 200,
+                                //       child:  CircleAvatar(
+                                //
+                                //         radius: 140,
+                                //         child: Icon(Icons.navigate_next_outlined,color: Colors.white),
+                                //         backgroundColor: Colors.white12,
+                                //       ),
+                                //     )
+                                // ),
                               ],
                             ),
                           ],
@@ -701,19 +700,19 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                 SizedBox(
                                   width: Get.width * 0.15,
                                 ),
-                                Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child: CircleAvatar(
-                                      radius: 200,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    )
-                                ),
+                                // Container(
+                                //     height: Get.height * 0.05,
+                                //     width: Get.width * 0.05,
+                                //     child: CircleAvatar(
+                                //       radius: 200,
+                                //       child:  CircleAvatar(
+                                //
+                                //         radius: 140,
+                                //         child: Icon(Icons.navigate_next_outlined,color: Colors.white),
+                                //         backgroundColor: Colors.white12,
+                                //       ),
+                                //     )
+                                // ),
                               ],
                             ),
                           ],

@@ -31,10 +31,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Get.back();
-        },
-            icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
+
         title: Text(
           "Payment",
           style: Theme.of(context).textTheme.titleLarge,

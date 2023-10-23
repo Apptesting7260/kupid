@@ -61,7 +61,7 @@ print(responseBody);
     if (response.statusCode== 200) {
       print('File uploaded successfully!');
       imgFile=null;
-      Get.to(PaymentScreen());
+      Get.offAll(PaymentScreen());
        loading.value = false ;
     } else {
       print('Failed to upload file. Status code: ${response.statusCode}');

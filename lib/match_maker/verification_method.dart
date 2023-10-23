@@ -19,6 +19,7 @@ class VerificationMethod extends StatefulWidget {
 }
 
 class _VerificationMethodState extends State<VerificationMethod> {
+  bool checkCountry=false;
   SelectProfile selectProfile = SelectProfile.National;
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class _VerificationMethodState extends State<VerificationMethod> {
           Container(
               height: Get.height*0.132,
               child: CustomCountryNameFlag()),
+
 
 
 
@@ -181,7 +183,17 @@ class _VerificationMethodState extends State<VerificationMethod> {
             child: MyButton(
                 width: width*0.8,
                 title: "Continue", onTap: (){
-              Get.to(GalleryAccess());
+                  if(selectedCountry.isNotEmpty){
+                    Get.to(GalleryAccess());
+                  }
+                  else{
+                    Get.snackbar(
+                      "Alert",
+                      "Please select a country",
+                      backgroundColor: Color(0xffFE008F),
+                    );
+                  }
+
             }),
           ),
           SizedBox(height: height*.1,),

@@ -59,6 +59,10 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("======================================================$value");
       print(value.otp);
       optsent.value = true;
+      Get.snackbar(
+        "Alert",
+        "Otp Sent",
+        backgroundColor: Color(0xffFE008F),);
     }).onError((error, stackTrace) {
       print("${error.toString()}===============+++=");
       rxRequestStatus(Status.ERROR);
@@ -95,6 +99,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
       loading.value = false;
       rxRequestStatus(Status.COMPLETED);
+
       // ViewProfileDetails(value);
       verified.value = true;
       print("======================================================$value");
@@ -106,6 +111,10 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("==========$data");
 
       Get.back();
+      Get.snackbar(
+          "Alert",
+          "Varrify Succefully",
+          backgroundColor: Color(0xffFE008F),);
       print("fjksdfn");
     }).onError((error, stackTrace) {
       rxRequestStatus(Status.COMPLETED);
@@ -115,6 +124,11 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("${error.toString()}===============+++=");
       rxRequestStatus(Status.ERROR);
       Get.back();
+      Get.snackbar(
+        "Alert",
+        "Please vallid Otp",
+        backgroundColor: Color(0xffFE008F),
+      );
     });
   }
 }

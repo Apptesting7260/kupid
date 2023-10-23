@@ -541,7 +541,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+
                           children: [
                             Container(
                               width: Get.width * 0.7,
@@ -560,6 +560,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                     ? true
                                     : false,
                                 keyboardType: TextInputType.number,
+                                textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   counter: Offstage(),
@@ -640,7 +641,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 .contains("@"))
                               InkWell(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.only(right: 15),
                                   child: UserEmailAndphone.verified.value ==
                                           false
                                       ? InkWell(
@@ -698,6 +699,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             Container(
                               width: Get.width * 0.7,
                               child: TextFormField(
+                                textAlignVertical: TextAlignVertical.center,
                                 controller: SignUpControllerinstance
                                         .credentialsController.value.text
                                         .contains("@")
@@ -767,48 +769,51 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             if (!SignUpControllerinstance
                                 .credentialsController.value.text
                                 .contains("@"))
-                              InkWell(
-                                  child: UserEmailAndphone.verified.value ==
-                                          false
-                                      ? InkWell(
-                                          onTap: () {
-                                            UserEmailAndphone
-                                                .PhoneAndEmailVerifiyed();
-                                            Timer(Duration(seconds: 3), () {
-                                              setState(() {
-                                                UserEmailAndphone.optsent;
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: InkWell(
+                                    child: UserEmailAndphone.verified.value ==
+                                            false
+                                        ? InkWell(
+                                            onTap: () {
+                                              UserEmailAndphone
+                                                  .PhoneAndEmailVerifiyed();
+                                              Timer(Duration(seconds: 3), () {
+                                                setState(() {
+                                                  UserEmailAndphone.optsent;
+                                                });
+                                                if (UserEmailAndphone
+                                                        .optsent.value ==
+                                                    true) {
+                                                  showAlert();
+                                                }
                                               });
-                                              if (UserEmailAndphone
-                                                      .optsent.value ==
-                                                  true) {
-                                                showAlert();
-                                              }
-                                            });
-                                          },
-                                          child: Text(
-                                            "Verify",
-                                            style: TextStyle(
-                                                color: Colors.pinkAccent,
-                                                fontWeight: FontWeight.bold),
-                                          ))
-                                      : Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: Text(
-                                            "Verifyed",
-                                            style: TextStyle(
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )
-                                  //                       onTap: (){
-                                  //  UserEmailAndphone. PhoneAndEmailVerifiyed();
-                                  //                         if(UserEmailAndphone.otpsent.value==true){
-                                  //        showAlert();
-                                  //                         }
+                                            },
+                                            child: Text(
+                                              "Verify",
+                                              style: TextStyle(
+                                                  color: Colors.pinkAccent,
+                                                  fontWeight: FontWeight.bold),
+                                            ))
+                                        : Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 10),
+                                            child: Text(
+                                              "Verifyed",
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )
+                                    //                       onTap: (){
+                                    //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                                    //                         if(UserEmailAndphone.otpsent.value==true){
+                                    //        showAlert();
+                                    //                         }
 
-                                  //                       },
-                                  ),
+                                    //                       },
+                                    ),
+                              ),
                           ],
                         ),
                       ),
