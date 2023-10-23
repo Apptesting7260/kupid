@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
@@ -729,21 +730,51 @@ bool containerBoeder=false;
                             ),
                           ),
 
-        if(!SignUpControllerInstanse.credentialsController.value.text.contains("@")) InkWell(
+                          if (!SignUpControllerInstanse
+                              .credentialsController.value.text
+                              .contains("@"))
+                            InkWell(
+                                child: UserEmailAndphone.verified.value ==
+                                    false
+                                    ? InkWell(
+                                    onTap: () {
+                                      UserEmailAndphone
+                                          .PhoneAndEmailVerifiyed();
+                                      Timer(Duration(seconds: 3), () {
+                                        setState(() {
+                                          UserEmailAndphone.optsent;
+                                        });
+                                        if (UserEmailAndphone
+                                            .optsent.value ==
+                                            true) {
+                                          showAlert();
+                                        }
+                                      });
+                                    },
+                                    child: Text(
+                                      "Verify",
+                                      style: TextStyle(
+                                          color: Colors.pinkAccent,
+                                          fontWeight: FontWeight.bold),
+                                    ))
+                                    : Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 10),
+                                  child: Text(
+                                    "Verifyed",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              //                       onTap: (){
+                              //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                              //                         if(UserEmailAndphone.otpsent.value==true){
+                              //        showAlert();
+                              //                         }
 
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 10),
-
-                              child: verify==true?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
+                              //                       },
                             ),
-                            onTap: (){
-
-                              UserEmailAndphone. PhoneAndEmailVerifiyed();
-
-                                showAlert();
-
-                            },
-                          ),
                         ],
                       ),
                     )
@@ -950,20 +981,53 @@ bool containerBoeder=false;
                             },
                           ),
                         ),
-                       if(SignUpControllerInstanse.credentialsController.value.text.contains("@")) InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: verify==true?Text("Verify",style: TextStyle(color: Colors.pinkAccent,fontWeight: FontWeight.bold),):Text("Verifyed",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),),
-                          ),
-                          onTap: (){
-                            UserEmailAndphone. PhoneAndEmailVerifiyed();
-                            showAlert();
-                          },
-                        ),
+                       if(SignUpControllerInstanse.credentialsController.value.text.contains("@"))
+                           InkWell(
+                               child: UserEmailAndphone.verified.value ==
+                                   false
+                                   ? InkWell(
+                                   onTap: () {
+                                     UserEmailAndphone
+                                         .PhoneAndEmailVerifiyed();
+                                     Timer(Duration(seconds: 3), () {
+                                       setState(() {
+                                         UserEmailAndphone.optsent;
+                                       });
+                                       if (UserEmailAndphone
+                                           .optsent.value ==
+                                           true) {
+                                         showAlert();
+                                       }
+                                     });
+                                   },
+                                   child: Text(
+                                     "Verify",
+                                     style: TextStyle(
+                                         color: Colors.pinkAccent,
+                                         fontWeight: FontWeight.bold),
+                                   ))
+                                   : Padding(
+                                 padding:
+                                 const EdgeInsets.only(right: 10),
+                                 child: Text(
+                                   "Verifyed",
+                                   style: TextStyle(
+                                       color: Colors.green,
+                                       fontWeight: FontWeight.bold),
+                                 ),
+                               )
+                             //                       onTap: (){
+                             //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                             //                         if(UserEmailAndphone.otpsent.value==true){
+                             //        showAlert();
+                             //                         }
+
+                             //                       },
+                           ),
                       ],
                     ),
                   ),
-                  if(phoneContainerBorder==false)
+                  if(phoneContainerBorder==true)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -1683,22 +1747,7 @@ bool containerBoeder=false;
                loading: UserEmailAndphone.loading.value,
                title: "Verify",
                onTap: () {
-                 if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
-                   UserEmailAndphone.email_verify.value=1;
-                 }
-                 else{
-                   UserEmailAndphone.phone_verify.value=1;
-                 }
                  UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
-                 // UserotpControllerinstance.OtpVerificationapiiHit();
-                 if (UserEmailAndphone.loading.value==false) {
-
-                   Navigator.pop(context);
-                   verify=false;
-                 }
-                 else{
-                   _showSnackBar(context);
-                 }
 
                },
              ),

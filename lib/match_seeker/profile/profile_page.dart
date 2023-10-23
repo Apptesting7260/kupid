@@ -117,7 +117,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                              seekerMyProfileDetailsController
                                                   .SeekerMyProfileDetail
                                                   .value.ProfileDetail!
-                                               
                                                   .name
                                                   .toString(),
                                               style: Theme.of(context)
@@ -570,6 +569,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   .textTheme
                   .bodySmall!
                   .copyWith(color: Color(0xffFE0091)),
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
             ),
           ],
         ),

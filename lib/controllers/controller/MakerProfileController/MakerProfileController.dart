@@ -38,7 +38,9 @@ class MakerProfileController extends GetxController {
   final HandlingOfMakerController = TextEditingController().obs;
   final TypeController = TextEditingController().obs;
   final credencial=Get.put(UserEmailAndPhoneVerifyController());
-
+  UserEmailAndPhoneVerifyController
+  UserEmailAndPhoneVerifyControllerinstance =
+  Get.put(UserEmailAndPhoneVerifyController());
 
 
 Future<void> MakerProfileApiHit() async {
@@ -67,9 +69,26 @@ Future<void> MakerProfileApiHit() async {
 
 
     // Add other text fields to the request+
+    request.fields['update_type'] = "profile";
+
+    if (UserEmailAndPhoneVerifyControllerinstance
+        .emailAndPhoneVerifyController.value.text
+        .contains("@")) {
+      String email = UserEmailAndPhoneVerifyControllerinstance
+          .emailAndPhoneVerifyController.value.text;
+      request.fields['email'] = email.toString();
+      request.fields['email_otp_verified_status'] = "1";
+      print("${email}email==============");
+    } else {
+      String phone = UserEmailAndPhoneVerifyControllerinstance
+          .emailAndPhoneVerifyController.value.text;
+      request.fields['phone'] = phone.toString();
+
+      request.fields['phone_otp_verified_status'] = "1";
+      print("${phone}phone==============");
+    }
+
     request.fields['name'] = NameController.value.text;
-    request.fields['email'] = EmailController.value.text;
-    request.fields['phone'] = PhoneController.value.text;
     request.fields['dob'] = datestring.toString();
     request.fields['location'] = SelectedLocation.toString();
     request.fields['experience'] = selectExperience.toString();

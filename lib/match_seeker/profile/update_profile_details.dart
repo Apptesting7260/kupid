@@ -1260,7 +1260,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           Container(
                             width: width * .45,
                             child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.number,
                               controller: SeekerProfileControllerInstanse
                                   .HeightController.value,
                               maxLength: 1,
@@ -1304,7 +1304,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           Container(
                             width: width * .45,
                             child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.number,
                               controller: SeekerProfileControllerInstanse
                                   .InchesController.value,
                               maxLength: 1,

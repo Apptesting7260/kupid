@@ -122,7 +122,7 @@ class SeekerProfileController extends GetxController {
         print(videoFile);
         print(BarrierToken);
       }
-      print(request.fields['phone'] = PhoneController.value.text);
+
       // Send the request and get the response
       response = await request.send();
       var responseBody = await response.stream.bytesToString();
