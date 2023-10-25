@@ -33,6 +33,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:cupid_match/widgets/seekershortprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:math' as math;
@@ -752,7 +753,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                               ) :
                           Container(
                                 width: width,
-                                height: height * .18,
+                                height: height * .16,
                                 child:     ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   physics: AlwaysScrollableScrollPhysics(),
@@ -762,6 +763,22 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                       .requests!.incoming
                                   !.length,
                                   itemBuilder: (context, index) {
+
+
+                                  final anotheruser=requestHomeController
+                                      .seekerHomeRequestValue.value
+                                      .requests!.incoming![index].getseeker!.id.toString()==seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()?requestHomeController
+                                      .seekerHomeRequestValue.value
+                                      .requests!.incoming![index].getanotherseeker:requestHomeController
+                                      .seekerHomeRequestValue.value
+                                      .requests!.incoming![index].getseeker;
+
+                                      String createdAtString = requestHomeController
+                                      .seekerHomeRequestValue.value
+                                      .requests!.incoming![index].createdAt.toString();
+          DateTime createdAt = DateTime.parse(createdAtString);
+          String formattedDate = DateFormat('d/MM/yyyy').format(createdAt);
+
                                     return
 
                                       InkWell(
@@ -829,19 +846,12 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                   children: [
                                                                     CircleAvatar(
                                                                         radius:
-                                                                        30,
+                                                                        20,
                                                                         backgroundColor:
                                                                         AppColors
                                                                             .white,
                                                                         backgroundImage: CachedNetworkImageProvider(
-                                                                            requestHomeController
-                                                                                .seekerHomeRequestValue
-                                                                                .value
-                                                                                .requests!
-                                                                                .incoming![index]
-                                                                                .getanotherseeker!
-                                                                                .imgPath
-                                                                                .toString())),
+                                                                            anotheruser!.imgPath.toString())),
                                                                   ],
                                                                 ),
                                                               ),
@@ -853,45 +863,36 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                             ),
                                                             Column(
                                                               children: [
-                                                                SizedBox(
-                                                                  height: Get
-                                                                      .height *
-                                                                      0.02,
-                                                                ),
-                                                                Text(
-                                                                  requestHomeController
-                                                                      .seekerHomeRequestValue
-                                                                      .value
-                                                                      .requests!
-                                                                      .incoming![
-                                                                  index]
-                                                                      .getanotherseeker!
-                                                                      .name
-                                                                      .toString(),
+                                                                // SizedBox(
+                                                                //   height: Get
+                                                                //       .height *
+                                                                //       0.02,
+                                                                // ),
+                                                              Container(
+                                                                child: Text(
+                                                                 anotheruser.name.toString(),
+                                                                          
                                                                   style: TextStyle(
+                                                                    overflow: TextOverflow.ellipsis,
                                                                       color: Colors
                                                                           .pink,
-                                                                      fontSize:
-                                                                      20,
+                                                                      fontSize:10
+                                                                      ,
                                                                       fontWeight:
                                                                       FontWeight
                                                                           .bold),
                                                                 ),
-                                                                SizedBox(
-                                                                  height: Get
-                                                                      .height *
-                                                                      0.01,
-                                                                ),
+                                                              ),
+                                                                // SizedBox(
+                                                                //   height: Get
+                                                                //       .height *
+                                                                //       0.01,
+                                                                // ),
                                                                 Text(
-                                                                  requestHomeController
-                                                                      .seekerHomeRequestValue
-                                                                      .value
-                                                                      .requests!
-                                                                      .incoming![
-                                                                  index]
-                                                                      .getanotherseeker!
-                                                                      .dob
-                                                                      .toString(),
+
+
+formattedDate,
+                                                                      
                                                                   style: TextStyle(
                                                                       color:
                                                                       Colors
@@ -1028,32 +1029,29 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                 Get.height *
                                                                     0.02,
                                                               ),
-                                                              Text(
-                                                                requestHomeController
-                                                                    .seekerHomeRequestValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .incoming![index]
-                                                                    .getanotherseeker!
-                                                                    .name
-                                                                    .toString() +
-                                                                    "&" +
-                                                                    requestHomeController
-                                                                        .seekerHomeRequestValue
-                                                                        .value
-                                                                        .requests!
-                                                                        .incoming![index]
-                                                                        .getmaker!
-                                                                        .name
-                                                                        .toString(),
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .pink,
-                                                                    fontSize:
-                                                                    10,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                              Container(width: 100,
+                                                                child: Text(
+                                                                 anotheruser!.name.toString() +
+                                                                      "&" +
+                                                                      requestHomeController
+                                                                          .seekerHomeRequestValue
+                                                                          .value
+                                                                          .requests!
+                                                                          .incoming![index]
+                                                                          .getmaker!
+                                                                          .name
+                                                                          .toString(),
+                                                                          
+                                                                  style: TextStyle(
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize:10
+                                                                      ,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                                ),
                                                               ),
                                                               SizedBox(
                                                                 height:
@@ -1061,14 +1059,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     0.01,
                                                               ),
                                                               Text(
-                                                                requestHomeController
-                                                                    .seekerHomeRequestValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .incoming![index]
-                                                                    .getanotherseeker!
-                                                                    .dob
-                                                                    .toString(),
+                                                           formattedDate,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .black),
@@ -1640,9 +1631,9 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                 ));
         }
 
-        final recentmachesstatus =
-            recentSeekerMatchesController.rxRequestStatus.value;
-        // if (recentmachesstatus == Status.ERROR
+        // final recentmachesstatus =
+        //     recentSeekerMatchesController.rxRequestStatus.value;
+        // // if (recentmachesstatus == Status.ERROR
 
         //     ) {
         //   if (recentSeekerMatchesController.error.value == 'No internet' ) {

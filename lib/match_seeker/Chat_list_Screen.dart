@@ -70,9 +70,11 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
                         return                        InkWell(
                           child: Container(
                               height: height *0.1,
+                              color: Colors.amber[50],
                               width: Get.width,
                             child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Container(
                                       height: height * .33,
@@ -127,7 +129,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
                                           height: height * .01,
                                         ),
                                         Text(
-                                 
+                                //  "data",
                                           data['roomname'],
                                           // (seekerChatListController
                                           //     .seekerChatListValue
@@ -162,7 +164,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
                                         ),
                                       ],
                                     ),
-                                   
+                                   SizedBox(width: 20,),
                                     Text(
                                    "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toDate().toString()))}"
                                  
