@@ -19,6 +19,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../match_seeker/Siker_TabView.dart';
+import '../match_seeker/profile/SeekerUpdateProfileDetails.dart';
 import '../match_seeker/profile/profile_page.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -283,7 +284,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               ListTile(
                 onTap: () {
-                  Get.to(() => SikerProfileDetails());
+                  Get.to(() => SikerUpdateProfileDetails());
                 },
                 leading: Image.asset(
                   'assets/maker/Mask group (7).png',

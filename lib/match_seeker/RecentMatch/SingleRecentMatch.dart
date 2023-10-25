@@ -270,6 +270,9 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             Row(
                               children: [
 
+                                SizedBox(
+                                  width: Get.width * 0.02,
+                                ),
                                 (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion==null || seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion=='')?Container():Container(
                                     height: Get.height * 0.03,
                                     width: Get.width * 0.19,
@@ -287,7 +290,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                         ),
                                         Container(
                                           height: Get.height * 0.015,
-                                          width: Get.width * 0.08,
+                                          width: Get.width * 0.07,
                                           child: Image.asset(
                                             'assets/icons/religon.png',
                                             fit: BoxFit.contain,
@@ -306,7 +309,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                       ],
                                     )),
                                 SizedBox(
-                                  height: Get.height * 0.03,
+                                  width: Get.width * 0.02,
                                 ),
                                 (seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.height==null || seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.height=='')?Container():Container(
                                     height: Get.height * 0.03,
@@ -347,7 +350,7 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                               ],
                             ),
                             SizedBox(
-                              width: Get.width * 0.01,
+                              height: Get.height * 0.01,
                             ),
                             Row(
                               children: [
@@ -662,7 +665,9 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             ),
                             Row(
                               children: [
-
+                                SizedBox(
+                                  width: Get.width * 0.02,
+                                ),
                                 (seekerUserProfileController.ViewProfileDetail.value.profileDetails![0]. salary==null || seekerUserProfileController.ViewProfileDetail.value.profileDetails![0]. salary=='')?Container(
                                   child: SizedBox(width: Get.width*0.18,),
                                 ): Container(

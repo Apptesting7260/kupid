@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
-import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,22 +26,25 @@ import 'package:video_player/video_player.dart';
 import '../../controllers/UserNumberAndNuberverfyController.dart';
 import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import '../../controllers/controller/MakerProfileController/MakerProfileController.dart';
+import '../../controllers/controller/SeekerProfileController/SeekerEditProfileController.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
+import '../../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import '../../match_maker/match_maker_profile_update.dart';
 import '../../models/GoogleLocationModel/GoogleLocationModel.dart';
 
-class SikerProfileDetails extends StatefulWidget {
-  const SikerProfileDetails({Key? key}) : super(key: key);
+class SikerUpdateProfileDetails extends StatefulWidget {
+  const SikerUpdateProfileDetails({Key? key}) : super(key: key);
 
   @override
-  State<SikerProfileDetails> createState() => _SikerProfileDetailsState();
+  State<SikerUpdateProfileDetails> createState() => _SikerUpdateProfileDetailsState();
 }
 
-class _SikerProfileDetailsState extends State<SikerProfileDetails> {
+class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
   // MakerProfileController MakerProfileControllerInstanse=Get.put(MakerProfileController());
 
   final SignUpControllerinstance = Get.put(SignUpController());
   final UserEmailAndphone = Get.put(UserEmailAndPhoneVerifyController());
+
   final FocusNode _pinPutFocusNode = FocusNode();
 
   FocusNode _dropdownFocus1 = FocusNode();
@@ -59,9 +61,11 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
 
   final locationcntroller = TextEditingController();
 
-  final SeekerProfileControllerInstanse = Get.put(SeekerProfileController());
+  final SeekerProfileControllerInstanse = Get.put(SeekerEditProfileController());
+  ViewSikerProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(ViewSikerProfileDetailsController());
+
   final GetAllOcupationsControllerInstanse =
-      Get.put(GetAllOcupationsController());
+  Get.put(GetAllOcupationsController());
   String googleAPiKey = "AIzaSyACG0YonxAConKXfgaeVYj7RCRdXazrPYI";
   DateTime date = DateTime.now();
   List<Predictions> searchPlace = [];
@@ -91,7 +95,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
 
       // Validate video duration
       final VideoPlayerController controller =
-          VideoPlayerController.file(videoFile!);
+      VideoPlayerController.file(videoFile!);
       await controller.initialize();
       final videoDuration = controller.value.duration;
       await controller.dispose();
@@ -187,8 +191,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
     var image = imgLib.decodeImage(imageFile.readAsBytesSync())!;
     var compressedImage = imgLib.encodeJpg(image, quality: 50);
     File compressedFile =
-        File(imageFile.path.replaceAll('.jpg', '_compressed.jpg'))
-          ..writeAsBytesSync(compressedImage);
+    File(imageFile.path.replaceAll('.jpg', '_compressed.jpg'))
+      ..writeAsBytesSync(compressedImage);
     print("Original image size: ${imageFile.lengthSync()} bytes");
     print("Compressed image size: ${compressedFile.lengthSync()} bytes");
     // print("Compressed image path: ${compressedFile.path}");
@@ -231,14 +235,14 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
       print(_isDropdownOpen3);
     });
   }
-
+  var data;
   bool containerBoeder = false;
   bool phoneContainerBorder = false;
   @override
   void initState() {
+    ViewSikerProfileDetailsControllerinstance.ViewSikerProfileDetailsApiHit();
     GetAllOcupationsControllerInstanse.GetAllOcupationsListApiHit();
-
-    // TODO: implement initState
+    UserEmailAndphone.verified.value = false;
     super.initState();
     phoneContainerBorder = false;
     containerBoeder = false;
@@ -246,18 +250,25 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
     _dropdownFocus3.addListener(_onDropdownFocusChange3);
+
     startdate = null;
     selectGender = null;
     datestring = null;
     imgFile = null;
+
+
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        // drawer: MyDrawer(),
+      // drawer: MyDrawer(),
         appBar: AppBar(
           // leading: Icon(
           //   Icons.menu,
@@ -311,17 +322,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             child: ClipOval(
                                 child: imgFile == null
                                     ? Image.network(
-                                        'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
-                                        height: 200,
-                                        width: 200,
-                                        fit: BoxFit.cover,
-                                      )
+                                  'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
+                                  height: 200,
+                                  width: 200,
+                                  fit: BoxFit.cover,
+                                )
                                     : Image.file(
-                                        imgFile!,
-                                        height: height,
-                                        width: width,
-                                        fit: BoxFit.cover,
-                                      )),
+                                  imgFile!,
+                                  height: height,
+                                  width: width,
+                                  fit: BoxFit.cover,
+                                )),
                           ),
                           Positioned(
                               top: 60,
@@ -332,7 +343,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                     showOptionsDialog(context);
                                   },
                                   child:
-                                      Image.asset("assets/icons/cameraa.png")))
+                                  Image.asset("assets/icons/cameraa.png")))
                           // Positioned(
                           //   bottom: 0,
                           //   right: -8,
@@ -364,6 +375,12 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                 ],
               ),
               //*************************  video uploaded comment **********
+
+
+              // SeekerProfileControllerInstanse.NameController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].name ,
+              // SeekerProfileControllerInstanse.SalaryController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].salary,
+              //
+              // SeekerProfileControllerInstanse.HeightController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].height,
               SizedBox(
                 height: height * .05,
               ),
@@ -448,7 +465,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       ),
                       SizedBox(height: height * .01),
                       TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         keyboardType: TextInputType.emailAddress,
                         controller: SeekerProfileControllerInstanse
                             .NameController.value,
@@ -461,25 +477,25 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffFE0091))),
+                                BorderSide(color: Color(0xffFE0091))),
                             hintStyle: TextStyle(
                                 fontSize: 16, color: Color(0xffBABABA)),
                             contentPadding: EdgeInsets.all(18),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffBABABA))),
+                                BorderSide(color: Color(0xffBABABA))),
                             errorBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffBABABA))),
+                                BorderSide(color: Color(0xffBABABA))),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
+                              BorderRadius.all(Radius.circular(35.0)),
                               borderSide: BorderSide(color: Color(0xffBABABA)),
                             ),
                             hintText: "Enter name",
@@ -539,8 +555,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 color: phoneContainerBorder == false
                                     ? Colors.grey
                                     : Colors.pinkAccent)
-                            // border: Border.all(color: Colors.grey)
-                            ),
+                          // border: Border.all(color: Colors.grey)
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -550,17 +566,13 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               child: TextFormField(
                                 maxLength: 15,
                                 controller: SignUpControllerinstance
-                                        .credentialsController.value.text
-                                        .contains("@")
+                                    .credentialsController.value.text
+                                    .contains("@")
                                     ? UserEmailAndphone
-                                        .emailAndPhoneVerifyController.value
+                                    .emailAndPhoneVerifyController.value
                                     : SignUpControllerinstance
-                                        .credentialsController.value,
-                                enabled: SignUpControllerinstance
-                                        .credentialsController.value.text
-                                        .contains("@")
-                                    ? true
-                                    : false,
+                                    .credentialsController.value,
+                                enabled: true,
                                 keyboardType: TextInputType.number,
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: InputDecoration(
@@ -586,7 +598,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          color: AppColors.subtitletextcolor),
+                                      color: AppColors.subtitletextcolor),
                                   //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                                   // focusedBorder: OutlineInputBorder(
                                   //   borderRadius: BorderRadius.circular(30),
@@ -628,7 +640,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                     });
                                     return null;
                                   } else if (!RegExp(
-                                          r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                      r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
                                       .hasMatch(value)) {
                                     setState(() {
                                       phoneContainerBorder = true;
@@ -638,56 +650,48 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 },
                               ),
                             ),
-                            if (SignUpControllerinstance
-                                .credentialsController.value.text
-                                .contains("@"))
+
                               InkWell(
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 15),
                                   child: UserEmailAndphone.verified.value ==
-                                          false
+                                      false
                                       ? InkWell(
+                                    child: Text(
+                                      "Verify",
+                                      style: TextStyle(
+                                          color: Colors.pinkAccent,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     onTap: () {
-
                                       UserEmailAndphone
                                           .PhoneAndEmailVerifiyed();
-                                      setState(() {
-                                        UserEmailAndphone.optsent;
-
-                                      });
-                                      if( UserEmailAndphone.rxRequestStatus.value==Status.COMPLETED||UserEmailAndphone.optsent.value==true){
+                                      if (UserEmailAndphone
+                                          .optsent.value ==
+                                          true) {
                                         showAlert();
                                       }
-
-
-
-
                                     },
-                                          child:UserEmailAndphone.rxRequestStatus.value==Status.LOADING?
-                                                      CircularProgressIndicator(): Text(
-                                            "Verify",
-                                            style: TextStyle(
-                                                color: Colors.pinkAccent,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          // onTap: () {
-                                          //   UserEmailAndphone
-                                          //       .PhoneAndEmailVerifiyed();
-                                          //   if (UserEmailAndphone.optsent.value == true) {
-                                          //     showAlert();
-                                          //   }
-                                          // },
-                                        )
+                                  )
                                       : Text(
-                                          "Verifyed",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                    "Verifyed",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
                           ],
                         ),
+                      ),
+                      if(phoneContainerBorder)Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Phone Number cannot be empty!",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
                       ),
 
                       SizedBox(height: height * .03),
@@ -705,8 +709,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 color: containerBoeder == false
                                     ? Colors.grey
                                     : Colors.pinkAccent)
-                            // border: Border.all(color: Colors.grey)
-                            ),
+                          // border: Border.all(color: Colors.grey)
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -716,20 +720,15 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             Container(
                               width: Get.width * 0.7,
                               child: TextFormField(
-
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: SignUpControllerinstance
-                                        .credentialsController.value.text
-                                        .contains("@")
+                                    .credentialsController.value.text
+                                    .contains("@")
                                     ? SignUpControllerinstance
-                                        .credentialsController.value
+                                    .credentialsController.value
                                     : UserEmailAndphone
-                                        .emailAndPhoneVerifyController.value,
-                                enabled: SignUpControllerinstance
-                                        .credentialsController.value.text
-                                        .contains("@")
-                                    ? false
-                                    : true,
+                                    .emailAndPhoneVerifyController.value,
+                                enabled: true,
                                 decoration: InputDecoration(
                                   hintText: "example@gmail.com",
                                   border: InputBorder.none,
@@ -738,7 +737,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          color: AppColors.subtitletextcolor),
+                                      color: AppColors.subtitletextcolor),
                                   //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
                                   // focusedBorder: OutlineInputBorder(
                                   //   borderRadius: BorderRadius.circular(30),
@@ -768,7 +767,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 ),
                                 onFieldSubmitted: (value) {},
                                 validator: (value) {
-
                                   if (value!.isEmpty ||
                                       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                           .hasMatch(value)) {
@@ -785,71 +783,62 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               ),
                             ),
 
-                            if (!SignUpControllerinstance
-                                .credentialsController.value.text
-                                .contains("@"))
+
                               Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: InkWell(
                                     child: UserEmailAndphone.verified.value ==
-                                            false
+                                        false
                                         ? InkWell(
-                                            onTap: () {
-
-                                              UserEmailAndphone
-                                                  .PhoneAndEmailVerifiyed();
-                                              setState(() {
-                                                UserEmailAndphone.optsent;
-
-                                              });
-                                                if( UserEmailAndphone.optsent.value==true){
-                                                  showAlert();
-                                                }
-
-
-
-
-                                            },
-                                            child:UserEmailAndphone.rxRequestStatus.value==Status.LOADING?
-                                            CircularProgressIndicator():
-                                            Text("Verify",
-                                              style: TextStyle(
-                                                  color: Colors.pinkAccent,
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                    )
+                                        onTap: () {
+                                          UserEmailAndphone
+                                              .PhoneAndEmailVerifiyed();
+                                          Timer(Duration(seconds: 3), () {
+                                            setState(() {
+                                              UserEmailAndphone.optsent;
+                                            });
+                                            if (UserEmailAndphone
+                                                .optsent.value ==
+                                                true) {
+                                              showAlert();
+                                            }
+                                          });
+                                        },
+                                        child: Text(
+                                          "Verify",
+                                          style: TextStyle(
+                                              color: Colors.pinkAccent,
+                                              fontWeight: FontWeight.bold),
+                                        ))
                                         : Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 10),
-                                            child: Text(
-                                              "Verifyed",
-                                              style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )
-                                    //                       onTap: (){
-                                    //  UserEmailAndphone. PhoneAndEmailVerifiyed();
-                                    //                         if(UserEmailAndphone.otpsent.value==true){
-                                    //        showAlert();
-                                    //                         }
+                                      padding:
+                                      const EdgeInsets.only(right: 10),
+                                      child: Text(
+                                        "Verifyed",
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
+                                  //                       onTap: (){
+                                  //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                                  //                         if(UserEmailAndphone.otpsent.value==true){
+                                  //        showAlert();
+                                  //                         }
 
-                                    //                       },
-                                    ),
+                                  //                       },
+                                ),
                               ),
                           ],
                         ),
                       ),
                       if (containerBoeder == true)
                         Row(
-
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 25),
-                              child: Text(
-                                "Email cannot be empty!",
-                                style: TextStyle(color: Colors.pinkAccent,fontSize: 12),
-                              ),
+                            Text(
+                              "Email cannot be empty!",
+                              style: TextStyle(color: Colors.red),
                             ),
                           ],
                         ),
@@ -889,7 +878,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               buttonStyleData: ButtonStyleData(
                                 height: Get.height * 0.07,
                                 padding:
-                                    const EdgeInsets.only(left: 14, right: 14),
+                                const EdgeInsets.only(left: 14, right: 14),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   border: Border.all(
@@ -902,23 +891,23 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               ),
                               iconStyleData: dropdownvalue == null
                                   ? IconStyleData(
-                                      icon: Icon(Icons.keyboard_arrow_down),
-                                      // Change to up arrow icon
-                                      iconSize: 30,
-                                      iconEnabledColor: Colors.black,
-                                    )
+                                icon: Icon(Icons.keyboard_arrow_down),
+                                // Change to up arrow icon
+                                iconSize: 30,
+                                iconEnabledColor: Colors.black,
+                              )
                                   : IconStyleData(
-                                      icon: InkWell(
-                                        child: Icon(Icons.close),
-                                        onTap: () {
-                                          setState(() {
-                                            dropdownvalue = null;
-                                          });
-                                        },
-                                      ), // Change to down arrow icon
-                                      iconSize: 25,
-                                      //iconEnabledColor: Colors.black,
-                                    ),
+                                icon: InkWell(
+                                  child: Icon(Icons.close),
+                                  onTap: () {
+                                    setState(() {
+                                      dropdownvalue = null;
+                                    });
+                                  },
+                                ), // Change to down arrow icon
+                                iconSize: 25,
+                                //iconEnabledColor: Colors.black,
+                              ),
                               dropdownStyleData: DropdownStyleData(
                                 width: Get.width * 0.89,
                                 decoration: BoxDecoration(
@@ -929,9 +918,9 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 scrollbarTheme: ScrollbarThemeData(
                                   radius: const Radius.circular(40),
                                   thickness:
-                                      MaterialStateProperty.all<double>(6),
+                                  MaterialStateProperty.all<double>(6),
                                   thumbVisibility:
-                                      MaterialStateProperty.all<bool>(true),
+                                  MaterialStateProperty.all<bool>(true),
                                 ),
                               ),
                               menuItemStyleData: const MenuItemStyleData(
@@ -951,8 +940,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       ),
                       SizedBox(height: height * .01),
                       TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-
                         maxLength: 2,
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -968,25 +955,25 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             suffixText: "LPA",
                             focusedBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffFE0091))),
+                                BorderSide(color: Color(0xffFE0091))),
                             hintStyle: TextStyle(
                                 fontSize: 16, color: Color(0xffBABABA)),
                             contentPadding: EdgeInsets.all(18),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffBABABA))),
+                                BorderSide(color: Color(0xffBABABA))),
                             errorBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffBABABA))),
+                                BorderSide(color: Color(0xffBABABA))),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
+                              BorderRadius.all(Radius.circular(35.0)),
                               borderSide: BorderSide(color: Color(0xffBABABA)),
                             ),
                             hintText: "Salary",
@@ -1031,8 +1018,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       //       fillColor: Colors.white),
                       // ),
                       TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-
                         keyboardType: TextInputType.text,
                         controller: locationcntroller,
                         validator: (value) {
@@ -1068,17 +1053,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
+                            BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Colors.red),
                           ),
                           disabledBorder: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
+                            BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Color(0xffBABABA)),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
+                            BorderRadius.all(Radius.circular(35.0)),
                             borderSide: BorderSide(color: Colors.pink),
                           ),
                         ),
@@ -1091,29 +1076,29 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               shrinkWrap: true,
                               itemCount: searchPlace.length,
                               itemBuilder: (context, index) => ListTile(
-                                    onTap: () {
-                                      setState(() {
-                                        locationcntroller.text =
-                                            searchPlace[index].description ??
-                                                "";
-                                        _getLatLang();
-                                        SelectedLocation =
-                                            locationcntroller.text;
-                                        // print(SelectedLocation);
-                                        Sikeraddress = SelectedLocation;
-                                        print("$Sikeraddress=============");
-                                        setState(() {
-                                          searchPlace.clear();
-                                        });
-                                      });
-                                    },
-                                    horizontalTitleGap: 0,
-                                    title: Text(
-                                      searchPlace[index].description ?? "",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  )),
+                                onTap: () {
+                                  setState(() {
+                                    locationcntroller.text =
+                                        searchPlace[index].description ??
+                                            "";
+                                    _getLatLang();
+                                    SelectedLocation =
+                                        locationcntroller.text;
+                                    // print(SelectedLocation);
+                                    Sikeraddress = SelectedLocation;
+                                    print("$Sikeraddress=============");
+                                    setState(() {
+                                      searchPlace.clear();
+                                    });
+                                  });
+                                },
+                                horizontalTitleGap: 0,
+                                title: Text(
+                                  searchPlace[index].description ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
                         ),
                       ),
                       SizedBox(height: height * .03),
@@ -1148,7 +1133,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             buttonStyleData: ButtonStyleData(
                               height: Get.height * 0.07,
                               padding:
-                                  const EdgeInsets.only(left: 14, right: 14),
+                              const EdgeInsets.only(left: 14, right: 14),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
@@ -1161,23 +1146,23 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             ),
                             iconStyleData: selectLocalGender == null
                                 ? IconStyleData(
-                                    icon: Icon(Icons.keyboard_arrow_down),
-                                    // Change to up arrow icon
-                                    iconSize: 30,
-                                    iconEnabledColor: Colors.black,
-                                  )
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              // Change to up arrow icon
+                              iconSize: 30,
+                              iconEnabledColor: Colors.black,
+                            )
                                 : IconStyleData(
-                                    icon: InkWell(
-                                      child: Icon(Icons.close),
-                                      onTap: () {
-                                        setState(() {
-                                          selectLocalGender = null;
-                                        });
-                                      },
-                                    ), // Change to down arrow icon
-                                    iconSize: 25,
-                                    //iconEnabledColor: Colors.black,
-                                  ),
+                              icon: InkWell(
+                                child: Icon(Icons.close),
+                                onTap: () {
+                                  setState(() {
+                                    selectLocalGender = null;
+                                  });
+                                },
+                              ), // Change to down arrow icon
+                              iconSize: 25,
+                              //iconEnabledColor: Colors.black,
+                            ),
                             dropdownStyleData: DropdownStyleData(
                               width: Get.width * 0.89,
                               decoration: BoxDecoration(
@@ -1189,7 +1174,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 radius: const Radius.circular(40),
                                 thickness: MaterialStateProperty.all<double>(6),
                                 thumbVisibility:
-                                    MaterialStateProperty.all<bool>(true),
+                                MaterialStateProperty.all<bool>(true),
                               ),
                             ),
                             menuItemStyleData: const MenuItemStyleData(
@@ -1230,36 +1215,36 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                             buttonStyleData: ButtonStyleData(
                               height: Get.height * 0.07,
                               padding:
-                                  const EdgeInsets.only(left: 14, right: 14),
+                              const EdgeInsets.only(left: 14, right: 14),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
                                     color: _isDropdownOpen2 == false
                                         ? Colors.grey
                                         : Colors
-                                            .pink // Set border color based on selected state
-                                    ),
+                                        .pink // Set border color based on selected state
+                                ),
                                 color: Colors.white,
                               ),
                             ),
                             iconStyleData: selectReligion == null
                                 ? IconStyleData(
-                                    icon: Icon(Icons.keyboard_arrow_down),
-                                    iconSize: 30,
-                                    iconEnabledColor: Colors.black,
-                                  )
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              iconSize: 30,
+                              iconEnabledColor: Colors.black,
+                            )
                                 : IconStyleData(
-                                    icon: InkWell(
-                                      child: Icon(Icons.close),
-                                      onTap: () {
-                                        setState(() {
-                                          selectReligion = null;
-                                        });
-                                      },
-                                    ),
-                                    iconSize: 25,
-                                    iconEnabledColor: Colors.black,
-                                  ),
+                              icon: InkWell(
+                                child: Icon(Icons.close),
+                                onTap: () {
+                                  setState(() {
+                                    selectReligion = null;
+                                  });
+                                },
+                              ),
+                              iconSize: 25,
+                              iconEnabledColor: Colors.black,
+                            ),
                             dropdownStyleData: DropdownStyleData(
                               width: Get.width * 0.89,
                               decoration: BoxDecoration(
@@ -1271,7 +1256,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                 radius: const Radius.circular(40),
                                 thickness: MaterialStateProperty.all<double>(6),
                                 thumbVisibility:
-                                    MaterialStateProperty.all<bool>(true),
+                                MaterialStateProperty.all<bool>(true),
                               ),
                             ),
                             menuItemStyleData: const MenuItemStyleData(
@@ -1295,8 +1280,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           Container(
                             width: width * .45,
                             child: TextFormField(
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-
                               keyboardType: TextInputType.number,
                               controller: SeekerProfileControllerInstanse
                                   .HeightController.value,
@@ -1313,7 +1296,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffFE0091))),
+                                      BorderSide(color: Color(0xffFE0091))),
                                   hintStyle: TextStyle(
                                       fontSize: 16, color: Color(0xffBABABA)),
                                   contentPadding: EdgeInsets.all(18),
@@ -1321,17 +1304,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffBABABA))),
+                                      BorderSide(color: Color(0xffBABABA))),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffBABABA))),
+                                      BorderSide(color: Color(0xffBABABA))),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(35.0)),
+                                    BorderRadius.all(Radius.circular(35.0)),
                                     borderSide:
-                                        BorderSide(color: Color(0xffBABABA)),
+                                    BorderSide(color: Color(0xffBABABA)),
                                   ),
                                   hintText: "Feet",
                                   filled: true,
@@ -1341,8 +1324,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           Container(
                             width: width * .45,
                             child: TextFormField(
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-
                               keyboardType: TextInputType.number,
                               controller: SeekerProfileControllerInstanse
                                   .InchesController.value,
@@ -1359,7 +1340,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffFE0091))),
+                                      BorderSide(color: Color(0xffFE0091))),
                                   hintStyle: TextStyle(
                                       fontSize: 16, color: Color(0xffBABABA)),
                                   contentPadding: EdgeInsets.all(18),
@@ -1367,17 +1348,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffBABABA))),
+                                      BorderSide(color: Color(0xffBABABA))),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0)),
                                       borderSide:
-                                          BorderSide(color: Color(0xffBABABA))),
+                                      BorderSide(color: Color(0xffBABABA))),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(35.0)),
+                                    BorderRadius.all(Radius.circular(35.0)),
                                     borderSide:
-                                        BorderSide(color: Color(0xffBABABA)),
+                                    BorderSide(color: Color(0xffBABABA)),
                                   ),
                                   hintText: "Inches",
                                   filled: true,
@@ -1401,27 +1382,27 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsets.symmetric(horizontal: width * .05),
+                              EdgeInsets.symmetric(horizontal: width * .05),
                               child: startdate == null
                                   ? Text(
-                                      "Choose birthday date",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              color: Colors.pink,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w800),
-                                    )
+                                "Choose birthday date",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                    color: Colors.pink,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800),
+                              )
                                   : Text(
-                                      DateFormat('dd-MM-yyyy').format(
-                                          DateTime.parse(startdate.toString())),
-                                      style: TextStyle(color: Colors.black),
-                                    ),
+                                DateFormat('dd-MM-yyyy').format(
+                                    DateTime.parse(startdate.toString())),
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ),
                             Padding(
                               padding:
-                                  EdgeInsets.symmetric(horizontal: width * .05),
+                              EdgeInsets.symmetric(horizontal: width * .05),
                               child: GestureDetector(
                                   onTap: () async {
                                     DateTime minimumDate = DateTime.now()
@@ -1435,7 +1416,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                     print(startdate);
                                     datestring = DateFormat('dd-MM-yyyy')
                                         .format(DateTime.parse(
-                                            startdate.toString()));
+                                        startdate.toString()));
                                     print(datestring);
 
                                     setState(() {
@@ -1462,8 +1443,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       Container(
                         width: width * .9,
                         child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-
                           keyboardType: TextInputType.emailAddress,
                           controller: SeekerProfileControllerInstanse
                               .QuestionController.value,
@@ -1477,27 +1456,27 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(35.0)),
+                                  BorderRadius.all(Radius.circular(35.0)),
                                   borderSide:
-                                      BorderSide(color: Color(0xffFE0091))),
+                                  BorderSide(color: Color(0xffFE0091))),
                               hintStyle: TextStyle(
                                   fontSize: 16, color: Color(0xffBABABA)),
                               contentPadding: EdgeInsets.all(18),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(35.0)),
+                                  BorderRadius.all(Radius.circular(35.0)),
                                   borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
+                                  BorderSide(color: Color(0xffBABABA))),
                               errorBorder: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(35.0)),
+                                  BorderRadius.all(Radius.circular(35.0)),
                                   borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
+                                  BorderSide(color: Color(0xffBABABA))),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
+                                BorderRadius.all(Radius.circular(35.0)),
                                 borderSide:
-                                    BorderSide(color: Color(0xffBABABA)),
+                                BorderSide(color: Color(0xffBABABA)),
                               ),
                               hintText: "Enter your questions",
                               filled: true,
@@ -1543,8 +1522,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               ),
                               Flexible(
                                 child: TextFormField(
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
                                   controller: SeekerProfileControllerInstanse
                                       .FirstanswerController.value,
                                   textAlign: TextAlign.center,
@@ -1555,17 +1532,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1599,8 +1576,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               ),
                               Flexible(
                                 child: TextFormField(
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
                                   controller: SeekerProfileControllerInstanse
                                       .SecondanswerController.value,
                                   textAlign: TextAlign.center,
@@ -1611,17 +1586,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1656,8 +1631,6 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                               ),
                               Flexible(
                                 child: TextFormField(
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
                                   controller: SeekerProfileControllerInstanse
                                       .ThirdanswerController.value,
                                   textAlign: TextAlign.center,
@@ -1669,17 +1642,17 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC))),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffFE0091))),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                          BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                               color: Color(0xffDCDCDC)))),
                                   onFieldSubmitted: (value) {},
@@ -1883,7 +1856,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
               // ),
               SizedBox(height: height * .03),
               Obx(() => Center(
-                      child: MyButton(
+                  child: MyButton(
                     loading: SeekerProfileControllerInstanse.loading.value,
                     title: 'Confirm',
                     onTap: () {
@@ -2065,7 +2038,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
       builder: (context) {
         return AlertDialog(
 
-            // Color(0xffFFFFFF)
+          // Color(0xffFFFFFF)
             backgroundColor: Color(0xffFFFFFF),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -2110,22 +2083,8 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                       // },
                       useNativeKeyboard: true,
                       keyboardType: TextInputType.number,
-                      defaultPinTheme: PinTheme(
-                        width: 56,
-                        height: 56,
-                        textStyle: TextStyle(
-                            fontSize: 30, color: Colors.black, fontWeight: FontWeight.w600),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
-                      focusedPinTheme: PinTheme(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration( color: Color(0xffFE0091),
-                        border: Border.all(color: Colors.green),
-                        borderRadius: BorderRadius.circular(50),)),
+                      // defaultPinTheme: defaultPinTheme,
+                      // focusedPinTheme: focusedPinTheme,
                       // submittedPinTheme: submittedPinTheme,
                       onSubmitted: (String pin) => _showSnackBar(context,pin),
                       focusNode: _pinPutFocusNode,

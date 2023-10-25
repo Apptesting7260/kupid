@@ -553,6 +553,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     height: height * .01,
                   ),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     textAlignVertical: TextAlignVertical.center,
                     controller:
                         MakerProfileControllerInstanse.NameController.value,
@@ -631,6 +632,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                           Container(
                             width: Get.width * 0.7,
                             child: TextFormField(
+
                               controller: SignUpControllerInstanse
                                       .credentialsController.value.text
                                       .contains("@")
@@ -764,7 +766,8 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                                               }
                                             });
                                           },
-                                          child: Text(
+                                          child:UserEmailAndphone.rxRequestStatus.value==Status.LOADING?
+                                          CircularProgressIndicator(): Text(
                                             "Verify",
                                             style: TextStyle(
                                                 color: Colors.pinkAccent,
@@ -872,11 +875,13 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   //   ),),
                   if (containerBoeder == true)
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          "Email cannot be empty!",
-                          style: TextStyle(color: Colors.red),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            "Email cannot be empty!",
+                            style: TextStyle(color: Colors.pinkAccent,fontSize: 12),
+                          ),
                         ),
                       ],
                     ),
@@ -1024,7 +1029,8 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                                             }
                                           });
                                         },
-                                        child: Text(
+                                        child: UserEmailAndphone.rxRequestStatus.value==Status.LOADING?
+                                        CircularProgressIndicator():Text(
                                           "Verify",
                                           style: TextStyle(
                                               color: Colors.pinkAccent,
@@ -1053,11 +1059,14 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   ),
                   if (phoneContainerBorder == true)
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+
                       children: [
-                        Text(
-                          "Plesse Enter Valid number!",
-                          style: TextStyle(color: Colors.red),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            "Plesse Enter Valid number!",
+                            style: TextStyle(color: Colors.pinkAccent,fontSize: 12),
+                          ),
                         ),
                       ],
                     ),
@@ -1271,6 +1280,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                   // ),
 
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.text,
                     controller: locationcntroller,
                     validator: (value) {
@@ -1450,6 +1460,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     height: height * .01,
                   ),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: MakerProfileControllerInstanse
                         .AboutMakerController.value,
                     maxLines: 4,
@@ -1475,7 +1486,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please required";
+                        return "Required";
                       }
                       return null;
                     },
@@ -1497,6 +1508,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     height: height * .01,
                   ),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: MakerProfileControllerInstanse
                         .ExpectFromSeekerController.value,
                     maxLines: 4,
@@ -1523,7 +1535,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Please required";
+                        return "Required";
                       }
                       return null;
                     },
@@ -1545,6 +1557,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     height: height * .01,
                   ),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: MakerProfileControllerInstanse
                         .HandlingOfMakerController.value,
                     maxLines: 4,
@@ -1570,7 +1583,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         if (value.isEmpty) {
-                          return "Please required";
+                          return "Required";
                         }
                         return null;
                       }
