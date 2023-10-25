@@ -40,7 +40,8 @@ class CreatePasswordController extends GetxController {
       print(value);
       // Utils.snackBar( "Message",value.msg.toString());
     Get.to(() => ChooseProfile());
-
+      PasswordController.value.clear();
+      ConfirmPasswordController.value.clear();
 
     }).onError((error, stackTrace){
       print("error");
@@ -48,7 +49,6 @@ class CreatePasswordController extends GetxController {
       Utils.snackBar('Error', error.toString());
     });
 
-    PasswordController.value.clear();
-    ConfirmPasswordController.value.clear();
+
   }
 }

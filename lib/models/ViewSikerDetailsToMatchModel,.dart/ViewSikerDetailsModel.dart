@@ -152,7 +152,7 @@
 class ViewSikerDetailsToMatchModel {
   ViewSikerDetailsToMatchModel({
      this.status,
-     this.profileDetails,
+      this.profileDetails,
   });
    var status;
    List<ProfileDetails> ?profileDetails;

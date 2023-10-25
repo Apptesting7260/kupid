@@ -220,7 +220,7 @@ bool isLoding=false;
                                   height: Get.height * 0.16,
                                   width: Get.width * 0.07,
                                   child: Image.asset(
-                                    'assets/icons/next.png',
+                                    'assets/icons/NextButton.png',
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -368,16 +368,16 @@ bool isLoding=false;
                                   width: Get.width * 0.04,
                                 ),
                             Container(
-                              width: Get.width * 0.03,
+                              width: Get.width * 0.3,
                               child:     Text(
                                 seekerMyProfileController
                                     .SeekerMyProfileDetail.value
                                     .ProfileDetail!.address.toString(),
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 6,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w400),
-                                softWrap: true,
+                                // softWrap: true,
                                 overflow: TextOverflow.ellipsis,
 
                               ),
@@ -469,15 +469,12 @@ bool isLoding=false;
                                           width: Get.width * 0.005,
                                         ),
                                         Container(
-                                            height: Get.height * 0.015,
-                                            width: Get.width * 0.08,
-                                            child: CircleAvatar(
-                                              radius: 10,
-                                              child: Image.asset(
-                                                'assets/icons/religon.png',
-                                                fit: BoxFit.contain,
-                                              ),
-                                            )
+                                          height: Get.height * 0.015,
+                                          width: Get.width * 0.08,
+                                          child: Image.asset(
+                                            'assets/icons/religon.png',
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: Get.width * 0.0001,
@@ -586,7 +583,7 @@ bool isLoding=false;
                                           seekerMyProfileController
                                               .SeekerMyProfileDetail.value
                                               .ProfileDetail!.salary
-                                              .toString() + ' Monthly',
+                                              .toString() + ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -599,17 +596,12 @@ bool isLoding=false;
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child:CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    ))
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],
@@ -735,12 +727,12 @@ bool isLoding=false;
                                   width: Get.width * 0.04,
                                 ),
                                Container(
-                                 width:Get.width * 0.04 ,
+                                 width:Get.width * 0.3 ,
                                 child: Text(
                                    myUserUrl.address.toString(),
                                    style: TextStyle(
                                        color: Colors.black,
-                                       fontSize: 6,
+                                       fontSize: 10,
                                        fontWeight: FontWeight.w400),
                                    softWrap: true,
                                    overflow: TextOverflow.ellipsis,
@@ -921,7 +913,7 @@ bool isLoding=false;
                                         // SizedBox(width: Get.width*0.002,),
                                         Text(
                                           myUserUrl.salary.toString() +
-                                              ' Monthly',
+                                              ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -934,18 +926,12 @@ bool isLoding=false;
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child: CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    )
-                                ),
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],

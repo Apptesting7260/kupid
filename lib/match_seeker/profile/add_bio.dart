@@ -48,6 +48,7 @@ class _AddBioState extends State<AddBio> {
           child: ListView(
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
                 controller: SeekerAddistionInfoControllerinstance.BioTitleController.value,
                 validator: (value) {
@@ -79,6 +80,7 @@ class _AddBioState extends State<AddBio> {
               ),
               SizedBox(height: height * .03),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 style: TextStyle(color: Colors.black),
                 maxLines: 5,
                 keyboardType: TextInputType.name,

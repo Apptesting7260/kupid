@@ -10,68 +10,61 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../GlobalVariable/GlobalVariable.dart';
-import '../data/response/status.dart';
-import 'controller/SetRoleController/SetRoleController.dart';
+import '../../data/response/status.dart';
+import 'SetRoleController/SetRoleController.dart';
+
 
 String? Finalcredencial;
 
-class UserEmailAndPhoneVerifyController extends GetxController {
+class EditeEmailController extends GetxController {
   final _api = AuthRepository();
 
-  final emailAndPhoneVerifyController = TextEditingController().obs;
+  final emailVerifyController = TextEditingController().obs;
+  final phoneVerifyController = TextEditingController().obs;
   final SignUpControllerinstance = Get.put(SignUpController());
   final otpController = TextEditingController().obs;
-  final rxRequestStatus = Status.COMPLETED.obs;
+  final rxRequestStatus = Status.LOADING.obs;
   RxString error = ''.obs;
   final phone_verify = 0.obs;
   final email_verify = 0.obs;
   RxBool verified = false.obs;
   RxBool optsent = false.obs;
-  RxBool ciculerEdicator = false.obs;
   RxBool phone_verified = false.obs;
 
   RxBool loading = false.obs;
   Future<void> PhoneAndEmailVerifiyed() async {
-    rxRequestStatus(Status.LOADING);
-
     Map data = {};
-    if (emailAndPhoneVerifyController.value.text.contains("@")) {
+    if (emailVerifyController.value.text.isNotEmpty) {
       data = {
-        'email': emailAndPhoneVerifyController.value.text,
+        'email': emailVerifyController.value.text,
         'update_type': "email",
-        "type": ProfileType.toString(),
+        "type": "2",
         'phone': SignUpControllerinstance.credentialsController.value.text,
       };
     } else {
       data = {
-        'phone': emailAndPhoneVerifyController.value.text,
+        'phone': phoneVerifyController.value.text,
         'update_type': "phone",
-        "type": ProfileType.toString(),
+        "type": "2",
         'email': SignUpControllerinstance.credentialsController.value.text,
       };
     }
     final prefs = await SharedPreferences.getInstance();
 
-    print(emailAndPhoneVerifyController.value.text);
+    print(emailVerifyController.value.text);
     // _api.UserPhoneAndNumberVerfyApi(data).then((value) => null)
     print(data);
 
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
-      optsent.value = true;
       rxRequestStatus(Status.COMPLETED);
-
       // ViewProfileDetails(value);
       print("======================================================$value");
       print(value.otp);
-
-
-
+      optsent.value = true;
       Get.snackbar(
         "Message",
         "Otp Sent",
         backgroundColor: Color(0xffFE008F),);
-
     }).onError((error, stackTrace) {
       print("${error.toString()}===============+++=");
       rxRequestStatus(Status.ERROR);
@@ -79,24 +72,22 @@ class UserEmailAndPhoneVerifyController extends GetxController {
   }
 
   Future<void> PhoneAndEmaiOtpVerifyed() async {
-    loading.value=true;
-    ciculerEdicator.value=true;
     Map data = {};
-    if (emailAndPhoneVerifyController.value.text.contains("@")) {
+    if (emailVerifyController.value.text.isNotEmpty) {
       data = {
-        'email': emailAndPhoneVerifyController.value.text,
+        'email': emailVerifyController.value.text,
         'otp': otpController.value.text,
         'email_otp_verified_status': "1",
         'update_type': "email_otp_verification",
-        "type": ProfileType.toString()
+        "type": "2"
       };
     } else {
       data = {
         'update_type': "phone_otp_verification",
-        'phone': emailAndPhoneVerifyController.value.text,
+        'phone': phoneVerifyController.value.text,
         'otp': otpController.value.text,
         'phone_otp_verification_status': "1",
-        "type": ProfileType.toString()
+        "type": "2"
       };
     }
     print("==========$data");
@@ -108,13 +99,11 @@ class UserEmailAndPhoneVerifyController extends GetxController {
 
     otpController.value.clear();
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
-
-
-      ciculerEdicator.value=false;
+      loading.value = false;
+      rxRequestStatus(Status.COMPLETED);
 
       // ViewProfileDetails(value);
       verified.value = true;
-      loading.value=false;
       print("======================================================$value");
       print(value.msg);
 
@@ -125,12 +114,12 @@ class UserEmailAndPhoneVerifyController extends GetxController {
 
       Get.back();
       Get.snackbar(
-          "Message",
-          "Varify Successfully",
-          backgroundColor: Color(0xffFE008F),);
+        "Message",
+        "Varify Successfully",
+        backgroundColor: Color(0xffFE008F),);
       print("fjksdfn");
     }).onError((error, stackTrace) {
-
+      rxRequestStatus(Status.COMPLETED);
       print("==========$data");
       otpController.value.clear();
       loading.value = false;
