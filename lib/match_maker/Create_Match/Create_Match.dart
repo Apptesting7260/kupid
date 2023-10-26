@@ -213,7 +213,7 @@ class _MatchScreenState extends State<MatchScreen> {
                                             .ProfileScrollList
                                             .value
                                             .allseekers!
-                                            .Femal![_topItem1]
+                                            .Femal![_topItem2]
                                             .name
                                             .toString();
                                         im2 = ProfileScrollControllerinstance

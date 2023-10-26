@@ -327,21 +327,21 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getseeker!.occupationName.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //           .value.data!.getseeker!.occupationName.toString()+"",
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -351,7 +351,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                   width: Get.width * 0.04,
                                 ),
                               Container(
-                                  width: Get.width * 0.04,
+                                  width: Get.width * 0.3,
                                 child:   Text(
                                   seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                       .value.data!.getseeker!.address,
@@ -448,15 +448,12 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                           width: Get.width * 0.005,
                                         ),
                                         Container(
-                                            height: Get.height * 0.015,
-                                            width: Get.width * 0.08,
-                                            child: CircleAvatar(
-                                              radius: 10,
-                                              child: Image.asset(
-                                                'assets/icons/religon.png',
-                                                fit: BoxFit.contain,
-                                              ),
-                                            )
+                                          height: Get.height * 0.015,
+                                          width: Get.width * 0.08,
+                                          child: Image.asset(
+                                            'assets/icons/religon.png',
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: Get.width * 0.0001,
@@ -562,7 +559,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                         Text(
                                           seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                               .value.data!.getseeker!.salary
-                                              .toString() + ' Monthly',
+                                              .toString() + ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -577,17 +574,12 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child:CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    ))
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],
@@ -597,8 +589,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                       SizedBox(width: Get.width * 0.04,),
 
                       //    // ******************
-                 if( seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                     .value.data!.matchWith.toString()!="null")     Container(
+              seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                     .value.data!.matchWith.toString()!="null" ?     Container(
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(244, 244, 244, 1),
                             borderRadius: BorderRadius.circular(10),
@@ -692,25 +684,25 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.occupationName.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //           .value.data!.getanotherseeker!.occupationName.toString()+"",
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //       softWrap: true,
+                            //       overflow: TextOverflow.ellipsis,
+                            //     ),
+                            //
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -720,7 +712,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                   width: Get.width * 0.04,
                                 ),
                              Container(
-                                 width: Get.width * 0.04,
+                                 width: Get.width * 0.3,
                                child:    Text(
                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                      .value.data!.getanotherseeker!.address.toString()+"",
@@ -758,36 +750,36 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            // Row(
-                            //   children: [
-                            //     SizedBox(
-                            //       width: Get.width * 0.04,
-                            //     ),
-                            //     ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //         .value.data!.getanotherseeker!.details!.interestName != null
-                            //         ||seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //             .value.data!.getanotherseeker!.details!.interestName != []
-                            //     ) ? Row(
-                            //       children: [
-                            //         for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //             .value.data!.getanotherseeker!.details!
-                            //             .interestName!.length > i; i++)
-                            //           Text(
-                            //             seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //                 .value.data!.getanotherseeker!.details!.interestName![i]
-                            //                 .title.toString() + " ",
-                            //             style: TextStyle(
-                            //
-                            //                 fontSize: 6,
-                            //                 color: Colors.black,
-                            //                 fontWeight:
-                            //                 FontWeight.w400),
-                            //           ),
-                            //
-                            //       ],) : Container(),
-                            //
-                            //   ],
-                            // ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Get.width * 0.04,
+                                ),
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getanotherseeker!.details!.interestName != null
+                                    ||seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.details!.interestName != []
+                                ) ? Row(
+                                  children: [
+                                    for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.details!
+                                        .interestName!.length > i; i++)
+                                      Text(
+                                        seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.getanotherseeker!.details!.interestName![i]
+                                            .title.toString() + " ",
+                                        style: TextStyle(
+
+                                            fontSize: 6,
+                                            color: Colors.black,
+                                            fontWeight:
+                                            FontWeight.w400),
+                                      ),
+
+                                  ],) : Container(),
+
+                              ],
+                            ),
 
 
                             SizedBox(
@@ -925,7 +917,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                         Text(
                                           seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                               .value.data!.getanotherseeker!.salary.toString() +
-                                              ' Monthly',
+                                              ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -941,23 +933,23 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child: CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    )
-                                ),
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],
                         ),
-                      ),
+                      ):Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(child: Text("Find Match",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700),))
+                ],
+              ),
                       // //******************************* */
 
                     ],),
