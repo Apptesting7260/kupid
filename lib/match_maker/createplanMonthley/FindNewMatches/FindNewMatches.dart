@@ -177,25 +177,25 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                     SizedBox(
                                       height: Get.height * 0.005,
                                     ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width * 0.04,
-                                        ),
-                                        Text(
-                                          seekerViewMyProfileController
-                                              .ViewProfileDetail
-                                              .value
-                                              .profileDetails![0].occupationName.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w400),
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
+                                    // Row(
+                                    //   children: [
+                                    //     SizedBox(
+                                    //       width: Get.width * 0.04,
+                                    //     ),
+                                    //     Text(
+                                    //       seekerViewMyProfileController
+                                    //           .ViewProfileDetail
+                                    //           .value
+                                    //           .profileDetails![0].occupationName.toString(),
+                                    //       style: TextStyle(
+                                    //           color: Colors.black,
+                                    //           fontSize: 8,
+                                    //           fontWeight: FontWeight.w400),
+                                    //       softWrap: true,
+                                    //       overflow: TextOverflow.ellipsis,
+                                    //     ),
+                                    //   ],
+                                    // ),
                                     SizedBox(
                                       height: Get.height * 0.005,
                                     ),
@@ -224,23 +224,23 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                     SizedBox(
                                       height: Get.height * 0.015,
                                     ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: Get.width * 0.04,
-                                        ),
-                                        Text(
-                                          'Interest',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.005,
-                                    ),
+                                    // Row(
+                                    //   children: [
+                                    //     SizedBox(
+                                    //       width: Get.width * 0.04,
+                                    //     ),
+                                    //     Text(
+                                    //       'Interest',
+                                    //       style: TextStyle(
+                                    //           color: Colors.black,
+                                    //           fontSize: 8,
+                                    //           fontWeight: FontWeight.w600),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    // SizedBox(
+                                    //   height: Get.height * 0.005,
+                                    // ),
                                     // Row(
                                     //   children: [
                                     //     SizedBox(
@@ -439,7 +439,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                           height: Get.height * 0.05,
                                           width: Get.width * 0.05,
                                           child: Image.asset(
-                                            'assets/icons/next.png',
+                                            'assets/icons/NextButton.png',
                                             fit: BoxFit.contain,
                                           ),
                                         ),
@@ -590,23 +590,23 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                 SizedBox(
                                                   height: Get.height * 0.005,
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: Get.width * 0.04,
-                                                    ),
-                                                    Text(
-                                                      createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].occupationName.toString(),
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                          FontWeight.w400),
-                                                      softWrap: true,
-                                                      overflow: TextOverflow.ellipsis,
-                                                    ),
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   children: [
+                                                //     SizedBox(
+                                                //       width: Get.width * 0.04,
+                                                //     ),
+                                                //     Text(
+                                                //       createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].occupationName.toString(),
+                                                //       style: TextStyle(
+                                                //           color: Colors.black,
+                                                //           fontSize: 8,
+                                                //           fontWeight:
+                                                //           FontWeight.w400),
+                                                //       softWrap: true,
+                                                //       overflow: TextOverflow.ellipsis,
+                                                //     ),
+                                                //   ],
+                                                // ),
                                                 SizedBox(
                                                   height: Get.height * 0.005,
                                                 ),
@@ -845,7 +845,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                       height: Get.height * 0.05,
                                                       width: Get.width * 0.05,
                                                       child: Image.asset(
-                                                        'assets/icons/next.png',
+                                                        'assets/icons/NextButton.png',
                                                         fit: BoxFit.contain,
                                                       ),
                                                     ),

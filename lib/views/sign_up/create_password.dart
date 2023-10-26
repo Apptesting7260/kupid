@@ -51,6 +51,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                         .copyWith(color: Colors.grey)),
                 SizedBox(height: height * .06),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !_passwordVisible,
                   keyboardType: TextInputType.emailAddress,
                   controller: CreatePasswordControllerInstance.PasswordController.value,
@@ -119,6 +120,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                   height: height * .02,
                 ),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !_passwordVisiblee,
                   keyboardType: TextInputType.emailAddress,
                   controller: CreatePasswordControllerInstance.ConfirmPasswordController.value,

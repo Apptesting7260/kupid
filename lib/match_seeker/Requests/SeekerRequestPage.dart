@@ -347,22 +347,22 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.occupationName.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerMyProfileController
+                            //           .SeekerMyProfileDetail.value
+                            //           .ProfileDetail!.occupationName.toString(),
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -709,21 +709,21 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  myUserUrl.occupationName.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       myUserUrl.occupationName.toString(),
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),

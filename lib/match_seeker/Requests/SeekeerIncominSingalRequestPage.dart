@@ -341,24 +341,24 @@ bool isLoding=false;
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerMyProfileController
-                                      .SeekerMyProfileDetail.value
-                                      .ProfileDetail!.occupationName.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerMyProfileController
+                            //           .SeekerMyProfileDetail.value
+                            //           .ProfileDetail!.occupationName.toString(),
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //       softWrap: true,
+                            //       overflow: TextOverflow.ellipsis,
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -703,24 +703,24 @@ bool isLoding=false;
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  myUserUrl.occupationName.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       myUserUrl.occupationName.toString(),
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: Get.height * 0.005,
+                            // ),
                             Row(
                               children: [
                                 SizedBox(

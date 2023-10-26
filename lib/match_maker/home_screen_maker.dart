@@ -18,6 +18,7 @@ import 'package:cupid_match/widgets/MakerDrawer.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:new_pinput/new_pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -673,6 +674,13 @@ class _HomePageState extends State<HomePage> {
                                 .incoming!
                                 .length,
                             itemBuilder: (context, index) {
+                              String createdAtString =makerRequestController
+                                  .makerHomePageValue
+                                  .value
+                                  .requests!
+                                  .incoming![index].createdAt.toString();
+                              DateTime createdAt = DateTime.parse(createdAtString);
+                              String formattedDate = DateFormat('d/MM/yyyy').format(createdAt);
                               if (makerRequestController
                                   .makerHomePageValue
                                   .value
@@ -736,7 +744,7 @@ class _HomePageState extends State<HomePage> {
                                                             8.0),
                                                         child:
                                                         Container(
-                                                          width: width * .21,
+                                                          // width: width * .21,
                                                           child: Stack(
                                                             children: [
                                                               makerRequestController
@@ -813,14 +821,15 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        width:
-                                                        Get.width * 0.08,
-                                                      ),
+                                                      // SizedBox(
+                                                      //   width:
+                                                      //   Get.width * 0.01,
+                                                      // ),
                                                       Column(
                                                         crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
                                                         children: [
                                                           SizedBox(
                                                             height: Get.height *
@@ -837,7 +846,7 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .pink,
-                                                                fontSize: 20,
+                                                                fontSize: 15,
                                                                 fontWeight: FontWeight
                                                                     .bold),
                                                           ),
@@ -846,12 +855,7 @@ class _HomePageState extends State<HomePage> {
                                                                 0.01,
                                                           ),
                                                           Text(
-                                                            makerRequestController
-                                                                .makerHomePageValue
-                                                                .value.requests!
-                                                                .incoming![index]
-                                                                .getanotherseeker!
-                                                                .dob.toString(),
+                                                            formattedDate,
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .black),
@@ -900,86 +904,86 @@ class _HomePageState extends State<HomePage> {
                                                     )
                                                   ],
                                                 ),
-                                                Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                          .all(
-                                                          8.0),
-                                                      child:
-                                                      Container(
-                                                        width:
-                                                        width * .29,
-                                                        child:
-                                                        Stack(
-                                                          children: [
-                                                            Positioned(
-                                                              right: 50,
-                                                              child: CircleAvatar(
-                                                                radius: 30.0,
-                                                                backgroundColor: Colors
-                                                                    .transparent,
-                                                                backgroundImage: NetworkImage(
-                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                border: Border
-                                                                    .all(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    width: 2),
-                                                              ),
-                                                              child: CircleAvatar(
-                                                                backgroundImage: NetworkImage(
-                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                                                radius: 30.0,
-                                                                backgroundColor: Colors
-                                                                    .transparent,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        SizedBox(
-                                                          height: Get.height *
-                                                              0.02,
-                                                        ),
-                                                        Text(
-                                                          "hhh",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .pink,
-                                                              fontSize: 20,
-                                                              fontWeight: FontWeight
-                                                                  .bold),
-                                                        ),
-                                                        SizedBox(
-                                                          height: Get.height *
-                                                              0.01,
-                                                        ),
-                                                        Text(
-                                                          "mmnnhnn",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black),
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
+                                                // Row(
+                                                //   crossAxisAlignment:
+                                                //   CrossAxisAlignment
+                                                //       .start,
+                                                //   mainAxisAlignment:
+                                                //   MainAxisAlignment
+                                                //       .start,
+                                                //   children: [
+                                                //     Padding(
+                                                //       padding: const EdgeInsets
+                                                //           .all(
+                                                //           8.0),
+                                                //       child:
+                                                //       Container(
+                                                //         width:
+                                                //         width * .29,
+                                                //         child:
+                                                //         Stack(
+                                                //           children: [
+                                                //             Positioned(
+                                                //               right: 25,
+                                                //               child: CircleAvatar(
+                                                //                 radius: 30.0,
+                                                //                 backgroundColor: Colors
+                                                //                     .transparent,
+                                                //                 backgroundImage: NetworkImage(
+                                                //                     'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                //               ),
+                                                //             ),
+                                                //             Container(
+                                                //               decoration: BoxDecoration(
+                                                //                 shape: BoxShape
+                                                //                     .circle,
+                                                //                 border: Border
+                                                //                     .all(
+                                                //                     color: Colors
+                                                //                         .white,
+                                                //                     width: 2),
+                                                //               ),
+                                                //               child: CircleAvatar(
+                                                //                 backgroundImage: NetworkImage(
+                                                //                     'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                //                 radius: 30.0,
+                                                //                 backgroundColor: Colors
+                                                //                     .transparent,
+                                                //               ),
+                                                //             ),
+                                                //           ],
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //     // Column(
+                                                //     //   children: [
+                                                //     //     SizedBox(
+                                                //     //       height: Get.height *
+                                                //     //           0.02,
+                                                //     //     ),
+                                                //     //     Text(
+                                                //     //       "hhh",
+                                                //     //       style: TextStyle(
+                                                //     //           color: Colors
+                                                //     //               .pink,
+                                                //     //           fontSize: 20,
+                                                //     //           fontWeight: FontWeight
+                                                //     //               .bold),
+                                                //     //     ),
+                                                //     //     SizedBox(
+                                                //     //       height: Get.height *
+                                                //     //           0.01,
+                                                //     //     ),
+                                                //     //     Text(
+                                                //     //       "mmnnhnn",
+                                                //     //       style: TextStyle(
+                                                //     //           color: Colors
+                                                //     //               .black),
+                                                //     //     )
+                                                //     //   ],
+                                                //     // )
+                                                //   ],
+                                                // )
                                               ],
                                             ))),
                                   ),
@@ -1141,7 +1145,7 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                       SizedBox(
                                                         width:
-                                                        Get.width * 0.08,
+                                                        Get.width * 0.01,
                                                       ),
                                                       Column(
                                                         crossAxisAlignment:
@@ -1163,7 +1167,7 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .pink,
-                                                                fontSize: 20,
+                                                                fontSize: 15,
                                                                 fontWeight: FontWeight
                                                                     .bold),
                                                           ),
@@ -1172,12 +1176,7 @@ class _HomePageState extends State<HomePage> {
                                                                 0.01,
                                                           ),
                                                           Text(
-                                                            makerRequestController
-                                                                .makerHomePageValue
-                                                                .value.requests!
-                                                                .incoming![index]
-                                                                .getseeker!
-                                                                .dob.toString(),
+                                                            formattedDate,
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .black),
@@ -1246,7 +1245,7 @@ class _HomePageState extends State<HomePage> {
                                                         Stack(
                                                           children: [
                                                             Positioned(
-                                                              right: 50,
+                                                              right: 15,
                                                               child: CircleAvatar(
                                                                 radius: 30.0,
                                                                 backgroundColor: Colors
@@ -1437,7 +1436,22 @@ class _HomePageState extends State<HomePage> {
                               .requests!
                               .outgoing!.length,
                           itemBuilder: (context, index) {
-                            return InkWell(
+                            String createdAtString = makerRequestController
+                                .makerHomePageValue
+                                .value
+                                .requests!
+                                .outgoing![index].createdAt.toString();
+                            DateTime createdAt = DateTime.parse(createdAtString);
+                            String formattedDate = DateFormat('d/MM/yyyy').format(createdAt);
+                            return makerRequestController
+                                .makerHomePageValue
+                                .value
+                                .requests!
+                                .outgoing![index].getanotherseeker!=null&& makerRequestController
+                                .makerHomePageValue
+                                .value
+                                .requests!
+                                .outgoing![index].getseeker!=null ?InkWell(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -1508,7 +1522,7 @@ class _HomePageState extends State<HomePage> {
                                                               .makerHomePageValue
                                                               .value.requests!
                                                               .outgoing![index]
-                                                              .getmaker!
+                                                              .getanotherseeker!
                                                               .imgPath !=
                                                               null
                                                               ? CircleAvatar(
@@ -1518,7 +1532,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .value
                                                                     .requests!
                                                                     .outgoing![index]
-                                                                    .getmaker!
+                                                                    .getanotherseeker!
                                                                     .imgPath
                                                                     .toString()),
                                                             radius: 30,
@@ -1539,7 +1553,7 @@ class _HomePageState extends State<HomePage> {
                                                                 .makerHomePageValue
                                                                 .value.requests!
                                                                 .outgoing![index]
-                                                                .getanotherseeker!
+                                                                .getseeker!
                                                                 .imgPath !=
                                                                 null
                                                                 ? CircleAvatar(
@@ -1549,7 +1563,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .value
                                                                       .requests!
                                                                       .outgoing![index]
-                                                                      .getanotherseeker!
+                                                                      .getseeker!
                                                                       .imgPath
                                                                       .toString()),
                                                               radius: 30,
@@ -1592,6 +1606,7 @@ class _HomePageState extends State<HomePage> {
                                                             20,
                                                             fontWeight:
                                                             FontWeight.bold),
+
                                                       ),
                                                       SizedBox(
                                                         height:
@@ -1672,7 +1687,7 @@ class _HomePageState extends State<HomePage> {
                                                     child: Stack(
                                                       children: [
                                                         Positioned(
-                                                          right: 50,
+                                                          right: 25,
                                                           child:
                                                           CircleAvatar(
                                                             radius:
@@ -1685,7 +1700,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .value
                                                                     .requests!
                                                                     .outgoing![index]
-                                                                    .getmaker!
+                                                                    .getseeker!
                                                                     .imgPath
                                                                     .toString()),
                                                           ),
@@ -1722,46 +1737,71 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 ),
                                                 Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       height:
                                                       Get.height *
                                                           0.02,
                                                     ),
-                                                    Text(
-                                                      makerRequestController
-                                                          .makerHomePageValue
-                                                          .value
-                                                          .requests!
-                                                          .outgoing![
-                                                      index]
-                                                          .getanotherseeker!
-                                                          .name
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          color: Colors
-                                                              .pink,
-                                                          fontSize:
-                                                          20,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
+                                                    Column(
+                                                      children: [
+                                                        Container(
+                                                          width: Get.width*0.3,
+                                                          child: Text(
+                                                            makerRequestController
+                                                                .makerHomePageValue
+                                                                .value
+                                                                .requests!
+                                                                .outgoing![
+                                                            index]
+                                                                .getanotherseeker!
+                                                                .name
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .pink,
+                                                                fontSize:
+                                                                15,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: Get.width*0.3,
+                                                          child: Text(
+                                                            makerRequestController
+                                                                .makerHomePageValue
+                                                                .value
+                                                                .requests!
+                                                                .outgoing![
+                                                            index]
+                                                                .getseeker!
+                                                                .name
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .pink,
+                                                                fontSize:
+                                                                15,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                     SizedBox(
                                                       height:
                                                       Get.height *
                                                           0.01,
                                                     ),
+
                                                     Text(
-                                                      makerRequestController
-                                                          .makerHomePageValue
-                                                          .value
-                                                          .requests!
-                                                          .outgoing![
-                                                      index]
-                                                          .getanotherseeker!
-                                                          .dob
-                                                          .toString(),
+                                                      formattedDate,
                                                       style: TextStyle(
                                                           color: Colors
                                                               .black),
@@ -1795,7 +1835,7 @@ class _HomePageState extends State<HomePage> {
                                 }
                                 print("makerrequest");
                               },
-                            );
+                            ):SizedBox();
                           },
                         ),
                       ) ,

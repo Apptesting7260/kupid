@@ -325,21 +325,21 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getseeker!.occupationName.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //           .value.data!.getseeker!.occupationName.toString()+"",
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -350,7 +350,7 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                 ),
                                 Text(
                                   seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.name.toString(),
+                                      .value.data!.getseeker!.address.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 6,
@@ -440,15 +440,12 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                           width: Get.width * 0.005,
                                         ),
                                         Container(
-                                            height: Get.height * 0.015,
-                                            width: Get.width * 0.08,
-                                            child: CircleAvatar(
-                                              radius: 10,
-                                              child: Image.asset(
-                                                'assets/icons/religon.png',
-                                                fit: BoxFit.contain,
-                                              ),
-                                            )
+                                          height: Get.height * 0.015,
+                                          width: Get.width * 0.08,
+                                          child: Image.asset(
+                                            'assets/icons/religon.png',
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: Get.width * 0.0001,
@@ -552,7 +549,7 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                         Text(
                                           seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                               .value.data!.getseeker!.salary
-                                              .toString() + ' Monthly',
+                                              .toString() + ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -565,17 +562,12 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child:CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    ))
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],
@@ -679,22 +671,22 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                      .value.data!.getanotherseeker!.occupationName.toString()+"",
-                                  style: TextStyle(
-                                      color: Colors.black,
-
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //           .value.data!.getanotherseeker!.occupationName.toString()+"",
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //
+                            //           fontSize: 8,
+                            //           fontWeight: FontWeight.w400),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
@@ -741,36 +733,36 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            // Row(
-                            //   children: [
-                            //     SizedBox(
-                            //       width: Get.width * 0.04,
-                            //     ),
-                            //     ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //         .value.data!.getanotherseeker!.details!.interestName != null
-                            //         ||seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //             .value.data!.getanotherseeker!.details!.interestName != []
-                            //     ) ? Row(
-                            //       children: [
-                            //         for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //             .value.data!.getanotherseeker!.details!
-                            //             .interestName!.length > i; i++)
-                            //           Text(
-                            //             seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                            //                 .value.data!.getanotherseeker!.details!.interestName![i]
-                            //                 .title.toString() + " ",
-                            //             style: TextStyle(
-                            //
-                            //                 fontSize: 6,
-                            //                 color: Colors.black,
-                            //                 fontWeight:
-                            //                 FontWeight.w400),
-                            //           ),
-                            //
-                            //       ],) : Container(),
-                            //
-                            //   ],
-                            // ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: Get.width * 0.04,
+                                ),
+                                ( seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                    .value.data!.getanotherseeker!.details!.interestName != null
+                                    ||seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.details!.interestName != []
+                                ) ? Row(
+                                  children: [
+                                    for (var i = 0;  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                        .value.data!.getanotherseeker!.details!
+                                        .interestName!.length > i; i++)
+                                      Text(
+                                        seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.getanotherseeker!.details!.interestName![i]
+                                            .title.toString() + " ",
+                                        style: TextStyle(
+
+                                            fontSize: 6,
+                                            color: Colors.black,
+                                            fontWeight:
+                                            FontWeight.w400),
+                                      ),
+
+                                  ],) : Container(),
+
+                              ],
+                            ),
 
 
                             SizedBox(
@@ -908,7 +900,7 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                         Text(
                                           seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                               .value.data!.getanotherseeker!.salary.toString() +
-                                              ' Monthly',
+                                              ' LPA',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 6,
@@ -921,18 +913,12 @@ class _SingleRecentPageRequestState extends State<SingleRecentPageRequest> {
                                   width: Get.width * 0.15,
                                 ),
                                 Container(
-                                    height: Get.height * 0.05,
-                                    width: Get.width * 0.05,
-                                    child: CircleAvatar(
-                                      radius: 180,
-                                      child:  CircleAvatar(
-
-                                        radius: 140,
-                                        child: Icon(Icons.navigate_next_outlined,color: Colors.white),
-                                        backgroundColor: Colors.white12,
-                                      ),
-                                    )
-                                ),
+                                  height: Get.height * 0.05,
+                                  width: Get.width * 0.05,
+                                  child: Image.asset(
+                                    'assets/icons/NextButton.png',
+                                    fit: BoxFit.contain,
+                                  ),)
                               ],
                             ),
                           ],

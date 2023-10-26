@@ -67,6 +67,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
               ),
               SizedBox(height: height * .04),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
                 controller: UserLoginControllerinstance.Email_Or_Phone_Controller.value,
                 validator: (value) {
@@ -98,6 +99,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
               ),
               SizedBox(height: height * .03),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 obscureText: !_passwordVisible,
                 keyboardType: TextInputType.emailAddress,
                 controller:  UserLoginControllerinstance.PasswordController.value,

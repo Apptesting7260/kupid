@@ -57,6 +57,7 @@ class _SignState extends State<Sign> {
               ),
               SizedBox(height: height * .03),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
                 controller: SignUpControllerInstance.credentialsController.value,
                 validator: (value) {

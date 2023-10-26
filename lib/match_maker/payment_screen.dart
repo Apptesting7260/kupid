@@ -45,6 +45,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04,vertical: height *0.03),
               child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: MakerPaymentInfoControllerinstance.banknamecontroller.value,
 
                 decoration: InputDecoration(
@@ -75,6 +76,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: MakerPaymentInfoControllerinstance.fullnamecontroller.value,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(20),
@@ -105,6 +107,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: MakerPaymentInfoControllerinstance.account_nocontroller.value,
 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -136,6 +139,7 @@ keyboardType: TextInputType.number,
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: width *0.04),
               child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: MakerPaymentInfoControllerinstance.raccount_nocontroller.value,
 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -167,6 +171,7 @@ keyboardType: TextInputType.number,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width*0.04),
               child: TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: MakerPaymentInfoControllerinstance.ifsc_codecontroller.value,
 
                 decoration: InputDecoration(

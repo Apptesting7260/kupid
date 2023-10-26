@@ -178,26 +178,26 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.034,
-                                ),
-                                Text(
-                                  seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.occupationName.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                  softWrap: true, // Allows text to wrap to the next line
-                                  maxLines: 2,    // Set the maximum number of lines
-                                  overflow: TextOverflow.ellipsis, // Sp
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.034,
+                            //     ),
+                            //     Text(
+                            //       seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.occupationName.toString(),
+                            //       style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 12,
+                            //           fontWeight: FontWeight.w400),
+                            //       softWrap: true, // Allows text to wrap to the next line
+                            //       maxLines: 2,    // Set the maximum number of lines
+                            //       overflow: TextOverflow.ellipsis, // Sp
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: Get.height * 0.005,
+                            // ),
                             Row(
                               children: [
                                 SizedBox(
@@ -494,26 +494,26 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-                                Text(
-                                  seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].occupationName.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                  ),
-                                  softWrap: true, // Allows text to wrap to the next line
-                                  maxLines: 2,    // Set the maximum number of lines
-                                  overflow: TextOverflow.ellipsis, // Sp
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: Get.width * 0.04,
+                            //     ),
+                            //     Text(
+                            //       seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].occupationName,
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //         fontSize: 12,
+                            //       ),
+                            //       softWrap: true, // Allows text to wrap to the next line
+                            //       maxLines: 2,    // Set the maximum number of lines
+                            //       overflow: TextOverflow.ellipsis, // Sp
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: Get.height * 0.005,
+                            // ),
                             Row(
                               children: [
                                 SizedBox(
