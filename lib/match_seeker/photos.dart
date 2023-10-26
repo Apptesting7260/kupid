@@ -81,42 +81,123 @@ class _PhotosScreenState extends State<PhotosScreen> {
 
   File imgFile = File("");
 
-  Future<void> showOptionsDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              "Choose",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            //Image Picker
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: Icon(Icons.camera_alt_outlined,color: Colors.pink,),
-                  onTap: () {
-                    openCamera();
-                      Navigator.pop(context);
-                  },
-                ),
-                GestureDetector(
-                  child: Icon(Icons.photo_library,color: Colors.pink,),
-                  onTap: () {
-                    openCamera();
-                      Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          );
-        });
-  }
+  //  Future<void> showOptionsDialog(BuildContext context) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         backgroundColor: Colors.white,
+  //         shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+  //         title: Center(
+  //           child: Column(
+  //             children: [
 
+  //               Text(
+  //                 'Upload Photo',
+  //                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 18,color:Colors.black),
+  //               ),
+  //               Text(
+  //                 'Please choose image',
+  //                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         content: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //           children: [
+  //             Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 // GestureDetector(
+  //                 //   child: const Icon(
+  //                 //     Icons.camera_alt_outlined,
+  //                 //     color: Colors.white,
+  //                 //   ),
+  //                 //   onTap: () {
+  //                 //     _pickImage(ImageSource.camera);
+  //                 //   },
+  //                 // ),
+  //                 MyButton(
+  //                   width: Get.width*.27,
+  //                   height: Get.height*.05,
+  //                   title: "Camera", onTap: () {
+  //                     openCamera(ImageSource.camera);
+  //                 },)
+  //               ],
+  //             ),
+  //             Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 // GestureDetector(
+  //                 //   child: const Icon(
+  //                 //     Icons.photo_library,
+  //                 //     color: Colors.white,
+  //                 //   ),
+  //                 //   onTap: () {
+  //                 //     _pickImage(ImageSource.gallery);
+  //                 //   },
+  //                 // ),
+  //                 MyButton(
+  //                   width: Get.width*.25,
+  //                   height: Get.height*.05,
+  //                   title: "Gallery", onTap: () {
+  //                    openCamera(ImageSource.gallery);
+  //                 },)
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+    
+  //   // showDialog(
+  //   //     context: context,
+  //   //     builder: (BuildContext context) {
+  //   //       return AlertDialog(
+  //   //         title: Center(
+  //   //             child: Text(
+  //   //           "Choose",
+  //   //           style: Theme.of(context).textTheme.titleLarge,
+  //   //         )),
+  //   //         //Image Picker
+  //   //         content: Row(
+  //   //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //   //           children: [
+  //   //             GestureDetector(
+  //   //               child: Cont
+  //   //               onTap: () {
+  //   //                 openCamera(ImageSource.camera);
+  //   //                 Navigator.of(context).pop();
+  //   //               },
+  //   //             ),
 
+  //   //             GestureDetector(
+  //   //               child: Icon(
+  //   //                 Icons.photo_library,
+  //   //                 color: Colors.pinkAccent,
+  //   //               ),
+  //   //               onTap: () {
+  //   //                 openCamera(ImageSource.gallery);
+  //   //                 Navigator.of(context).pop();
+  //   //               },
+  //   //             ),
+  //   //             // GestureDetector(
+  //   //             //   child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+  //   //             //   onTap: () {
+  //   //             //     openCamera(ImageSource.gallery);
+  //   //             //   },
+  //   //             // ),
+  //   //           ],
+  //   //         ),
+  //   //       );
+        
+  // }
+
+    // List<Asset> selectedImages = [];
   void openCamera() async {
-    List<Asset> selectedImages = [];
+
 
     try {
 
@@ -139,9 +220,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
       print(e.toString());
     }
 
-    if (!mounted) return;
+    // if (!mounted) return;
 
-    await convertAssetsToFiles(selectedImages);
+    // await convertAssetsToFiles(selectedImages);
 
     setState(() {
       galleryImageFiles = selectedImagesFiles;
@@ -300,7 +381,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
                           right: 0,
                           child: GestureDetector(
                               onTap: () {
-                                showOptionsDialog(context);
+                                openCamera();
                               },
                               child: Image(
                                 image: AssetImage(

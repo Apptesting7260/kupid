@@ -73,12 +73,14 @@ class UserEmailAndPhoneVerifyController extends GetxController {
         backgroundColor: Color(0xffFE008F),);
 
     }).onError((error, stackTrace) {
+           rxRequestStatus(Status.COMPLETED);
       print("${error.toString()}===============+++=");
       rxRequestStatus(Status.ERROR);
     });
   }
 
   Future<void> PhoneAndEmaiOtpVerifyed() async {
+     rxRequestStatus(Status.LOADING);
     loading.value=true;
     ciculerEdicator.value=true;
     Map data = {};
@@ -104,11 +106,12 @@ class UserEmailAndPhoneVerifyController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     loading.value = true;
     print(otpController.value.text);
+
     // _api.UserPhoneAndNumberVerfyApi(data).then((value) => null)
 
     otpController.value.clear();
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
-
+     rxRequestStatus(Status.COMPLETED);
 
       ciculerEdicator.value=false;
 
@@ -135,6 +138,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       otpController.value.clear();
       loading.value = false;
       print("${error.toString()}===============+++=");
+           rxRequestStatus(Status.COMPLETED);
       rxRequestStatus(Status.ERROR);
       Get.back();
       Get.snackbar(

@@ -168,16 +168,24 @@ class _GalleryAccessState extends State<GalleryAccess> {
                 width: width,
                 child:
                 imgFile == null
-                    ? Center(
-                        child: Container(
-                          height: Get.height * 0.4,
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/Upload.png"))),
+                    ? InkWell(
+                      child: Center(
+                          child: Container(
+                            height: Get.height * 0.4,
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/images/Upload.png"))),
+                          ),
                         ),
-                      )
+                         onTap: () {
+                              setState(() {
+                                // imgFile=null;
+                                showOptionsDialog(context);
+                              });
+                            }
+                    )
                     : Center(child: Image.file(imgFile!)),
               ),
               SizedBox(
@@ -217,7 +225,7 @@ class _GalleryAccessState extends State<GalleryAccess> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30)),
                             side:
-                                BorderSide(color: Color(0xff000CAA), width: 2),
+                                BorderSide(color: Color(0xffFE008F), width: 2),
                             fixedSize: Size(150, 60)),
                         onPressed: () {
                           if(imgFile != null){
@@ -246,7 +254,7 @@ class _GalleryAccessState extends State<GalleryAccess> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge
-                                    ?.copyWith(color: Color(0xff000CAA)),
+                                    ?.copyWith(color: Color(0xffFE008F)),
                               ),
                       ),
                     )

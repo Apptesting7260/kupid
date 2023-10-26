@@ -4,6 +4,7 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../../controllers/controller/SignUpController/SignUpController.dart';
 
@@ -99,7 +100,7 @@ class _SignState extends State<Sign> {
                   title: "Continue",
                   onTap: () {
                     print(SignUpControllerInstance.loading.value);
-                    validation();
+                    validation(context);
                   },
                 ),
               ))
@@ -110,12 +111,12 @@ class _SignState extends State<Sign> {
     );
   }
 
-  validation() {
+  validation(BuildContext context) {
     print("send");
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      SignUpControllerInstance.SignUpapiHit();
+      SignUpControllerInstance.SignUpapiHit(context);
       
     }
   }

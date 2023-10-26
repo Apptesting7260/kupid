@@ -72,7 +72,13 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(),
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text("Otp Screen"),
+        ),
+        centerTitle: true,
+      ),
       body: Form(
         key: widget.formKey,
         child: Padding(
@@ -175,11 +181,11 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
                   },
                 ),
               ),)  ,
-              SizedBox(height: height * .45),
+              SizedBox(height: height * .05),
               Obx(() =>  InkWell(
                 child: Center(
                   child: ResendOtpControllerInstanse.loading.value==false? Text(
-                    "send again",
+                    "Resend Otp",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
