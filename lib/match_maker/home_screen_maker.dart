@@ -744,7 +744,7 @@ class _HomePageState extends State<HomePage> {
                                                             8.0),
                                                         child:
                                                         Container(
-                                                          // width: width * .21,
+                                                          width: width * .21,
                                                           child: Stack(
                                                             children: [
                                                               makerRequestController
@@ -782,73 +782,102 @@ class _HomePageState extends State<HomePage> {
                                                                 backgroundImage: NetworkImage(
                                                                     'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
                                                               ),
-                                                              // Positioned(
-                                                              //   left: 25,
-                                                              //   child:makerRequestController
-                                                              //       .makerHomePageValue
-                                                              //       .value
-                                                              //       .requests!
-                                                              //       .incoming![
-                                                              //   index]
-                                                              //       .getanotherseeker!
-                                                              //       .imgPath !=null ?
-                                                              //   CircleAvatar(
-                                                              //     backgroundImage: CachedNetworkImageProvider(
-                                                              //         makerRequestController
-                                                              //             .makerHomePageValue
-                                                              //             .value
-                                                              //             .requests!
-                                                              //             .incoming![
-                                                              //         index]
-                                                              //             .getanotherseeker!
-                                                              //             .imgPath
-                                                              //             .toString()),
-                                                              //     radius: 30,
-                                                              //     backgroundColor:
-                                                              //     AppColors
-                                                              //         .white,
-                                                              //   ):CircleAvatar(
-                                                              //     radius: 30.0,
-                                                              //     backgroundColor:
-                                                              //     Colors
-                                                              //         .transparent,
-                                                              //     backgroundImage:
-                                                              //     NetworkImage(
-                                                              //         'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                                              //   ),
-                                                              // ),
+                                                              Positioned(
+                                                                left: 25,
+                                                                child:makerRequestController
+                                                                    .makerHomePageValue
+                                                                    .value
+                                                                    .requests!
+                                                                    .incoming![
+                                                                index]
+                                                                    .getseeker!
+                                                                    .imgPath !=null ?
+                                                                CircleAvatar(
+                                                                  backgroundImage: CachedNetworkImageProvider(
+                                                                      makerRequestController
+                                                                          .makerHomePageValue
+                                                                          .value
+                                                                          .requests!
+                                                                          .incoming![
+                                                                      index]
+                                                                          .getseeker!
+                                                                          .imgPath
+                                                                          .toString()),
+                                                                  radius: 30,
+                                                                  backgroundColor:
+                                                                  AppColors
+                                                                      .white,
+                                                                ):CircleAvatar(
+                                                                  radius: 30.0,
+                                                                  backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                                  backgroundImage:
+                                                                  NetworkImage(
+                                                                      'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                                ),
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
                                                       ),
-                                                      // SizedBox(
-                                                      //   width:
-                                                      //   Get.width * 0.01,
-                                                      // ),
+                                                      SizedBox(
+                                                        width:
+                                                        Get.width * 0.08,
+                                                      ),
                                                       Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        // mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           SizedBox(
                                                             height: Get.height *
                                                                 0.02,
                                                           ),
-                                                          Text(
-                                                            makerRequestController
-                                                                .makerHomePageValue
-                                                                .value.requests!
-                                                                .incoming![index]
-                                                                .getanotherseeker!
-                                                                .name
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .pink,
-                                                                fontSize: 15,
-                                                                fontWeight: FontWeight
-                                                                    .bold),
+                                                          Column(
+                                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                                            // mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              Container(
+                                                                width: Get.width*0.3,
+                                                                child: Text(
+                                                                  makerRequestController
+                                                                      .makerHomePageValue
+                                                                      .value.requests!
+                                                                      .incoming![index]
+                                                                      .getanotherseeker!
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize: 15,
+                                                                      fontWeight: FontWeight
+                                                                          .bold),
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: Get.width*0.3,
+                                                                child: Text(
+                                                                  makerRequestController
+                                                                      .makerHomePageValue
+                                                                      .value.requests!
+                                                                      .incoming![index]
+                                                                      .getseeker!
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize: 15,
+                                                                      fontWeight: FontWeight
+                                                                          .bold),
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                ),
+
+                                                              ),
+
+                                                            ],
                                                           ),
                                                           SizedBox(
                                                             height: Get.height *
@@ -904,86 +933,86 @@ class _HomePageState extends State<HomePage> {
                                                     )
                                                   ],
                                                 ),
-                                                // Row(
-                                                //   crossAxisAlignment:
-                                                //   CrossAxisAlignment
-                                                //       .start,
-                                                //   mainAxisAlignment:
-                                                //   MainAxisAlignment
-                                                //       .start,
-                                                //   children: [
-                                                //     Padding(
-                                                //       padding: const EdgeInsets
-                                                //           .all(
-                                                //           8.0),
-                                                //       child:
-                                                //       Container(
-                                                //         width:
-                                                //         width * .29,
-                                                //         child:
-                                                //         Stack(
-                                                //           children: [
-                                                //             Positioned(
-                                                //               right: 25,
-                                                //               child: CircleAvatar(
-                                                //                 radius: 30.0,
-                                                //                 backgroundColor: Colors
-                                                //                     .transparent,
-                                                //                 backgroundImage: NetworkImage(
-                                                //                     'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                                //               ),
-                                                //             ),
-                                                //             Container(
-                                                //               decoration: BoxDecoration(
-                                                //                 shape: BoxShape
-                                                //                     .circle,
-                                                //                 border: Border
-                                                //                     .all(
-                                                //                     color: Colors
-                                                //                         .white,
-                                                //                     width: 2),
-                                                //               ),
-                                                //               child: CircleAvatar(
-                                                //                 backgroundImage: NetworkImage(
-                                                //                     'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                                //                 radius: 30.0,
-                                                //                 backgroundColor: Colors
-                                                //                     .transparent,
-                                                //               ),
-                                                //             ),
-                                                //           ],
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //     // Column(
-                                                //     //   children: [
-                                                //     //     SizedBox(
-                                                //     //       height: Get.height *
-                                                //     //           0.02,
-                                                //     //     ),
-                                                //     //     Text(
-                                                //     //       "hhh",
-                                                //     //       style: TextStyle(
-                                                //     //           color: Colors
-                                                //     //               .pink,
-                                                //     //           fontSize: 20,
-                                                //     //           fontWeight: FontWeight
-                                                //     //               .bold),
-                                                //     //     ),
-                                                //     //     SizedBox(
-                                                //     //       height: Get.height *
-                                                //     //           0.01,
-                                                //     //     ),
-                                                //     //     Text(
-                                                //     //       "mmnnhnn",
-                                                //     //       style: TextStyle(
-                                                //     //           color: Colors
-                                                //     //               .black),
-                                                //     //     )
-                                                //     //   ],
-                                                //     // )
-                                                //   ],
-                                                // )
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .all(
+                                                          8.0),
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        width * .29,
+                                                        child:
+                                                        Stack(
+                                                          children: [
+                                                            Positioned(
+                                                              right: 25,
+                                                              child: CircleAvatar(
+                                                                radius: 30.0,
+                                                                backgroundColor: Colors
+                                                                    .transparent,
+                                                                backgroundImage: NetworkImage(
+                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                border: Border
+                                                                    .all(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    width: 2),
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                backgroundImage: NetworkImage(
+                                                                    'https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                                                                radius: 30.0,
+                                                                backgroundColor: Colors
+                                                                    .transparent,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Column(
+                                                    //   children: [
+                                                    //     SizedBox(
+                                                    //       height: Get.height *
+                                                    //           0.02,
+                                                    //     ),
+                                                    //     Text(
+                                                    //       "hhh",
+                                                    //       style: TextStyle(
+                                                    //           color: Colors
+                                                    //               .pink,
+                                                    //           fontSize: 20,
+                                                    //           fontWeight: FontWeight
+                                                    //               .bold),
+                                                    //     ),
+                                                    //     SizedBox(
+                                                    //       height: Get.height *
+                                                    //           0.01,
+                                                    //     ),
+                                                    //     Text(
+                                                    //       "mmnnhnn",
+                                                    //       style: TextStyle(
+                                                    //           color: Colors
+                                                    //               .black),
+                                                    //     )
+                                                    //   ],
+                                                    // )
+                                                  ],
+                                                )
                                               ],
                                             ))),
                                   ),

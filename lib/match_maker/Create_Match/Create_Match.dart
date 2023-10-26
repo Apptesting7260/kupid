@@ -165,10 +165,25 @@ class _MatchScreenState extends State<MatchScreen> {
                                     child: FloatingActionButton(
                                       onPressed: () async {
                                         final SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
+                                        await SharedPreferences
+                                            .getInstance();
                                         setState(() {
                                           isloading = true;
+                                        });
+                                        Timer(Duration(seconds: 1), () {
+
+                                        setState(() {
+                                          name1=null;
+                                          name2=null;
+                                          name1="";
+                                          im2="";
+                                          im2=null;
+                                          img1=null;
+                                          img1="";
+                                          images.clear();
+
+                                          name2="";
+
                                         });
                                         print('item 1st ->  ' + '$_topItem1');
                                         match_fromid =
@@ -233,11 +248,12 @@ class _MatchScreenState extends State<MatchScreen> {
                                             .value
                                             .allseekers!
                                             .Mal![_topItem1]
-                                            .name
+                                            .imgPath
                                             .toString();
-                                        Timer(Duration(seconds: 2), () {
+                                        images.addAll([img1,im2]);
+                                        Timer(Duration(seconds: 2), (){
                                           if (DoMatchesControllerinstance
-                                                  .DoMatches.value.status ==
+                                                  .DoMatches.value.status.toString() ==
                                               "success") {
                                             ShowDialog(context);
                                             setState(() {
@@ -246,7 +262,7 @@ class _MatchScreenState extends State<MatchScreen> {
                                               images;
                                               isloading = false;
                                             });
-                                          }
+                                          }});
                                         });
                                       },
                                       child: Container(
@@ -269,7 +285,34 @@ class _MatchScreenState extends State<MatchScreen> {
                                       ),
                                     ),
                                   )
-                                : CircularProgressIndicator()),
+                                : Container(
+                              decoration: BoxDecoration(),
+                              height: MediaQuery.of(context).size.width *
+                                  0.29,
+                              width: MediaQuery.of(context).size.width *
+                                  0.29,
+                              child: FloatingActionButton(
+
+
+                                onPressed: (){},
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                      child: CircularProgressIndicator()),
+                                ),
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width *
+                                        0.3,
+                                  ),
+                                  side: BorderSide(
+                                    color: Colors.pink.shade400,
+                                    width: 4,
+                                  ),
+                                ),
+                              ),
+                            )),
                       ),
                     ],
                   );
@@ -751,6 +794,7 @@ ShowDialog(BuildContext context) {
   final DoMatchesControllerinstance = Get.put(DoMatchesController());
 
   showDialog(
+    barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -778,30 +822,30 @@ ShowDialog(BuildContext context) {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,
               ),
-              if (DoMatchesControllerinstance.DoMatches.value.msg ==
-                  "Match request sent Successfully")
-                Text(
-                  "Congratulations it's a",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .01,
-              ),
-              if (DoMatchesControllerinstance.DoMatches.value.msg ==
-                  "Match request sent Successfully")
-                Text(
-                  "Match!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Color(0xffFE0091)),
-                ),
-              if (DoMatchesControllerinstance.DoMatches.value.msg ==
-                  "Already Matched")
-                Text(
-                  DoMatchesControllerinstance.DoMatches.value.msg.toString(),
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+              // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+              //     "Match request sent Successfully")
+              //   Text(
+              //     "Congratulations it's a",
+              //     style: Theme.of(context).textTheme.titleSmall,
+              //   ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * .01,
+              // ),
+              // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+              //     "Match request sent Successfully")
+              //   Text(
+              //     "Match!",
+              //     style: Theme.of(context)
+              //         .textTheme
+              //         .titleSmall
+              //         ?.copyWith(color: Color(0xffFE0091)),
+              //   ),
+              // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+              //     "Already Matched")
+              //   Text(
+              //     DoMatchesControllerinstance.DoMatches.value.msg.toString(),
+              //     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091)),
+              //   ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * .08,
@@ -818,24 +862,24 @@ ShowDialog(BuildContext context) {
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.25),
                         leading: Container(
-                          width: MediaQuery.of(context).size.width * .09,
-                          height: MediaQuery.of(context).size.height * .07,
+                          width: MediaQuery.of(context).size.width * .15,
+                          height: MediaQuery.of(context).size.height * .09,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             reverse: true,
-                            itemCount: images.length >= 3 ? 3 : images.length,
+                            itemCount:  images.length,
                             itemBuilder: (context, index) {
                               return Align(
                                 alignment: Alignment.center,
                                 widthFactor: 0.4,
                                 child: CircleAvatar(
-                                  radius: 16,
+                                  radius: 32,
                                   backgroundColor: AppColors.white,
                                   child: CircleAvatar(
-                                    radius: 14,
+                                    radius: 30,
                                     backgroundImage:
-                                        NetworkImage(images[index]),
+                                        CachedNetworkImageProvider(images[index]),
                                   ),
                                 ),
                               );
@@ -856,15 +900,19 @@ ShowDialog(BuildContext context) {
                       color: Color(0xff000CAA),
                     ),
               ),
+        Text(
+        (DoMatchesControllerinstance.DoMatches.value.msg.toString()) ,
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091))),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .04,
               ),
               MyButton(
                 height: MediaQuery.of(context).size.height * .05,
                 width: MediaQuery.of(context).size.width * .63,
-                title: 'Leave a note for both',
+                title: 'Back',
                 onTap: () {
-                  Get.to(ChatPage());
+                  Get.back();
+                  // Get.to(ChatPage());
                 },
               )
             ],

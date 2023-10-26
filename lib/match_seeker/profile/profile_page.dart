@@ -6,9 +6,12 @@ import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/Vi
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+
+import '../viewMakerProfileinseeker/ShowAllImage.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -65,17 +68,31 @@ class _ProfilePageState extends State<ProfilePage> {
                         Container(
                           width: width * 1,
                           height: height * 0.4,
-                          child: CachedNetworkImage(
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            placeholder: (context, url) =>
-                                Center(child: CircularProgressIndicator()),
-                            fit: BoxFit.cover,
-                            imageUrl:  seekerMyProfileDetailsController
-                                                  .SeekerMyProfileDetail
-                                                  .value.ProfileDetail!
-                                .imgPath
-                                .toString(), // Replace with your actual image URL
+                          child: InkWell(
+                            child: CachedNetworkImage(
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                              placeholder: (context, url) =>
+                                  Center(child: CircularProgressIndicator()),
+                              fit: BoxFit.cover,
+                              imageUrl:  seekerMyProfileDetailsController
+                                  .SeekerMyProfileDetail
+                                  .value.ProfileDetail!
+                                  .imgPath
+                                  .toString(), // Replace with your actual image URL
+                            ),
+                            onTap: () {
+                              showImageViewer(
+                                  context,
+                                 CachedNetworkImageProvider( seekerMyProfileDetailsController
+                                     .SeekerMyProfileDetail
+                                     .value.ProfileDetail!
+                                     .imgPath
+                                     .toString())
+                                     ,
+                                  swipeDismissible: false,
+                                  doubleTapZoomable: true);
+                            },
                           ),
                         ),
             
@@ -410,12 +427,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                             .textTheme
                                             .titleSmall,
                                       ),
-                                      Text(
-                                        "See all",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .copyWith(color: Color(0xff000CAA)),
+                                      InkWell(
+                                        child: Text(
+                                          "See all",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge!
+                                              .copyWith(color: Color(0xff000CAA)),
+                                        ),
+                                        onTap: () {
+
+                                        },
                                       ),
                                     ],
                                   ),
@@ -450,22 +472,41 @@ class _ProfilePageState extends State<ProfilePage> {
                                             (BuildContext context, int index) {
                                           return Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                 seekerMyProfileDetailsController
-                                                  .SeekerMyProfileDetail
-                                                  .value.ProfileDetail!
-                                                      .details!
-                                                      .gallaryPath![index]
-                                                      .toString(),
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) => Center(
-                                                  child:
-                                                      CircularProgressIndicator()), // Placeholder widget while loading
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Icon(Icons
-                                                      .error), // Error widget if loading fails
+                                            child: InkWell(
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                   seekerMyProfileDetailsController
+                                                    .SeekerMyProfileDetail
+                                                    .value.ProfileDetail!
+                                                        .details!
+                                                        .gallaryPath![index]
+                                                        .toString(),
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) => Center(
+                                                    child:
+                                                        CircularProgressIndicator()), // Placeholder widget while loading
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Icon(Icons
+                                                        .error), // Error widget if loading fails
+                                              ),
+                                              onTap: () {
+                                                List<String> imageUrl=[];
+                                                seekerMyProfileDetailsController
+                                                    .SeekerMyProfileDetail
+                                                    .value.ProfileDetail!
+                                                    .details!
+                                                    .gallaryPath?.forEach((element) {return imageUrl.add(element.toString());});
+                                                CustomImageProvider customImageProvider = CustomImageProvider(
+                                                    imageUrls:imageUrl ,
+                                                    initialIndex: index);
+                                                showImageViewerPager(context, customImageProvider,
+                                                    onPageChanged: (page) {
+                                                      // print("Page changed to $page");
+                                                    }, onViewerDismissed: (page) {
+                                                      // print("Dismissed while on page $page");
+                                                    });
+                                              },
                                             ),
                                           );
                                         },

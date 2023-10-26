@@ -1,16 +1,28 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../controllers/FindMatchesControlller/FindMatchesController.dart';
+import '../../../controllers/controller/DoMatchesController/DoMachesController.dart';
 import '../../../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import '../../../data/response/status.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exceptions_widget.dart';
+import '../../../utils/app_colors.dart';
+import '../../../widgets/my_button.dart';
+import '../../Create_Match/Create_Match.dart';
 
-
+String? name1;
+String? name2;
+String? img1;
+String? im2;
+List images = [];
 class CreateNewMatches extends StatefulWidget {
   const CreateNewMatches({super.key});
 
@@ -19,6 +31,8 @@ class CreateNewMatches extends StatefulWidget {
 }
 
 class _CreateNewMatchesState extends State<CreateNewMatches> {
+  bool isloading = false;
+  final DoMatchesControllerinstance = Get.put(DoMatchesController());
   final CreateNewMatchesController createNewMatchesController =
   Get.put(CreateNewMatchesController());
 
@@ -825,7 +839,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                                             ),
                                                             // SizedBox(width: Get.width*0.002,),
                                                             Text(
-                                                              createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].salary.toString()+ ' Monthly',
+                                                              createNewMatchesController.createNewMatchesList.value.allseekers![itemIndex].salary.toString()+ ' LPA',
                                                               style: TextStyle(
                                                                   color: Colors.black,
                                                                   fontSize: 6,
@@ -893,14 +907,96 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                       Positioned(
                           top: Get.height * 0.3,
                           left: Get.width * 0.36,
-                          child: GestureDetector(
-                            onTap: () {
+                          child:  isloading == false
+                              ? GestureDetector(
+                            onTap: () async {
                               print('1');
                               print( seekerViewMyProfileController
                                   .ViewProfileDetail
                                   .value
                                   .profileDetails![0] .name.toString()+' '+createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()].name.toString());
-                            },
+                              final SharedPreferences prefs =
+                                  await SharedPreferences
+                                  .getInstance();
+                              setState(() {
+                                isloading = true;
+                              });
+                              Timer(Duration(seconds: 1), () {
+
+                                setState(() {
+                                  name1=null;
+                                  name2=null;
+                                  name1="";
+                                  im2="";
+                                  im2=null;
+                                  img1=null;
+                                  img1="";
+                                  images.clear();
+
+                                  name2="";
+
+                                });
+
+                                match_fromid =
+                                    seekerViewMyProfileController
+                                        .ViewProfileDetail
+                                        .value
+                                        .profileDetails![0]
+                                        .id
+                                        .toString();
+                                print(seekerViewMyProfileController
+                                    .ViewProfileDetail
+                                    .value
+                                    .profileDetails![0]
+                                    .name
+                                    .toString());
+                                name1 = seekerViewMyProfileController
+                                    .ViewProfileDetail
+                                    .value
+                                    .profileDetails![0]
+                                    .name
+                                    .toString();
+                                match_withid =
+                                    createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()]
+                                        .id
+                                        .toString();
+
+                                print(createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()]
+                                    .name
+                                    .toString());
+                                name2 = createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()]
+                                    .name
+                                    .toString();
+                                im2 = seekerViewMyProfileController
+                                    .ViewProfileDetail
+                                    .value
+                                    .profileDetails![0]
+                                    .imgPath
+                                    .toString();
+                                Makerid = prefs.getString('Tokernid');
+                                Matchtype = "2";
+                                DoMatchesControllerinstance
+                                    .DoMatchesApiHit();
+
+                                img1 = createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()]
+                                    .toString();
+                                images.addAll([img1,im2]);
+                                Timer(Duration(seconds: 2), (){
+                                  if (DoMatchesControllerinstance
+                                      .DoMatches.value.status.toString() ==
+                                      "success") {
+                                    ShowDialog(context);
+                                    setState(() {
+                                      name1;
+                                      name2;
+                                      images;
+                                      isloading = false;
+                                    });
+                                  }});
+                              });
+
+
+                              },
                             child: Container(
                               height: Get.height * 0.15,
                               decoration: BoxDecoration(
@@ -916,7 +1012,38 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                     fit: BoxFit.cover),
                               ),
                             ),
-                          ))
+                          ):Container(
+                            decoration: BoxDecoration(),
+                            height: MediaQuery.of(context).size.width *
+                                0.29,
+                            width: MediaQuery.of(context).size.width *
+                                0.29,
+                            child: FloatingActionButton(
+
+
+                              onPressed: (){},
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Center(
+                                    child: CircularProgressIndicator()),
+                              ),
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.width *
+                                      0.3,
+                                ),
+                                side: BorderSide(
+                                  color: Colors.pink.shade400,
+                                  width: 4,
+                                ),
+                              ),
+                            ),
+                          )
+
+
+
+                      )
                     ],
                   ),
                 ],
@@ -925,5 +1052,137 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
         }),
       ),
     );
+  }
+
+
+  ShowDialog(BuildContext context) {
+    final DoMatchesControllerinstance = Get.put(DoMatchesController());
+
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color(0xffFFFFFF),
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Image.asset(
+                        "assets/icons/cancel.png",
+                        height: MediaQuery.of(context).size.height * .03,
+                      )),
+                ),
+                Image.asset(
+                  'assets/maker/heart.png',
+                  height: MediaQuery.of(context).size.height * .1,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+                //     "Match request sent Successfully")
+                //   Text(
+                //     "Congratulations it's a",
+                //     style: Theme.of(context).textTheme.titleSmall,
+                //   ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * .01,
+                // ),
+                // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+                //     "Match request sent Successfully")
+                //   Text(
+                //     "Match!",
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .titleSmall
+                //         ?.copyWith(color: Color(0xffFE0091)),
+                //   ),
+                // if (DoMatchesControllerinstance.DoMatches.value.msg.toString() ==
+                //     "Already Matched")
+                //   Text(
+                //     DoMatchesControllerinstance.DoMatches.value.msg.toString(),
+                //     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091)),
+                //   ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * .08,
+                  child: ListView.builder(
+                    // scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(8),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal:
+                              MediaQuery.of(context).size.width * 0.25),
+                          leading: Container(
+                            width: MediaQuery.of(context).size.width * .15,
+                            height: MediaQuery.of(context).size.height * .09,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              reverse: true,
+                              itemCount:  images.length,
+                              itemBuilder: (context, index) {
+                                return Align(
+                                  alignment: Alignment.center,
+                                  widthFactor: 0.4,
+                                  child: CircleAvatar(
+                                    radius: 32,
+                                    backgroundColor: AppColors.white,
+                                    child: CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage:
+                                      CachedNetworkImageProvider(images[index]),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
+                ),
+                Text(
+                  name1.toString() + " and " + name2.toString(),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: Color(0xff000CAA),
+                  ),
+                ),
+                Text(
+                    (DoMatchesControllerinstance.DoMatches.value.msg.toString()) ,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091))),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .04,
+                ),
+                MyButton(
+                  height: MediaQuery.of(context).size.height * .05,
+                  width: MediaQuery.of(context).size.width * .63,
+                  title: 'Back',
+                  onTap: () {
+                    Get.back();
+                    // Get.to(ChatPage());
+                  },
+                )
+              ],
+            ),
+          );
+        });
   }
 }

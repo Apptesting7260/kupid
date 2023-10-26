@@ -265,7 +265,7 @@ Row(
                                   ),
                                 ],
                               ),
-                              SizedBox(width: width * .15),
+                              SizedBox(width: width * .1),
                               GestureDetector(
                                 onTap: () {
                                   // showdilog();
