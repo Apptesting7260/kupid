@@ -1009,79 +1009,79 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
             //   }
             // }),
         
-              Row(
-                children: [
-                  Wrap(
-                          runSpacing: 8.0,
-                          spacing: 6.0,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                // messagecontroller.text = "Hello!";
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(20)),
-                                height: height * .04,
-                                width: width * .18,
-                                child: Center(
-                                  child: Text(
-                                    "Hello!",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // messagecontroller.text = "How are you?";
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(20)),
-                                height: height * .04,
-                                width: width * .3,
-                                child: Center(
-                                  child: Text(
-                                    "How are you?",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // messagecontroller.text = "What are you doing?";
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(20)),
-                                height: height * .04,
-                                width: width * .37,
-                                child: Center(
-                                  child: Text(
-                                    "What are you doing?",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Wrap(
+              //             runSpacing: 8.0,
+              //             spacing: 6.0,
+              //             children: [
+              //               GestureDetector(
+              //                 onTap: () {
+              //                   // messagecontroller.text = "Hello!";
+              //                 },
+              //                 child: Container(
+              //                   decoration: BoxDecoration(
+              //                       border: Border.all(color: Colors.grey),
+              //                       borderRadius: BorderRadius.circular(20)),
+              //                   height: height * .04,
+              //                   width: width * .18,
+              //                   child: Center(
+              //                     child: Text(
+              //                       "Hello!",
+              //                       style: Theme.of(context)
+              //                           .textTheme
+              //                           .bodySmall!
+              //                           .copyWith(color: Colors.grey),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () {
+              //                   // messagecontroller.text = "How are you?";
+              //                 },
+              //                 child: Container(
+              //                   decoration: BoxDecoration(
+              //                       border: Border.all(color: Colors.grey),
+              //                       borderRadius: BorderRadius.circular(20)),
+              //                   height: height * .04,
+              //                   width: width * .3,
+              //                   child: Center(
+              //                     child: Text(
+              //                       "How are you?",
+              //                       style: Theme.of(context)
+              //                           .textTheme
+              //                           .bodySmall!
+              //                           .copyWith(color: Colors.grey),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () {
+              //                   // messagecontroller.text = "What are you doing?";
+              //                 },
+              //                 child: Container(
+              //                   decoration: BoxDecoration(
+              //                       border: Border.all(color: Colors.grey),
+              //                       borderRadius: BorderRadius.circular(20)),
+              //                   height: height * .04,
+              //                   width: width * .37,
+              //                   child: Center(
+              //                     child: Text(
+              //                       "What are you doing?",
+              //                       style: Theme.of(context)
+              //                           .textTheme
+              //                           .bodySmall!
+              //                           .copyWith(color: Colors.grey),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //   ],
+              // ),
         
         
               SizedBox(height: Get.height*0.02,),

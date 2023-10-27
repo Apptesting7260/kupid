@@ -73,72 +73,72 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
   }
 
   FocusNode messageFocusNode = FocusNode();
-  void updatetryeDataInFirestore() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    print(("hited"));
-    // Replace 'users' with your collection name and 'documentId' with the specific document ID
-    DocumentReference docRef = firestore
-        .collection("RoomId's")
-        .doc(roomid)
-        .collection("typestatus")
-        .doc("userstypingstatus");
+  // void updatetryeDataInFirestore() async {
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   print(("hited"));
+  //   // Replace 'users' with your collection name and 'documentId' with the specific document ID
+  //   DocumentReference docRef = firestore
+  //       .collection("RoomId's")
+  //       .doc(roomid)
+  //       .collection("typestatus")
+  //       .doc("userstypingstatus");
 
-    Map<String, dynamic> typestatus = {
-      "id": ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id
-          .toString(),
-      "status": true,
-    };
+  //   Map<String, dynamic> typestatus = {
+  //     "id": ViewMakerProfileDetailsControllerinstance
+  //         .ViewProfileDetail.value.ProfileDetail!.id
+  //         .toString(),
+  //     "status": true,
+  //   };
 
-    await docRef.update(typestatus);
-  }
+  //   await docRef.update(typestatus);
+  // }
 
-  void updatefalseDataInFirestore() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    print(("hited"));
-    // Replace 'users' with your collection name and 'documentId' with the specific document ID
-    DocumentReference docRef = firestore
-        .collection("RoomId's")
-        .doc(roomid)
-        .collection("typestatus")
-        .doc("userstypingstatus");
+  // void updatefalseDataInFirestore() async {
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   print(("hited"));
+  //   // Replace 'users' with your collection name and 'documentId' with the specific document ID
+  //   DocumentReference docRef = firestore
+  //       .collection("RoomId's")
+  //       .doc(roomid)
+  //       .collection("typestatus")
+  //       .doc("userstypingstatus");
 
-    Map<String, dynamic> typestatus = {
-      "id":ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id
-          .toString(),
-      "status": false,
-    };
+  //   Map<String, dynamic> typestatus = {
+  //     "id":ViewMakerProfileDetailsControllerinstance
+  //         .ViewProfileDetail.value.ProfileDetail!.id
+  //         .toString(),
+  //     "status": false,
+  //   };
 
-    await docRef.update(typestatus);
-  }
+  //   await docRef.update(typestatus);
+  // }
 
   void _onFocusChange() {
     if (messageFocusNode.hasFocus) {
-      updatetryeDataInFirestore();
+      // updatetryeDataInFirestore();
       print("TextField is active: true");
     } else {
-      updatefalseDataInFirestore();
+      // updatefalseDataInFirestore();
       print("TextField is active: false");
     }
   }
 
-  void typeingstatusofuser() async {
-    print("hited");
-    Map<String, dynamic> typestatus = {
-      "id": ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id
-          .toString(),
-      "status": false,
-    };
+  // void typeingstatusofuser() async {
+  //   print("hited");
+  //   Map<String, dynamic> typestatus = {
+  //     "id": ViewMakerProfileDetailsControllerinstance
+  //         .ViewProfileDetail.value.ProfileDetail!.id
+  //         .toString(),
+  //     "status": false,
+  //   };
 
-    await _firestore
-        .collection("RoomId's")
-        .doc(roomid)
-        .collection("typestatus")
-        .doc("userstypingstatus")
-        .set(typestatus);
-  }
+  //   await _firestore
+  //       .collection("RoomId's")
+  //       .doc(roomid)
+  //       .collection("typestatus")
+  //       .doc("userstypingstatus")
+  //       .set(typestatus);
+  // }
 
   @override
   void initState() {
@@ -205,7 +205,8 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
         };
         messagecontroller.clear();
     await _firestore
-          .collection("RoomId's")
+          .collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id)
           .doc(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
 .collection("massages").add(messages!);
       print("Enter Some Text");
@@ -230,7 +231,8 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
         "time": FieldValue.serverTimestamp(),
       };
        await _firestore
-          .collection("RoomId's")
+          .collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id)
           .doc(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
 .collection("massages").add(messages!);
       print("Enter Some Text");
