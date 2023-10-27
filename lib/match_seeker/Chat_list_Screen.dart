@@ -35,9 +35,21 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 
 
   }
+
+
+ getusers() {
+      var name;
+ name=firestore
+        .collection(seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
+        .orderBy('timestamp', descending: true)
+        .get();
+        
+
+
+  }
   @override
   void initState() {
-
+getusers();
     // TODO: implement initState
     super.initState();
  

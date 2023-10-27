@@ -36,7 +36,7 @@ bool isLoding=false;
   void initState() {
     super.initState();
     seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
-    seekerMyProfileController.SeekerMyProfileDetailsApiHit();
+ 
 
 
   }

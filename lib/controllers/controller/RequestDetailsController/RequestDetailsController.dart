@@ -55,7 +55,29 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
       Map <String, dynamic> roomdetails = {};
       Map <String, dynamic> roomdetailsmaker = {};
       Map <String, dynamic> roomdetailsanotherseeker = {};
-      if (value.data!.matchWith.toString() != "null"&& _firestore.collection(value.data!.getseeker!.id.toString()).doc(value.data!.roomid!.toString()).get()!=value.data!.roomid!.toString()) {
+
+      print(_firestore.collection(value.data!.getseeker!.id.toString()).doc(value.data!.roomid.toString()).get().toString());
+
+
+Future<bool> doesDocumentExist(String collectionPath, String documentPath) async {
+  final documentReference = FirebaseFirestore.instance.collection(value.data!.getseeker!.id.toString()).doc(value.data!.roomid.toString());
+  final snapshot = await documentReference.get();
+
+  return snapshot.exists;
+}
+
+// Example usage:
+final collectionPath = value.data!.getseeker!.id.toString();
+final documentPath = value.data!.roomid.toString();
+final exists = await doesDocumentExist(collectionPath, documentPath);
+
+if (exists) {
+  
+  // The document exists.
+  // You can proceed with your logic here.
+} else {
+
+      if (value.data!.matchWith.toString() != "null"&& _firestore.collection(value.data!.getseeker!.id.toString()).doc().get()!=value.data!.roomid!.toString()) {
         roomdetails = {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
@@ -63,6 +85,8 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
           "seeker_id1": value.data!.getseeker!.id.toString(),
 
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
+           'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "",
      if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")     "maker_id": value.data!.getmaker!.id.toString(),
       if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")    "maker_name": value.data!.getmaker!.name.toString(),
 if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")   "maker_image": value.data!.getmaker!.imgPath.toString(),
@@ -130,8 +154,8 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
 
      
 
-        await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).update(roomdetails);
-       await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).update(roomdetailsanotherseeker);
+        await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+       await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsanotherseeker);
 
        anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
       }
@@ -139,6 +163,10 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
 
 
  
+
+  // The document does not exist.
+  // Handle the case where the document does not exist.
+}
 
        
 
