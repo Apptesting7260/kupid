@@ -21,6 +21,7 @@ import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controllers/SeekerToMakerController/SeekerToMakerController.dart';
 import '../controllers/controller/SeekerToSeekerRequestController/SeekerToSeekerRequestController.dart';
 import '../controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
 
@@ -35,6 +36,8 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
   int? selectedrole;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final ListAllMakerControllerinstance = Get.put(ListAllMakerController());
+  SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(SeekerToMakerRequestController());
+
 
   final MagicProfileControllerinstance = Get.put(MagicProfileController());
   ChoseRole() async {
@@ -270,6 +273,11 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                   
                                     // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
                                     // print(selectedseekerid);
+
+                                    Makerid=ListAllMakerControllerinstance
+                                        .userList.value.allmakers![index].id.toString();
+
+                                    SeekerToMakerRequestControllerinstance.SeekerToMakerRequestApiHit(context);
                                   },
                                   child: Container(
                                     height: height * .04,

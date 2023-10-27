@@ -829,9 +829,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                           crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
+
                                                           children: [
                                                             Padding(
                                                               padding:
@@ -846,7 +844,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                   children: [
                                                                     CircleAvatar(
                                                                         radius:
-                                                                        20,
+                                                                        25,
                                                                         backgroundColor:
                                                                         AppColors
                                                                             .white,
@@ -862,12 +860,14 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                   0.08,
                                                             ),
                                                             Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 // SizedBox(
                                                                 //   height: Get
                                                                 //       .height *
                                                                 //       0.02,
                                                                 // ),
+
                                                               Container(
                                                                 child: Text(
                                                                  anotheruser.name.toString(),
@@ -883,20 +883,23 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                           .bold),
                                                                 ),
                                                               ),
-                                                                // SizedBox(
-                                                                //   height: Get
-                                                                //       .height *
-                                                                //       0.01,
-                                                                // ),
-                                                                Text(
+                                                                SizedBox(
+                                                                  height: Get
+                                                                      .height *
+                                                                      0.02,
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets.only(left: 10),
+                                                                  child: Text(
 
 
 formattedDate,
-                                                                      
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                      Colors
-                                                                          .black),
+
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                        Colors
+                                                                            .black),
+                                                                  ),
                                                                 )
                                                               ],
                                                             )
@@ -1309,9 +1312,7 @@ formattedDate,
                                                         crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+
                                                         children: [
                                                           Padding(
                                                             padding:
@@ -1370,7 +1371,7 @@ formattedDate,
                                                               SizedBox(
                                                                 height: Get
                                                                     .height *
-                                                                    0.01,
+                                                                    0.03,
                                                               ),
                                                               Text(
                                                                 createdAtString,
@@ -1438,9 +1439,7 @@ formattedDate,
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
                                                           .start,
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
+
                                                       children: [
                                                         Padding(
                                                           padding:
@@ -1545,7 +1544,7 @@ formattedDate,
                                                                         color: Colors
                                                                             .pink,
                                                                         fontSize:
-                                                                        15,
+                                                                        12,
                                                                         fontWeight:
                                                                         FontWeight
                                                                             .bold),
