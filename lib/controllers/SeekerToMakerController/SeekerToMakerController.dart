@@ -37,15 +37,18 @@ class SeekerToMakerRequestController extends GetxController {
 
 
    loading.value=true;
-   Map Data={
-"match_with":"",
+   Map Data1={};
+   if(selectedseekerid==null){
+    Data1={
+"match_with":selectedseekerid.toString(),
 "maker_id":Makerid.toString()
-   };
-      Map Data1={
+   };}
+   else {
+     Data1 = {
 
-"maker_id":Makerid.toString()
-   };
-
+       "maker_id": Makerid.toString()
+     };
+   }
     _api.SeekerToMakerRequestApi(Data1).then((value){
       setRxRequestStatus(Status.COMPLETED);
       Get.back();

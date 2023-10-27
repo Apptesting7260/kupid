@@ -505,10 +505,15 @@ Fluttertoast.showToast(
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                dataofStaticPull.spinLeverpoolRequestedData!
-                    .spinRequestData![index].seekerData!.name
-                    .toString(),
+              child: Container(
+                width: Get.width*0.2,
+                child: Text(
+                  dataofStaticPull.spinLeverpoolRequestedData!
+                      .spinRequestData![index].seekerData!.name
+                      .toString(),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],
@@ -616,7 +621,7 @@ Fluttertoast.showToast(
               ),
               Text(
                 dataofStaticPull.spinLeverpoolRequestedData!
-                    .spinRequestData![index].seekerData!.questions
+                    .spinRequestData![index].seekerData!.questions!.question
                     .toString(),
                 style: Theme.of(context).textTheme.titleSmall,
               ),

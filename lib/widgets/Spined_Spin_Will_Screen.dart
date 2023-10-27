@@ -472,16 +472,20 @@ SpeendReqestControllerinstance.startTimer();
                                 crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                             SpeendReqestControllerinstance
-                                                        .staticLiverPullvalue
-                                                        .value
-                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!
-                                        .name
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall,
+                                  Container(
+                              width: width * .2,
+                                    child: Text(
+                                               SpeendReqestControllerinstance
+                                                          .staticLiverPullvalue
+                                                          .value
+                                                          .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!
+                                          .name
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: height * .01,
@@ -492,6 +496,7 @@ SpeendReqestControllerinstance.startTimer();
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
+
                                   ),
                                 ],
                               ),
@@ -679,7 +684,7 @@ Fluttertoast.showToast(
                        SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
                                                         .value
-                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions
+                                                        .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.question
                     .toString(),
                 style: Theme.of(context).textTheme.titleSmall,
               ),

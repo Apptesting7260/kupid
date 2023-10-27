@@ -182,10 +182,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                     height: Get.height * 0.04,
                   ),
                   // IncomingRequestControllerins.IncomingRequestvalue
-                  //     .value.requests!.byMaker != null||
-                  IncomingRequestControllerins.IncomingRequestvalue.value
-                                  .requests!.byMaker!.length !=
-                              0 &&
+                  // //     .value.requests!.byMaker != null||
+                  // IncomingRequestControllerins.IncomingRequestvalue.value
+                  //                 .requests!.byMaker!.length !=
+                  //             0 &&
                           (requestController.button_maker.value)
                       ? Row(
                           children: [
@@ -224,10 +224,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                         )
                       : SizedBox(),
                   // IncomingRequestControllerins.IncomingRequestvalue
-                  //     .value.requests!.bySeeker != null||
-                  IncomingRequestControllerins.IncomingRequestvalue.value
-                                  .requests!.bySeeker!.length !=
-                              0 &&
+                  // //     .value.requests!.bySeeker != null||
+                  // IncomingRequestControllerins.IncomingRequestvalue.value
+                  //                 .requests!.bySeeker!.length !=
+                  //             0 &&
                           (requestController.button_maker.value != true)
                       ? Row(
                           children: [

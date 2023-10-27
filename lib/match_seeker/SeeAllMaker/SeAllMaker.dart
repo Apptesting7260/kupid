@@ -119,7 +119,7 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                               SizedBox(width: width * .08),
                             ],
                           ),
-                          GestureDetector(
+                        selectedseekerid==null?  GestureDetector(
                             onTap: () {
 
                               Makerid=ListAllMakerControllerinstance
@@ -144,32 +144,34 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                                 ),
                               ),
                             ),
+                          ):
+                          GestureDetector(
+                            onTap: () {
+                              // showdilog();
+
+                              Makerid=ListAllMakerControllerinstance
+                                  .userList.value.allmakers![index].id.toString();
+
+                              SeekerToMakerRequestControllerinstance.SeekerToMakerRequestApiHit(context);
+                            },
+                            child: Container(
+                              height: height * .04,
+                              width: width * .25,
+                              decoration: BoxDecoration(
+                                color: Color(0xffFE0091),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Request",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ),
                           )
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     // showdilog();
-                          //
-                          //     // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                          //     // print(selectedseekerid);
-                          //   },
-                          //   child: Container(
-                          //     height: height * .04,
-                          //     width: width * .25,
-                          //     decoration: BoxDecoration(
-                          //       color: Color(0xffFE0091),
-                          //       borderRadius: BorderRadius.circular(15),
-                          //     ),
-                          //     child: Center(
-                          //       child: Text(
-                          //         "Request",
-                          //         style: Theme.of(context)
-                          //             .textTheme
-                          //             .bodySmall!
-                          //             .copyWith(color: Colors.white),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // )
                         ],
                       ));
                 },
