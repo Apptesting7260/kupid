@@ -6,6 +6,8 @@ import 'package:cupid_match/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/SeekerToMakerController/SeekerToMakerController.dart';
+
 class SeeAllMaker extends StatefulWidget {
   const SeeAllMaker({super.key});
 
@@ -16,6 +18,8 @@ class SeeAllMaker extends StatefulWidget {
 class _SeeAllMakerState extends State<SeeAllMaker> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final ListAllMakerControllerinstance = Get.put(ListAllMakerController());
+  SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(SeekerToMakerRequestController());
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -63,7 +67,7 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                             children: [
                               InkWell(
                                 child: CircleAvatar(
-                                  radius: 30.0,
+                                  radius: 25.0,
                                   backgroundImage: NetworkImage(
                                       ListAllMakerControllerinstance
                                           .userList.value.allmakers![index].imgPath
@@ -115,24 +119,24 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                               SizedBox(width: width * .08),
                             ],
                           ),
-
                           GestureDetector(
                             onTap: () {
-                              // showdilog();
 
-                              // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
-                              // print(selectedseekerid);
+                              Makerid=ListAllMakerControllerinstance
+                                  .userList.value.allmakers![index].id.toString();
+
+                              SeekerToMakerRequestControllerinstance.SeekerToMakerRequestApiHit(context);
                             },
                             child: Container(
                               height: height * .04,
-                              width: width * .25,
+                              width: width * .35,
                               decoration: BoxDecoration(
                                 color: Color(0xffFE0091),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Center(
                                 child: Text(
-                                  "Request",
+                                  "Request To Maker",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
@@ -141,6 +145,31 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                               ),
                             ),
                           )
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     // showdilog();
+                          //
+                          //     // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
+                          //     // print(selectedseekerid);
+                          //   },
+                          //   child: Container(
+                          //     height: height * .04,
+                          //     width: width * .25,
+                          //     decoration: BoxDecoration(
+                          //       color: Color(0xffFE0091),
+                          //       borderRadius: BorderRadius.circular(15),
+                          //     ),
+                          //     child: Center(
+                          //       child: Text(
+                          //         "Request",
+                          //         style: Theme.of(context)
+                          //             .textTheme
+                          //             .bodySmall!
+                          //             .copyWith(color: Colors.white),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ));
                 },

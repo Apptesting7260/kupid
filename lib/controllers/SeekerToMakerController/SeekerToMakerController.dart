@@ -8,6 +8,9 @@ import 'package:cupid_match/models/ProfileScrollModel/ProfileScrollModel.dart';
 import 'package:cupid_match/models/SeekerToMakerRequest/SeekerTomakerRequestModel.dart';
 import 'package:cupid_match/models/SeekerToSeekerRequestModel/SeekerToSeekerRequestModel.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
+import 'package:cupid_match/widgets/my_button.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/response/status.dart';
@@ -27,8 +30,12 @@ class SeekerToMakerRequestController extends GetxController {
   void setError(String _value) => error.value = _value ;
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
 
-  void SeekerToMakerRequestApiHit(){
+  void SeekerToMakerRequestApiHit(BuildContext context){
    setRxRequestStatus(Status.LOADING);
+
+     _showProgressDialog(context);
+
+
    loading.value=true;
    Map Data={
 "match_with":"",
@@ -41,11 +48,18 @@ class SeekerToMakerRequestController extends GetxController {
 
     _api.SeekerToMakerRequestApi(Data1).then((value){
       setRxRequestStatus(Status.COMPLETED);
+      Get.back();
       SeekerToMakerRequest(value);
-      print(value.msg);
-          Get.back();
+
+      _showProgressSuccesDialog( context);
+      print("ksndnvgndfkjbkdbnklnflkbnfobg${value.msg}");
+      loading.value=false;
+
+
+
+          // Get.back();
         //  Get.to( Siker_Tab_View(index: 0));
-          loading.value=false;
+
 
           if(value.requestId!=null){
               requestid=value.requestId.toString();
@@ -64,6 +78,7 @@ class SeekerToMakerRequestController extends GetxController {
       setRxRequestStatus(Status.ERROR);
 
     });
+
   }
 
   // void refreshApi(){
@@ -79,6 +94,67 @@ class SeekerToMakerRequestController extends GetxController {
 
   //   });
   // }
+
+  void _showProgressSuccesDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text(
+
+
+                   DoMatches.value.msg.toString(),
+                      softWrap: true,
+                      maxLines: 2,
+                 textAlign: TextAlign.center,
+
+                  ),
+               ],
+             ),
+              SizedBox(height: Get.height*0.05,),
+              MyButton(title: "ok",
+                width:Get.width*0.5 ,
+                height: Get.height*0.05,
+                onTap: () {
+                Get.back();
+
+
+              },)
+            ],
+          ),
+        );
+      },
+    );}
+  void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+
+            ],
+          ),
+        );
+      },
+    );}
+
 }
 
 
