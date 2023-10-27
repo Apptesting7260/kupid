@@ -37,6 +37,7 @@ class _ViewMakerProfileInSeekerState extends State<ViewMakerProfileInSeeker> {
 
   @override
   void initState() {
+    
     // TODO: implement initState
     ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
     

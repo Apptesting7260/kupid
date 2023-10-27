@@ -236,7 +236,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   SizedBox(
                                     height: height * .01,
                                   ),
-                                  Text("",
+                                  Text(  seekerMyProfileDetailsController
+                                                      .SeekerMyProfileDetail
+                                                      .value.ProfileDetail!
+                                                      .phone
+                                                      .toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -325,13 +329,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                         .length, // Replace itemCount with the actual item count
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      return (index % 3 ==
+                                      return 
+                                      (index % 3 ==
                                               0) // Start a new row after every 3 items
                                           ? Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                buildContainer(index),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: buildContainer(index),
+                                                ),
                                                 buildContainer(index + 1),
                                                 buildContainer(index + 2),
                                               ],
