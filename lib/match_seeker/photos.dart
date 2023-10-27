@@ -196,40 +196,29 @@ class _PhotosScreenState extends State<PhotosScreen> {
   // }
 
     // List<Asset> selectedImages = [];
-  void openCamera() async {
-
-
-    try {
-
-
-             final List<XFile>? images = await ImagePicker().pickMultiImage();
-               if (images != null) {
-                 setState(() {
-                   selectedImagesFiles = images.map((image) => File(image.path)).toList();
-                 });
-               }
-
-
-
-
-
-
-
-
-    } on Exception catch (e) {
-      print(e.toString());
+ void openCamera() async {
+  try {
+    final List<XFile>? images = await ImagePicker().pickMultiImage();
+    if (images != null) {
+      setState(() {
+        if (selectedImagesFiles.isEmpty) {
+          selectedImagesFiles = images.map((image) => File(image.path)).toList();
+        } else {
+          selectedImagesFiles.addAll(images.map((image) => File(image.path)).toList());
+        }
+      });
     }
-
-    // if (!mounted) return;
-
-    // await convertAssetsToFiles(selectedImages);
-
-    setState(() {
-      galleryImageFiles = selectedImagesFiles;
-    });
-
-    printCompressedImagePaths();
+  } on Exception catch (e) {
+    print(e.toString());
   }
+
+  setState(() {
+    galleryImageFiles = selectedImagesFiles;
+  });
+
+  printCompressedImagePaths();
+}
+
 
   List<File> selectedImagesFiles = [];
 
@@ -354,28 +343,33 @@ class _PhotosScreenState extends State<PhotosScreen> {
             
         width: width * .3,
             child: Stack(
-              children: [DottedBorder(
-                      borderType: BorderType.RRect,
-                      radius: Radius.circular(15),
-                      dashPattern: [5, 5],
-                      color: Color(0xffC4C4C4),
-                      // strokeWidth: 0.2,
-                      child: Stack(clipBehavior: Clip.antiAlias, children: [
-                        Container(
-                          height: height * .25,
-                          width: width * .3,
-                          decoration: BoxDecoration(
-                            color: Color(0xffC4C4C4),
-                            borderRadius: BorderRadius.circular(15),
-                            // image: DecorationImage(image: imgFile.path.isNotEmpty
-                            //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
+              children: [InkWell(
+                onTap: (){
+                    openCamera();
+                },
+                child: DottedBorder(
+                        borderType: BorderType.RRect,
+                        radius: Radius.circular(15),
+                        dashPattern: [5, 5],
+                        color: Color(0xffC4C4C4),
+                        // strokeWidth: 0.2,
+                        child: Stack(clipBehavior: Clip.antiAlias, children: [
+                          Container(
+                            height: height * .25,
+                            width: width * .3,
+                            decoration: BoxDecoration(
+                              color: Color(0xffC4C4C4),
+                              borderRadius: BorderRadius.circular(15),
+                              // image: DecorationImage(image: imgFile.path.isNotEmpty
+                              //     ?Image.file(imgFile,height: height,width: width,fit: BoxFit.cover,) : AssetImage("assets/images/photos/gellery.png")),
+                            ),
+                            child:
+                                Image.asset("assets/maker/gellery.png"),
                           ),
-                          child:
-                              Image.asset("assets/maker/gellery.png"),
-                        ),
-                        
-                      ]),
-                    ),
+                          
+                        ]),
+                      ),
+              ),
                     Positioned(
                           bottom: 0,
                           right: 0,
@@ -407,7 +401,15 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 width: width * .8,
                 title: "Next",
                 onTap: () {
-                  Get.to(()=>InterstedIn());
+                  if(selectedImagesFiles.isNotEmpty){
+       Get.to(()=>InterstedIn());
+                  }else{
+                    final snackBar = SnackBar(
+              content: Text('Please Upload Atleast One Photo'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+           
            
                 },
               ),

@@ -756,12 +756,15 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                           //   }
                                           // },
                                         )
-                                      : Text(
-                                          "Verifyed",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      : Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                            "Verifyed",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                      ),
                                 ),
                             ],
                           ),

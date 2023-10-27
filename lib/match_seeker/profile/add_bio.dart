@@ -134,6 +134,7 @@ class _AddBioState extends State<AddBio> {
                 child: MyButton(loading:SeekerAddistionInfoControllerinstance.loading.value ,
                   title: "Continue",
                   onTap: () {
+                    if(_formKey.currentState!.validate())
                     SeekerAddistionInfoControllerinstance.SeekerProfileApiHit();
               
                   },

@@ -38,7 +38,7 @@ class _InterestState extends State<Interest> {
             ],
           ),
         ),
-        backgroundColor: Colors.pink, // Set pink background color
+        backgroundColor: Color(0xffFE0091), // Set pink background color
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -129,7 +129,7 @@ class _InterestState extends State<Interest> {
                       height: height * .1,
                       width: width * .5,
                       decoration: BoxDecoration(
-                        color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true? Colors.pink:Colors.transparent,
+                        color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true? Color(0xffFE0091):Colors.transparent,
                           border: Border.all(color: SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white:Colors.grey),
                           borderRadius: BorderRadius.circular(30)),
                       child: Padding(
@@ -137,12 +137,12 @@ class _InterestState extends State<Interest> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==false) Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].unselectedIconPath.toString(),color:  Colors.pink),
+                           if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==false) Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].unselectedIconPath.toString(),color:  Color(0xffFE0091)),
                            if(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true)Image.network(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].selectedIconPath.toString()),
                             SizedBox(width: width * .02),
                             Text(
                               SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].title.toString(),
-                              style: TextStyle(color:SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white: Colors.pink)
+                              style: TextStyle(color:SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].isselected==true?Colors.white: Color(0xffFE0091),fontWeight: FontWeight.bold)
                             )
                           ],
                         ),
