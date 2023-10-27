@@ -876,7 +876,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
                                                                     overflow: TextOverflow.ellipsis,
                                                                       color: Colors
                                                                           .pink,
-                                                                      fontSize:10
+                                                                      fontSize:15
                                                                       ,
                                                                       fontWeight:
                                                                       FontWeight
@@ -952,9 +952,7 @@ formattedDate,
                                                         crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+
                                                         children: [
                                                           Padding(
                                                             padding:
@@ -1029,29 +1027,46 @@ formattedDate,
                                                                 Get.height *
                                                                     0.02,
                                                               ),
-                                                              Container(width: 100,
-                                                                child: Text(
-                                                                 anotheruser!.name.toString() +
-                                                                      "&" +
-                                                                      requestHomeController
-                                                                          .seekerHomeRequestValue
-                                                                          .value
-                                                                          .requests!
-                                                                          .incoming![index]
-                                                                          .getmaker!
-                                                                          .name
-                                                                          .toString(),
-                                                                          
-                                                                  style: TextStyle(
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                      color: Colors
-                                                                          .pink,
-                                                                      fontSize:10
-                                                                      ,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                                ),
+                                                              Column(
+                                                                children: [
+                                                                  Container(width: Get.width*.3,
+                                                                    child: Text(
+                                                                          requestHomeController
+                                                                              .seekerHomeRequestValue
+                                                                              .value
+                                                                              .requests!
+                                                                              .incoming![index]
+                                                                              .getmaker!
+                                                                              .name
+                                                                              .toString(),
+
+                                                                      style: TextStyle(
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                          color: Colors
+                                                                              .pink,
+                                                                          fontSize:12
+                                                                          ,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                    ),
+                                                                  ),
+                                                                  Container(width: Get.width*.3,
+                                                                    child: Text(
+                                                                        anotheruser!.name.toString(),
+
+                                                                      style: TextStyle(
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                          color: Colors
+                                                                              .pink,
+                                                                          fontSize:12
+                                                                          ,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                    ),
+                                                                  )
+                                                                ],
                                                               ),
                                                               SizedBox(
                                                                 height:
@@ -1235,7 +1250,11 @@ formattedDate,
 
                                     }
 
-
+                                    String createdAt = requestHomeController
+                                        .seekerHomeRequestValue.value
+                                        .requests!.outgoing![index].createdAt.toString();
+                                    DateTime createdAtStringd = DateTime.parse(createdAt);
+                                    String createdAtString = DateFormat('d/MM/yyyy').format(createdAtStringd);
                                     return InkWell(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -1331,18 +1350,22 @@ formattedDate,
                                                                     .height *
                                                                     0.02,
                                                               ),
-                                                              Text(
-                                                                anotheruser
-                                                                    .name
-                                                                    .toString(),
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .pink,
-                                                                    fontSize:
-                                                                    20,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                              Container(
+                                                                width: Get.width*0.3,
+                                                                child: Text(
+                                                                  anotheruser
+                                                                      .name
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .pink,
+                                                                      fontSize:
+                                                                      12,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                ),
                                                               ),
                                                               SizedBox(
                                                                 height: Get
@@ -1350,9 +1373,7 @@ formattedDate,
                                                                     0.01,
                                                               ),
                                                               Text(
-                                                                anotheruser
-                                                                    .dob
-                                                                    .toString(),
+                                                                createdAtString,
                                                                 style: TextStyle(
                                                                     color:
                                                                     Colors
@@ -1429,7 +1450,7 @@ formattedDate,
                                                           child:
                                                           Container(
                                                             width: width *
-                                                                .29,
+                                                                .3,
                                                             child: Stack(
                                                               children: [
                                                                 Positioned(
@@ -1463,11 +1484,7 @@ formattedDate,
                                                                         width: 2),
                                                                   ),
                                                                   child:
-                                                                  requestHomeController
-                                                                      .seekerHomeRequestValue
-                                                                      .value
-                                                                      .requests!
-                                                                      .outgoing![index].getanotherseeker==null?      CircleAvatar(
+                                                                  CircleAvatar(
                                                                     radius:
                                                                     30.0,
                                                                     backgroundImage: CachedNetworkImageProvider(
@@ -1481,19 +1498,7 @@ formattedDate,
                                                                     backgroundColor:
                                                                     Colors
                                                                         .transparent,
-                                                                  ):CircleAvatar(
-                                                                    radius:
-                                                                    40.0,
-                                                                    backgroundImage: CachedNetworkImageProvider(
-                                                                        anotheruser
-                                                                            .imgPath
-                                                                            .toString()
-
-                                                                    ),
-                                                                    backgroundColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                  ),
+                                                                  )
                                                                 ),
                                                               ],
                                                             ),
@@ -1506,69 +1511,62 @@ formattedDate,
                                                               Get.height *
                                                                   0.02,
                                                             ),
-                                                            requestHomeController
-                                                                .seekerHomeRequestValue
-                                                                .value
-                                                                .requests!
-                                                                .outgoing![index].getanotherseeker==null?   Text(
-                                                                requestHomeController
-                                                                    .seekerHomeRequestValue
-                                                                    .value
-                                                                    .requests!
-                                                                    .outgoing![index].getmaker!.name.toString(),
+                                                            Column(
+                                                              children: [
+                                                                Container(
+                                                                  width: Get.width*0.3,
+                                                                  child:
+                                                                  Text(
+                                                                      requestHomeController
+                                                                          .seekerHomeRequestValue
+                                                                          .value
+                                                                          .requests!
+                                                                          .outgoing![index].getmaker!.name.toString(),
 
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .pink,
-                                                                  fontSize:
-                                                                  20,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                            ): Text(
-                                                              anotheruser!
-                                                                  .name
-                                                                  .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink,
+                                                                        fontSize:
+                                                                        12,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                ),Container(
+                                                                  width: Get.width*0.3,
+                                                                  child:
+                                                                  Text(
+                                                                    anotheruser!
+                                                                        .name
+                                                                        .toString(),
 
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .pink,
-                                                                  fontSize:
-                                                                  20,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .pink,
+                                                                        fontSize:
+                                                                        15,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  )
+                                                                ),
+                                                              ],
                                                             ),
                                                             SizedBox(
                                                               height:
                                                               Get.height *
                                                                   0.01,
                                                             ),
-                                                            requestHomeController
-                                                                .seekerHomeRequestValue
-                                                                .value
-                                                                .requests!
-                                                                .outgoing![index].getanotherseeker==null?  Text(
-                                                              requestHomeController
-                                                                  .seekerHomeRequestValue
-                                                                  .value
-                                                                  .requests!
-                                                                  .outgoing![index].getmaker!.dob.toString()
+                                                         Text(
+                                                              createdAtString
 
                                     ,
                                     style: TextStyle(
                                     color: Colors
                                         .black),
-                                    ): Text(
-                                                              anotheruser!
-                                                                  .dob
-                                                                  .toString()
-
-                                                              ,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black),
-                                                            )
+                                    )
                                                           ],
                                                         )
                                                       ],

@@ -1031,15 +1031,19 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
           onTap: (){
             setState(() {
               userIdsiker=null;
+              requestId=null;
             });
 
             userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                .value.data!.matchFrom.toString()
+                .value.data!.matchFrom.toString();
+            requestId=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.id.toString()
             ;
             print(userIdsiker);
 
-            if (userIdsiker != null) {
+            if (userIdsiker != null && requestId != null) {
               print(userIdsiker);
+              print(requestId);
               Get.to(CreateNewMatches());
             }
           },
@@ -1068,6 +1072,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                     .value.data!.getseeker!.imgPath.toString();
                 chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
                     .value.data!.getseeker!.name.toString();
+
 
                 Get.to(MakerChatScreen());
                             },

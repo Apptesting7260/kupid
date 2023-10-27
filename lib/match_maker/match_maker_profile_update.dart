@@ -1836,9 +1836,23 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                       // },
                       useNativeKeyboard: true,
                       keyboardType: TextInputType.number,
-                      // defaultPinTheme: defaultPinTheme,
+                      defaultPinTheme:  PinTheme(
+                        width: 56,
+                        height: 56,
+                        textStyle: TextStyle(
+                            fontSize: 30, color: Colors.black, fontWeight: FontWeight.w600),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
                       // focusedPinTheme: focusedPinTheme,
-                      // submittedPinTheme: submittedPinTheme,
+                      focusedPinTheme:  PinTheme(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration( color: Color(0xffFE0091),
+                            border: Border.all(color: Colors.green),
+                            borderRadius: BorderRadius.circular(50),)),
                       onSubmitted: (String pin) => _showSnackBar(context),
                       focusNode: _pinPutFocusNode,
                       controller: UserEmailAndphone.otpController.value,
