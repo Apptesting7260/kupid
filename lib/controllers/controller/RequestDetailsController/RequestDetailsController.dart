@@ -77,12 +77,13 @@ if (exists) {
   // You can proceed with your logic here.
 } else {
 
-      if (value.data!.matchWith.toString() != "null"&& _firestore.collection(value.data!.getseeker!.id.toString()).doc().get()!=value.data!.roomid!.toString()) {
+      if (value.data!.matchWith.toString() != "null"&&value.data!.roomid.toString()!="null") {
         roomdetails = {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 "Requestid":value.data!.id.toString(),
           "seeker_id1": value.data!.getseeker!.id.toString(),
+            "roomid": value.data!.roomid!.toString(),
 
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
            'timestamp': FieldValue.serverTimestamp(),
@@ -90,7 +91,7 @@ if (exists) {
      if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")     "maker_id": value.data!.getmaker!.id.toString(),
       if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")    "maker_name": value.data!.getmaker!.name.toString(),
 if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")   "maker_image": value.data!.getmaker!.imgPath.toString(),
-      if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")    "roomid": value.data!.roomid!.toString(),
+        
 
           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),
@@ -105,6 +106,7 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
 "Requestid":value.data!.id.toString(),
+   "roomid": value.data!.roomid!.toString(),
           "seeker_id1": value.data!.getseeker!.id.toString(),
  "lastmsg": "",
  'timestamp': FieldValue.serverTimestamp(),
@@ -112,7 +114,7 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
     if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")    "maker_id": value.data!.getmaker!.id.toString(),
       if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")   "maker_name": value.data!.getmaker!.name.toString(),
       if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")   "maker_image": value.data!.getmaker!.imgPath.toString(),
-       if(value.data!.roomid.toString()!="null")    "roomid": value.data!.roomid!.toString(),
+      
 
           "seeker_inage1": value.data!.getseeker!.imgPath.toString(),
           "seeker_inage2": value.data!.getanotherseeker!.imgPath.toString(),

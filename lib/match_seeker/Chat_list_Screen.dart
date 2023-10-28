@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/match_seeker/matched_request.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ import '../data/response/status.dart';
 import '../res/colors/app_color.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
-
-
+String? myid;
+bool ?makeride;
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
 
@@ -198,15 +199,33 @@ getusers();
                             ),
                           ),
                           onTap: (){
-                            roomid=data["roomid"];
+                             roomid=data["roomid"];
+                             myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
                             userIdsiker=data["Requestid"];
+                            seeker1=data['seeker_id1'];
+                            seeker2=data['seeker_id2'];
+                            chatname=data['roomname'];
+                            chatimage1=data['seeker_inage1'];
+                            chatimage=data['seeker_inage2'];
+                      
+                        
+                            exist();
+                           if(makeride==true){
+                              Makeridchat=data['maker_id'];
+                           }
                             anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
                             setState(() {
+                              roomid;
                               userIdsiker;
+                              userIdsiker;
+                              seeker1;
+                              seeker2;
                               anotherchatuser;
+                              chatname;
+                              Makeridchat;
                             });
                             print(roomid);
-                            if(roomid!=null){
+                            if(roomid!="null"){
                               Get.to(ChatPage());
                             }
                           },
@@ -401,8 +420,56 @@ return Container();
       //   return
       //
       // })
+// Future<bool> doesDocumentExist(String collectionPath, String documentPath) async {
+//   final documentReference = FirebaseFirestore.instance.collection(seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid.toString());
+//   final snapshot = await documentReference.get();
 
-    
+//   return snapshot.exists;
+// }
+
+// // Example usage:
+// exist()async{
+//     final collectionPath = myid;
+// final documentPath = roomid.toString();
+// final exists = await doesDocumentExist(collectionPath!, documentPath);}
+//   }
+
+
+Future<bool> doesMakerIdExist(String collectionPath, String documentPath, String makerId) async {
+  final documentReference = FirebaseFirestore.instance.collection(collectionPath).doc(documentPath);
+  final snapshot = await documentReference.get();
+  
+  if (snapshot.exists) {
+    final data = snapshot.data();
+    if (data != null) {
+      return data.containsKey(makerId);
+    }
   }
+  
+  return false;
+}
+
+// Example usage:
+exist() async {
+  final collectionPath = seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
+  final documentPath = roomid.toString();
+  final makerIdToCheck = "makerid"; // Replace with the key you want to check
+
+  final exists = await doesMakerIdExist(collectionPath, documentPath, makerIdToCheck);
+
+  if (exists) {
+   
+     setState(() {
+       makeride=true;
+     });
+    print("The makerid key exists in the document.");
+  } else {
+    
+    print("The makerid key does not exist in the document.");
+  }
+}
+
+}
+
 
 // seekerChatListController.seekerChatListValue.value.message

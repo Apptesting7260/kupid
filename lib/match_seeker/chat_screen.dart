@@ -11,6 +11,7 @@ import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerM
 import 'package:cupid_match/controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_seeker/Chat_list_Screen.dart';
 import 'package:cupid_match/match_seeker/chat/RequestAcceptWidget.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
@@ -33,6 +34,7 @@ String ?messageimgurl;
 String ?messagaudiourl;
 String ? anotherchatuser;
 String ? makerchatuser;
+String? Makeridchat;
  var playerx;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -42,6 +44,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  String ?textmsg;
      bool ispageloading=false;
   String url="";
   int maxduration = 100;
@@ -100,6 +103,11 @@ class _ChatPageState extends State<ChatPage> {
   void onSendMessage() async {
     switch (messagetype) {
       case "text":
+      textmsg= messagecontroller.text.toString();
+      setState(() {
+        textmsg;
+      });
+      messagecontroller.clear();
         Map<String, dynamic> messages = {
           "sentby": seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id
@@ -107,7 +115,7 @@ class _ChatPageState extends State<ChatPage> {
                "sendertype":"seeker" ,
                  "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.imgPath,
-          "message": messagecontroller.text,
+          "message": textmsg,
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
@@ -119,34 +127,16 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
   
              await roomRef1.update({
       'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
+      "lastmsg": textmsg,
 
       // Add other room metadata if needed
     });
      await roomRef2.update({
       'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
+      "lastmsg":textmsg,
       // Add other room metadata if needed
     });
 
-     if(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()!=""){
-      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
-   await _firestore
-            .collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-             await makerref.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
-
-      // Add other room metadata if needed
-    });
-    }
-           messagecontroller.clear();
         await _firestore
             .collection(seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id.toString())
@@ -158,6 +148,26 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
             .doc(roomid)
             .collection("massages")
             .add(messages);
+     if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()!="null"){
+      print("absbabbbsbbfbdsfbdbsfbdsf");
+      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+ 
+    await makerref.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": textmsg,
+
+      // Add other room metadata if needed
+    });
+         messagecontroller.clear();
+   await _firestore
+            .collection(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+          
+
+    }
+          
             
         print(messages);
 
@@ -182,7 +192,7 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
                "sendertype":"seeker" ,
    "profileimage":seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.imgPath,
-          "message": messagecontroller.text,
+          "message": "",
           "imageurl": messageimgurl,
           "type": "img",
           "time": FieldValue.serverTimestamp(),
@@ -203,11 +213,9 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
     });
     if(ViewRequestDetailsControllerinstance
             .ViewProfileDetail.value.data!.makerId.toString()!=""){
-      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+      DocumentReference makerref = _firestore.collection(Makeridchat.toString()).doc(roomid.toString());
    await _firestore
-            .collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString())
+            .collection(Makeridchat.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
@@ -651,14 +659,19 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                     chatimage.toString()),
                 backgroundColor: Colors.transparent,
               ),
-              SizedBox(width: width * .05),
+              SizedBox(width: width * .03),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                   chatname.toString(),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  Container(
+                    width: Get.width*0.3
+                    
+              ,
+                    child: Text(
+                     chatname.toString(),
+                      style: TextStyle(fontSize: 12,),maxLines: 2,
+                    ),
                   ),
                   SizedBox(
                     height: height * .01,
