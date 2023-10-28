@@ -34,7 +34,8 @@ import '../utils/app_colors.dart';
 String messagetype="text";
 String ?messageimgurl;
 String ?messagaudiourl;
-
+String? seeker1;
+String? seeker2;
  var playerx;
  bool ismessage=false;
 
@@ -144,8 +145,8 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
   void initState() {
       _getDir();
     _initialiseControllers();
-      messageFocusNode.addListener(_onFocusChange);
      
+  
 ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
 
 
@@ -162,7 +163,7 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
       case "text":
         Map<String, dynamic> messages = {
           "sentby": ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id
+          .ViewProfileDetail.value.ProfileDetail!.id.toString()
           .toString(),
                "sendertype":"maker" ,
           "profileimage":ViewMakerProfileDetailsControllerinstance
@@ -172,26 +173,61 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
           "time": FieldValue.serverTimestamp(),
         };
 
+        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
 
+  
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
+
+    await roomRef3.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
 
         messagecontroller.clear();
         await _firestore
             .collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id)
+          .ViewProfileDetail.value.ProfileDetail!.id.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
         print("Enter Some Text");
         print(messages);
-     
-        // setState(() {
-        //   messagetype = "text";
-        //   print(messagetype);
-        // });
+        await _firestore
+            .collection(seeker1.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await _firestore
+            .collection(seeker2.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+            
+        print(messages);
+
+   
+        setState(() {
+          messagetype = "text";
+          print(messagetype);
+        });
         // Add your logic for handling text messages here
         break;
       case "img":
-        messages = {
+        Map<String, dynamic>  messages = {
           "sentby": ViewMakerProfileDetailsControllerinstance
           .ViewProfileDetail.value.ProfileDetail!.id
           .toString(),
@@ -203,21 +239,61 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
           "type": "img",
           "time": FieldValue.serverTimestamp(),
         };
+     
+        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
+
+  
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+        "lastmsg": "image",
+
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+        "lastmsg": "image",
+      // Add other room metadata if needed
+    });
+
+    await roomRef3.update({
+      'timestamp': FieldValue.serverTimestamp(),
+         "lastmsg": "image",
+      // Add other room metadata if needed
+    });
+
         messagecontroller.clear();
-    await _firestore
-          .collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id)
-          .doc(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
-.collection("massages").add(messages!);
-      print("Enter Some Text");
-       setState(() {
-        messagetype="text";
-        print(messagetype);
-      });
+        await _firestore
+            .collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+        print("Enter Some Text");
+        print(messages);
+        await _firestore
+            .collection(seeker1.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await _firestore
+            .collection(seeker2.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+            
+        print(messages);
+
+        setState(() {
+          messagetype = "text";
+          print(messagetype);
+        });
       // Add your logic for handling image messages here
       break;
     case "audio":
-     messages = {
+    Map<String, dynamic>  messages = {
         "sentby": ViewMakerProfileDetailsControllerinstance
           .ViewProfileDetail.value.ProfileDetail!.id
           .toString(),
@@ -230,18 +306,57 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
         "type": "audio",
         "time": FieldValue.serverTimestamp(),
       };
-       await _firestore
-          .collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id)
-          .doc(MakerRequestDetailsControllerinstance.ViewProfileDetail.value.data!.roomid.toString())
-.collection("massages").add(messages!);
-      print("Enter Some Text");
-       setState(() {
-        messagetype="text";
-        messagaudiourl=null;
-        print(messagetype);
-        print(messagaudiourl);
-      });
+     
+        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
+
+  
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+       "lastmsg": "audio",
+
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+       "lastmsg": "audio",
+      // Add other room metadata if needed
+    });
+
+    await roomRef3.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "audio",
+      // Add other room metadata if needed
+    });
+
+        messagecontroller.clear();
+        await _firestore
+            .collection(ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+        print("Enter Some Text");
+        print(messages);
+        await _firestore
+            .collection(seeker1.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await _firestore
+            .collection(seeker2.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+            
+        print(messages);
+
+        setState(() {
+          messagetype = "text";
+          print(messagetype);
+        });
       break;
     case "video":
       print("Video");
@@ -636,7 +751,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$chatname & $chatname1",
+                    "$chatname",
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   SizedBox(
@@ -682,9 +797,11 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
 
                   
                   Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
+                    child:  StreamBuilder<QuerySnapshot>(
                                   stream: _firestore
-                                      .collection("RoomId's")
+                                      .collection( ViewMakerProfileDetailsControllerinstance
+          .ViewProfileDetail.value.ProfileDetail!.id
+          .toString())
                                       .doc(roomid)
                                       .collection('massages')
                                       .orderBy("time", descending: true)

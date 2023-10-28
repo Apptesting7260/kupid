@@ -899,7 +899,7 @@ PODS:
   - SDWebImage (5.18.3):
     - SDWebImage/Core (= 5.18.3)
   - SDWebImage/Core (5.18.3)
-  - SDWebImageWebPCoder (0.14.0):
+  - SDWebImageWebPCoder (0.14.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.17)
   - shared_preferences_foundation (0.0.1):
@@ -1078,7 +1078,7 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   record: cae05d8dd3cdb1dea3511b20e5a5811a1ae00d0d
   SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
-  SDWebImageWebPCoder: 3027af94522d94df79c21c070894c8a2128927ff
+  SDWebImageWebPCoder: eb7970094ac1401eb4c8a1cd077f472dbc66497b
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f

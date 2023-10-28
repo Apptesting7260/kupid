@@ -67,7 +67,7 @@ String? matchWith;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
-    makerId: json["maker_id"],
+    makerId: json["maker_id"].toString(),
     matchFrom: json["match_from"],
     matchWith: json["match_with"].toString(),
     matchType: json["match_type"],

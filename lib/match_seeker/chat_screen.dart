@@ -69,84 +69,15 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   FocusNode messageFocusNode = FocusNode();
-  void updatetryeDataInFirestore() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    print(("hited"));
-    // Replace 'users' with your collection name and 'documentId' with the specific document ID
-    DocumentReference docRef = firestore
-        .collection("RoomId's")
-        .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
-        .collection("typestatus")
-        .doc("userstypingstatus");
+ 
 
-    Map<String, dynamic> typestatus = {
-      "id": ViewSikerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.profileDetails![0].id
-          .toString(),
-      "status": true,
-    };
-
-    await docRef.update(typestatus);
-  }
-
-  void updatefalseDataInFirestore() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    print(("hited"));
-    // Replace 'users' with your collection name and 'documentId' with the specific document ID
-    DocumentReference docRef = firestore
-        .collection("RoomId's")
-        .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
-        .collection("typestatus")
-        .doc("userstypingstatus");
-
-    Map<String, dynamic> typestatus = {
-      "id": ViewSikerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.profileDetails![0].id
-          .toString(),
-      "status": false,
-    };
-
-    await docRef.update(typestatus);
-  }
-
-  void _onFocusChange() {
-    if (messageFocusNode.hasFocus) {
-      updatetryeDataInFirestore();
-      print("TextField is active: true");
-    } else {
-      updatefalseDataInFirestore();
-      print("TextField is active: false");
-    }
-  }
-
-  void typeingstatusofuser() async {
-    print("hited");
-    Map<String, dynamic> typestatus = {
-      "id": ViewSikerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.profileDetails![0].id
-          .toString(),
-      "status": false,
-    };
-
-    await _firestore
-        .collection("RoomId's")
-        .doc(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.roomid
-            .toString())
-        .collection("typestatus")
-        .doc("userstypingstatus")
-        .set(typestatus);
-  }
 
   @override
   void initState() {
       _getDir();
     _initialiseControllers();
-      messageFocusNode.addListener(_onFocusChange);
+    ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
+     
      
                 
 // ViewRequestDetailsControllerinstance.ViewRequestDetailsApiHit();
@@ -181,22 +112,10 @@ class _ChatPageState extends State<ChatPage> {
           "time": FieldValue.serverTimestamp(),
         };
   
-        await _firestore
-            .collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-             await _firestore
-            .collection(anotherchatuser.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        print(messages);
-
            DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id.toString()).doc(roomid);
 DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+
   
              await roomRef1.update({
       'timestamp': FieldValue.serverTimestamp(),
@@ -210,10 +129,13 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
       // Add other room metadata if needed
     });
 
-    if(makerchatuser.toString()!="null"){
-      DocumentReference makerref = _firestore.collection(makerchatuser.toString()).doc(roomid);
+     if(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()!=""){
+      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
    await _firestore
-            .collection(makerchatuser.toString())
+            .collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
@@ -224,7 +146,28 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
       // Add other room metadata if needed
     });
     }
+           messagecontroller.clear();
+        await _firestore
+            .collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await _firestore
+            .collection(anotherchatuser.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+            
+        print(messages);
+
+  
+
+   
+   
           messagecontroller.clear();
+          print("cleared");
+
         // setState(() {
         //   messagetype = "text";
         //   print(messagetype);
@@ -232,7 +175,7 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
         // Add your logic for handling text messages here
         break;
       case "img":
-        messages = {
+       Map<String, dynamic>   messages = {
           "sentby": seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id
               .toString(),
@@ -244,6 +187,38 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
           "type": "img",
           "time": FieldValue.serverTimestamp(),
         };
+         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+
+          await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "image",
+      // Add other room metadata if needed
+    });
+       await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "image",
+      // Add other room metadata if needed
+    });
+    if(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()!=""){
+      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+   await _firestore
+            .collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await makerref.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "image",
+
+      // Add other room metadata if needed
+    });}
+messagecontroller.clear();
+   
         messagecontroller.clear();
     await _firestore
           .collection(seekerMyProfileController.SeekerMyProfileDetail.
@@ -260,24 +235,11 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
         messagetype="text";
         print(messagetype);
       });
-         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
-             await roomRef1.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
-
-      // Add other room metadata if needed
-    });
-     await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
-      // Add other room metadata if needed
-    });
+        
       // Add your logic for handling image messages here
       break;
     case "audio":
-     messages = {
+   Map<String, dynamic>    messages = {
         "sentby": seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id.toString(),
         "message": messagecontroller.text,
@@ -288,23 +250,53 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
         "type": "audio",
         "time": FieldValue.serverTimestamp(),
       };
-       await _firestore
+        DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+
+         await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "audio",
+      // Add other room metadata if needed
+    });
+       await roomRef2.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "audio",
+      // Add other room metadata if needed
+    });
+    if(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()!=""){
+      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+   await _firestore
+            .collection(ViewRequestDetailsControllerinstance
+            .ViewProfileDetail.value.data!.makerId.toString())
+            .doc(roomid)
+            .collection("massages")
+            .add(messages);
+             await makerref.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": "audio",
+
+      // Add other room metadata if needed
+    });}
+messagecontroller.clear();
+  
+        messagecontroller.clear();
+    await _firestore
           .collection(seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id.toString())
           .doc(roomid)
 .collection("massages").add(messages!);
+
+  await _firestore
+          .collection(anotherchatuser.toString())
+          .doc(roomid)
+.collection("massages").add(messages);
       print("Enter Some Text");
-         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
-
-
-    
        setState(() {
         messagetype="text";
-        messagaudiourl=null;
         print(messagetype);
-        print(messagaudiourl);
       });
       break;
     case "video":

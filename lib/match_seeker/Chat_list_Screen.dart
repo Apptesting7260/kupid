@@ -80,117 +80,131 @@ getusers();
                         // .snapshots();
 
                         return                        InkWell(
-                          child: Container(
-                              height: height *0.1,
-                              color: Colors.amber[50],
-                              width: Get.width,
-                            child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      height: height * .33,
-                                      width: width * .29,
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            right: 30,
-                                            child: CircleAvatar(
-                                              radius: 30.0,
-                                              backgroundImage: CachedNetworkImageProvider(
-                                                  // seekerChatListController
-                                                  //     .seekerChatListValue
-                                                  //     .value
-                                                  //     .chat![
-                                                  // index]
-                                                  //     .seekerwithImg!
-                                                  //     .toString()), 
-                                              data!['seeker_inage1']
-                                              ),
-                                              backgroundColor: Colors.transparent,
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              border:
-                                              Border.all(color: Colors.white, width: 2),
-                                            ),
-                                            child: CircleAvatar(
-                                              radius: 30.0,
-                                              backgroundImage: CachedNetworkImageProvider(
-                                                  // seekerChatListController
-                                                  //     .seekerChatListValue
-                                                  //     .value
-                                                  //     .chat![
-                                                  // index]
-                                                  //     .seekerfromImg!
-                                                  //     .toString()
-                          
-                                                   data['seeker_inage2']     ),
-                                              backgroundColor: Colors.transparent,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                                height: height *0.1,
+                                color: Colors.amber[50],
+                                width: Get.width,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        SizedBox(
-                                          height: height * .01,
+                                        Container(
+                                          height: height * .33,
+                                          width: width * .29,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                right: 30,
+                                                child: CircleAvatar(
+                                                  radius: 30.0,
+                                                  backgroundImage: CachedNetworkImageProvider(
+                                                      // seekerChatListController
+                                                      //     .seekerChatListValue
+                                                      //     .value
+                                                      //     .chat![
+                                                      // index]
+                                                      //     .seekerwithImg!
+                                                      //     .toString()), 
+                                                  data!['seeker_inage1']
+                                                  ),
+                                                  backgroundColor: Colors.transparent,
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border:
+                                                  Border.all(color: Colors.white, width: 2),
+                                                ),
+                                                child: CircleAvatar(
+                                                  radius: 30.0,
+                                                  backgroundImage: CachedNetworkImageProvider(
+                                                      // seekerChatListController
+                                                      //     .seekerChatListValue
+                                                      //     .value
+                                                      //     .chat![
+                                                      // index]
+                                                      //     .seekerfromImg!
+                                                      //     .toString()
+                                                        
+                                                       data['seeker_inage2']     ),
+                                                  backgroundColor: Colors.transparent,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Text(
-                                //  "data",
-                                          data['roomname'],
-                                          // (seekerChatListController
-                                          //     .seekerChatListValue
-                                          //     .value
-                                          //     .chat![index]
-                                          //     .seekerfromName!
-                                          //     .toString())+ " & "
-                                          //     +
-                                          //     (seekerChatListController
-                                          //         .seekerChatListValue
-                                          //         .value
-                                          //         .chat![index]
-                                          //         .seekerwithName!
-                                          //         .toString()),
-                                          style: TextStyle(overflow: TextOverflow.ellipsis,color: Colors.black ,fontWeight: FontWeight.bold),
-                                        ),
-                                      
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                        Column(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
+                                            SizedBox(
+                                              height: height * .01,
+                                            ),
                                             Text(
-                                              data['lastmsg'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(color: Colors.grey),
+                                    //  "data",
+                                              data['roomname'],
+                                              // (seekerChatListController
+                                              //     .seekerChatListValue
+                                              //     .value
+                                              //     .chat![index]
+                                              //     .seekerfromName!
+                                              //     .toString())+ " & "
+                                              //     +
+                                              //     (seekerChatListController
+                                              //         .seekerChatListValue
+                                              //         .value
+                                              //         .chat![index]
+                                              //         .seekerwithName!
+                                              //         .toString()),
+                                              style: TextStyle(overflow: TextOverflow.ellipsis,color: Colors.black ,fontWeight: FontWeight.bold),
+                                            ),
+                                          
+                                            SizedBox(
+                                              height: height * .01,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  data['lastmsg'],
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(color: Colors.grey),
+                                                ),
+                                                 SizedBox(width:Get.width*0.3,),
+                                                Text(
+                                       "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toDate().toString()))}"
+                                     
+                                         ,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.grey),
+                                        )
+                                              ],
                                             ),
                                           ],
                                         ),
+                                      
+                                        
                                       ],
                                     ),
-                                   SizedBox(width: 20,),
-                                    Text(
-                                   "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toDate().toString()))}"
-                                 
-                                     ,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(color: Colors.grey),
-                                    )
-                                  ],
-                                ),
+                              ),
+                            ),
                           ),
                           onTap: (){
                             roomid=data["roomid"];
+                            userIdsiker=data["Requestid"];
+                            anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
+                            setState(() {
+                              userIdsiker;
+                              anotherchatuser;
+                            });
                             print(roomid);
                             if(roomid!=null){
                               Get.to(ChatPage());

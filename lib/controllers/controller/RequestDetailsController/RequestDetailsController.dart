@@ -81,7 +81,7 @@ if (exists) {
         roomdetails = {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
-
+"Requestid":value.data!.id.toString(),
           "seeker_id1": value.data!.getseeker!.id.toString(),
 
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
@@ -104,9 +104,10 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
          roomdetailsanotherseeker = {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
-
+"Requestid":value.data!.id.toString(),
           "seeker_id1": value.data!.getseeker!.id.toString(),
-
+ "lastmsg": "",
+ 'timestamp': FieldValue.serverTimestamp(),
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
     if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")    "maker_id": value.data!.getmaker!.id.toString(),
       if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")   "maker_name": value.data!.getmaker!.name.toString(),
@@ -129,9 +130,10 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
       roomdetailsmaker = {
           "seeker_name1": value.data!.getseeker!.name.toString(),
           "seeker_name2": value.data!.getanotherseeker!.name.toString(),
-
+ "lastmsg": "",
+ 'timestamp': FieldValue.serverTimestamp(),
           "seeker_id1": value.data!.getseeker!.id.toString(),
-
+"Requestid":value.data!.id.toString(),
           "seeker_id2": value.data!.getanotherseeker!.id.toString(),
    "maker_id": value.data!.getmaker!.id.toString(),
       "maker_name": value.data!.getmaker!.name.toString(),
