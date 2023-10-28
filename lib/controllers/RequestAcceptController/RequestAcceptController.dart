@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../controller/RequestDetailsController/RequestDetailsController.dart';
 
 class RequestAcceptController extends GetxController {
@@ -39,13 +40,14 @@ class RequestAcceptController extends GetxController {
     setRxRequestStatus(Status.LOADING);
  FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final prefs=await SharedPreferences.getInstance();
-  final box3 = GetStorage(); 
+  final box3 = GetStorage();
+
     Map data={
 "request_id":requestid,
 "match_with_id":match_with_id,
 "match_from_id":match_from_id,
 "status":Requeststatus,
-   "match_type"  :"0"
+   "match_type"  :seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchType.toString()
     };
   // //  setRxRequestStatus(Status.LOADING);
   // if (box3.hasData('seekrprofiledata')) {
