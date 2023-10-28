@@ -9,6 +9,7 @@ import 'package:cupid_match/controllers/SeekerMyProfileDetailsController/SeekerM
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_maker/chat_screen.dart';
+import 'package:cupid_match/match_seeker/Chat_list_Screen.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/RequestModel/RequestModel.dart';
@@ -72,7 +73,8 @@ final documentPath = value.data!.roomid.toString();
 final exists = await doesDocumentExist(collectionPath, documentPath);
 
 if (exists) {
-  
+   anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
+   roomid=value.data!.roomid.toString();
   // The document exists.
   // You can proceed with your logic here.
 } else {

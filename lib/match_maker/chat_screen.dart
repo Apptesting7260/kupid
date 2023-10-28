@@ -1270,7 +1270,11 @@ SizedBox(width: Get.width*0.02,),
                                           ),
                                   ),
                                        IconButton(
-                                    onPressed:onSendMessage ,
+                                    onPressed:(){{
+                                         onSendMessage();
+                                    }
+                                   
+                                    } ,
                                     icon: Icon(
                                       isRecording ? Icons.refresh : Icons.send,
                                       color: Colors.black,

@@ -1164,7 +1164,11 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                           ),
                                   ),
                                   IconButton(
-                                    onPressed:onSendMessage ,
+                                    onPressed:(){
+                                      if(messagecontroller.text.isNotEmpty){
+                                        onSendMessage();
+                                      }
+                                    } ,
                                     icon: Icon(
                                       isRecording ? Icons.refresh : Icons.send,
                                       color: Colors.black,
