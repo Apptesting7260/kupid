@@ -40,6 +40,7 @@ print("${value.SpinLeverRequestedDat!.leverpool.toString()}");
     }).onError((error, stackTrace) {
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
+      print("jhjjkjhkjhkhkijhkjhjkhjkhjh");
     });
   }
 //

@@ -1237,7 +1237,11 @@ formattedDate,
                                     ){
                                       anotheruser=requestHomeController
                                           .seekerHomeRequestValue.value
-                                          .requests!.outgoing![index].getseeker;
+                                          .requests!.outgoing![index].getmaker==null?requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getseeker:requestHomeController
+                                          .seekerHomeRequestValue.value
+                                          .requests!.outgoing![index].getmaker;
 
                                     }else{
 
@@ -1275,7 +1279,10 @@ formattedDate,
                                             requestHomeController
                                                 .seekerHomeRequestValue.value
                                                 .requests!.outgoing![index]
-                                                .matchType == 1
+                                                .matchType == 1 ||requestHomeController
+                                                .seekerHomeRequestValue.value
+                                                .requests!.outgoing![index]
+                                                .getanotherseeker==null
                                                 ? InkWell(
                                               child: Container(
                                                   child: Column(
@@ -1332,8 +1339,7 @@ formattedDate,
                                                                       AppColors
                                                                           .white,
                                                                       backgroundImage: CachedNetworkImageProvider(
-                                                                          anotheruser!
-                                                                              .imgPath
+                                                                    anotheruser
                                                                               .toString())),
                                                                 ],
                                                               ),
