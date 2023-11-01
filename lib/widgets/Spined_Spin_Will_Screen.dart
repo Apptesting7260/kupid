@@ -818,8 +818,9 @@ Fluttertoast.showToast(
                       .toString();
                   print(match_withid);
                   SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit(); // T
-                    showdiog2(index);
+                      .SikerTOSikerRequestApiHit(); //
+                             if(SeekerToSeekerRequestControllerinstance.rxRequestStatus.value==Status.COMPLETED) showdiog2(index);
+
                   }
                   if (SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
@@ -896,7 +897,7 @@ Fluttertoast.showToast(
                   alignment: Alignment.bottomRight,
                   child: GestureDetector(
                     onTap: () {
-                      Get.back();
+
                     },
                     child: Image.asset("assets/icons/cancel.png"),
                   )),

@@ -95,26 +95,7 @@ class _SignUpState extends State<SignUp> {
               )),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                  backgroundColor: Colors.grey.shade200,
-                  child: Image.asset("assets/icons/facebook.png")),
-              SizedBox(
-                width: width * .04,
-              ),
-              CircleAvatar(
-                  backgroundColor: Colors.grey.shade200,
-                  child: Image.asset("assets/icons/google(1).png")),
-              SizedBox(
-                width: width * .04,
-              ),
-              CircleAvatar(
-                  backgroundColor: Colors.grey.shade200,
-                  child: Image.asset("assets/icons/apple.png")),
-            ],
-          ),
+
           SizedBox(
             height: height * .16,
           ),

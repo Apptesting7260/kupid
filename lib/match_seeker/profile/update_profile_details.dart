@@ -124,7 +124,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           title: Center(
             child: Column(
               children: [
@@ -759,7 +759,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                       : Padding(
                                         padding: const EdgeInsets.only(right: 10),
                                         child: Text(
-                                            "Verifyed",
+                                            "Verified",
                                             style: TextStyle(
                                                 color: Colors.green,
                                                 fontWeight: FontWeight.bold),
@@ -901,7 +901,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
                                             padding:
                                                 const EdgeInsets.only(right: 10),
                                             child: Text(
-                                              "Verifyed",
+                                              "Verified",
                                               style: TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold),

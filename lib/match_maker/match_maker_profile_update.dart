@@ -115,7 +115,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   String? selectExp;
 
   var experienceItems = [
-    "Bigginer",
+    "Beginner",
     "Experience",
     "3 Month experience",
     "4 Month experience",
@@ -196,6 +196,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
     if (imgCamera != null) {
       setState(() {
         imgFile = File(imgCamera.path);
+        Get.back();
       });
 
       // Run compression in a background isolate
@@ -276,7 +277,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
           title: Center(
             child: Column(
               children: [
@@ -471,17 +472,19 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                                           fit: BoxFit.cover,
                                         )),
                             ),
-      
+
                             Positioned(
-                                bottom: -9,
-                                right: -8,
-                                //right: 0,
+                                top: 60,
+                                left: 65,
+                                right: 0,
                                 child: GestureDetector(
                                     onTap: () {
                                       showOptionsDialog(context);
                                     },
                                     child:
-                                        Image.asset("assets/icons/cameraa.png")))
+                                    imgFile == null?
+                                    Image.asset("assets/icons/cameraa.png"):
+                                    Image.asset("assets/icons/edit.png")))
       
                             // Positioned(
                             //   bottom: -9,
@@ -847,7 +850,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                                                     fontWeight: FontWeight.bold),
                                               ))
                                           : Text(
-                                            "Verifyed",
+                                            "Verified",
                                             style: TextStyle(
                                                 color: Colors.green,
                                                 fontWeight: FontWeight.bold),
@@ -1114,7 +1117,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                                         : Padding(
                                             padding: const EdgeInsets.only(right: 10),
                                             child: Text(
-                                              "Verifyed",
+                                              "Verified",
                                               style: TextStyle(
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold),

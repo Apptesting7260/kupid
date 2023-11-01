@@ -187,11 +187,12 @@ class _VerificationMethodState extends State<VerificationMethod> {
                     Get.to(GalleryAccess());
                   }
                   else{
-                    Get.snackbar(
-                      "Alert",
-                      "Please select a country",
-                      backgroundColor: Color(0xffFE008F),
-                    );
+                    // Get.snackbar(
+                    //   "Alert",
+                    //   "Please select a country",
+                    //   backgroundColor: Color(0xffFE008F),
+                    // );
+                    showOptionsDialog(context, "Please select a country");
                   }
 
             }),
@@ -201,4 +202,50 @@ class _VerificationMethodState extends State<VerificationMethod> {
       ),
     );
   }
+  Future<void> showOptionsDialog(BuildContext context, String? error) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
+
+
+                Text(
+                  error.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
 }

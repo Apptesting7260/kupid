@@ -92,7 +92,7 @@ Future<void> MakerProfileApiHit() async {
     request.fields['dob'] = datestring.toString();
     request.fields['location'] = SelectedLocation.toString();
     request.fields['experience'] = selectExperience.toString();
-    request.fields['about_maker'] = AboutMakerController.value.text;
+    request.fields['about_maker'] = ExpectFromSeekerController.value.text;
     request.fields['expect_from_seeker'] = AboutMakerController.value.text;
     request.fields['heading_of_maker'] = HandlingOfMakerController.value.text;
     request.fields['gender'] = selectGender.toString();

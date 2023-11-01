@@ -48,6 +48,8 @@ class ViewSikerProfileDetailsController extends GetxController {
   //   setRxRequestStatus(Status.COMPLETED);
   // } else {
     _api.ViewSikerDetailsToMatchApi(data).then((value)async{
+      print(data);
+      print("abcd");
       setRxRequestStatus(Status.COMPLETED);
       ViewProfileDetails(value);
       print(value);

@@ -66,11 +66,11 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print(value.otp);
 
 
-
-      Get.snackbar(
-        "Message",
-        "Otp Sent",
-        backgroundColor: Color(0xffFE008F),);
+      //
+      // Get.snackbar(
+      //   "Message",
+      //   "Otp Sent",
+      //   backgroundColor: Color(0xffFE008F),);
 
     }).onError((error, stackTrace) {
            rxRequestStatus(Status.COMPLETED);
@@ -127,10 +127,10 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("==========$data");
 
       Get.back();
-      Get.snackbar(
-          "Message",
-          "Varify Successfully",
-          backgroundColor: Color(0xffFE008F),);
+      // Get.snackbar(
+      //     "Message",
+      //     "Varify Successfully",
+      //     backgroundColor: Color(0xffFE008F),);
       print("fjksdfn");
     }).onError((error, stackTrace) {
 
@@ -141,11 +141,11 @@ class UserEmailAndPhoneVerifyController extends GetxController {
            rxRequestStatus(Status.COMPLETED);
       rxRequestStatus(Status.ERROR);
       Get.back();
-      Get.snackbar(
-        "Message",
-        error.toString(),
-        backgroundColor: Color(0xffFE008F),
-      );
+      // Get.snackbar(
+      //   "Message",
+      //   error.toString(),
+      //   backgroundColor: Color(0xffFE008F),
+      // );
     });
   }
 }

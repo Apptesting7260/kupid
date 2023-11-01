@@ -402,12 +402,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
                 title: "Next",
                 onTap: () {
                   if(selectedImagesFiles.isNotEmpty){
-       Get.to(()=>InterstedIn());
+                     Get.to(()=>InterstedIn());
                   }else{
-                    final snackBar = SnackBar(
-              content: Text('Please Upload Atleast One Photo'),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    showOptionsDialog(context);
                   }
            
            
@@ -422,4 +419,50 @@ class _PhotosScreenState extends State<PhotosScreen> {
       ),
     );
   }
+  Future<void> showOptionsDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
+
+
+                Text(
+                  "Please Upload Atleast One Photo",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
 }

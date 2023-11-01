@@ -58,17 +58,18 @@ class _CreatePasswordState extends State<CreatePassword> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please Enter Password";
-                    } else if (value.length < 8) {
-                      return "Password must be at least 8 characters long";
-                    } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                      return "Password must contain at least one uppercase letter";
-                    } else if (!value.contains(RegExp(r'[a-z]'))) {
-                      return "Password must contain at least one lowercase letter";
-                    } else if (!value.contains(RegExp(r'[0-9]'))) {
-                      return "Password must contain at least one digit";
-                    } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                      return "Password must contain at least one special character";
                     }
+                    // else if (value.length < 8) {
+                    //   return "Password must be at least 8 characters long";
+                    // } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                    //   return "Password must contain at least one uppercase letter";
+                    // } else if (!value.contains(RegExp(r'[a-z]'))) {
+                    //   return "Password must contain at least one lowercase letter";
+                    // } else if (!value.contains(RegExp(r'[0-9]'))) {
+                    //   return "Password must contain at least one digit";
+                    // } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                    //   return "Password must contain at least one special character";
+                    // }
                     return null; // Return null if the password is valid
                   },
                   // validator: (value) {
@@ -127,17 +128,24 @@ class _CreatePasswordState extends State<CreatePassword> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please Enter Password";
-                    } else if (value.length < 8) {
-                      return "Password must be at least 8 characters long";
-                    } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                      return "Password must contain at least one uppercase letter";
-                    } else if (!value.contains(RegExp(r'[a-z]'))) {
-                      return "Password must contain at least one lowercase letter";
-                    } else if (!value.contains(RegExp(r'[0-9]'))) {
-                      return "Password must contain at least one digit";
-                    } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                      return "Password must contain at least one special character";
                     }
+                    else if (CreatePasswordControllerInstance.PasswordController.value.text !=
+                        CreatePasswordControllerInstance.ConfirmPasswordController.value.text) {
+                      // Passwords do not match
+
+                      return "Passwords do not match";
+                    }
+                    // else if (value.length < 8) {
+                    //   return "Password must be at least 8 characters long";
+                    // } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                    //   return "Password must contain at least one uppercase letter";
+                    // } else if (!value.contains(RegExp(r'[a-z]'))) {
+                    //   return "Password must contain at least one lowercase letter";
+                    // } else if (!value.contains(RegExp(r'[0-9]'))) {
+                    //   return "Password must contain at least one digit";
+                    // } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                    //   return "Password must contain at least one special character";
+                    // }
                     return null; // Return null if the password is valid
                   },
 
@@ -199,22 +207,57 @@ class _CreatePasswordState extends State<CreatePassword> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      if (CreatePasswordControllerInstance.PasswordController.value.text !=
-          CreatePasswordControllerInstance.ConfirmPasswordController.value.text) {
-        // Passwords do not match
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Passwords do not match"),
-            duration: Duration(seconds: 2), // Adjust the duration as needed
-          ),
-        );
-        return;
-      }
-      CreatePasswordControllerInstance.CreatePasswordapiiHit();
+
+      CreatePasswordControllerInstance.CreatePasswordapiiHit(context);
     }
   }
 
+  Future<void> showOptionsDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
 
+
+                Text(
+                  "Passwords do not match",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
 // validate() {
   //   print("send");
   //   if (!_formKey.currentState!.validate()) {

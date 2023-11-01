@@ -422,18 +422,22 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                         .SeekerMyProfileDetail.value
                                         .ProfileDetail!.details!.interestName!
                                         .length > i; i++)
-                                      Text(
-                                        seekerMyProfileController
-                                            .SeekerMyProfileDetail.value
-                                            .ProfileDetail!.details!
-                                            .interestName![i].title.toString() +
-                                            " ",
-                                        style: TextStyle(
+                                      Container(
+                                        width: Get.width * 0.08,
+                                        child: Text(
+                                          seekerMyProfileController
+                                              .SeekerMyProfileDetail.value
+                                              .ProfileDetail!.details!
+                                              .interestName![i].title.toString() +
+                                              " ",
+                                          style: TextStyle(
 
-                                            fontSize: 6,
-                                            color: Colors.black,
-                                            fontWeight:
-                                            FontWeight.w400),
+                                              fontSize: 6,
+                                              color: Colors.black,
+                                              fontWeight:
+                                              FontWeight.w400),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
 
                                   ],) : Container(),

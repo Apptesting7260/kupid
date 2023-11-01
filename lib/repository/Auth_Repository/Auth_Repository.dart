@@ -401,8 +401,8 @@ class AuthRepository {
     return MakersinglepageRequestModel.fromJson(response);
   }
 
-  Future<CreateNewMatchesModel> CreateNewMatchesApi() async{
-    dynamic response = await _apiService.getApi2(AppUrl.createNewMatchesApi);
+  Future<CreateNewMatchesModel> CreateNewMatchesApi(var datas) async{
+    dynamic response = await _apiService.postApi2(datas,AppUrl.createNewMatchesApi);
     print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     print(response);
     dynamic data = CreateNewMatchesModel.fromJson(response) ;

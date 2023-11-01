@@ -610,16 +610,19 @@ class _ProfilePageState extends State<ProfilePage> {
               color: Color(0xffFE0091),
             ),
             SizedBox(width: width * .01),
-            Text(
-            seekerMyProfileDetailsController
-                                                .SeekerMyProfileDetail
-                                                .value.ProfileDetail!.details!.interestName![index].title.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: Color(0xffFE0091)),
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
+            Container(
+                width: width * .15,
+              child: Text(
+              seekerMyProfileDetailsController
+                                                  .SeekerMyProfileDetail
+                                                  .value.ProfileDetail!.details!.interestName![index].title.toString(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(color: Color(0xffFE0091)),
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
             ),
           ],
         ),

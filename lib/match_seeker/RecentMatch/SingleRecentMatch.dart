@@ -297,14 +297,17 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                           ),
                                         ),
 
-                                        Text(
-                                          seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                              fontWeight:
-                                              FontWeight.w400),
-                                          overflow: TextOverflow.ellipsis,
+                                        Container(
+                                          width: Get.width * 0.09,
+                                          child: Text(
+                                            seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.religion.toString(),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ],
                                     )),
@@ -609,13 +612,17 @@ class _SingalRecentMatchesState extends State<SingalRecentMatches> {
                                               ),
                                             ),
 
-                                            Text(
-                                              seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].religion.toString(),
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 10,
-                                                  fontWeight:
-                                                  FontWeight.w400),
+                                            Container(
+                                              width: Get.width * 0.09,
+                                              child: Text(
+                                                seekerUserProfileController.ViewProfileDetail.value.profileDetails![0].religion.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 10,
+                                                    fontWeight:
+                                                    FontWeight.w400),
+                                                  overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                           ],
                                         ))

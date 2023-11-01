@@ -1,5 +1,6 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cupid_match/controllers/controller/SetRoleController/SetRoleController.dart';
 import 'package:cupid_match/match_maker/Maker_TabView.dart';
 import 'package:cupid_match/match_maker/match_maker_profile_update.dart';
 import 'package:cupid_match/match_maker/payment_screen.dart';
@@ -8,12 +9,12 @@ import 'package:cupid_match/match_seeker/Siker_TabView.dart';
 import 'package:cupid_match/match_seeker/photos.dart';
 import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
-import 'package:cupid_match/utils/utils.dart';
-import 'package:cupid_match/views/user/otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../widgets/my_button.dart';
 
 
 class UserLoginController extends GetxController {
@@ -27,7 +28,7 @@ class UserLoginController extends GetxController {
 
   RxBool loading = false.obs;
 
-  void UserLoginapiHit()async{
+  void UserLoginapiHit(BuildContext context)async{
      FirebaseFirestore _firestore = FirebaseFirestore.instance;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     loading.value = true ;
@@ -90,7 +91,53 @@ Get.offAll(PhotosScreen());
     }).onError((error, stackTrace){
       print("error");
       loading.value = false ;
-      Utils.snackBar('Bad Request', error.toString());
+      showOptionsDialog(context,error.toString());
     });
   }
+  Future<void> showOptionsDialog(BuildContext context, String? error) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
+
+
+                Text(
+                  error.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
 }

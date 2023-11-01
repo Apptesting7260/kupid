@@ -897,14 +897,17 @@ ShowDialog(BuildContext context) {
               Text(
                 name1.toString() + " and " + name2.toString(),
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Color(0xff000CAA),
+                      color: Color(0xff000CAA),fontWeight: FontWeight.w300
                     ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .01,
               ),
         Text(
         (DoMatchesControllerinstance.DoMatches.value.msg.toString()) ,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091))),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .04,
+                height: MediaQuery.of(context).size.height * .02,
               ),
               MyButton(
                 height: MediaQuery.of(context).size.height * .05,

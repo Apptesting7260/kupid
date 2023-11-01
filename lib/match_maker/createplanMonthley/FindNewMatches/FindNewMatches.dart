@@ -978,7 +978,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                                 DoMatchesControllerinstance
                                     .DoMatchesApiHit();
 
-                                img1 = createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()]
+                                img1 = createNewMatchesController.createNewMatchesList.value.allseekers![createNewMatchesController.currentIndex.toInt()].imgPath
                                     .toString();
                                 images.addAll([img1,im2]);
                                 Timer(Duration(seconds: 2), (){
@@ -1164,6 +1164,9 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: Color(0xff000CAA),
                   ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 Text(
                     (DoMatchesControllerinstance.DoMatches.value.msg.toString()) ,

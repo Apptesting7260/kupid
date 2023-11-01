@@ -48,6 +48,52 @@ class _InterestState extends State<Interest> {
       ),
     );
   }
+  Future<void> showOptionsDialog(BuildContext context, String? error) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
+
+
+                Text(
+                  error.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
 
 
 //***********************************************************************
@@ -171,7 +217,8 @@ class _InterestState extends State<Interest> {
 
                       if (selectedInterests.length >= 6 &&
                           !selectedInterests.contains(SeekersAllInterstsControllerInstanse.SeekersAllIntersestsList.value.interests![index].id.toString())) {
-                        Utils.snackBar( "Message","You can only select up to 6 interests.");
+                        // Utils.snackBar( "Message","You can only select up to 6 interests.");
+                        showOptionsDialog(context,"You can only select up to 6 interests.");
                         return;
                       }
 
@@ -202,7 +249,8 @@ class _InterestState extends State<Interest> {
                 title: "Continue",
                 onTap: () {
                   if (selectedInterests.isEmpty) {
-                    Utils.snackBar('Message', 'Minimum one interest mendatory');
+                    showOptionsDialog(context,'Minimum one interest mendatory');
+                    // Utils.snackBar('Message', );
                     return;
                   }
                   else{

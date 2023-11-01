@@ -33,6 +33,7 @@ class _GalleryAccessState extends State<GalleryAccess> {
     if (imgCamera != null) {
       setState(() {
         imgFile = File(imgCamera.path);
+        Get.back();
       });
 
       // Run compression in a background isolate
@@ -65,40 +66,74 @@ class _GalleryAccessState extends State<GalleryAccess> {
   final picker = ImagePicker();
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              "Choose",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            //Image Picker
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
               children: [
-                GestureDetector(
-                  child: Icon(
-                    Icons.camera_alt,
 
-                    color: Colors.pink,
-                  ),
-                  onTap: () {
-                    openCamera(ImageSource.camera);
-                    Navigator.of(context).pop();
-                  },
+                Text(
+                  'Upload Photo',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 18,color:Colors.black),
                 ),
-                GestureDetector(
-                  child: Icon(Icons.photo_library,color: Colors.pink,),
-                  onTap: () {
-                    openCamera(ImageSource.gallery);
-                    Navigator.of(context).pop();
-                  },
+                Text(
+                  'Please choose image',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
                 ),
               ],
             ),
-          );
-        });
-  }
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // GestureDetector(
+                  //   child: const Icon(
+                  //     Icons.camera_alt_outlined,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onTap: () {
+                  //     _pickImage(ImageSource.camera);
+                  //   },
+                  // ),
+                  MyButton(
+                    width: Get.width*.27,
+                    height: Get.height*.05,
+                    title: "Camera", onTap: () {
+                    openCamera(ImageSource.camera);
+                  },)
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // GestureDetector(
+                  //   child: const Icon(
+                  //     Icons.photo_library,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onTap: () {
+                  //     _pickImage(ImageSource.gallery);
+                  //   },
+                  // ),
+                  MyButton(
+                    width: Get.width*.25,
+                    height: Get.height*.05,
+                    title: "Gallery", onTap: () {
+                    openCamera(ImageSource.gallery);
+                  },)
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );}
 
   @override
   void initState() {
@@ -233,11 +268,12 @@ class _GalleryAccessState extends State<GalleryAccess> {
                                 .MakerAditonalApiHit();
                           }
                           else{
-                            Get.snackbar(
-                              "Alert",
-                              "Please upload Document",
-                              backgroundColor: Color(0xffFE008F),
-                            );
+                            // Get.snackbar(
+                            //   "Alert",
+                            //   ,
+                            //   backgroundColor: Color(0xffFE008F),
+                            // );
+                            showOptionsDialogAlert(context,"Please upload Document");
                           }
 
                           // Get.to(PaymentScreen());
@@ -338,4 +374,52 @@ class _GalleryAccessState extends State<GalleryAccess> {
       },
     );
   }
+
+  Future<void> showOptionsDialogAlert(BuildContext context, String? error) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15) ,side: BorderSide.none ),
+          title: Center(
+            child: Column(
+              children: [
+
+
+                Text(
+                  error.toString(),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // GestureDetector(
+              //   child: const Icon(
+              //     Icons.camera_alt_outlined,
+              //     color: Colors.white,
+              //   ),
+              //   onTap: () {
+              //     _pickImage(ImageSource.camera);
+              //   },
+              // ),
+              Center(
+                child: MyButton(
+                  width: Get.width*.27,
+                  height: Get.height*.05,
+                  title: "Ok", onTap: () {
+                  Get.back();
+                },),
+              )
+            ],
+          ),
+        );
+      },
+    );}
+
 }

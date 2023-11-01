@@ -35,8 +35,8 @@ class MakerPaymentInfoController extends GetxController {
       loading.value = false ;
       print(value);
      Get.to(ChooseSubscriptions());
-      Utils.snackBar( "Message",value.message.toString());
-     
+      // Utils.snackBar( "Message",value.message.toString());
+      //
     }).onError((error, stackTrace){
       print("error");
       loading.value = false ;
