@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../Requests/outgoingRequest.dart';
+
 
 bool isboxloading=false;
 class LiverPooledWidget extends StatefulWidget {
@@ -743,7 +745,7 @@ Fluttertoast.showToast(
                   Timer(Duration(seconds: 2), () {
                           setState(() {
                     isboxloading=false;
-                             Get.back();
+                            Get.back();
                          if (dataofStaticPull
                           .spinLeverpoolRequestedData!
                           .spinRequestData![index]
@@ -862,14 +864,14 @@ Fluttertoast.showToast(
           // insetPadding: EdgeInsets.all(0),
           title: Column(
             children: [
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Image.asset("assets/icons/cancel.png"),
-                  )),
+              // Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: GestureDetector(
+              //       onTap: () {
+              //         Get.back();
+              //       },
+              //       child: Image.asset("assets/icons/cancel.png"),
+              //     )),
               Stack(
                 children: <Widget>[
                   Center(
@@ -913,10 +915,11 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
-                  match_withid = dataofStaticPull.id.toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit();
+                  // match_withid = dataofStaticPull.id.toString();
+                  // print(match_withid);
+                  // SeekerToSeekerRequestControllerinstance
+                  //     .SikerTOSikerRequestApiHit();
+                  Get.off(OutGoingRequest());
                 },
                 child: Container(
                   height: height * .04,

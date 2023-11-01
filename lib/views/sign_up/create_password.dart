@@ -59,9 +59,10 @@ class _CreatePasswordState extends State<CreatePassword> {
                     if (value!.isEmpty) {
                       return "Please Enter Password";
                     }
-                    // else if (value.length < 8) {
-                    //   return "Password must be at least 8 characters long";
-                    // } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                    else if (value.length < 8) {
+                      return "Password must be at least 8 characters long";
+                    }
+                    // else if (!value.contains(RegExp(r'[A-Z]'))) {
                     //   return "Password must contain at least one uppercase letter";
                     // } else if (!value.contains(RegExp(r'[a-z]'))) {
                     //   return "Password must contain at least one lowercase letter";
@@ -135,9 +136,10 @@ class _CreatePasswordState extends State<CreatePassword> {
 
                       return "Passwords do not match";
                     }
-                    // else if (value.length < 8) {
-                    //   return "Password must be at least 8 characters long";
-                    // } else if (!value.contains(RegExp(r'[A-Z]'))) {
+                    else if (value.length < 8) {
+                      return "Password must be at least 8 characters long";
+                    }
+                    // else if (!value.contains(RegExp(r'[A-Z]'))) {
                     //   return "Password must contain at least one uppercase letter";
                     // } else if (!value.contains(RegExp(r'[a-z]'))) {
                     //   return "Password must contain at least one lowercase letter";

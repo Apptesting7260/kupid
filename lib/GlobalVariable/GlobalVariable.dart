@@ -18,7 +18,7 @@ String? datestring;
  String? Ocupasion;
 String verification_method="nationality_identity_card";
 String?nationality;
-var ImagetoUpload;
+File? ImagetoUpload;
 String?Subcriptiontype;
   bool isSpinTimerVisible = false;
 String?choose;

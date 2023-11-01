@@ -31,6 +31,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../match_seeker/Requests/outgoingRequest.dart';
+
 class Spined_Spin_Wheel_Widget extends StatefulWidget {
   const Spined_Spin_Wheel_Widget({super.key});
 
@@ -818,9 +820,8 @@ Fluttertoast.showToast(
                       .toString();
                   print(match_withid);
                   SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit(); //
-                             if(SeekerToSeekerRequestControllerinstance.rxRequestStatus.value==Status.COMPLETED) showdiog2(index);
-
+                      .SikerTOSikerRequestApiHit(); // T
+                    showdiog2(index);
                   }
                   if (SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
@@ -893,14 +894,14 @@ Fluttertoast.showToast(
           insetPadding: EdgeInsets.all(0),
           title: Column(
             children: [
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-
-                    },
-                    child: Image.asset("assets/icons/cancel.png"),
-                  )),
+              // Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: GestureDetector(
+              //       onTap: () {
+              //         Get.back();
+              //       },
+              //       child: Image.asset("assets/icons/cancel.png"),
+              //     )),
               Stack(
                 children: <Widget>[
                   Center(
@@ -945,6 +946,7 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
+                  Get.off(OutGoingRequest());
                   // match_withid =  SpeendReqestControllerinstance
                   //                                       .staticLiverPullvalue
                   //                                       .value
@@ -963,7 +965,7 @@ Fluttertoast.showToast(
                   ),
                   child: Center(
                     child: Text(
-                      "Message",
+                      "View",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
