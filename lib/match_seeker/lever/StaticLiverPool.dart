@@ -386,7 +386,12 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                   if(staticLiverpullController.seekerprofilerequested.value==false)               GestureDetector(
                                     onTap: () {
                                       selectedseekerid =
-                                          dataofStaticPull.id!.toInt();
+                                         dataofStaticPull
+                                              .spinLeverpoolRequestedData!
+                                              .spinRequestData![index]
+                                              .seekerData!.id;
+
+                                          print(selectedseekerid);
                                       if (selectedseekerid != null) {
                                         showdilog(index, selectedseekerid!);
                                       }
@@ -734,18 +739,19 @@ Fluttertoast.showToast(
                         setState(() {
                     isboxloading=true;
                   });
-                  Get.back();
+                 
                          Liverpooldprofiles[index]['is_requested'] = "true";
                   liverPoolController.apihit();
 
                   if(isboxloading==true){
+                    Get.back();
                     _showProgressDialog(context);
                   }
 
                   Timer(Duration(seconds: 2), () {
                           setState(() {
                     isboxloading=false;
-                            Get.back();
+                           Get.back();
                          if (dataofStaticPull
                           .spinLeverpoolRequestedData!
                           .spinRequestData![index]
@@ -1051,7 +1057,7 @@ Fluttertoast.showToast(
                   ),
                 ),
                 onTap: () {
-                  Get.back();
+               
                   Timer(Duration(microseconds: 2), () {
                     Get.to(SeeAllMaker());
                   });

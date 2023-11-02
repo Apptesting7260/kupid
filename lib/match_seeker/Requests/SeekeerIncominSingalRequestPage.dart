@@ -17,6 +17,7 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
 
 var myId;
+String? Requestmatchtype;
 
 class SeekerIncomingRequestSinglePage extends StatefulWidget {
   const SeekerIncomingRequestSinglePage({super.key});
@@ -1010,6 +1011,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                 .value.data!.getseeker!.id;
                             userIdsiker==seekerOutgoingRequestSinglePageController
                                 .ViewProfileDetail.value.data!.id.toString();
+                                
 requestid=seekerOutgoingRequestSinglePageController
                 .ViewProfileDetail.value.data!.id.toString();
                             match_from_id=seekerOutgoingRequestSinglePageController
@@ -1022,22 +1024,27 @@ requestid=seekerOutgoingRequestSinglePageController
 ;                print(myid);
                 print(otherid);
 
+      setState(() {
 
+                            isLoding=true;
+                      Requestmatchtype=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchType.toString();
+                          });
 
                           RequestAcceptControllerinstance.RequestAcceptApiHit();
 
-                          setState(() {
-
-                            isLoding=true;
-                          });
+                    
                             if(isLoding==true){
                               _showProgressDialog(context);
                             }
 
         Timer(Duration(seconds: 4), () {
         setState(() {
-          isLoding = false;
+          if(seekerOutgoingRequestSinglePageController.rxRequestStatus.value==Status.COMPLETED){
+       isLoding = false;
           Get.back();
+          }
+   
         });
         });
 

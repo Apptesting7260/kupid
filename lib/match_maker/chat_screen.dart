@@ -179,23 +179,23 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
           .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
 
   
-             await roomRef1.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
+    //          await roomRef1.update({
+    //   'timestamp': FieldValue.serverTimestamp(),
+    //   "lastmsg": messagecontroller.text,
 
-      // Add other room metadata if needed
-    });
-     await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
-      // Add other room metadata if needed
-    });
+    //   // Add other room metadata if needed
+    // });
+    //  await roomRef2.update({
+    //   'timestamp': FieldValue.serverTimestamp(),
+    //   "lastmsg": messagecontroller.text,
+    //   // Add other room metadata if needed
+    // });
 
-    await roomRef3.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": messagecontroller.text,
-      // Add other room metadata if needed
-    });
+    // await roomRef3.update({
+    //   'timestamp': FieldValue.serverTimestamp(),
+    //   "lastmsg": messagecontroller.text,
+    //   // Add other room metadata if needed
+    // });
 
         messagecontroller.clear();
         await _firestore
@@ -216,6 +216,7 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
             .doc(roomid)
             .collection("massages")
             .add(messages);
+            
             
         print(messages);
 

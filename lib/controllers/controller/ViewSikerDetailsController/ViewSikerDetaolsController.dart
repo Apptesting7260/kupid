@@ -55,22 +55,7 @@ class ViewSikerProfileDetailsController extends GetxController {
       print(value);
       print("abcd");
 
-  final userchat=    ChatUser(
-id: value.profileDetails![0].id.toString(),
-      name:  value.profileDetails![0].name.toString(),
-      email:  value.profileDetails![0].email.toString(),
-      about: value.profileDetails![0].details!.bioTitle.toString(),
-      image:  value.profileDetails![0].imgPath.toString(),
-      createdAt: '',
-      isOnline: false,
-      lastActive: '',
-      pushToken: ''
-
-
-      );
-   await _firestore.collection("seeker").doc(value.profileDetails![0].id.toString()).set(userchat.toJson());
-          final jsonData = value.toJson(); // Assuming you have a method toMap() in your model
-      // box3.write('seekrprofiledata', jsonData);
+  
 
         //  print("fjksdfn");
     }).onError((error, stackTrace){

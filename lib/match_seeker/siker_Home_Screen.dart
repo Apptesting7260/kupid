@@ -1101,16 +1101,16 @@ formattedDate,
                                                     ))),
                                           ),
                                           onTap: () {
-                                            setState(() {
-                                              requestype = "1";
-                                            });
-                                            userIdsiker = requestHomeController
+                                        
+                                            requestid = requestHomeController
                                                 .seekerHomeRequestValue.value
                                                 .requests!.incoming![index]
                                                 .id
                                                 .toString();
-
-                                            if (userIdsiker != null) {
+    setState(() {
+                          requestid;                    requestype = "1";
+                                            });
+                                            if (requestid != null) {
                                               print(requestid);
                                               Get.to(
                                                   SeekerIncomingRequestSinglePage());
@@ -1407,7 +1407,7 @@ formattedDate,
                                                         ],
                                                       )),
                                                   onTap: () {
-                                                    userIdsiker =
+                                                    requestid =
                                                         requestHomeController
                                                             .seekerHomeRequestValue
                                                             .value
@@ -1415,7 +1415,7 @@ formattedDate,
                                                             .outgoing![index].id
                                                             .toString();
 
-                                                    print(userIdsiker);
+                                                    print(requestid);
                                                     Get.to(
                                                         SeekerOutGoingRequestSinglePage());
                                                   },
@@ -1613,12 +1613,12 @@ formattedDate,
                                                 .requests!.outgoing![index]
                                                 .id);
 
-                                            userIdsiker = requestHomeController
+                                          requestid = requestHomeController
                                                 .seekerHomeRequestValue.value
                                                 .requests!.outgoing![index].id
                                                 .toString();
 
-                                            print(userIdsiker);
+                                            print(requestid);
                                             Get.to(
                                                 SeekerOutGoingRequestSinglePage());
                                           },
