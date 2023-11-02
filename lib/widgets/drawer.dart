@@ -351,10 +351,16 @@ class _MyDrawerState extends State<MyDrawer> {
     
     // You can also clear all data in the storage if needed
     // box.erase();
-    
-    // Add any other logout logic you have here
-    Get.off(SplashScreen());
+    _restartApp(context);
 
-    print("Logged out successfully");
+
+
+  }
+  void _restartApp(BuildContext context) {
+    // Pop all routes from the navigator and push the initial route again
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
+      (Route<dynamic> route) => false,
+    );
   }
 }

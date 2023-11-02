@@ -6,6 +6,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_seeker/Requests/SeekeerIncominSingalRequestPage.dart';
 import 'package:cupid_match/models/AllOcupationsModel/AllOcupationsModel.dart';
 import 'package:cupid_match/models/RequestAcceptModel/RequestAcceptModel.dart';
 import 'package:cupid_match/models/ViewProfileDetailsModel/ViewProfileDetailsModel.dart';
@@ -47,7 +48,7 @@ class RequestAcceptController extends GetxController {
 "match_with_id":match_with_id,
 "match_from_id":match_from_id,
 "status":Requeststatus,
-   "match_type"  :seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchType.toString()
+   "match_type"  :Requestmatchtype.toString()
     };
   // //  setRxRequestStatus(Status.LOADING);
   // if (box3.hasData('seekrprofiledata')) {
@@ -67,6 +68,7 @@ class RequestAcceptController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       setError(error.toString());
       print("${error.toString()}+++--*****+");
+      print(seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchType.toString());
       setRxRequestStatus(Status.ERROR);
 
     });

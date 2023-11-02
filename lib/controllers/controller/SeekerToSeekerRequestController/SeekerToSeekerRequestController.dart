@@ -39,7 +39,7 @@ class SeekerToSeekerRequestController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       SikerTOSikerRequest(value);
       print(value.msg);
-          Get.back();
+          // Get.back();
         //  Get.to( Siker_Tab_View(index: 0));
           loading.value=false;
 

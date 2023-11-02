@@ -790,9 +790,10 @@ Fluttertoast.showToast(
               GestureDetector(
                 onTap: () {
                                           setState(() {
+                                            
                     isboxloading=true;
                   });
-                  Get.back();
+                 
                          spinedprofilelist[index]['is_requested'] = "true";
                   spinRequestController.apihit();
 

@@ -44,7 +44,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     Map data={
-"request_id":userIdsiker.toString()
+"request_id":requestid.toString()
     };
    setRxRequestStatus(Status.LOADING);
 

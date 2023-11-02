@@ -17,6 +17,7 @@ import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
 
 var myId;
+String? Requestmatchtype;
 
 class SeekerIncomingRequestSinglePage extends StatefulWidget {
   const SeekerIncomingRequestSinglePage({super.key});
@@ -1005,6 +1006,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                   : seekerOutgoingRequestSinglePageController.ViewProfileDetail
                   .value.data!.getanotherseeker!.id!;
 
+<<<<<<< HEAD
                            final otherid = seekerOutgoingRequestSinglePageController
                   .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
                   ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
@@ -1013,6 +1015,17 @@ mainAxisAlignment: MainAxisAlignment.center,
                   .value.data!.getseeker!.id;
                               userIdsiker==seekerOutgoingRequestSinglePageController
                                   .ViewProfileDetail.value.data!.id.toString();
+=======
+                         final otherid = seekerOutgoingRequestSinglePageController
+                .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
+                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getanotherseeker!.id!
+                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                .value.data!.getseeker!.id;
+                            userIdsiker==seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+                                
+>>>>>>> 0b8283e3bb19c002bb42f688ffc4a264b4af08ef
 requestid=seekerOutgoingRequestSinglePageController
                   .ViewProfileDetail.value.data!.id.toString();
                               match_from_id=seekerOutgoingRequestSinglePageController
@@ -1025,10 +1038,16 @@ requestid=seekerOutgoingRequestSinglePageController
 ;                print(myid);
                   print(otherid);
 
+      setState(() {
 
+                            isLoding=true;
+                      Requestmatchtype=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchType.toString();
+                          });
 
                             RequestAcceptControllerinstance.RequestAcceptApiHit();
 
+<<<<<<< HEAD
                             setState(() {
 
                               isLoding=true;
@@ -1043,6 +1062,22 @@ requestid=seekerOutgoingRequestSinglePageController
             Get.back();
           });
           });
+=======
+                    
+                            if(isLoding==true){
+                              _showProgressDialog(context);
+                            }
+
+        Timer(Duration(seconds: 4), () {
+        setState(() {
+          if(seekerOutgoingRequestSinglePageController.rxRequestStatus.value==Status.COMPLETED){
+       isLoding = false;
+          Get.back();
+          }
+   
+        });
+        });
+>>>>>>> 0b8283e3bb19c002bb42f688ffc4a264b4af08ef
 
 
                           },
