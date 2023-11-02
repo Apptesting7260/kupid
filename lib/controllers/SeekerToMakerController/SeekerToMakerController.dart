@@ -55,6 +55,8 @@ class SeekerToMakerRequestController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       Get.back();
       SeekerToMakerRequest(value);
+      selectedseekerid=null;
+      Makerid=null;
 
       _showProgressSuccesDialog( context);
       print("ksndnvgndfkjbkdbnklnflkbnfobg${value.msg}");

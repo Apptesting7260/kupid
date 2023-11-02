@@ -176,7 +176,7 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
                   loading: OtpVarificationControllerinstace.loading.value,
                   title: "Verify",
                   onTap: () {
-                    OtpVarificationControllerinstace.OtpVerificationapiiHit();
+                    OtpVarificationControllerinstace.OtpVerificationapiiHit(context);
                   
                   },
                 ),

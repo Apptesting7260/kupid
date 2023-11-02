@@ -19,6 +19,7 @@ import 'package:flutter/foundation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 // import 'package:country_picker/country_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -189,18 +190,35 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
   File? galleryFile;
   final picker = ImagePicker();
   File? compressedFile;
+  final imageCropper = ImageCropper();
+
 
   Future<void> openCamera(ImageSource source) async {
-    var imgCamera = await imgPicker.pickImage(source: source);
+    var pickedImage = await imgPicker.pickImage(source: source);
 
-    if (imgCamera != null) {
+    if (pickedImage != null) {
+      final croppedImage = await imageCropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: const CropAspectRatio(
+            ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
+        compressQuality: 70, // Adjust compression quality as needed
+      );
+
       setState(() {
-        imgFile = File(imgCamera.path);
+        imgFile = File(croppedImage!.path);
+        ImagetoUpload = File(croppedImage!.path);
+        print(imgFile);
         Get.back();
       });
 
-      // Run compression in a background isolate
-      await compressImageInBackground(imgFile!);
+    // if (imgCamera != null) {
+    //   setState(() {
+    //     imgFile = File(imgCamera.path);
+    //     Get.back();
+    //   });
+    //
+    //   // Run compression in a background isolate
+    //   await compressImageInBackground(imgFile!);
     }
   }
 

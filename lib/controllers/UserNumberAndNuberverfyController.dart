@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:js';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
@@ -133,6 +135,18 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       //     backgroundColor: Color(0xffFE008F),);
       print("fjksdfn");
     }).onError((error, stackTrace) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text('A SnackBar with an action!'),
+      //     action: SnackBarAction(
+      //       label: 'Undo',
+      //       onPressed: () {
+      //         // Handle the action when the button in the SnackBar is pressed.
+      //       },
+      //     ),
+      //   ),
+      // );
+
 
       print("==========$data");
       otpController.value.clear();
@@ -140,7 +154,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("${error.toString()}===============+++=");
            rxRequestStatus(Status.COMPLETED);
       rxRequestStatus(Status.ERROR);
-      Get.back();
+
       // Get.snackbar(
       //   "Message",
       //   error.toString(),
@@ -148,4 +162,5 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       // );
     });
   }
+
 }
