@@ -14,7 +14,8 @@ import 'package:intl/intl.dart';
 import '../data/response/status.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
-
+String ?makeridchat;
+String ?makeridchatimage;
 class ChatScreenMaker extends StatefulWidget {
   const ChatScreenMaker({Key? key}) : super(key: key);
 
@@ -33,7 +34,7 @@ class _ChatScreenMakerState extends State<ChatScreenMaker> {
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 Stream<QuerySnapshot> getMessagesStream() {
     return firestore
-        .collection(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.id.toString())
+        .collection("m"+ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.id.toString())
         .orderBy('timestamp', descending: true)
         .snapshots();
         
@@ -225,11 +226,13 @@ Stream<QuerySnapshot> getMessagesStream() {
                           onTap: (){
                             roomid=data["roomid"];
                             userIdsiker=data["Requestid"];
+                            makeridchat=data["maker_id"];
                             seeker1=data['seeker_id1'];
                             seeker2=data['seeker_id2'];
                             chatname=data['roomname'];
                             chatimage1=data['seeker_inage1'];
                             chatimage=data['seeker_inage2'];
+                            makeridchatimage=data['maker_image'];
                             // anotherchatuser=["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
                             setState(() {
                               userIdsiker;
@@ -238,6 +241,7 @@ Stream<QuerySnapshot> getMessagesStream() {
                               seeker2;
                               chatimage1;
                               chatimage;
+                              makeridchat;
                             });
                             print(roomid);
                             if(roomid!=null){

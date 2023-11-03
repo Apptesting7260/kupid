@@ -61,14 +61,14 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 
 
 Future<bool> doesDocumentExist(String collectionPath, String documentPath) async {
-  final documentReference = FirebaseFirestore.instance.collection(value.data!.getseeker!.id.toString()).doc(value.data!.roomid.toString());
+  final documentReference = FirebaseFirestore.instance.collection("s"+value.data!.getseeker!.id.toString()).doc(value.data!.roomid.toString());
   final snapshot = await documentReference.get();
 
   return snapshot.exists;
 }
 
 // Example usage:
-final collectionPath = value.data!.getseeker!.id.toString();
+final collectionPath = "s"+value.data!.getseeker!.id.toString();
 final documentPath = value.data!.roomid.toString();
 final exists = await doesDocumentExist(collectionPath, documentPath);
 
@@ -153,15 +153,15 @@ if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"|
 
            
         };
-      if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")  await _firestore.collection(value.data!.makerId.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsmaker);
+      if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3")  await _firestore.collection("m"+value.data!.makerId.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsmaker);
   if(value.data!.matchType.toString()=="0"||value.data!.matchType.toString()=="2"||value.data!.matchType.toString()=="3") makerchatuser= value.data!.makerId.toString();
 
      } 
 
      
 
-        await _firestore.collection(value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
-       await _firestore.collection(value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsanotherseeker);
+        await _firestore.collection("s"+value.data!.getseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetails);
+       await _firestore.collection("s"+value.data!.getanotherseeker!.id.toString(),).doc(value.data!.roomid.toString()).set(roomdetailsanotherseeker);
 
        anotherchatuser= seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()== value.data!.getseeker!.id.toString()?value.data!.getanotherseeker!.id.toString():value.data!.getseeker!.id.toString();
       }

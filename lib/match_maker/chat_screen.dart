@@ -12,6 +12,7 @@ import 'package:cupid_match/controllers/controller/RequestDetailsController/Requ
 import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
 import 'package:cupid_match/match_seeker/chat/RequestAcceptWidget.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
@@ -162,57 +163,56 @@ ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
     switch (messagetype) {
       case "text":
         Map<String, dynamic> messages = {
-          "sentby": ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id.toString()
-          .toString(),
+          "sentby": "m"+makeridchat.toString(),
+         
                "sendertype":"maker" ,
-          "profileimage":ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.imgPath,
+          "profileimage":makeridchatimage,
           "message": messagecontroller.text,
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
 
-        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
-DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
+        DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection("m"+makeridchat.toString()).doc(roomid);
+final List<DocumentReference> roomRefs = [roomRef1, roomRef2, roomRef3];
 
+for (var roomRef in roomRefs) {
   
-    //          await roomRef1.update({
-    //   'timestamp': FieldValue.serverTimestamp(),
-    //   "lastmsg": messagecontroller.text,
+             await roomRef1.update({
+      'timestamp': FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
 
-    //   // Add other room metadata if needed
-    // });
-    //  await roomRef2.update({
-    //   'timestamp': FieldValue.serverTimestamp(),
-    //   "lastmsg": messagecontroller.text,
-    //   // Add other room metadata if needed
-    // });
+      // Add other room metadata if needed
+    });
+     await roomRef2.update({
+      'timestamp':FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
 
-    // await roomRef3.update({
-    //   'timestamp': FieldValue.serverTimestamp(),
-    //   "lastmsg": messagecontroller.text,
-    //   // Add other room metadata if needed
-    // });
+    await roomRef3.update({
+      'timestamp':FieldValue.serverTimestamp(),
+      "lastmsg": messagecontroller.text,
+      // Add other room metadata if needed
+    });
 
+}
         messagecontroller.clear();
         await _firestore
-            .collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id.toString())
+            .collection("m"+makeridchat.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
         print("Enter Some Text");
         print(messages);
         await _firestore
-            .collection(seeker1.toString())
+            .collection("s"+seeker1.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
              await _firestore
-            .collection(seeker2.toString())
+            .collection("s"+seeker2.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
@@ -229,12 +229,9 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
         break;
       case "img":
         Map<String, dynamic>  messages = {
-          "sentby": ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id
-          .toString(),
+          "sentby": makeridchat.toString(),
                 "sendertype":"maker" ,
-                "profileimage":ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.imgPath,
+                "profileimage":makeridchatimage,
           "message": messagecontroller.text,
           "imageurl": messageimgurl,
           "type": "img",
@@ -243,13 +240,11 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
      
         DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
 DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
-DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection(makeridchat.toString()).doc(roomid);
 
   
              await roomRef1.update({
       'timestamp': FieldValue.serverTimestamp(),
-        "lastmsg": "image",
 
       // Add other room metadata if needed
     });
@@ -267,20 +262,19 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
 
         messagecontroller.clear();
         await _firestore
-            .collection(ViewMakerProfileDetailsControllerinstance
-          .ViewProfileDetail.value.ProfileDetail!.id.toString())
+            .collection("m"+makeridchat.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
         print("Enter Some Text");
         print(messages);
         await _firestore
-            .collection(seeker1.toString())
+            .collection("s"+seeker1.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
              await _firestore
-            .collection(seeker2.toString())
+            .collection("s"+seeker2.toString())
             .doc(roomid)
             .collection("massages")
             .add(messages);
@@ -308,9 +302,9 @@ DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsContro
         "time": FieldValue.serverTimestamp(),
       };
      
-        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
-DocumentReference roomRef3 = _firestore.collection(ViewMakerProfileDetailsControllerinstance
+        DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
+DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
+DocumentReference roomRef3 = _firestore.collection("m"+ViewMakerProfileDetailsControllerinstance
           .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
 
   
@@ -800,7 +794,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                   Expanded(
                     child:  StreamBuilder<QuerySnapshot>(
                                   stream: _firestore
-                                      .collection( ViewMakerProfileDetailsControllerinstance
+                                      .collection("m"+ ViewMakerProfileDetailsControllerinstance
           .ViewProfileDetail.value.ProfileDetail!.id
           .toString())
                                       .doc(roomid)
@@ -826,7 +820,7 @@ if(message.isNotEmpty){
                             final isSentByCurrentUser = snapshot
                                     .data!.docs[index]['sentby']
                                     .toString() ==
-                                ViewMakerProfileDetailsControllerinstance
+                               "m"+ ViewMakerProfileDetailsControllerinstance
                                     .ViewProfileDetail
                                     .value
                                     .ProfileDetail!
@@ -846,7 +840,7 @@ SizedBox(width: Get.width*0.02,),
                                if(snapshot
                                     .data!.docs[index]['sentby']
                                     .toString() !=
-                                ViewMakerProfileDetailsControllerinstance
+                              "m"+  ViewMakerProfileDetailsControllerinstance
                                     .ViewProfileDetail
                                     .value
                                     .ProfileDetail!
