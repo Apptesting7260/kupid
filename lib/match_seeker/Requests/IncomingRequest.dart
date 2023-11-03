@@ -597,7 +597,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                   //     \context, index);
                                                                   setState(() {});
 
-                                                                  userIdsiker = IncomingRequestControllerins
+                                                                  requestid = IncomingRequestControllerins
                                                                       .IncomingRequestvalue
                                                                       .value
                                                                       .requests!
@@ -606,10 +606,10 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                       .id
                                                                       .toString();
 
-                                                                  if (userIdsiker !=
+                                                                  if (requestid !=
                                                                       null) {
                                                                     print(
-                                                                        userIdsiker);
+                                                                        requestid);
                                                                     Get.to(
                                                                         SeekerIncomingRequestSinglePage());
                                                                   }
@@ -807,7 +807,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                         // _showDialogProfile(
                                                         //     context, index);
 
-                                                        userIdsiker =
+                                                        requestid =
                                                             IncomingRequestControllerins
                                                                 .IncomingRequestvalue
                                                                 .value
@@ -816,8 +816,8 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                 .id
                                                                 .toString();
 
-                                                        if (userIdsiker != null) {
-                                                          print(userIdsiker);
+                                                        if (requestid != null) {
+                                                          print(requestid);
                                                           Get.to(
                                                               SeekerIncomingRequestSinglePage());
                                                         }

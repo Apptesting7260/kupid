@@ -198,26 +198,26 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                   )),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                      backgroundColor: Colors.grey.shade200,
-                      child: Image.asset("assets/icons/facebook.png")),
-                  SizedBox(
-                    width: width * .04,
-                  ),
-                  CircleAvatar(
-                      backgroundColor: Colors.grey.shade200,
-                      child: Image.asset("assets/icons/google(1).png")),
-                  SizedBox(
-                    width: width * .04,
-                  ),
-                  CircleAvatar(
-                      backgroundColor: Colors.grey.shade200,
-                      child: Image.asset("assets/icons/apple.png")),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     CircleAvatar(
+              //         backgroundColor: Colors.grey.shade200,
+              //         child: Image.asset("assets/icons/facebook.png")),
+              //     SizedBox(
+              //       width: width * .04,
+              //     ),
+              //     CircleAvatar(
+              //         backgroundColor: Colors.grey.shade200,
+              //         child: Image.asset("assets/icons/google(1).png")),
+              //     SizedBox(
+              //       width: width * .04,
+              //     ),
+              //     CircleAvatar(
+              //         backgroundColor: Colors.grey.shade200,
+              //         child: Image.asset("assets/icons/apple.png")),
+              //   ],
+              // ),
               SizedBox(height: height * .18),
               Center(
                 child: GestureDetector(

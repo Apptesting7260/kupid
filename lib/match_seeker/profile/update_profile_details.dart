@@ -2168,94 +2168,131 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            content: Container(
-              height: Get.height * 0.35,
-              width: Get.width * 1,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.height * .05,
-                  ),
-                  Center(
-                    child: Text(
-                      "Type the verification code\n         we've sent you",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Colors.black),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * .05,
-                  ),
-                  Center(
-                    child: Pinput(
-                      validator: (value) {
-                        if (value!.isEmpty && value.length != 6) {
-                          return "Please enter your 6 digit pin";
-                        } else {
-                          return null;
-                        }
-                      },
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      length: 6,
-                      autofocus: true,
-                      //
-                      // validator: (s) {
-                      //   if (s?.contains('1')??false) return null;
-                      //   return 'NOT VALID';
-                      // },
-                      useNativeKeyboard: true,
-                      keyboardType: TextInputType.number,
-                      defaultPinTheme: PinTheme(
-                        width: 56,
-                        height: 56,
-                        textStyle: TextStyle(
-                            fontSize: 30, color: Colors.black, fontWeight: FontWeight.w600),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(40),
+            content: Obx(
+               () {
+                return Container(
+                  height: Get.height * 0.4,
+                  width: Get.width * 1,
+                  child: Column(
+                    children: [
+                      Align(
+                          alignment: Alignment.bottomRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Image.asset("assets/icons/cancel.png"),
+                          )),
+                      SizedBox(
+                        height: Get.height * .045,
+                      ),
+
+                      Center(
+                        child: Text(
+                          "Type the verification code\n         we've sent you",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: Colors.black),
                         ),
                       ),
-                      focusedPinTheme: PinTheme(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration( color: Color(0xffFE0091),
-                        border: Border.all(color: Colors.green),
-                        borderRadius: BorderRadius.circular(50),)),
-                      // submittedPinTheme: submittedPinTheme,
-                      onSubmitted: (String pin) => _showSnackBar(context,pin),
-                      focusNode: _pinPutFocusNode,
-                      controller: UserEmailAndphone.otpController.value,
-                      // submittedPinTheme: PinTheme(
-                      //     height: 56,
-                      //     width: 56,
-                      //     decoration: BoxDecoration(
-                      //         borderRadius: BorderRadius.circular(40.0),
-                      //         border: Border.all(color: Color(0xffFE0091)),
-                      //         color: Color(0xffFe0091))),
-                      // focusedPinTheme: defaultPinTheme,
-                      // followingPinTheme: defaultPinTheme,
-                    ),
+                      SizedBox(
+                        height: Get.height * .05,
+                      ),
+                      Center(
+                        child: Pinput(
+                          validator: (value) {
+                            if (value!.isEmpty && value.length != 6) {
+                              return "Please enter your 6 digit pin";
+                            } else {
+                              return null;
+                            }
+                          },
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          length: 6,
+                          autofocus: true,
+                          //
+                          // validator: (s) {
+                          //   if (s?.contains('1')??false) return null;
+                          //   return 'NOT VALID';
+                          // },
+                          useNativeKeyboard: true,
+                          keyboardType: TextInputType.number,
+                          defaultPinTheme: PinTheme(
+                            width: 56,
+                            height: 56,
+                            textStyle: TextStyle(
+                                fontSize: 30, color: Colors.black, fontWeight: FontWeight.w600),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                          ),
+                          focusedPinTheme: PinTheme(
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration( color: Color(0xffFE0091),
+                            border: Border.all(color: Colors.green),
+                            borderRadius: BorderRadius.circular(50),)),
+                          // submittedPinTheme: submittedPinTheme,
+                          onSubmitted: (String pin) => _showSnackBar(context,pin),
+                          focusNode: _pinPutFocusNode,
+                          controller: UserEmailAndphone.otpController.value,
+                          // submittedPinTheme: PinTheme(
+                          //     height: 56,
+                          //     width: 56,
+                          //     decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(40.0),
+                          //         border: Border.all(color: Color(0xffFE0091)),
+                          //         color: Color(0xffFe0091))),
+                          // focusedPinTheme: defaultPinTheme,
+                          // followingPinTheme: defaultPinTheme,
+                        ),
+                      ),
+                      SizedBox(height: Get.height * .05),
+                      Center(
+                        child: MyButton(
+                            loading: UserEmailAndphone.loading.value,
+                            title: "Verify",
+                            onTap: () {
+                              // if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
+                              //   // UserEmailAndphone.email_verify.value=1;
+                              // }
+                              // else{
+                              //   // UserEmailAndphone.phone_verify.value=1;
+                              // }
+                              if(UserEmailAndphone.otpController.value.text.isNotEmpty) {
+                                UserEmailAndphone.PhoneAndEmaiOtpVerifyed(context);
+                              }
+                              else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Center(child: Text("full fill the otp")),
+                                    action: SnackBarAction(
+                                      label: '',
+                                      onPressed: () {
+                                        // Handle the action when the button in the SnackBar is pressed.
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }
+                            }),
+                      ),
+                        SizedBox(
+                        height: Get.height*0.01,
+                      ),
+                    if(UserEmailAndphone.resendOtp.value==true)  Center(
+                        child: UserEmailAndphone.rxRequestStatus.value==Status.LOADING ?
+                        CircularProgressIndicator() :TextButton(onPressed: () {
+                          UserEmailAndphone.PhoneAndEmailVerifiyed();
+                        }, child: Text("resend otp")),
+                      )
+                    ],
                   ),
-                  SizedBox(height: Get.height * .05),
-                  Center(
-                    child: MyButton(
-                        loading: UserEmailAndphone.loading.value,
-                        title: "Verify",
-                        onTap: () {
-                          // if(UserEmailAndphone.emailAndPhoneVerifyController.value.text.contains("@")){
-                          //   // UserEmailAndphone.email_verify.value=1;
-                          // }
-                          // else{
-                          //   // UserEmailAndphone.phone_verify.value=1;
-                          // }
-                          UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
-                        }),
-                  ),
-                ],
-              ),
+                );
+              }
             ));
       },
     );

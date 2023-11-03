@@ -1006,8 +1006,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                   : seekerOutgoingRequestSinglePageController.ViewProfileDetail
                   .value.data!.getanotherseeker!.id!;
 
-<<<<<<< HEAD
-                           final otherid = seekerOutgoingRequestSinglePageController
+                           var otherid = seekerOutgoingRequestSinglePageController
                   .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
                   ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
                   .value.data!.getanotherseeker!.id!
@@ -1015,8 +1014,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                   .value.data!.getseeker!.id;
                               userIdsiker==seekerOutgoingRequestSinglePageController
                                   .ViewProfileDetail.value.data!.id.toString();
-=======
-                         final otherid = seekerOutgoingRequestSinglePageController
+                          otherid = seekerOutgoingRequestSinglePageController
                 .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
                 ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
                 .value.data!.getanotherseeker!.id!
@@ -1025,7 +1023,6 @@ mainAxisAlignment: MainAxisAlignment.center,
                             userIdsiker==seekerOutgoingRequestSinglePageController
                                 .ViewProfileDetail.value.data!.id.toString();
                                 
->>>>>>> 0b8283e3bb19c002bb42f688ffc4a264b4af08ef
 requestid=seekerOutgoingRequestSinglePageController
                   .ViewProfileDetail.value.data!.id.toString();
                               match_from_id=seekerOutgoingRequestSinglePageController
@@ -1047,7 +1044,6 @@ requestid=seekerOutgoingRequestSinglePageController
 
                             RequestAcceptControllerinstance.RequestAcceptApiHit();
 
-<<<<<<< HEAD
                             setState(() {
 
                               isLoding=true;
@@ -1062,8 +1058,7 @@ requestid=seekerOutgoingRequestSinglePageController
             Get.back();
           });
           });
-=======
-                    
+
                             if(isLoding==true){
                               _showProgressDialog(context);
                             }
@@ -1077,7 +1072,6 @@ requestid=seekerOutgoingRequestSinglePageController
    
         });
         });
->>>>>>> 0b8283e3bb19c002bb42f688ffc4a264b4af08ef
 
 
                           },

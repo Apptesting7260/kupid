@@ -1059,7 +1059,7 @@ Fluttertoast.showToast(
                 onTap: () {
                
                   Timer(Duration(microseconds: 2), () {
-                    Get.to(SeeAllMaker());
+                    Get.off(SeeAllMaker());
                   });
                 },
               ),

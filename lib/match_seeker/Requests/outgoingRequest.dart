@@ -418,13 +418,13 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                               SizedBox(
                                                 width: Get.width * 0.12,
                                               ),
-                                              if(seekrOutgoingRequestController
+                                              seekrOutgoingRequestController
                                                   .OutgoingRequestvalue
                                                   .value
                                                   .requests!
                                                   .toMaker![
                                               index]
-                                                  .outgoingReqGetseeker !=null)  Padding(
+                                                  .outgoingReqGetseeker !=null?  Padding(
                                                 padding:
                                                 const EdgeInsets.only(
                                                     top: 8.0),
@@ -581,7 +581,45 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                     ],
                                                   ),
                                                 ),
+                                              ):
+
+                                              Row(
+
+                                                children: [
+                                                  SizedBox(
+                                                    width: Get.width * 0.4,
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      // _showDialogProfile(
+                                                      //     context);
+
+                                                      requestid= seekrOutgoingRequestController
+                                                          .OutgoingRequestvalue
+                                                          .value
+                                                          .requests!
+                                                          .toMaker![index].id.toString();
+
+                                                      print(requestid);
+                                                      Get.to(SeekerOutGoingRequestSinglePage());
+                                                    },
+                                                    child: Text(
+                                                      'View',
+                                                      style: TextStyle(
+                                                          decorationColor:
+                                                          Colors.white,
+                                                          decoration:
+                                                          TextDecoration
+                                                              .underline,
+                                                          fontSize: 9,
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ],
                                               )
+
                                             ],
                                           ),
                                         )
@@ -755,7 +793,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                 // _showDialogProfile(
                                                 //     context);
 
-                                                userIdsiker= seekrOutgoingRequestController
+                                                requestid= seekrOutgoingRequestController
                                                     .OutgoingRequestvalue
                                                     .value
                                                     .requests!

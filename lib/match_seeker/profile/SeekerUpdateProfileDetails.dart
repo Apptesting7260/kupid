@@ -2048,8 +2048,16 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
               width: Get.width * 1,
               child: Column(
                 children: [
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Image.asset("assets/icons/cancel.png"),
+                      )),
                   SizedBox(
-                    height: Get.height * .05,
+                    height: Get.height * .045,
                   ),
                   Center(
                     child: Text(
@@ -2112,7 +2120,7 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                           // else{
                           //   // UserEmailAndphone.phone_verify.value=1;
                           // }
-                          UserEmailAndphone.PhoneAndEmaiOtpVerifyed();
+                          UserEmailAndphone.PhoneAndEmaiOtpVerifyed(context);
                         }),
                   ),
                 ],
