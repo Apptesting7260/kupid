@@ -744,7 +744,7 @@ Fluttertoast.showToast(
                   liverPoolController.apihit();
 
                   if(isboxloading==true){
-                    Get.back();
+
                     _showProgressDialog(context);
                   }
 
@@ -1059,7 +1059,7 @@ Fluttertoast.showToast(
                 onTap: () {
                
                   Timer(Duration(microseconds: 2), () {
-                    Get.off(SeeAllMaker());
+                    Get.to(SeeAllMaker());
                   });
                 },
               ),

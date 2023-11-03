@@ -798,6 +798,7 @@ Fluttertoast.showToast(
                   spinRequestController.apihit();
 
                   if(isboxloading==true){
+
                     _showProgressDialog(context);
                   }
 
@@ -1089,7 +1090,7 @@ Fluttertoast.showToast(
                   ),
                 ),
                 onTap: () {
-                  Get.back();
+
 
                   userIdsiker =  SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
@@ -1101,7 +1102,7 @@ Fluttertoast.showToast(
                     userIdsiker;
                   });
                   Timer(Duration(microseconds: 2), () {
-                    Get.to(SeeAllMaker());
+                    Get.off(SeeAllMaker());
                   });
                 },
               ),

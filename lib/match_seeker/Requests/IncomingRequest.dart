@@ -435,22 +435,27 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(
-                                                            IncomingRequestControllerins
-                                                                .IncomingRequestvalue
-                                                                .value
-                                                                .requests!
-                                                                .byMaker![index]
-                                                                .getseeker!
-                                                                .name
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color:
-                                                                    Colors.white,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
+
+                                                          Container(
+                                                            width: Get.width * 0.15,
+                                                            child: Text(
+                                                              IncomingRequestControllerins
+                                                                  .IncomingRequestvalue
+                                                                  .value
+                                                                  .requests!
+                                                                  .byMaker![index]
+                                                                  .getseeker!
+                                                                  .name
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      Colors.white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                              overflow: TextOverflow.ellipsis,
+                                                            ),
                                                           ),
                                                           Padding(
                                                             padding:

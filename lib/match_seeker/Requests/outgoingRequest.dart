@@ -381,22 +381,26 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                 CrossAxisAlignment
                                                     .start,
                                                 children: [
-                                                  Text(
-                                                    seekrOutgoingRequestController
-                                                        .OutgoingRequestvalue
-                                                        .value
-                                                        .requests!
-                                                        .toMaker![index]
-                                                        .getmaker!
-                                                        .name
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color:
-                                                        Colors.white,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w600),
+                                                  Container(
+                                              width: Get.width * 0.15,
+                                                    child: Text(
+                                                      seekrOutgoingRequestController
+                                                          .OutgoingRequestvalue
+                                                          .value
+                                                          .requests!
+                                                          .toMaker![index]
+                                                          .getmaker!
+                                                          .name
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                          Colors.white,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w600),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -499,24 +503,28 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                         MainAxisAlignment
                                                             .center,
                                                         children: [
-                                                          Text(
-                                                            seekrOutgoingRequestController
-                                                                .OutgoingRequestvalue
-                                                                .value
-                                                                .requests!
-                                                                .toMaker![
-                                                            index]
-                                                                .outgoingReqGetseeker!
-                                                                .name
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize:
-                                                                9,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w600),
+                                                          Container(
+                                                            width: Get.width * 0.15,
+                                                            child: Text(
+                                                              seekrOutgoingRequestController
+                                                                  .OutgoingRequestvalue
+                                                                  .value
+                                                                  .requests!
+                                                                  .toMaker![
+                                                              index]
+                                                                  .outgoingReqGetseeker!
+                                                                  .name
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                  9,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                              overflow: TextOverflow.ellipsis,
+                                                            ),
                                                           ),
                                                           Padding(
                                                             padding:
@@ -544,15 +552,21 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                         onTap: () {
                                                           // _showDialogProfile(
                                                           //     context);
+                                                          requestid=null;
 
-                                                          userIdsiker= seekrOutgoingRequestController
+
+                                                          requestId= seekrOutgoingRequestController
                                                               .OutgoingRequestvalue
                                                               .value
                                                               .requests!
                                                               .toMaker![index].id.toString();
+                                                          setState(() {
 
-                                                          print(userIdsiker);
-                                                          Get.to(SeekerOutGoingRequestSinglePage());
+                                                          });
+                                                          print(requestId);
+                                                          if(requestId!=null){
+                                                            Get.to(SeekerOutGoingRequestSinglePage());
+                                                          }
                                                         },
                                                         child: Text(
                                                           'View',
@@ -593,13 +607,16 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                     onTap: () {
                                                       // _showDialogProfile(
                                                       //     context);
+                                                      requestid=null;
 
                                                       requestid= seekrOutgoingRequestController
                                                           .OutgoingRequestvalue
                                                           .value
                                                           .requests!
                                                           .toMaker![index].id.toString();
+                                                      setState(() {
 
+                                                      });
                                                       print(requestid);
                                                       Get.to(SeekerOutGoingRequestSinglePage());
                                                     },
@@ -792,14 +809,17 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                               onTap: () {
                                                 // _showDialogProfile(
                                                 //     context);
+                                                requestid=null;
 
                                                 requestid= seekrOutgoingRequestController
                                                     .OutgoingRequestvalue
                                                     .value
                                                     .requests!
                                                     .toSeeker![index].id.toString();
+                                                setState(() {
 
-                                                print(userIdsiker);
+                                                });
+                                                print(requestid);
                                                 Get.to(SeekerOutGoingRequestSinglePage());
                                               },
                                               child: Text(

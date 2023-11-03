@@ -57,7 +57,7 @@ class SeekerToSeekerRequestController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       print("error");
-          Get.back();
+
             loading.value=false;
       print(error.toString());
       setRxRequestStatus(Status.ERROR);
