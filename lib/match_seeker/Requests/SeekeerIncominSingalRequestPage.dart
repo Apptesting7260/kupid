@@ -16,7 +16,6 @@ import '../../data/response/status.dart';
 import '../../res/components/general_exception.dart';
 import '../../res/components/internet_exceptions_widget.dart';
 
-var myId;
 String? Requestmatchtype;
 
 class SeekerIncomingRequestSinglePage extends StatefulWidget {

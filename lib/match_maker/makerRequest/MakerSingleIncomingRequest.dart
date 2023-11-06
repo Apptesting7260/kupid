@@ -1,22 +1,19 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cupid_match/match_maker/chat_screen.dart';
-import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:kiosk_mode/kiosk_mode.dart';
 
 import '../../GlobalVariable/GlobalVariable.dart';
-import '../../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
-import '../../controllers/controller/RequestDetailsController/RequestDetailsController.dart';
 import '../../data/response/status.dart';
-import '../../res/components/general_exception.dart';
-import '../../res/components/internet_exceptions_widget.dart';
+
 import '../createplanMonthley/FindNewMatches/FindNewMatches.dart';
 
-var myId;
+
 
 class MakerSingleRequstPage extends StatefulWidget {
    MakerSingleRequstPage({super.key, required this.title});
@@ -36,9 +33,11 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
     // seekerMyProfileController.SeekerMyProfileDetailsApiHit();
 
 
+
   }
   @override
   Widget build(BuildContext context) {
+
 
 
 
@@ -991,7 +990,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                             if (roomid != null) {
                               print(roomid);
-                              Get.to(MakerChatScreen());
+                              // Get.to(MakerChatScreen());
                             }
                           },
                           child: Container(
@@ -1017,76 +1016,110 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
 
                       children: [
 
-                        Container(
-                          height: Get.height * 0.05,
-                          width: Get.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(254, 0, 145, 1),
-                              borderRadius: BorderRadius.circular(60)),
-                          child:seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                              .value.data!.matchWith.toString()=="null"? Center(
-          child: InkWell(
-            child: Text('Find Now',
-            style: TextStyle(
+                     seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                         .value.data!.makerVerified!=null ? Container(
+                       height: Get.height * 0.05,
+                       width: Get.width * 0.4,
+                       decoration: BoxDecoration(
+                           color: Color.fromRGBO(254, 0, 145, 1),
+                           borderRadius: BorderRadius.circular(60)),
+                       child:seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                           .value.data!.matchWith.toString()=="null"? Center(
+                         child: InkWell(
+                           child: Text('Find Now',
+                               style: TextStyle(
 
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-            color: Colors.white)),
-            onTap: (){
-              setState(() {
-                userIdsiker=null;
-                requestId=null;
-              });
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white)),
+                           onTap: (){
+                             setState(() {
+                               userIdsiker=null;
+                               requestId=null;
+                             });
 
-              userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                  .value.data!.matchFrom.toString();
-              requestId=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                  .value.data!.id.toString()
-              ;
-              print(userIdsiker);
+                             userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.matchFrom.toString();
+                             requestId=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.id.toString()
+                             ;
+                             print(userIdsiker);
 
-              if (userIdsiker != null && requestId != null) {
-                print("sdffdgfdgdfgdgfgfdggfdg${userIdsiker}");
-                print(requestId);
-                Get.to(CreateNewMatches());
-              }
-            },
-          ),
-                          ):Center(
-                            child: seekerOutgoingRequestSinglePageController.ViewProfileDetail
-              .value.data!.matchWithStatus.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
-              .value.data!.matchFromStatus.toString()=="accepted"? InkWell(
-                child: Text('chat now',
-                                  style: TextStyle(
+                             if (userIdsiker != null && requestId != null) {
+                               print("sdffdgfdgdfgdgfgfdggfdg${userIdsiker}");
+                               print(requestId);
+                               Get.to(CreateNewMatches());
+                             }
+                           },
+                         ),
+                       ):Center(
+                         child: seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                             .value.data!.matchWithStatus.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                             .value.data!.matchFromStatus.toString()=="accepted"? InkWell(
+                           child: Text('chat now',
+                               style: TextStyle(
 
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white)),
-                              onTap: (){
-                  roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.roomid.toString();
-                  roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.roomid.toString();
-                  print(roomid);
-                  chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.getanotherseeker!.imgPath.toString();
-                  chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.getanotherseeker!.name.toString();
-                  chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.getseeker!.imgPath.toString();
-                  chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                      .value.data!.getseeker!.name.toString();
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white)),
+                           onTap: (){
+                             roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.roomid.toString();
+                             roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.roomid.toString();
+                             print(roomid);
+                             chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getanotherseeker!.imgPath.toString();
+                             chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getanotherseeker!.name.toString();
+                             chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getseeker!.imgPath.toString();
+                             chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getseeker!.name.toString();
 
 
-                  Get.to(MakerChatScreen());
-                              },
-              ):Text('pending',
-                                style: TextStyle(
+                             // Get.to(MakerChatScreen());
+                           },
+                         ):Text('pending',
+                             style: TextStyle(
 
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white)),
-                          ),
+                                 fontSize: 15,
+                                 fontWeight: FontWeight.w700,
+                                 color: Colors.white)),
+                       ),
+                     ):
+                        Row(
+                          children: [
+                            Container(
+                              height: Get.height * 0.048,
+                              width: Get.width * 0.25,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(254, 0, 145, 1),
+                                  borderRadius: BorderRadius.circular(60)),
+                              child: Center(
+                                child: Text('Accept',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white)),
+                              ),
+                            ),
+                            SizedBox(width: Get.width * 0.05,),
+                            Container(
+                              height: Get.height * 0.048,
+                              width: Get.width * 0.25,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(254, 0, 145, 1),
+                                  borderRadius: BorderRadius.circular(60)),
+                              child: Center(
+                                child: Text('Decline',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white)),
+                              ),
+                            )
+                          ],
                         ),
                       ],)
                   ]

@@ -13,6 +13,7 @@ import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/Vi
 import 'package:cupid_match/data/response/status.dart';
 import 'package:cupid_match/match_seeker/Chat_list_Screen.dart';
 import 'package:cupid_match/match_seeker/chat/RequestAcceptWidget.dart';
+import 'package:cupid_match/match_seeker/chatfunctions/chatfunction.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/widgets/audio_play%20widget.dart';
@@ -29,12 +30,7 @@ import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
-String messagetype="text";
-String ?messageimgurl;
-String ?messagaudiourl;
-String ? anotherchatuser;
-String ? makerchatuser;
-String? Makeridchat;
+
  var playerx;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -70,7 +66,7 @@ class _ChatPageState extends State<ChatPage> {
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(dateTime);
   }
-
+final chatfunctions chatfunctionsinstance=chatfunctions();
   FocusNode messageFocusNode = FocusNode();
  
 
@@ -101,6 +97,10 @@ class _ChatPageState extends State<ChatPage> {
   final ScrollController _scrollController = ScrollController();
 
   void onSendMessage() async {
+     String anotherseekerid=seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
+              .toString()==ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.id.toString()?
+              ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getanotherseeker!.id.toString():ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getseeker!.id.toString();
     switch (messagetype) {
       case "text":
       textmsg= messagecontroller.text.toString();
@@ -119,54 +119,67 @@ class _ChatPageState extends State<ChatPage> {
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
-  
-           DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
-
-  
-             await roomRef1.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": textmsg,
-
-      // Add other room metadata if needed
-    });
-     await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg":textmsg,
-      // Add other room metadata if needed
-    });
-
-        await _firestore
-            .collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-             await _firestore
-            .collection(anotherchatuser.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-     if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()!="null"){
-      print("absbabbbsbbfbdsfbdbsfbdsf");
-      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
  
-    await makerref.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": textmsg,
 
-      // Add other room metadata if needed
-    });
-         messagecontroller.clear();
-   await _firestore
-            .collection(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
+
+          setState(() {
+            anotherseekerid;
+          });
+          //  DocumentReference roomRef1 = _firestore.collection("s"+seekerMyProfileController.SeekerMyProfi
+          // leDetail.
+          // value.ProfileDetail!.id.toString()).doc(roomid);
+// DocumentReference roomRef2 = _firestore.collection("s"+anotherchatuser.toString()).doc(roomid);
+
+  
+    //          await roomRef1.update({
+    //   'timestamp': FieldValue.serverTimestamp(),
+    //   "lastmsg": textmsg,
+
+    //   // Add other room metadata if needed
+    // });
+    //  await roomRef2.update({
+    //   'timestamp': FieldValue.serverTimestamp(),
+    //   "lastmsg":textmsg,
+    //   // Add other room metadata if needed
+    // });
+ chatfunctionsinstance.selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
+              .toString(), roomid.toString(), messages);
+               chatfunctionsinstance.anotherseekersender(textmsg.toString(), anotherseekerid, roomid.toString(), messages);
+
+chatfunctionsinstance.MakerPaymentInfoModel(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
+
+              
+  //       await _firestore
+  //           .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.
+  //         value.ProfileDetail!.id.toString())
+  //           .doc(roomid)
+  //           .collection("massages")
+  //           .add(messages);
+  //            await _firestore
+  //           .collection("s"+anotherchatuser.toString())
+  //           .doc(roomid)
+  //           .collection("massages")
+  //           .add(messages);
+  //    if(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()!="null"){
+  //     print("absbabbbsbbfbdsfbdbsfbdsf");
+  //     DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+ 
+  //   await makerref.update({
+  //     'timestamp': FieldValue.serverTimestamp(),
+  //     "lastmsg": textmsg,
+
+  //     // Add other room metadata if needed
+  //   });
+  //        messagecontroller.clear();
+  //  await _firestore
+  //           .collection("s"+ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.makerId.toString())
+  //           .doc(roomid)
+  //           .collection("massages")
+  //           .add(messages);
           
 
-    }
+  //   }
           
             
         print(messages);
@@ -197,48 +210,57 @@ DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).d
           "type": "img",
           "time": FieldValue.serverTimestamp(),
         };
-         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+        String latmdg="image";
+//          DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+//           value.ProfileDetail!.id.toString()).doc(roomid);
+// DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
 
-          await roomRef1.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "image",
-      // Add other room metadata if needed
-    });
-       await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "image",
-      // Add other room metadata if needed
-    });
-    if(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()!=""){
-      DocumentReference makerref = _firestore.collection(Makeridchat.toString()).doc(roomid.toString());
-   await _firestore
-            .collection(Makeridchat.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-             await makerref.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "image",
+//           await roomRef1.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "image",
+//       // Add other room metadata if needed
+//     });
+//        await roomRef2.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "image",
+//       // Add other room metadata if needed
+//     });
+//     if(ViewRequestDetailsControllerinstance
+//             .ViewProfileDetail.value.data!.makerId.toString()!=""){
+//       DocumentReference makerref = _firestore.collection(Makeridchat.toString()).doc(roomid.toString());
+//    await _firestore
+//             .collection(Makeridchat.toString())
+//             .doc(roomid)
+//             .collection("massages")
+//             .add(messages);
+//              await makerref.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "image",
 
-      // Add other room metadata if needed
-    });}
-messagecontroller.clear();
+//       // Add other room metadata if needed
+//     });}
+// messagecontroller.clear();
    
-        messagecontroller.clear();
-    await _firestore
-          .collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString())
-          .doc(roomid)
-.collection("massages").add(messages!);
+//         messagecontroller.clear();
+//     await _firestore
+//           .collection(seekerMyProfileController.SeekerMyProfileDetail.
+//           value.ProfileDetail!.id.toString())
+//           .doc(roomid)
+// .collection("massages").add(messages!);
 
-  await _firestore
-          .collection(anotherchatuser.toString())
-          .doc(roomid)
-.collection("massages").add(messages!);
-      print("Enter Some Text");
+//   await _firestore
+//           .collection(anotherchatuser.toString())
+//           .doc(roomid)
+// .collection("massages").add(messages!);
+//       print("Enter Some Text");
+
+
+chatfunctionsinstance.selfsender(latmdg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
+              .toString(), roomid.toString(), messages);
+               chatfunctionsinstance.anotherseekersender(latmdg.toString(), anotherseekerid, roomid.toString(), messages);
+
+chatfunctionsinstance.MakerPaymentInfoModel(latmdg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
        setState(() {
         messagetype="text";
         print(messagetype);
@@ -258,49 +280,56 @@ messagecontroller.clear();
         "type": "audio",
         "time": FieldValue.serverTimestamp(),
       };
-        DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString()).doc(roomid);
-DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
+//         DocumentReference roomRef1 = _firestore.collection(seekerMyProfileController.SeekerMyProfileDetail.
+//           value.ProfileDetail!.id.toString()).doc(roomid);
+// DocumentReference roomRef2 = _firestore.collection(anotherchatuser.toString()).doc(roomid);
 
-         await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "audio",
-      // Add other room metadata if needed
-    });
-       await roomRef2.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "audio",
-      // Add other room metadata if needed
-    });
-    if(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()!=""){
-      DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
-   await _firestore
-            .collection(ViewRequestDetailsControllerinstance
-            .ViewProfileDetail.value.data!.makerId.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-             await makerref.update({
-      'timestamp': FieldValue.serverTimestamp(),
-      "lastmsg": "audio",
+//          await roomRef2.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "audio",
+//       // Add other room metadata if needed
+//     });
+//        await roomRef2.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "audio",
+//       // Add other room metadata if needed
+//     });
+//     if(ViewRequestDetailsControllerinstance
+//             .ViewProfileDetail.value.data!.makerId.toString()!=""){
+//       DocumentReference makerref = _firestore.collection(ViewRequestDetailsControllerinstance
+//             .ViewProfileDetail.value.data!.makerId.toString()).doc(roomid.toString());
+//    await _firestore
+//             .collection(ViewRequestDetailsControllerinstance
+//             .ViewProfileDetail.value.data!.makerId.toString())
+//             .doc(roomid)
+//             .collection("massages")
+//             .add(messages);
+//              await makerref.update({
+//       'timestamp': FieldValue.serverTimestamp(),
+//       "lastmsg": "audio",
 
-      // Add other room metadata if needed
-    });}
-messagecontroller.clear();
+//       // Add other room metadata if needed
+//     });}
+// messagecontroller.clear();
   
-        messagecontroller.clear();
-    await _firestore
-          .collection(seekerMyProfileController.SeekerMyProfileDetail.
-          value.ProfileDetail!.id.toString())
-          .doc(roomid)
-.collection("massages").add(messages!);
+//         messagecontroller.clear();
+//     await _firestore
+//           .collection(seekerMyProfileController.SeekerMyProfileDetail.
+//           value.ProfileDetail!.id.toString())
+//           .doc(roomid)
+// .collection("massages").add(messages!);
 
-  await _firestore
-          .collection(anotherchatuser.toString())
-          .doc(roomid)
-.collection("massages").add(messages);
+//   await _firestore
+//           .collection(anotherchatuser.toString())
+//           .doc(roomid)
+// .collection("massages").add(messages);
+
+chatfunctionsinstance.selfsender(textmsg.toString(), seekerMyProfileController.SeekerMyProfileDetail.
+          value.ProfileDetail!.id
+              .toString(), roomid.toString(), messages);
+               chatfunctionsinstance.anotherseekersender(textmsg.toString(), anotherseekerid, roomid.toString(), messages);
+
+chatfunctionsinstance.MakerPaymentInfoModel(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
       print("Enter Some Text");
        setState(() {
         messagetype="text";
@@ -702,7 +731,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
          Expanded(
                     child: StreamBuilder<QuerySnapshot>(
                                   stream: _firestore
-                                      .collection(seekerMyProfileController.SeekerMyProfileDetail.
+                                      .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.
           value.ProfileDetail!.id
               .toString())
                                       .doc(roomid)

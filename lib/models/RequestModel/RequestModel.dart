@@ -40,6 +40,7 @@ String? matchWith;
  var matchType;
   var matchWithStatus;
   var matchFromStatus;
+ var makerVerified;
  var status;
  var roomid;
   var createdAt;
@@ -56,6 +57,7 @@ String? matchWith;
     this.matchType,
     this.matchWithStatus,
     this.matchFromStatus,
+    this.makerVerified,
     this.status,
     this.roomid,
     this.createdAt,
@@ -73,6 +75,7 @@ String? matchWith;
     matchType: json["match_type"],
     matchWithStatus: json["match_with_status"],
     matchFromStatus: json["match_from_status"],
+    makerVerified : json['maker_verified'],
     status: json["status"],
     roomid: json["roomid"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -90,6 +93,7 @@ String? matchWith;
     "match_type": matchType,
     "match_with_status": matchWithStatus,
     "match_from_status": matchFromStatus,
+  'maker_verified' : makerVerified,
     "status": status,
     "roomid": roomid,
     "created_at": createdAt?.toIso8601String(),

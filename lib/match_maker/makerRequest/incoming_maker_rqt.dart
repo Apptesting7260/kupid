@@ -238,25 +238,31 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                         width: Get.width * 0.03,
                                                       ),
                                                       Column(
+
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text(
-                                                            requestMatchesController
-                                                                .IncomingMakerValue
-                                                                .value
-                                                                .requests!
-                                                                .particularProfile![
-                                                                    index]
-                                                                .getseeker!
-                                                                .name,
-                                                            style: TextStyle(
-                                                                color: Colors.white,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
+                                                          Container(
+                                                            width: Get.width * 0.15,
+                                                            child: Text(
+                                                              requestMatchesController
+                                                                  .IncomingMakerValue
+                                                                  .value
+                                                                  .requests!
+                                                                  .particularProfile![
+                                                                      index]
+                                                                  .getseeker!
+                                                                  .name,
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                              overflow: TextOverflow.ellipsis,
+
+                                                            ),
                                                           ),
                                                           Text(
                                                             'Match Seeker',
@@ -349,22 +355,26 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                                     MainAxisAlignment
                                                                         .center,
                                                                 children: [
-                                                                  Text(
-                                                                    requestMatchesController
-                                                                        .IncomingMakerValue
-                                                                        .value
-                                                                        .requests!
-                                                                        .particularProfile![
-                                                                            index]
-                                                                        .getanotherseeker!
-                                                                        .name,
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize: 9,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w600),
+                                                                  Container(
+                                                                    width: Get.width * 0.15,
+                                                                    child: Text(
+                                                                      requestMatchesController
+                                                                          .IncomingMakerValue
+                                                                          .value
+                                                                          .requests!
+                                                                          .particularProfile![
+                                                                              index]
+                                                                          .getanotherseeker!
+                                                                          .name,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize: 9,
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .w600),
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                    ),
                                                                   ),
                                                                   Text(
                                                                     'Match Seeker',

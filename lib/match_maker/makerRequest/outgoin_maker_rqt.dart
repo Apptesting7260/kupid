@@ -965,16 +965,21 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                   crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      outgoingMakerRequestController
-                                                          .OutgoingMakerRequestValue
-                                                          .value.requests![index]
-                                                          .getseeker!.name,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight
-                                                              .w600),
+                                                    Container(
+                                                      width: Get.width * 0.15,
+                                                      child: Text(
+                                                        outgoingMakerRequestController
+                                                            .OutgoingMakerRequestValue
+                                                            .value.requests![index]
+                                                            .getseeker!.name,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                            fontWeight: FontWeight
+                                                                .w600),
+                                                        overflow: TextOverflow.ellipsis,
+
+                                                      ),
                                                     ),
                                                     Text(
                                                       'Match Seeker',
@@ -1052,18 +1057,23 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                                                           mainAxisAlignment:
                                                           MainAxisAlignment.center,
                                                           children: [
-                                                            Text(
-                                                              outgoingMakerRequestController
-                                                                  .OutgoingMakerRequestValue
-                                                                  .value
-                                                                  .requests![index]!
-                                                                  .getanotherseeker!
-                                                                  .name,
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontSize: 9,
-                                                                  fontWeight:
-                                                                  FontWeight.w600),
+                                                            Container(
+                                                              width: Get.width * 0.15,
+                                                              child: Text(
+                                                                outgoingMakerRequestController
+                                                                    .OutgoingMakerRequestValue
+                                                                    .value
+                                                                    .requests![index]!
+                                                                    .getanotherseeker!
+                                                                    .name,
+                                                                style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontSize: 9,
+                                                                    fontWeight:
+                                                                    FontWeight.w600),
+                                                                overflow: TextOverflow.ellipsis,
+
+                                                              ),
                                                             ),
                                                             Text(
                                                               'Match Seeker',

@@ -12,6 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../GlobalVariable/nullFunction.dart';
 import '../../views/splash_screen.dart';
 import '../../widgets/drawer.dart';
 import '../app_exceptions.dart';
@@ -194,6 +195,7 @@ Future<dynamic> getApi2(String url)async{
     // box.erase();
 
     // Add any other logout logic you have here
+    GlobalVarribalNull().NullFunction();
     Get.offAll(SplashScreen());
 
     print("Logged out successfully");

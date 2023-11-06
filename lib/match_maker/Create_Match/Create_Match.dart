@@ -17,11 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String? name1;
-String? name2;
-String? img1;
-String? im2;
-List images = [];
+
 
 class MatchScreen extends StatefulWidget {
   @override

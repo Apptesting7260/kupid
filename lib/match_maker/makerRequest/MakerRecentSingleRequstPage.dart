@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../GlobalVariable/GlobalVariable.dart';
 import '../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
 import '../../data/response/status.dart';
 import '../../match_seeker/Requests/SeekeerIncominSingalRequestPage.dart';
-var myId;
+
 class SingleRecentPageRequest extends StatefulWidget {
   const SingleRecentPageRequest({super.key});
 

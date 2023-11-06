@@ -31,6 +31,7 @@ class _SeekerOutGoingRequestSinglePageState extends State<SeekerOutGoingRequestS
   @override
   void initState() {
     super.initState();
+    myId;
     seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
     seekerMyProfileController.SeekerMyProfileDetailsApiHit();
 

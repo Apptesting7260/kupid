@@ -51,6 +51,7 @@ class ParticularProfile {
     this.matchFrom,
     this.matchWith,
     this.matchType,
+    this.makerVerified,
     this.matchWithStatus,
     this.matchFromStatus,
     this.status,
@@ -66,6 +67,7 @@ class ParticularProfile {
   var matchFrom;
   var matchWith;
   var matchType;
+  var makerVerified;
   var matchWithStatus;
   var matchFromStatus;
   var status;
@@ -84,6 +86,8 @@ class ParticularProfile {
     matchType = json['match_type'];
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];
+    makerVerified  = json['maker_verified'];
+
     status = json['status'];
     roomid = null;
     createdAt = null;
@@ -102,6 +106,8 @@ class ParticularProfile {
     _data['match_type'] = matchType;
     _data['match_with_status'] = matchWithStatus;
     _data['match_from_status'] = matchFromStatus;
+    _data['maker_verified'] = makerVerified;
+
     _data['status'] = status;
     _data['roomid'] = roomid;
     _data['created_at'] = createdAt;

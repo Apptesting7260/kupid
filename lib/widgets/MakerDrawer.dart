@@ -17,6 +17,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../GlobalVariable/nullFunction.dart';
 import '../views/splash_screen.dart';
 
 class MakerDrawer extends StatefulWidget {
@@ -325,6 +326,9 @@ final box = GetStorage();
                     // box.erase();
 
                     // Add any other logout logic you have here
+                    setState(() {
+                      GlobalVarribalNull().NullFunction();
+                    });
                     Get.off(SplashScreen());
                     print("Logged out successfully");
                   },

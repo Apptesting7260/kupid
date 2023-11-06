@@ -75,6 +75,7 @@ class ByMaker {
   var matchFrom;
   var matchWith;
   var matchType;
+  var makerVerified;
   var matchWithStatus;
   var matchFromStatus;
   var status;
@@ -92,6 +93,7 @@ class ByMaker {
         this.matchType,
         this.matchWithStatus,
         this.matchFromStatus,
+        this.makerVerified,
         this.status,
         this.roomid,
         this.createdAt,
@@ -106,6 +108,7 @@ class ByMaker {
     matchWith = json['match_with'];
     matchType = json['match_type'];
     matchWithStatus = json['match_with_status'];
+    makerVerified  = json['maker_verified'];
     matchFromStatus = json['match_from_status'];
     status = json['status'];
     roomid = json['roomid'];
@@ -123,11 +126,13 @@ class ByMaker {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['maker_id'] = this.makerId;
+
     data['match_from'] = this.matchFrom;
     data['match_with'] = this.matchWith;
     data['match_type'] = this.matchType;
     data['match_with_status'] = this.matchWithStatus;
     data['match_from_status'] = this.matchFromStatus;
+    data['maker_verified'] = this.makerVerified;
     data['status'] = this.status;
     data['roomid'] = this.roomid;
     data['created_at'] = this.createdAt;

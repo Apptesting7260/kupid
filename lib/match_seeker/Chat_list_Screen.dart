@@ -14,8 +14,7 @@ import '../data/response/status.dart';
 import '../res/colors/app_color.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
-String? myid;
-bool ?makeride;
+
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
 
@@ -24,24 +23,29 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+
   SeekerChatListController seekerChatListController = Get.put(SeekerChatListController());
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
   Stream<QuerySnapshot> getMessagesStream() {
     return firestore
-        .collection(seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
+        .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
         .orderBy('timestamp', descending: true)
         .snapshots();
         
 
 
   }
-
+  String formatTimestamp(Timestamp timestamp) {
+    final DateTime dateTime = timestamp.toDate();
+    final DateFormat formatter = DateFormat('h:mm a');
+    return formatter.format(dateTime);
+  }
 
  getusers() {
       var name;
  name=firestore
-        .collection(seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
+        .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
         .orderBy('timestamp', descending: true)
         .get();
         
@@ -72,11 +76,13 @@ getusers();
           stream: getMessagesStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
+              
               return snapshot.data!.docs.isEmpty == false
                   ?
                    ListView.builder(
                       itemCount: snapshot.data?.docs.length,
                       itemBuilder: (context, index) {
+                        
                         var data = snapshot.data?.docs[index];
                         // .snapshots();
 
@@ -178,15 +184,19 @@ getusers();
                                                       .copyWith(color: Colors.grey),
                                                 ),
                                                  SizedBox(width:Get.width*0.3,),
-                                                Text(
-                                       "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toDate().toString()))}"
+                                                  if (data['timestamp'] != null)  Text(
+                formatTimestamp(data['timestamp']), // Format timestamp as needed
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+                                      //           Text(
+                                      //  "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toString()))}"
                                      
-                                         ,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(color: Colors.grey),
-                                        )
+                                      //    ,
+                                      //     style: Theme.of(context)
+                                      //         .textTheme
+                                      //         .bodySmall!
+                                      //         .copyWith(color: Colors.grey),
+                                      //   )
                                               ],
                                             ),
                                           ],
@@ -201,9 +211,9 @@ getusers();
                           onTap: (){
                              roomid=data["roomid"];
                              myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
-                            userIdsiker=data["Requestid"];
-                            seeker1=data['seeker_id1'];
-                            seeker2=data['seeker_id2'];
+                            requestid=data["Requestid"];
+                            // seeker1=data['seeker_id1'];
+                            // seeker2=data['seeker_id2'];
                             chatname=data['roomname'];
                             chatimage1=data['seeker_inage1'];
                             chatimage=data['seeker_inage2'];
@@ -218,8 +228,8 @@ getusers();
                               roomid;
                               userIdsiker;
                               userIdsiker;
-                              seeker1;
-                              seeker2;
+                              // seeker1;
+                              // seeker2;
                               anotherchatuser;
                               chatname;
                               Makeridchat;

@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../GlobalVariable/nullFunction.dart';
 import '../match_seeker/Siker_TabView.dart';
 import '../match_seeker/profile/SeekerUpdateProfileDetails.dart';
 import '../match_seeker/profile/profile_page.dart';
@@ -323,7 +324,11 @@ class _MyDrawerState extends State<MyDrawer> {
                   width: width * .5,
                   title: 'Log Out',
                   onTap: () {
+                    setState(() {
+                      GlobalVarribalNull().NullFunction();
+                    });
                     logout();
+
 
                   },
                 ),
