@@ -152,7 +152,7 @@ final chatfunctions chatfunctionsinstance=chatfunctions();
               .toString(), roomid.toString(), messages);
                chatfunctionsinstance.anotherseekersender(textmsg.toString(), anotherseekerid, roomid.toString(), messages);
 
-chatfunctionsinstance.MakerPaymentInfoModel(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
+chatfunctionsinstance.Makersender(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
 
               
   //       await _firestore
@@ -265,7 +265,7 @@ chatfunctionsinstance.selfsender(latmdg.toString(), seekerMyProfileController.Se
               .toString(), roomid.toString(), messages);
                chatfunctionsinstance.anotherseekersender(latmdg.toString(), anotherseekerid, roomid.toString(), messages);
 
-chatfunctionsinstance.MakerPaymentInfoModel(latmdg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
+chatfunctionsinstance.Makersender(latmdg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
        setState(() {
         messagetype="text";
         print(messagetype);
@@ -334,7 +334,7 @@ chatfunctionsinstance.selfsender(textmsg.toString(), seekerMyProfileController.S
               .toString(), roomid.toString(), messages);
                chatfunctionsinstance.anotherseekersender(textmsg.toString(), anotherseekerid, roomid.toString(), messages);
 
-chatfunctionsinstance.MakerPaymentInfoModel(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
+chatfunctionsinstance.Makersender(textmsg.toString(),ViewRequestDetailsControllerinstance.ViewProfileDetail.value.data!.getmaker!.id.toString(), roomid.toString(), messages);
       print("Enter Some Text");
        setState(() {
         messagetype="text";

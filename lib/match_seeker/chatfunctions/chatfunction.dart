@@ -48,7 +48,7 @@ anotherseekersender(String msg,String anotherseeker,String roomid,  Map<String, 
 }
 
 
-MakerPaymentInfoModel(String msg,String maker,String roomid,  Map<String, dynamic> messages)async{
+Makersender(String msg,String maker,String roomid,  Map<String, dynamic> messages)async{
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   DocumentReference roomRef1 = _firestore.collection("m"+maker).doc(roomid);
