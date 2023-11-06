@@ -171,7 +171,7 @@ class _VerificationState extends State<Verification> {
                   loading: OtpVerificationInstanse.loading.value,
                   title: "Verify",
                   onTap: () {
-                    OtpVerificationInstanse.OtpVerificationapiiHit();
+                    OtpVerificationInstanse.OtpVerificationapiiHit(context);
 
                   },
                 ),

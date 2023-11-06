@@ -93,7 +93,11 @@ class SeekrOutgoingRequestController extends GetxController {
 
     _api.SeekerOutgoingRequestListApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
+      print('dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
       setUserList(value);
+      print(value.requests?.toMaker);
+      print(value.requests?.toSeeker);
+      print(value.requests);
       print('dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
 

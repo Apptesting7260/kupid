@@ -33,6 +33,7 @@ class Requests {
      this.matchType,
      this.matchWithStatus,
      this.matchFromStatus,
+    this.makerVerified,
      this.status,
     this.roomid,
     this.createdAt,
@@ -48,6 +49,7 @@ class Requests {
  var matchType;
   var matchWithStatus;
   var matchFromStatus;
+  var makerVerified;
  var status;
  var  roomid;
   var  createdAt;
@@ -64,6 +66,7 @@ class Requests {
     matchType = json['match_type'];
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];
+    makerVerified = json['maker_verified'];
     status = json['status'];
     roomid = json['roomid'];
     createdAt = json['created_at'];
@@ -82,6 +85,7 @@ class Requests {
     _data['match_type'] = matchType;
     _data['match_with_status'] = matchWithStatus;
     _data['match_from_status'] = matchFromStatus;
+    _data['maker_verified'] = this.makerVerified;
     _data['status'] = status;
     _data['roomid'] = roomid;
     _data['created_at'] = createdAt;

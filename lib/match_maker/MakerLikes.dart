@@ -17,43 +17,48 @@ class _MakerLikesState extends State<MakerLikes> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-  
-        title: Text("Likes",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),),
-        centerTitle: true,
+    return RefreshIndicator(
+      onRefresh: ()async {
+
+      },
+      child: Scaffold(
+        appBar: AppBar(
+
+          title: Text("Likes",style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),),
+          centerTitle: true,
 actions: [
-            Builder(
-              builder: (context) {
-                return GestureDetector(
-                    onTap: () {
-                      Scaffold.of(context).openEndDrawer();
-                      MaterialLocalizations.of(context).openAppDrawerTooltip;
-                    },
-                    child: Image.asset("assets/icons/menu.png"));
-              },
+              Builder(
+                builder: (context) {
+                  return GestureDetector(
+                      onTap: () {
+                        Scaffold.of(context).openEndDrawer();
+                        MaterialLocalizations.of(context).openAppDrawerTooltip;
+                      },
+                      child: Image.asset("assets/icons/menu.png"));
+                },
+              )
+            ],
+
+        ),
+        endDrawer: Drawer(
+            child: MakerDrawer()
+          ),
+        body:
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/recentmatchempt.png',
+              width: Get.width * 0.83,
+            ),
+            Text(
+              "Reference site about Lorem Ipsum, giving information on its origins",
+              style: Get.theme.textTheme.bodySmall,
+              textAlign: TextAlign.center,
             )
           ],
-        
-      ),
-      endDrawer: Drawer(
-          child: MakerDrawer()
         ),
-      body:
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/recentmatchempt.png',
-            width: Get.width * 0.83,
-          ),
-          Text(
-            "Reference site about Lorem Ipsum, giving information on its origins",
-            style: Get.theme.textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          )
-        ],
       ),
     );
   }

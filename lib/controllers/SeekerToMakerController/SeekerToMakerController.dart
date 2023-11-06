@@ -53,8 +53,10 @@ class SeekerToMakerRequestController extends GetxController {
     _api.SeekerToMakerRequestApi(Data1).then((value){
       print(Data1);
       setRxRequestStatus(Status.COMPLETED);
-      Get.back();
+      // Get.back();
       SeekerToMakerRequest(value);
+      selectedseekerid=null;
+      Makerid=null;
 
       _showProgressSuccesDialog( context);
       print("ksndnvgndfkjbkdbnklnflkbnfobg${value.msg}");
@@ -77,8 +79,9 @@ class SeekerToMakerRequestController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       print("error");
-          Get.back();
+
             loading.value=false;
+      Get.back();
       print(error.toString());
       setRxRequestStatus(Status.ERROR);
 

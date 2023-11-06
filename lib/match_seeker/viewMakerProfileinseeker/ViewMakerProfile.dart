@@ -48,212 +48,217 @@ class _ViewMakerProfileInSeekerState extends State<ViewMakerProfileInSeeker> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-        appBar: AppBar(
+    return RefreshIndicator(
+      onRefresh: () async{
+        ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+      },
+      child: Scaffold(
+          appBar: AppBar(
 
-          
-          elevation: 0,
-          title: Text(
-            "Profile",
-            style: Theme.of(context).textTheme.titleLarge,
+
+            elevation: 0,
+            title: Text(
+              "Profile",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            centerTitle: true,
+            actions: [
+              Builder(
+                builder: (context) {
+                  return GestureDetector(
+                      onTap: () {
+                        Scaffold.of(context).openEndDrawer();
+                        MaterialLocalizations.of(context).openAppDrawerTooltip;
+                      },
+                      child: Image.asset("assets/icons/menu.png"));
+                },
+              )
+            ],
           ),
-          centerTitle: true,
-          actions: [
-            Builder(
-              builder: (context) {
-                return GestureDetector(
-                    onTap: () {
-                      Scaffold.of(context).openEndDrawer();
-                      MaterialLocalizations.of(context).openAppDrawerTooltip;
-                    },
-                    child: Image.asset("assets/icons/menu.png"));
-              },
-            )
-          ],
-        ),
-        endDrawer: Drawer(
-          child: MakerDrawer()
-        ),
-        body: Obx(() {
-          switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {
-            case Status.LOADING:
-              return const Center(child: CircularProgressIndicator());
-            case Status.ERROR:
-              if (ViewMakerProfileDetailsControllerinstance.error.value == 'No internet') {
-                return InterNetExceptionWidget(
-                  onPress: () {},
-                );
-              } else {
-                return GeneralExceptionWidget(onPress: () {});
-              }
-            case Status.COMPLETED:
-              return SingleChildScrollView(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Column(
-                // physics: NeverScrollableScrollPhysics(),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: height * 0.1,
-                    width: width,
-                    color: Color(0xffF3F3F3),
-                  ),
-                  SizedBox( height: height *0.09,),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
-                  SizedBox(height: height * 0.01,),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
-                  SizedBox(height: height * 0.01,),
-                  Align(
-                      alignment: Alignment.center,
-                      child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
-                  SizedBox(height: height * 0.1,),
+          endDrawer: Drawer(
+            child: MakerDrawer()
+          ),
+          body: Obx(() {
+            switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {
+              case Status.LOADING:
+                return const Center(child: CircularProgressIndicator());
+              case Status.ERROR:
+                if (ViewMakerProfileDetailsControllerinstance.error.value == 'No internet') {
+                  return InterNetExceptionWidget(
+                    onPress: () {},
+                  );
+                } else {
+                  return GeneralExceptionWidget(onPress: () {});
+                }
+              case Status.COMPLETED:
+                return SingleChildScrollView(
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Column(
+                  // physics: NeverScrollableScrollPhysics(),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: height * 0.1,
+                      width: width,
+                      color: Color(0xffF3F3F3),
+                    ),
+                    SizedBox( height: height *0.09,),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
+                    SizedBox(height: height * 0.01,),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                    SizedBox(height: height * 0.01,),
+                    Align(
+                        alignment: Alignment.center,
+                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                    SizedBox(height: height * 0.1,),
 
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: Text(
-                      "Email",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: Text(
+                        "Email",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
-                    child:  Text(
-                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
+                    Padding(padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
+                      child:  Text(
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: height * 0.02,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04,),
-                    child: Text(
-                      "Phone Number",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    SizedBox(height: height * 0.02,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04,),
+                      child: Text(
+                        "Phone Number",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
-                    child: Text(
-                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
+                      child: Text(
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
+                      ),
                     ),
-                  ),
-                
 
-                
 
-      
-                  SizedBox(height: height*.02,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: GridView.builder(
-                        scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: ListItem.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 4,
-                          crossAxisSpacing: 4,
-                        ),
-                        itemBuilder: (BuildContext, index){
-                          return Card(
-                            elevation: 2,
-                            shadowColor: Color(0xff0000001),
-                            color: Color(0xffF3F3F3),
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor:Color(0xff0000001A),
-                                  radius: 17,
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(ListItem[index]['Image'] ??'assets/maker/img_2.png'),
-                                    //backgroundImage: NetworkImage(ListItem[index]['Image'] ??"https://images.unsplash.com/photo-1685118148066-da2c5c61e291?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60"),
-                                    radius: 23,
+
+
+
+                    SizedBox(height: height*.02,),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: GridView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: ListItem.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            mainAxisSpacing: 4,
+                            crossAxisSpacing: 4,
+                          ),
+                          itemBuilder: (BuildContext, index){
+                            return Card(
+                              elevation: 2,
+                              shadowColor: Color(0xff0000001),
+                              color: Color(0xffF3F3F3),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:Color(0xff0000001A),
+                                    radius: 17,
+                                    child: CircleAvatar(
+                                      backgroundImage: AssetImage(ListItem[index]['Image'] ??'assets/maker/img_2.png'),
+                                      //backgroundImage: NetworkImage(ListItem[index]['Image'] ??"https://images.unsplash.com/photo-1685118148066-da2c5c61e291?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=500&q=60"),
+                                      radius: 23,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: height * 0.01,),
-                                Text(ListItem[index]['Name'] ??"Name",style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Color(0xff777777),fontSize: 4),),
-                                Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
-                              ],
-                            ),
-                          );
-                        }),
-                  ),
-                  SizedBox(height: height * 0.04,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: Text(
-                      "About the Match Maker",
-                      style: Theme.of(context).textTheme.titleSmall,
+                                  SizedBox(height: height * 0.01,),
+                                  Text(ListItem[index]['Name'] ??"Name",style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Color(0xff777777),fontSize: 4),),
+                                  Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
+                                ],
+                              ),
+                            );
+                          }),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
-                    child: Text(
-                     ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                    SizedBox(height: height * 0.04,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: Text(
+                        "About the Match Maker",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: height * 0.04,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: Text(
-                      "What do you expect from your match seekers",
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
+                      child: Text(
+                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
-                    child: Text(
-                    ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.subtitletextcolor,
+                    SizedBox(height: height * 0.04,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: Text(
+                        "What do you expect from your match seekers",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
+                      child: Text(
+                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.subtitletextcolor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.04,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: Text(
+                        "Match Maker Heading that they want everyone to see:",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height  *0.01),
+                      child: Text(
+                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
+                      ),
+                    ),
+                    SizedBox(height: height * 0.1,),
+                  ],
+                ),
+                Positioned(
+                  left: 135,
+                  top:  height * 0.03,
+                  child: Container(
+                    height: height * 0.14,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: CircleAvatar(
+                      radius: 50,
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 0.04,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                    child: Text(
-                      "Match Maker Heading that they want everyone to see:",
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height  *0.01),
-                    child: Text(
-                     ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
-                    ),
-                  ),
-                  SizedBox(height: height * 0.1,),
-                ],
-              ),
-              Positioned(
-                left: 135,
-                top:  height * 0.03,
-                child: Container(
-                  height: height * 0.14,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: CircleAvatar(
-                    radius: 50,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
-                    ),
-                  ),
                 ),
-              ),
-            ],
-          ),
-              );}})
+              ],
+            ),
+                );}})
+      ),
     );
   }
     

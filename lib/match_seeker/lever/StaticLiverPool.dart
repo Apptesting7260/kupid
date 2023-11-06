@@ -744,7 +744,7 @@ Fluttertoast.showToast(
                   liverPoolController.apihit();
 
                   if(isboxloading==true){
-                    Get.back();
+
                     _showProgressDialog(context);
                   }
 
@@ -956,6 +956,7 @@ Fluttertoast.showToast(
   }
 
   showdiologwronganswer(int index) {
+    // Get.back();
     final dataofStaticPull =
         staticLiverpullController.staticLiverPullvalue.value.data![0];
     final height = MediaQuery.of(context).size.height;
@@ -1059,7 +1060,7 @@ Fluttertoast.showToast(
                 onTap: () {
                
                   Timer(Duration(microseconds: 2), () {
-                    Get.to(SeeAllMaker());
+                    Get.off(SeeAllMaker());
                   });
                 },
               ),

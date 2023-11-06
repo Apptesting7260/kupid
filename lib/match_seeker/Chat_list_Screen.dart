@@ -14,8 +14,7 @@ import '../data/response/status.dart';
 import '../res/colors/app_color.dart';
 import '../res/components/general_exception.dart';
 import '../res/components/internet_exceptions_widget.dart';
-String? myid;
-bool ?makeride;
+
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({Key? key}) : super(key: key);
 
@@ -24,6 +23,7 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+
   SeekerChatListController seekerChatListController = Get.put(SeekerChatListController());
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(SeekerMyProfileDetailsController());
@@ -212,8 +212,8 @@ getusers();
                              roomid=data["roomid"];
                              myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
                             requestid=data["Requestid"];
-                            seeker1=data['seeker_id1'];
-                            seeker2=data['seeker_id2'];
+                            // seeker1=data['seeker_id1'];
+                            // seeker2=data['seeker_id2'];
                             chatname=data['roomname'];
                             chatimage1=data['seeker_inage1'];
                             chatimage=data['seeker_inage2'];
@@ -228,8 +228,8 @@ getusers();
                               roomid;
                               userIdsiker;
                               userIdsiker;
-                              seeker1;
-                              seeker2;
+                              // seeker1;
+                              // seeker2;
                               anotherchatuser;
                               chatname;
                               Makeridchat;

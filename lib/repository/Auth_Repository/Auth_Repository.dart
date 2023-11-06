@@ -380,7 +380,7 @@ class AuthRepository {
 //***************** Sekker out Going Request Api  *********************
   Future<SeekerOutgoingRequestModel> SeekerOutgoingRequestListApi() async{
     dynamic response = await _apiService.getApi2(AppUrl.saeekerOutgoingRequestListApi);
-    print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    print('responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee outgoing');
     print(response);
     return SeekerOutgoingRequestModel.fromJson(response) ;
   }

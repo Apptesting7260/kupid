@@ -30,12 +30,7 @@ import 'package:kplayer/kplayer.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:video_player/video_player.dart';
-String messagetype="text";
-String ?messageimgurl;
-String ?messagaudiourl;
-String ? anotherchatuser;
-String ? makerchatuser;
-String? Makeridchat;
+
  var playerx;
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);

@@ -18,11 +18,7 @@ import '../../../utils/app_colors.dart';
 import '../../../widgets/my_button.dart';
 import '../../Create_Match/Create_Match.dart';
 
-String? name1;
-String? name2;
-String? img1;
-String? im2;
-List images = [];
+
 class CreateNewMatches extends StatefulWidget {
   const CreateNewMatches({super.key});
 

@@ -2,15 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/match_seeker/profile/update_profile_details.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
-import 'package:cupid_match/utils/utils.dart';
-import 'package:cupid_match/views/user/otp.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../GlobalVariable/GlobalVariable.dart';
 import '../data/response/status.dart';
 import 'controller/SetRoleController/SetRoleController.dart';
 
@@ -30,6 +29,8 @@ class UserEmailAndPhoneVerifyController extends GetxController {
   RxBool optsent = false.obs;
   RxBool ciculerEdicator = false.obs;
   RxBool phone_verified = false.obs;
+  RxBool resendOtp = false.obs;
+
 
   RxBool loading = false.obs;
   Future<void> PhoneAndEmailVerifiyed() async {
@@ -58,6 +59,9 @@ class UserEmailAndPhoneVerifyController extends GetxController {
     print(data);
 
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
+      resendOtp.value=true;
+
+
       optsent.value = true;
       rxRequestStatus(Status.COMPLETED);
 
@@ -79,7 +83,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
     });
   }
 
-  Future<void> PhoneAndEmaiOtpVerifyed() async {
+  Future<void> PhoneAndEmaiOtpVerifyed(BuildContext context) async {
      rxRequestStatus(Status.LOADING);
     loading.value=true;
     ciculerEdicator.value=true;
@@ -133,6 +137,18 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       //     backgroundColor: Color(0xffFE008F),);
       print("fjksdfn");
     }).onError((error, stackTrace) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(child: Text(error.toString())),
+          action: SnackBarAction(
+            label: '',
+            onPressed: () {
+              // Handle the action when the button in the SnackBar is pressed.
+            },
+          ),
+        ),
+      );
+
 
       print("==========$data");
       otpController.value.clear();
@@ -140,7 +156,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       print("${error.toString()}===============+++=");
            rxRequestStatus(Status.COMPLETED);
       rxRequestStatus(Status.ERROR);
-      Get.back();
+
       // Get.snackbar(
       //   "Message",
       //   error.toString(),
@@ -148,4 +164,5 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       // );
     });
   }
+
 }

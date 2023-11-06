@@ -102,6 +102,7 @@ dependencies:
   device_info: ^2.0.3
   easy_image_viewer: ^1.2.1
   image_cropper: ^5.0.0
+  kiosk_mode: ^0.5.0+1
 
 
 

@@ -6,7 +6,10 @@ import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../widgets/my_button.dart';
 
 String? Verificationotp;
 class OtpVarificationController extends GetxController {
@@ -20,7 +23,7 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
   RxBool  verify = false.obs;
 
 
-  void OtpVerificationapiiHit(){
+  void OtpVerificationapiiHit(BuildContext context){
     loading.value = true ;
     print(loading.value);
     Map data = {
@@ -42,7 +45,60 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
 ).onError((error, stackTrace){
       print("error");
       loading.value = false ;
-      Utils.snackBar('Error', error.toString());
+      // Utils.snackBar('Error', error.toString());
+      showAlertDialog(error.toString(),context);
     });
   }
+
+
+
+void showAlertDialog(String error,BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Dialog(
+
+        shape: RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        elevation: 0,
+
+        backgroundColor: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(border: Border.all(color: Colors.pink,width: 2),
+            borderRadius: BorderRadius.circular(16.0),),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "OOPS!",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Text(error,style: TextStyle(color: Colors.black),),
+              SizedBox(height: 16.0),
+              Align(
+                alignment: Alignment.center,
+                child: MyButton(
+                  title: "Ok",
+                  width: Get.width*.2,
+                  height: Get.height*0.05,
+                  onTap: (){
+                    Get.back();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 }

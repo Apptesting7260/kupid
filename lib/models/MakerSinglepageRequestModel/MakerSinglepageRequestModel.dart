@@ -30,6 +30,7 @@ class Data {
   var matchType;
   var matchWithStatus;
   var matchFromStatus;
+  var makerVerified;
   var status;
   var roomid;
   var createdAt;
@@ -46,6 +47,7 @@ class Data {
         this.matchType,
         this.matchWithStatus,
         this.matchFromStatus,
+        this.makerVerified,
         this.status,
         this.roomid,
         this.createdAt,
@@ -62,6 +64,7 @@ class Data {
     matchType = json['match_type'];
     matchWithStatus = json['match_with_status'];
     matchFromStatus = json['match_from_status'];
+    makerVerified = json['maker_verified'];
     status = json['status'];
     roomid = json['roomid'];
     createdAt = json['created_at'];
@@ -86,6 +89,7 @@ class Data {
     data['match_type'] = this.matchType;
     data['match_with_status'] = this.matchWithStatus;
     data['match_from_status'] = this.matchFromStatus;
+    data['maker_verified'] = this.makerVerified;
     data['status'] = this.status;
     data['roomid'] = this.roomid;
     data['created_at'] = this.createdAt;
