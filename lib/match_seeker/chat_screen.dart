@@ -1194,7 +1194,8 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                   ),
                                   IconButton(
                                     onPressed:(){
-                                      if(messagecontroller.text.isNotEmpty){
+                                      String userMessage = messagecontroller.text.trim();
+                                      if(userMessage.isNotEmpty){
                                         onSendMessage();
                                       }
                                     } ,

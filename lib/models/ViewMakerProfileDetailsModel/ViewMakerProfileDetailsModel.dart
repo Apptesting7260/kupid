@@ -44,7 +44,7 @@ class ProfileDetails {
      this.likedProfile,
      this.imgPath,
      this.videoPath,
-     this.details,
+    //  this.details,
   });
    var id;
    var name;
@@ -69,7 +69,7 @@ class ProfileDetails {
    var likedProfile;
    var imgPath;
    var videoPath;
-   Details?details;
+  //  Details?details;
   
   ProfileDetails.fromJson(Map<String, dynamic> json){
     id = json['id'];
@@ -95,7 +95,7 @@ class ProfileDetails {
     likedProfile = json['liked_profile'];
     imgPath = json['img_path'];
     videoPath = json['video_path'];
-    details =  Details.fromJson(json['details']);
+    // details =  Details.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
@@ -123,7 +123,7 @@ class ProfileDetails {
     _data['liked_profile'] = likedProfile;
     _data['img_path'] = imgPath;
     _data['video_path'] = videoPath;
-    _data['details'] = details!.toJson();
+    // _data['details'] = details!.toJson();
     return _data;
   }
 }

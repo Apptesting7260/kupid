@@ -1243,20 +1243,23 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
                       MediaQuery.of(context).size.width / 1.7,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1E1B26),
+                        border: Border.all(),
+                        // color: const Color(0xFF1E1B26),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       padding: const EdgeInsets.only(left: 18),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 15),
                       child: TextField(
-                        // readOnly: true,
+                    //     // readOnly: true,
+
                         controller: messagecontroller,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
+                          
                           hintText: "Type Something...",
                           hintStyle: const TextStyle(
-                              color: Colors.white54),
+                              color: Colors.black),
                           contentPadding:
                           const EdgeInsets.only(top: 16),
                           border: InputBorder.none,
@@ -1266,17 +1269,20 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
                               showOptionsDialog(context);
                             },
                             icon: Icon(Icons.adaptive.share),
-                            color: Colors.white54,
+                            color: Colors.black,
                           ),
                         ),
                       ),
                     ),
                   ),
                   IconButton(
+
                     onPressed:(){{
+                       String userMessage = messagecontroller.text.trim();
+                                      if(userMessage.isNotEmpty){
                       onSendMessage();
                     }
-
+                    }
                     } ,
                     icon: Icon(
                       isRecording ? Icons.refresh : Icons.send,
