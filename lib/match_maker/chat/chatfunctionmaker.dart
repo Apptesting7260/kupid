@@ -1,47 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cupid_match/models/MakerPaymentInfoModel/MakerPaymentInfoModel.dart';
 
-class chatfunctions{
-
+class ChatFunction{
 
 
-///////////////CHATROOM FUNCTIONS///////////////////////
-selfchatroom(){
-
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////MESSAGESING FUNCTIONS////////////////////////////
-
-selfsender(String msg,String myidchat,String roomid, Map<String, dynamic> messages)async{
+Seekersender(String msg,String myidchat,String roomid, Map<String, dynamic> messages)async{
 
   
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -109,7 +71,5 @@ Makersender(String msg,String maker,String roomid,  Map<String, dynamic> message
 
 
 
-
-
-
+  
 }

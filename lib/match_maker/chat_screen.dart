@@ -12,6 +12,7 @@ import 'package:cupid_match/controllers/controller/RequestDetailsController/Requ
 import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
 import 'package:cupid_match/controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import 'package:cupid_match/data/response/status.dart';
+import 'package:cupid_match/match_maker/chat/chatfunctionmaker.dart';
 import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
 import 'package:cupid_match/match_seeker/chat/RequestAcceptWidget.dart';
 import 'package:cupid_match/res/components/general_exception.dart';
@@ -157,7 +158,7 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
     super.initState();
   }
 
-
+final ChatFunction ChatFunctioninstance=ChatFunction();
   final ScrollController _scrollController = ScrollController();
   void onSendMessage() async {
     switch (messagetype) {
@@ -171,54 +172,61 @@ class _MakerChatScreenState extends State<MakerChatScreen> {
           "type": "text",
           "time": FieldValue.serverTimestamp(),
         };
+  String textmsg= messagecontroller.text.toString();
+      setState(() {
+        textmsg;
+      });
+      messagecontroller.clear();
+        // DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
+        // DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
+        // // DocumentReference roomRef3 = _firestore.collection("m"+makeridchat.toString()).doc(roomid);
+        // // final List<DocumentReference> roomRefs = [roomRef1, roomRef2, roomRef3];
 
-        DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
-        DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
-        DocumentReference roomRef3 = _firestore.collection("m"+makeridchat.toString()).doc(roomid);
-        final List<DocumentReference> roomRefs = [roomRef1, roomRef2, roomRef3];
+        // for (var roomRef in roomRefs) {
 
-        for (var roomRef in roomRefs) {
+        //   await roomRef1.update({
+        //     'timestamp': FieldValue.serverTimestamp(),
+        //     "lastmsg": messagecontroller.text,
 
-          await roomRef1.update({
-            'timestamp': FieldValue.serverTimestamp(),
-            "lastmsg": messagecontroller.text,
+        //     // Add other room metadata if needed
+        //   });
+        //   await roomRef2.update({
+        //     'timestamp':FieldValue.serverTimestamp(),
+        //     "lastmsg": messagecontroller.text,
+        //     // Add other room metadata if needed
+        //   });
 
-            // Add other room metadata if needed
-          });
-          await roomRef2.update({
-            'timestamp':FieldValue.serverTimestamp(),
-            "lastmsg": messagecontroller.text,
-            // Add other room metadata if needed
-          });
+        //   await roomRef3.update({
+        //     'timestamp':FieldValue.serverTimestamp(),
+        //     "lastmsg": messagecontroller.text,
+        //     // Add other room metadata if needed
+        //   });
 
-          await roomRef3.update({
-            'timestamp':FieldValue.serverTimestamp(),
-            "lastmsg": messagecontroller.text,
-            // Add other room metadata if needed
-          });
-
-        }
-        messagecontroller.clear();
-        await _firestore
-            .collection("m"+makeridchat.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        print("Enter Some Text");
-        print(messages);
-        await _firestore
-            .collection("s"+seeker1.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        await _firestore
-            .collection("s"+seeker2.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
+        // }
+        // messagecontroller.clear();
+        // await _firestore
+        //     .collection("m"+makeridchat.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // print("Enter Some Text");
+        // print(messages);
+        // await _firestore
+        //     .collection("s"+seeker1.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // await _firestore
+        //     .collection("s"+seeker2.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
 
 
-        print(messages);
+        // print(messages);
+ChatFunctioninstance.Makersender(textmsg,makeridchat.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker1.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),messages);
 
 
         setState(() {
