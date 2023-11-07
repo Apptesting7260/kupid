@@ -792,7 +792,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
 
                                       return
 
-                                        InkWell(
+                                        anotheruser!=null?InkWell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Container(
@@ -1116,7 +1116,7 @@ formattedDate,
                                                   SeekerIncomingRequestSinglePage());
                                             }
                                           },
-                                        );
+                                        ):CircularProgressIndicator();
                                     },
                                   )
                                 ),
@@ -1276,7 +1276,7 @@ formattedDate,
                                             .requests!.outgoing![index].createdAt.toString();
                                         DateTime createdAtStringd = DateTime.parse(createdAt);
                                         String createdAtString = DateFormat('d/MM/yyyy').format(createdAtStringd);
-                                        return InkWell(
+                                        return anotheruser!=null?InkWell(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Container(
@@ -1622,7 +1622,7 @@ formattedDate,
                                             Get.to(
                                                 SeekerOutGoingRequestSinglePage());
                                           },
-                                        ) ;
+                                        ) :CircularProgressIndicator();
                                       },
                                     )
 

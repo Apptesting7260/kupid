@@ -14,6 +14,7 @@ String? datestring;
  String?Matchtype;
  String?match_with_id;
  String?match_from_id;
+ String?match_type;
  String?Requeststatus;
  String? Ocupasion;
 String verification_method="nationality_identity_card";

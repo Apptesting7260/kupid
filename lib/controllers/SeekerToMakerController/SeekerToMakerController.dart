@@ -53,7 +53,7 @@ class SeekerToMakerRequestController extends GetxController {
     _api.SeekerToMakerRequestApi(Data1).then((value){
       print(Data1);
       setRxRequestStatus(Status.COMPLETED);
-      // Get.back();
+      Get.back();
       SeekerToMakerRequest(value);
       selectedseekerid=null;
       Makerid=null;
@@ -64,7 +64,7 @@ class SeekerToMakerRequestController extends GetxController {
 
 
 
-          // Get.back();
+
         //  Get.to( Siker_Tab_View(index: 0));
 
 

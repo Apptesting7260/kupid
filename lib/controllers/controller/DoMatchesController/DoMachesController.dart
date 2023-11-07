@@ -16,6 +16,7 @@ class DoMatchesController extends GetxController {
   final DoMatches =DomatchesModel().obs ;
   RxString error = ''.obs;
   RxString message="".obs;
+  RxBool requestaccept=false.obs;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void DoMatchesrequest(DomatchesModel _value) => DoMatches.value = _value ;
@@ -23,6 +24,7 @@ class DoMatchesController extends GetxController {
 
 
   void DoMatchesApiHit(){
+    requestaccept.value=true;
    setRxRequestStatus(Status.LOADING);
    Map Data={};
    if(requestId==null||requestId=="") {
@@ -31,6 +33,14 @@ class DoMatchesController extends GetxController {
        "match_from": match_fromid,
        "match_with": match_withid,
        "maker_id": Makerid
+     };
+   }
+   else if(Makerid==null){
+     Data = {
+       "match_type": Matchtype.toString(),
+       "match_from": match_fromid,
+       "match_with": match_withid,
+       "request_id": requestId
      };
    }
    else{
@@ -42,13 +52,16 @@ class DoMatchesController extends GetxController {
        "request_id": requestId
      };
    }
-
+  print(Data);
     _api.DoMatcchesapi(Data).then((value){
       setRxRequestStatus(Status.COMPLETED);
+      requestaccept.value=false;
       DoMatchesrequest(value);
       print(value.msg);
       message.value=value.msg.toString();
     }).onError((error, stackTrace){
+      requestaccept.value=false;
+
       setError(error.toString());
       print("error");
       print(error.toString());

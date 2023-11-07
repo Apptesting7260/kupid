@@ -59,20 +59,20 @@ print(prefs.getString('Tokernid'));
 
       if(value.userType=="1"){
 
-       if(value.currentStep==1){
-Get.offAll(MakerProfileDetails());
-pachedemail=Email_Or_Phone_Controller.value.text;
-        
-       }else if(value.currentStep==2){
-Get.offAll(VerifyScreen());
-
-       }else if(value.currentStep==3){
-Get.offAll(PaymentScreen());
-
-        
-       }else if(value.currentStep==4){
+//        if(value.currentStep==1){
+// Get.offAll(MakerProfileDetails());
+// pachedemail=Email_Or_Phone_Controller.value.text;
+//
+//        }else if(value.currentStep==2){
+// Get.offAll(VerifyScreen());
+//
+//        }else if(value.currentStep==3){
+// Get.offAll(PaymentScreen());
+//
+//
+//        }else if(value.currentStep==4){
         Get.offAll(Maker_TabView(index: 0,));
-       }
+       // }
 
       }else{
 

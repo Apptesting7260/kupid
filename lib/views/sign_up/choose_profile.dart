@@ -1,6 +1,7 @@
 
 import 'package:cupid_match/match_maker/home_screen_maker.dart';
 import 'package:cupid_match/match_seeker/profile/profile_details.dart';
+import 'package:cupid_match/res/assets/image_assets.dart';
 
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +35,21 @@ class _ChooseProfileState extends State<ChooseProfile> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * .02,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: Get.height * 0.3,
+            width: Get.width * 0.5,
+            child: Image.asset(
+              'assets/images/appicon.png',
+              fit: BoxFit.contain,
             ),
-            Container(
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
               height: height * .075,
               width: width * 1,
               decoration: BoxDecoration(
@@ -72,10 +80,13 @@ class _ChooseProfileState extends State<ChooseProfile> {
                   },
                   activeColor: Color(0xffFE0091)),
             ),
-            SizedBox(
-              height: height * .02,
-            ),
-            Container(
+          ),
+          SizedBox(
+            height: height * .02,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Container(
               height: height * .075,
               width: width * 1,
               decoration: BoxDecoration(
@@ -101,26 +112,26 @@ class _ChooseProfileState extends State<ChooseProfile> {
                   },
                   activeColor: Color(0xffFE0091)),
             ),
-            SizedBox(
-              height: height * .02,
-            ),
-            
-            Obx(
-              () =>Center(
-                child: MyButton(loading: SetRoleControllerInstanse.loading.value,
-                  title: "Next",
-                  onTap: () {
-                    setState(() {
-                      ProfileType=_value;
-                    });
-                    SetRoleControllerInstanse.SetRoleapiiHit();
-            
-                  },
-                ),
+          ),
+          SizedBox(
+            height: height * .05,
+          ),
+
+          Obx(
+            () =>Center(
+              child: MyButton(loading: SetRoleControllerInstanse.loading.value,
+                title: "Next",
+                onTap: () {
+                  setState(() {
+                    ProfileType=_value;
+                  });
+                  SetRoleControllerInstanse.SetRoleapiiHit();
+
+                },
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
