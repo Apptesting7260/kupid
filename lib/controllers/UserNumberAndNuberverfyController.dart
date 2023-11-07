@@ -84,7 +84,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
   }
 
   Future<void> PhoneAndEmaiOtpVerifyed(BuildContext context) async {
-     rxRequestStatus(Status.LOADING);
+     // rxRequestStatus(Status.LOADING);
     loading.value=true;
     ciculerEdicator.value=true;
     Map data = {};
@@ -115,7 +115,7 @@ class UserEmailAndPhoneVerifyController extends GetxController {
 
     otpController.value.clear();
     _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
-     rxRequestStatus(Status.COMPLETED);
+     // rxRequestStatus(Status.COMPLETED);
 
       ciculerEdicator.value=false;
 
@@ -154,8 +154,9 @@ class UserEmailAndPhoneVerifyController extends GetxController {
       otpController.value.clear();
       loading.value = false;
       print("${error.toString()}===============+++=");
-           rxRequestStatus(Status.COMPLETED);
-      rxRequestStatus(Status.ERROR);
+      //      rxRequestStatus(Status.COMPLETED);
+      // rxRequestStatus(Status.ERROR);
+      ciculerEdicator.value=false;
 
       // Get.snackbar(
       //   "Message",

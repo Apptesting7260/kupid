@@ -5,6 +5,8 @@ import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'Maker_TabView.dart';
+
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
@@ -37,6 +39,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         centerTitle: true,
+
+        actions: [InkWell(
+          child: Padding(
+            padding: const EdgeInsets.only(top:12,right:20),
+            child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 15),),
+          ),
+          onTap: () {
+            Get.offAll(Maker_TabView(index: 0,));
+          },
+        )
+
+        ],
       ),
       body: Form(
         key: _formKey,

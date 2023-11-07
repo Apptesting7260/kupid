@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:kiosk_mode/kiosk_mode.dart';
 
 import '../../GlobalVariable/GlobalVariable.dart';
+import '../../controllers/controller/DoMatchesController/DoMachesController.dart';
 import '../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
 import '../../data/response/status.dart';
 
@@ -25,6 +28,7 @@ class MakerSingleRequstPage extends StatefulWidget {
 class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
   @override
   final MakerSingleRequestController seekerOutgoingRequestSinglePageController = Get.put(MakerSingleRequestController());
+  final DoMatchesController doMatchesController = Get.put(DoMatchesController());
 
   @override
   void initState() {
@@ -1017,7 +1021,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                       children: [
 
                      seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                         .value.data!.makerVerified!=null ? Container(
+                         .value.data!.makerVerified!=null &&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                         .value.data!.matchWith!=null ? Container(
                        height: Get.height * 0.05,
                        width: Get.width * 0.4,
                        decoration: BoxDecoration(
@@ -1097,11 +1102,67 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                   color: Color.fromRGBO(254, 0, 145, 1),
                                   borderRadius: BorderRadius.circular(60)),
                               child: Center(
-                                child: Text('Accept',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white)),
+                                child: GestureDetector(
+                                  child: Text('Accept',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white)),
+                                  onTap: () {
+                                    match_withid=   seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.matchFrom.toString();
+                                    match_fromid=   seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.matchWith.toString();
+                                    requestId=   seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                            .value.data!.id.toString();
+                                        Matchtype= "3";
+                                               setState(() {
+
+                                               });
+
+                                               print(match_withid);
+                                               print(match_withid);
+                                               print(requestId);
+                                               print("@@$Matchtype   match ttyyyyu");
+                                        doMatchesController.DoMatchesApiHit();
+                                        if(doMatchesController.requestaccept.value==true){
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              Timer(Duration(seconds: 3), () {
+                                                       Get.back();
+                                              });
+                                              return AlertDialog(
+
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    CircularProgressIndicator(),
+                                                    SizedBox(height: 16.0),
+                                                    Text("Loading..."),
+
+
+
+
+                                                  ],
+                                                ),
+
+                                              );
+
+                                            },
+                                          );
+                                        }
+
+                                       else{
+                                          Get.back();
+                                        }
+
+
+
+
+                                  },
+                                )
                               ),
                             ),
                             SizedBox(width: Get.width * 0.05,),
@@ -1129,4 +1190,31 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
       ),
     );
   }
+  void _showProgressDialog(BuildContext context) {
+    if(doMatchesController.rxRequestStatus.value==Status.COMPLETED){
+      Get.back();
+    }
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+
+
+
+
+            ],
+          ),
+
+        );
+
+      },
+    );}
 }

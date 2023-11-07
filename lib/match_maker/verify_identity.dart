@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'Maker_TabView.dart';
+
 
 class VerifyScreen extends StatefulWidget {
   const VerifyScreen({Key? key}) : super(key: key);
@@ -24,6 +26,18 @@ class _VerifyScreenState extends State<VerifyScreen> {
           Get.back();
         },
             icon: Icon(Icons.arrow_back,color: Color(0xff5A5A5A), size: 27,)),
+
+        actions: [InkWell(
+          child: Padding(
+            padding: const EdgeInsets.only(top:12,right:20),
+            child: Text("Skip",style:TextStyle(color: Colors.pink,fontSize: 15),),
+          ),
+          onTap: () {
+            Get.offAll(Maker_TabView(index: 0,));
+          },
+        )
+
+        ],
       ),
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,

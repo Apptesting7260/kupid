@@ -1826,7 +1826,7 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: Get.height * .05,
+                      height: Get.height * .03,
                     ),
                     Center(
                       child: Text(

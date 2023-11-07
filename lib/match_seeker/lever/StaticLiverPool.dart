@@ -824,7 +824,7 @@ Fluttertoast.showToast(
 //   }
 
 
-                
+                Get.back();
 
                 },
                 child: Container(
@@ -1059,9 +1059,9 @@ Fluttertoast.showToast(
                 ),
                 onTap: () {
                
-                  Timer(Duration(microseconds: 2), () {
+
                     Get.off(SeeAllMaker());
-                  });
+
                 },
               ),
             ],
