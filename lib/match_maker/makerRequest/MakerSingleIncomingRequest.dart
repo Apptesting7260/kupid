@@ -963,58 +963,48 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                     SizedBox(
                       height: Get.height * 0.03,
                     ),
-                    (seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                        .value.data!.matchWith.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                        .value.data!.matchFrom=="accepted") ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+
+                    showButton()
+      
+          ]);}
+        }),
+      ),
+    );
+  }
+  void _showProgressDialog(BuildContext context) {
+    if(doMatchesController.rxRequestStatus.value==Status.COMPLETED){
+      Get.back();
+    }
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
 
 
-                      children: [
 
-                 GestureDetector(
-                          onTap: () {
 
-                            setState(() {
-                              roomid=null;
-                            });
-                             setState(() {
+            ],
+          ),
 
-                             });
-                            roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                .value.data!.roomid.toString();
-                            print(roomid);
-                            chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                .value.data!.getanotherseeker!.imgPath.toString();
-                            chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                .value.data!.getanotherseeker!.name.toString();
-                            chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                .value.data!.getseeker!.imgPath.toString();
-                            chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                .value.data!.getseeker!.name.toString();
+        );
 
-                            if (roomid != null) {
-                              print(roomid);
-                              // Get.to(MakerChatScreen());
-                            }
-                          },
-                          child: Container(
-                            height: Get.height * 0.05,
-                            width: Get.width * 0.4,
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(254, 0, 145, 1),
-                                borderRadius: BorderRadius.circular(60)),
-                            child: Center(
-                              child: Text('Chat Now',
-                                  style: TextStyle(
+      },
+    );}
 
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white)),
-                            ),
-                          ),
-                        ),
-                      ],) :
-                    Row(
+
+
+ showButton(){
+  if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                        .value.data!.matchType.toString()=="3"){
+             return              Row(
                       mainAxisAlignment: MainAxisAlignment.center,
 
 
@@ -1182,39 +1172,140 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                             )
                           ],
                         ),
-                      ],)
+                      ],);
+                        }else{
+
+           return  (seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                        .value.data!.matchWith.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                        .value.data!.matchFrom=="accepted") ? 
+                        Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+
+                      children: [
+
+                 GestureDetector(
+                          onTap: () {
+
+                            setState(() {
+                              roomid=null;
+                            });
+                             setState(() {
+
+                             });
+                            roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.roomid.toString();
+                            print(roomid);
+                            chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getanotherseeker!.imgPath.toString();
+                            chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getanotherseeker!.name.toString();
+                            chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getseeker!.imgPath.toString();
+                            chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getseeker!.name.toString();
+
+                            if (roomid != null) {
+                              print(roomid);
+                              // Get.to(MakerChatScreen());
+                            }
+                          },
+                          child: Container(
+                            height: Get.height * 0.05,
+                            width: Get.width * 0.4,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(254, 0, 145, 1),
+                                borderRadius: BorderRadius.circular(60)),
+                            child: Center(
+                              child: Text('Chat Now',
+                                  style: TextStyle(
+
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white)),
+                            ),
+                          ),
+                        ),
+                      ],) :
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+
+                      children: [
+
+                     Container(
+                       height: Get.height * 0.05,
+                       width: Get.width * 0.4,
+                       decoration: BoxDecoration(
+                           color: Color.fromRGBO(254, 0, 145, 1),
+                           borderRadius: BorderRadius.circular(60)),
+                       child:seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                           .value.data!.matchWith.toString()=="null"? Center(
+                         child: InkWell(
+                           child: Text('Find Now',
+                               style: TextStyle(
+
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white)),
+                           onTap: (){
+                             setState(() {
+                               userIdsiker=null;
+                               requestId=null;
+                             });
+
+                             userIdsiker =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.matchFrom.toString();
+                             requestId=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.id.toString()
+                             ;
+                             print(userIdsiker);
+
+                             if (userIdsiker != null && requestId != null) {
+                               print("sdffdgfdgdfgdgfgfdggfdg${userIdsiker}");
+                               print(requestId);
+                               Get.to(CreateNewMatches());
+                             }
+                           },
+                         ),
+                       ):Center(
+                         child: seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                             .value.data!.matchWithStatus.toString()=="accepted"&&seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                             .value.data!.matchFromStatus.toString()=="accepted"? InkWell(
+                           child: Text('chat now',
+                               style: TextStyle(
+
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.w700,
+                                   color: Colors.white)),
+                           onTap: (){
+                             roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.roomid.toString();
+                             roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.roomid.toString();
+                             print(roomid);
+                             chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getanotherseeker!.imgPath.toString();
+                             chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getanotherseeker!.name.toString();
+                             chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getseeker!.imgPath.toString();
+                             chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                 .value.data!.getseeker!.name.toString();
+
+
+                             // Get.to(MakerChatScreen());
+                           },
+                         ):Text('pending',
+                             style: TextStyle(
+
+                                 fontSize: 15,
+                                 fontWeight: FontWeight.w700,
+                                 color: Colors.white)),
+                       ),
+                     )
                   ]
               );
-          }
-        }),
-      ),
-    );
-  }
-  void _showProgressDialog(BuildContext context) {
-    if(doMatchesController.rxRequestStatus.value==Status.COMPLETED){
-      Get.back();
-    }
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16.0),
-              Text("Loading..."),
-
-
-
-
-            ],
-          ),
-
-        );
-
-      },
-    );}
+                        }
+ }
 }
