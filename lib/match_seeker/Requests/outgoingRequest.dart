@@ -568,7 +568,7 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                                requestid=null;
 
 
-                                                               requestId= seekrOutgoingRequestController
+                                                               requestid= seekrOutgoingRequestController
                                                                    .OutgoingRequestvalue
                                                                    .value
                                                                    .requests!
@@ -576,8 +576,8 @@ class _OutGoingRequestState extends State<OutGoingRequest> {
                                                                setState(() {
 
                                                                });
-                                                               print(requestId);
-                                                               if(requestId!=null){
+                                                               print(requestid);
+                                                               if(requestid!=null){
                                                                  Get.to(SeekerOutGoingRequestSinglePage());
                                                                }
                                                              },
