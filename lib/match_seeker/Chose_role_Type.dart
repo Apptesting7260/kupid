@@ -272,7 +272,9 @@ Row(
 
                                   // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
                                   // print(selectedseekerid);
-                                  selectedseekerid==null;
+                                 setState(() {
+                                   selectedseekerid=null;
+                                 });
                                   Makerid=ListAllMakerControllerinstance
                                           .userList.value.allmakers![index].id.toString();
 

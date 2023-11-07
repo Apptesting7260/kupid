@@ -125,6 +125,9 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
                             ),
                           selectedseekerid==null?  GestureDetector(
                               onTap: () {
+                                setState(() {
+                                  selectedseekerid=null;
+                                });
 
                                 Makerid=ListAllMakerControllerinstance
                                     .userList.value.allmakers![index].id.toString();

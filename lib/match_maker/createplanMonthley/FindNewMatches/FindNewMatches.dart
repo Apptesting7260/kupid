@@ -1166,6 +1166,7 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                 ),
                 Text(
                     (DoMatchesControllerinstance.DoMatches.value.msg.toString()) ,
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFE0091))),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .04,
