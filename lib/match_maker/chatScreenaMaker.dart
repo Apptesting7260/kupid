@@ -249,9 +249,9 @@ class _ChatScreenMakerState extends State<ChatScreenMaker> {
                           }
                         },
                       );
-                    } ):Container();
+                    } ):Container(child: Center(child: Text("No Chat List Available",style: TextStyle(color: Colors.black),)),);
               }else{
-                return Container();
+                return Container(child: Center(child: Text("No Chat List Available",style: TextStyle(color: Colors.black),)),);
               }
             })
     );
