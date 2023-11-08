@@ -1149,7 +1149,8 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
 
                             })
 
-                      )  : Column(
+                      )
+                          : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

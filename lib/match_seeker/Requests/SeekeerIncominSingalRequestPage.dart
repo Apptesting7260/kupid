@@ -1058,9 +1058,7 @@ requestid=seekerOutgoingRequestSinglePageController
           });
           });
 
-                            if(isLoding==true){
-                              _showProgressDialog(context);
-                            }
+
 
         Timer(Duration(seconds: 4), () {
         setState(() {

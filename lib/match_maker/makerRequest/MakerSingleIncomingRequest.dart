@@ -29,7 +29,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
   @override
   final MakerSingleRequestController seekerOutgoingRequestSinglePageController = Get.put(MakerSingleRequestController());
   final DoMatchesController doMatchesController = Get.put(DoMatchesController());
-
+  bool isLoding=false;
   @override
   void initState() {
     super.initState();
@@ -971,33 +971,7 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
       ),
     );
   }
-  void _showProgressDialog(BuildContext context) {
-    if(doMatchesController.rxRequestStatus.value==Status.COMPLETED){
-      Get.back();
-    }
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
 
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16.0),
-              Text("Loading..."),
-
-
-
-
-            ],
-          ),
-
-        );
-
-      },
-    );}
 
 
 
@@ -1115,38 +1089,35 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                                                print(requestId);
                                                print("@@$Matchtype   match ttyyyyu");
                                         doMatchesController.DoMatchesApiHit();
-                                        if(doMatchesController.requestaccept.value==true){
-                                          showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              Timer(Duration(seconds: 3), () {
-                                                       Get.back();
-                                              });
-                                              return AlertDialog(
 
-                                                content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    CircularProgressIndicator(),
-                                                    SizedBox(height: 16.0),
-                                                    Text("Loading..."),
+                                    setState(() {
 
+                                      isLoding=true;
+                                    });
+                                    if(isLoding==true){
+                                      _showProgressDialogs(context);
+                                    }
 
+                                    Timer(Duration(seconds: 4), () {
+                                      setState(() {
+                                        seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
+                                        isLoding = false;
+
+                                      });
+                                    });
 
 
-                                                  ],
-                                                ),
 
-                                              );
-
-                                            },
-                                          );
-                                        }
-
-                                       else{
+                                    Timer(Duration(seconds: 4), () {
+                                      setState(() {
+                                        if(doMatchesController.rxRequestStatus.value==Status.COMPLETED){
+                                          isLoding = false;
                                           Get.back();
                                         }
+
+                                      });
+                                    });
+
 
 
 
@@ -1308,4 +1279,24 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
               );
                         }
  }
+
+
+
+  void _showProgressDialogs(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );}
 }
