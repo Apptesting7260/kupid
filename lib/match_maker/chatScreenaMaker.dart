@@ -187,12 +187,15 @@ class _ChatScreenMakerState extends State<ChatScreenMaker> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            data['lastmsg'],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(color: Colors.grey),
+                                          Container(
+                                            width: 40,
+                                            child: Text(
+                                              data['lastmsg'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(color: Colors.grey),
+                                            ),
                                           ),
                                           SizedBox(width:Get.width*0.3,),
                                           Text(
