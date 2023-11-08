@@ -1184,10 +1184,13 @@ SizedBox(height:Get.height*0.05,),
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    request.name.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
+                                  Container(
+                                    width: Get.width*0.3,
+                                    child: Text(
+                                      request.name.toString(),
+                                      style:
+                                          Theme.of(context).textTheme.titleSmall,
+                                    ),
                                   ),
                                   SizedBox(height: height * .01),
                                   Text(
@@ -1196,6 +1199,7 @@ SizedBox(height:Get.height*0.05,),
                                         .textTheme
                                         .bodySmall!
                                         .copyWith(color: Colors.grey),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
                               ),
@@ -1320,12 +1324,17 @@ Fluttertoast.showToast(
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                isNotVisible == false
-                    ? ""
-                    : MagicProfileControllerinstance.MagicProfileList.value
-                        .requests![_currentIndices[index]].name
-                        .toString(),
+              child: Container(
+                width: Get.width*0.2,
+                child: Text(
+                  isNotVisible == false
+                      ? ""
+                      : MagicProfileControllerinstance.MagicProfileList.value
+                          .requests![_currentIndices[index]].name
+                          .toString(),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

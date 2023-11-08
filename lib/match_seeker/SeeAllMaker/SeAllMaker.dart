@@ -19,14 +19,18 @@ class _SeeAllMakerState extends State<SeeAllMaker> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final ListAllMakerControllerinstance = Get.put(ListAllMakerController());
   SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(SeekerToMakerRequestController());
-
+  @override
+  void initState() {
+    ListAllMakerControllerinstance.ListAllMakerApi();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return RefreshIndicator(
       onRefresh: () async{
-        SeekerToMakerRequestControllerinstance.SeekerToMakerRequestApiHit(context);
+        ListAllMakerControllerinstance.ListAllMakerApi();
       },
       child: SafeArea(
           child: Scaffold(

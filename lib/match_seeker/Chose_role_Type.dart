@@ -97,7 +97,7 @@ SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(Se
                   borderRadius: BorderRadius.circular(35)),
               child: RadioListTile(
                   title: Text(
-                    "Spin Wheel",
+                    "Wheel Of Match",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -128,7 +128,7 @@ SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(Se
                   title: GestureDetector(
                     onTap: () {},
                     child: Text(
-                      "Lever Pull",
+                      "Match Slot",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -162,9 +162,9 @@ SeekerToMakerRequestController SeekerToMakerRequestControllerinstance=Get.put(Se
 
 
                       if( rolevalue == 1){
-                      Get.to(DomatchscreenSiker(title:"Spin Wheel"));}
+                      Get.to(DomatchscreenSiker(title:"Wheel Of Match"));}
                       else{
-                        Get.to(DomatchscreenSiker(title:"Lever Pull"));
+                        Get.to(DomatchscreenSiker(title:"Match Slot"));
                       }
 
 

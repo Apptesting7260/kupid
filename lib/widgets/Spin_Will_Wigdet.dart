@@ -1437,16 +1437,20 @@ final spinRequestController=Get.put(SpinRequestController());
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        MagicProfileControllerinstance
-                                            .MagicProfileList
-                                            .value
-                                            .requests![index]
-                                            .name
-                                            .toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall,
+                                      Container(
+                                        width: width * .2,
+                                        child: Text(
+                                          MagicProfileControllerinstance
+                                              .MagicProfileList
+                                              .value
+                                              .requests![index]
+                                              .name
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                       SizedBox(
                                         height: height * .01,

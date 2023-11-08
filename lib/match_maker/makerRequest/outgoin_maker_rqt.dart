@@ -889,269 +889,267 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                       .length != 0
                   // ||outgoingMakerRequestController
                   //     .OutgoingMakerRequestValue.value.requests != null
-                  ? SingleChildScrollView(
-                    child: Container(
-                          // height: Get.height*0.6,
-                          width: Get.width,
-                          child:  ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: outgoingMakerRequestController
-                                  .OutgoingMakerRequestValue.value.requests!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                              if(outgoingMakerRequestController
-                                  .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=[]||
-                                  outgoingMakerRequestController
-                                      .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=null||
-                                  outgoingMakerRequestController
-                                      .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=0||
-                                  outgoingMakerRequestController
-                                      .OutgoingMakerRequestValue.value.requests![index].getseeker!=[]||
-                                  outgoingMakerRequestController
-                                      .OutgoingMakerRequestValue.value.requests![index].getseeker!=null||
-                                  outgoingMakerRequestController
-                                      .OutgoingMakerRequestValue.value.requests![index].getseeker!=0
-                              ){
-                                return Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        height: Get.height * 0.08,
-                                        color: Color.fromRGBO(254, 0, 145, 1),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              child: Row(
-                                                children: [
+                  ? Container(
+                        // height: Get.height*0.6,
+                        width: Get.width,
+                        child:  ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: outgoingMakerRequestController
+                                .OutgoingMakerRequestValue.value.requests!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                            if(outgoingMakerRequestController
+                                .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=[]||
+                                outgoingMakerRequestController
+                                    .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=null||
+                                outgoingMakerRequestController
+                                    .OutgoingMakerRequestValue.value.requests![index].getanotherseeker!=0||
+                                outgoingMakerRequestController
+                                    .OutgoingMakerRequestValue.value.requests![index].getseeker!=[]||
+                                outgoingMakerRequestController
+                                    .OutgoingMakerRequestValue.value.requests![index].getseeker!=null||
+                                outgoingMakerRequestController
+                                    .OutgoingMakerRequestValue.value.requests![index].getseeker!=0
+                            ){
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Container(
+                                      height: Get.height * 0.08,
+                                      color: Color.fromRGBO(254, 0, 145, 1),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            child: Row(
+                                              children: [
 
-                                                  Expanded(
-                                                      flex: 2,
+                                                Expanded(
+                                                    flex: 2,
 
+                                                    child: Row(
+
+                                                  children: [
+                                                    SizedBox(
+                                                      width: Get.width * 0.02,
+                                                    ),
+                                                    Container(
+                                                        height: Get.height * 0.07,
+                                                        width: Get.width * 0.13,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius.circular(40)),
+                                                        child: outgoingMakerRequestController
+                                                            .OutgoingMakerRequestValue
+                                                            .value.requests![index]
+                                                            .getseeker!.imgPath !=
+                                                            null
+                                                            ? CircleAvatar(
+                                                            radius: 22,
+                                                            backgroundImage: CachedNetworkImageProvider(
+                                                                outgoingMakerRequestController
+                                                                    .OutgoingMakerRequestValue
+                                                                    .value
+                                                                    .requests![index]
+                                                                    .getseeker!.imgPath
+                                                                    .toString()))
+                                                            : CircleAvatar(
+                                                          radius: 22,
+                                                          backgroundImage:
+                                                          NetworkImage(
+                                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                          ),
+                                                          backgroundColor:
+                                                          Colors
+                                                              .transparent,
+                                                        )
+                                                    ),
+                                                    SizedBox(
+                                                      width: Get.width * 0.025,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          width: Get.width * 0.15,
+                                                          child: Text(
+                                                            outgoingMakerRequestController
+                                                                .OutgoingMakerRequestValue
+                                                                .value.requests![index]
+                                                                .getseeker!.name,
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 12,
+                                                                fontWeight: FontWeight
+                                                                    .w600),
+                                                            overflow: TextOverflow.ellipsis,
+
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Match Seeker',
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 10,
+                                                              fontWeight: FontWeight
+                                                                  .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )),
+
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(top: 8.0),
+                                                    child: Container(
+                                                      width: Get.width * 0.5,
+                                                      height: Get.height * 0.065,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius: BorderRadius
+                                                              .only(
+                                                              topLeft:
+                                                              Radius.circular(10),
+                                                              bottomLeft:
+                                                              Radius.circular(10))),
                                                       child: Row(
-
-                                                    children: [
-                                                      SizedBox(
-                                                        width: Get.width * 0.02,
-                                                      ),
-                                                      Container(
-                                                          height: Get.height * 0.07,
-                                                          width: Get.width * 0.13,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                              BorderRadius.circular(40)),
-                                                          child: outgoingMakerRequestController
-                                                              .OutgoingMakerRequestValue
-                                                              .value.requests![index]
-                                                              .getseeker!.imgPath !=
-                                                              null
-                                                              ? CircleAvatar(
-                                                              radius: 22,
-                                                              backgroundImage: CachedNetworkImageProvider(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: Get.width * 0.025,
+                                                          ),
+                                                          Container(
+                                                              height: Get.height * 0.06,
+                                                              width: Get.width * 0.12,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      40)),
+                                                              child: outgoingMakerRequestController
+                                                                  .OutgoingMakerRequestValue
+                                                                  .value
+                                                                  .requests![index]!
+                                                                  .getanotherseeker!
+                                                                  .imgPath !=
+                                                                  null
+                                                                  ? CircleAvatar(
+                                                                  radius: 22,
+                                                                  backgroundImage: CachedNetworkImageProvider(
+                                                                      outgoingMakerRequestController
+                                                                          .OutgoingMakerRequestValue
+                                                                          .value
+                                                                          .requests![index]!
+                                                                          .getanotherseeker!
+                                                                          .imgPath
+                                                                          .toString()))
+                                                                  : CircleAvatar(
+                                                                radius: 22,
+                                                                backgroundImage:
+                                                                NetworkImage(
+                                                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
+                                                                ),
+                                                                backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                              )
+                                                          ),
+                                                          SizedBox(
+                                                            width: Get.width * 0.025,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment.center,
+                                                            children: [
+                                                              Container(
+                                                                width: Get.width * 0.15,
+                                                                child: Text(
                                                                   outgoingMakerRequestController
                                                                       .OutgoingMakerRequestValue
                                                                       .value
-                                                                      .requests![index]
-                                                                      .getseeker!.imgPath
-                                                                      .toString()))
-                                                              : CircleAvatar(
-                                                            radius: 22,
-                                                            backgroundImage:
-                                                            NetworkImage(
-                                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                            ),
-                                                            backgroundColor:
-                                                            Colors
-                                                                .transparent,
-                                                          )
-                                                      ),
-                                                      SizedBox(
-                                                        width: Get.width * 0.025,
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                        children: [
-                                                          Container(
-                                                            width: Get.width * 0.15,
-                                                            child: Text(
-                                                              outgoingMakerRequestController
-                                                                  .OutgoingMakerRequestValue
-                                                                  .value.requests![index]
-                                                                  .getseeker!.name,
-                                                              style: TextStyle(
-                                                                  color: Colors.white,
-                                                                  fontSize: 12,
-                                                                  fontWeight: FontWeight
-                                                                      .w600),
-                                                              overflow: TextOverflow.ellipsis,
-
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Match Seeker',
-                                                            style: TextStyle(
-                                                                color: Colors.white,
-                                                                fontSize: 10,
-                                                                fontWeight: FontWeight
-                                                                    .w300),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  )),
-
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child: Padding(
-                                                      padding:
-                                                      const EdgeInsets.only(top: 8.0),
-                                                      child: Container(
-                                                        width: Get.width * 0.5,
-                                                        height: Get.height * 0.065,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius: BorderRadius
-                                                                .only(
-                                                                topLeft:
-                                                                Radius.circular(10),
-                                                                bottomLeft:
-                                                                Radius.circular(10))),
-                                                        child: Row(
-                                                          children: [
-                                                            SizedBox(
-                                                              width: Get.width * 0.025,
-                                                            ),
-                                                            Container(
-                                                                height: Get.height * 0.06,
-                                                                width: Get.width * 0.12,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        40)),
-                                                                child: outgoingMakerRequestController
-                                                                    .OutgoingMakerRequestValue
-                                                                    .value
-                                                                    .requests![index]!
-                                                                    .getanotherseeker!
-                                                                    .imgPath !=
-                                                                    null
-                                                                    ? CircleAvatar(
-                                                                    radius: 22,
-                                                                    backgroundImage: CachedNetworkImageProvider(
-                                                                        outgoingMakerRequestController
-                                                                            .OutgoingMakerRequestValue
-                                                                            .value
-                                                                            .requests![index]!
-                                                                            .getanotherseeker!
-                                                                            .imgPath
-                                                                            .toString()))
-                                                                    : CircleAvatar(
-                                                                  radius: 22,
-                                                                  backgroundImage:
-                                                                  NetworkImage(
-                                                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU",
-                                                                  ),
-                                                                  backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                                )
-                                                            ),
-                                                            SizedBox(
-                                                              width: Get.width * 0.025,
-                                                            ),
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment.start,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment.center,
-                                                              children: [
-                                                                Container(
-                                                                  width: Get.width * 0.15,
-                                                                  child: Text(
-                                                                    outgoingMakerRequestController
-                                                                        .OutgoingMakerRequestValue
-                                                                        .value
-                                                                        .requests![index]!
-                                                                        .getanotherseeker!
-                                                                        .name,
-                                                                    style: TextStyle(
-                                                                        color: Colors.black,
-                                                                        fontSize: 9,
-                                                                        fontWeight:
-                                                                        FontWeight.w600),
-                                                                    overflow: TextOverflow.ellipsis,
-
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'Match Seeker',
+                                                                      .requests![index]!
+                                                                      .getanotherseeker!
+                                                                      .name,
                                                                   style: TextStyle(
                                                                       color: Colors.black,
-                                                                      fontSize: 8,
+                                                                      fontSize: 9,
                                                                       fontWeight:
-                                                                      FontWeight.w300),
+                                                                      FontWeight.w600),
+                                                                  overflow: TextOverflow.ellipsis,
+
                                                                 ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              width: Get.width * 0.1,
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  requestid=null;
-                                                                });
-
-                                                                requestid =  outgoingMakerRequestController
-                                                                    .OutgoingMakerRequestValue
-                                                                    .value
-                                                                    .requests![index]!
-                                                                    .id.toString();
-                                                                print(requestid);
-
-                                                                if (requestid != null) {
-                                                                  print(requestid);
-                                                                  Get.to(MakerSingleRequstPage(title: 'Outgoing Request',));
-                                                                }
-                                                              },
-                                                              child: Text(
-                                                                'View',
-                                                                style: TextStyle(
-                                                                    decorationColor:
-                                                                    Color.fromRGBO(
-                                                                        254, 0, 145, 1),
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                                    fontSize: 9,
-                                                                    fontWeight:
-                                                                    FontWeight.w500,
-                                                                    color: Color.fromRGBO(
-                                                                        254, 0, 145, 1)),
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
+                                                              Text(
+                                                                'Match Seeker',
+                                                                style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontSize: 8,
+                                                                    fontWeight:
+                                                                    FontWeight.w300),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            width: Get.width * 0.1,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                requestid=null;
+                                                              });
+
+                                                              requestid =  outgoingMakerRequestController
+                                                                  .OutgoingMakerRequestValue
+                                                                  .value
+                                                                  .requests![index]!
+                                                                  .id.toString();
+                                                              print(requestid);
+
+                                                              if (requestid != null) {
+                                                                print(requestid);
+                                                                Get.to(MakerSingleRequstPage(title: 'Outgoing Request',));
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              'View',
+                                                              style: TextStyle(
+                                                                  decorationColor:
+                                                                  Color.fromRGBO(
+                                                                      254, 0, 145, 1),
+                                                                  decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                                  fontSize: 9,
+                                                                  fontWeight:
+                                                                  FontWeight.w500,
+                                                                  color: Color.fromRGBO(
+                                                                      254, 0, 145, 1)),
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                );
-                              }
+                                  ),
+                                ],
+                              );
+                            }
 
-                              })
+                            })
 
-                        ),
-                  ) 
+                      )
                           : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

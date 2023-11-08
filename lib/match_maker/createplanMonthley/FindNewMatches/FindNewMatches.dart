@@ -10,8 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../controllers/FindMatchesControlller/FindMatchesController.dart';
 import '../../../controllers/controller/DoMatchesController/DoMachesController.dart';
+import '../../../controllers/controller/OutgoingMakerRequestController/MakerSingleRequestController.dart';
 import '../../../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 import '../../../data/response/status.dart';
+import '../../../match_seeker/Requests/SeekeerIncominSingalRequestPage.dart';
 import '../../../res/components/general_exception.dart';
 import '../../../res/components/internet_exceptions_widget.dart';
 import '../../../utils/app_colors.dart';
@@ -34,14 +36,16 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
 
   final ViewSikerProfileDetailsController seekerViewMyProfileController =
   Get.put(ViewSikerProfileDetailsController());
+  final MakerSingleRequestController seekerOutgoingRequestSinglePageController = Get.put(MakerSingleRequestController());
+
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
 
     createNewMatchesController.CreateNewMatchesApi();
+     super.initState();
     seekerViewMyProfileController.ViewSikerProfileDetailsApiHit();
+
   }
 
   @override
@@ -1067,14 +1071,14 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
               children: [
                 Align(
                   alignment: Alignment.topRight,
-                  child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Image.asset(
-                        "assets/icons/cancel.png",
-                        height: MediaQuery.of(context).size.height * .03,
-                      )),
+                  // child: GestureDetector(
+                  //     onTap: () {
+                  //       Get.back();
+                  //     },
+                  //     child: Image.asset(
+                  //       "assets/icons/cancel.png",
+                  //       height: MediaQuery.of(context).size.height * .03,
+                  //     )),
                 ),
                 Image.asset(
                   'assets/maker/heart.png',
@@ -1176,6 +1180,8 @@ class _CreateNewMatchesState extends State<CreateNewMatches> {
                   width: MediaQuery.of(context).size.width * .63,
                   title: 'Back',
                   onTap: () {
+                    seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
+                    Get.back();
                     Get.back();
                     // Get.to(ChatPage());
                   },

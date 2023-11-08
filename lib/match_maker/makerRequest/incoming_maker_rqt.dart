@@ -173,6 +173,7 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                   .particularProfile!
                   .length !=
             0? ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
                                         scrollDirection: Axis.vertical,
                                         shrinkWrap: true,
                                         itemCount: requestMatchesController
@@ -542,6 +543,7 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                               child: ListView.builder(
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                       itemCount: requestMatchesController
                                           .IncomingMakerValue
                                           .value
