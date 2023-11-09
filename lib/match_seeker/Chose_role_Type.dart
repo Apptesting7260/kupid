@@ -196,6 +196,9 @@ Row(
                                 .copyWith(color: Color(0xff000CAA)),
                           ),
                           onTap: () {
+                            setState(() {
+                              selectedseekerid=null;
+                            });
                             Get.to(SeeAllMaker());
                           },
                         ),

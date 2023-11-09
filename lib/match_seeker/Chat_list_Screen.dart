@@ -176,14 +176,18 @@ getusers();
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  data['lastmsg'],
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall!
-                                                      .copyWith(color: Colors.grey),
+                                                Container(
+                                                  width:Get.width*0.3,
+                                                  child: Text(
+                                                    data['lastmsg'],
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(color: Colors.grey),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                 ),
-                                                 SizedBox(width:Get.width*0.3,),
+                                                 SizedBox(width:Get.width*0.09,),
                                                   if (data['timestamp'] != null)  Text(
                 formatTimestamp(data['timestamp']), // Format timestamp as needed
                 style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -216,12 +220,13 @@ getusers();
                             // seeker2=data['seeker_id2'];
                             chatname=data['roomname'];
                             chatimage1=data['seeker_inage1'];
-                            chatimage=data['seeker_inage2'];
+
                       
                         
                             exist();
                            if(makeride==true){
                               Makeridchat=data['maker_id'];
+                              chatimage=data['maker_image'];
                            }
                             anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
                             setState(() {

@@ -622,20 +622,24 @@ class _IncomingMakerRequestState extends State<IncomingMakerRequest> {
                                                          CrossAxisAlignment
                                                              .start,
                                                          children: [
-                                                           Text(
-                                                             requestMatchesController
-                                                                 .IncomingMakerValue
-                                                                 .value
-                                                                 .requests!
-                                                                 .randomProfile![
-                                                             index]
-                                                                 .getseeker!.name.toString(),
-                                                             style: TextStyle(
-                                                                 color: Colors.white,
-                                                                 fontSize: 12,
-                                                                 fontWeight:
-                                                                 FontWeight
-                                                                     .w600),
+                                                           Container(
+                                                             width: Get.width * 0.2,
+                                                             child: Text(
+                                                               requestMatchesController
+                                                                   .IncomingMakerValue
+                                                                   .value
+                                                                   .requests!
+                                                                   .randomProfile![
+                                                               index]
+                                                                   .getseeker!.name.toString(),
+                                                               style: TextStyle(
+                                                                   color: Colors.white,
+                                                                   fontSize: 12,
+                                                                   fontWeight:
+                                                                   FontWeight
+                                                                       .w600),
+                                                               overflow: TextOverflow.ellipsis,
+                                                             ),
                                                            ),
                                                            Text(
                                                              'Match Seeker',

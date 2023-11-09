@@ -1054,7 +1054,7 @@ requestid=seekerOutgoingRequestSinglePageController
           Timer(Duration(seconds: 4), () {
           setState(() {
             isLoding = false;
-            Get.back();
+
           });
           });
 
@@ -1063,6 +1063,7 @@ requestid=seekerOutgoingRequestSinglePageController
         Timer(Duration(seconds: 4), () {
         setState(() {
           if(seekerOutgoingRequestSinglePageController.rxRequestStatus.value==Status.COMPLETED){
+            seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
        isLoding = false;
           Get.back();
           }

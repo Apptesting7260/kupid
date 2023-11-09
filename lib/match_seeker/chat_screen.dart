@@ -805,9 +805,12 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                       if (snapshot.data!.docs[index]['type']
                                               .toString() ==
                                           "text")
-                                        Text(
-                                          breakMessage(message),
-                                          style: TextStyle(color: Colors.black),
+                                        Container(
+                            width: Get.width*0.5,
+                                          child: Text(
+                                            breakMessage(message),
+                                            style: TextStyle(color: Colors.black),
+                                          ),
                                         ),
                                       if (snapshot.data!.docs[index]['type']
                                               .toString() ==
