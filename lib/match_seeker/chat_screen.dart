@@ -806,7 +806,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                               .toString() ==
                                           "text")
                                         Container(
-                            width: Get.width*0.5,
+                            
                                           child: Text(
                                             breakMessage(message),
                                             style: TextStyle(color: Colors.black),

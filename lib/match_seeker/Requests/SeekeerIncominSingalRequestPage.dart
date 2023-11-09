@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cupid_match/GlobalVariable/GlobalVariable.dart';
 import 'package:cupid_match/controllers/RequestAcceptController/RequestAcceptController.dart';
+import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
 import 'package:cupid_match/match_seeker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ import '../../res/components/internet_exceptions_widget.dart';
 
 String? Requestmatchtype;
 
+
 class SeekerIncomingRequestSinglePage extends StatefulWidget {
   const SeekerIncomingRequestSinglePage({super.key});
 
@@ -32,6 +35,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
 final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
 bool isLoding=false;
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
@@ -956,20 +960,21 @@ onRefresh: ()async {
 
                         GestureDetector(
                           onTap: () {
-                            roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
+//                             roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString();
 
-                            chatimage=myUserUrl.imgPath.toString();
-                            chatname=myUserUrl.name.toString();
-                            setState(() {
-                              chatimage;
-                              chatname;
-                            });
+//                             chatimage=myUserUrl.imgPath.toString();
+//                             chatname=myUserUrl.name.toString();
+//                             setState(() {
+//                               chatimage;
+//                               chatname;
+//                             });
 
 
-if(roomid!=null){
-  print(roomid);
-  Get.to(ChatPage());
-}
+// if(roomid!=null){
+//   print(roomid);
+//   Get.to(ChatPage());
+// }
+getMessagesStream1() ;
 
                           },
                           child: Container(
@@ -1164,4 +1169,50 @@ void _showProgressDialog(BuildContext context) {
       );
     },
   );}
+
+
+   getMessagesStream1() async{
+        print("an vb ");
+    var data= await firestore
+        .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.value!
+                  .ProfileDetail!.id.toString()).doc(seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid.toString()).get();
+      var roomdetails=data.data()as Map<String,dynamic> ;
+
+      print (roomdetails);
+              roomid=roomdetails["roomid"];
+                          // userIdsiker=roomdetails["Requestid"];
+                          // makeridchat=roomdetails["maker_id"];
+                          // seeker1=roomdetails['seeker_id1'];
+                          // seeker2=roomdetails['seeker_id2'];
+                          // chatname=roomdetails['roomname'];
+                          // chatimage1=roomdetails['seeker_inage1'];
+                          // chatimage=roomdetails['seeker_inage2'];
+                          // makeridchatimage=roomdetails['maker_image'];
+                         
+                            //  myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
+                            requestid=roomdetails["Requestid"];
+                            // seeker1=data['seeker_id1'];
+                            // seeker2=data['seeker_id2'];
+                            chatname=roomdetails['roomname'];
+                            chatimage1=roomdetails['seeker_inage1'];
+
+                      
+                        
+                           
+                           if(seekerOutgoingRequestSinglePageController
+                        .ViewProfileDetail.value.data!.getmaker!=null){
+                              Makeridchat=roomdetails['maker_id'];
+                              chatimage=roomdetails['maker_image'];
+                           }
+                            anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
+                            
+       
+       setState(() {
+         
+       });
+                                 Get.to(ChatPage());
+
+
+
+  }
 }

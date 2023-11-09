@@ -2,6 +2,10 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
+import 'package:cupid_match/match_maker/chatScreenaMaker.dart';
+import 'package:cupid_match/match_maker/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,6 +34,8 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
   final MakerSingleRequestController seekerOutgoingRequestSinglePageController = Get.put(MakerSingleRequestController());
   final DoMatchesController doMatchesController = Get.put(DoMatchesController());
   bool isLoding=false;
+    final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
@@ -1037,17 +1043,18 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                              roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                  .value.data!.roomid.toString();
                              print(roomid);
-                             chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getanotherseeker!.imgPath.toString();
-                             chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getanotherseeker!.name.toString();
-                             chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getseeker!.imgPath.toString();
-                             chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getseeker!.name.toString();
+                            //  chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getanotherseeker!.imgPath.toString();
+                            //  chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getanotherseeker!.name.toString();
+                            //  chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getseeker!.imgPath.toString();
+                            //  chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getseeker!.name.toString();
 
 
                              // Get.to(MakerChatScreen());
+                             getMessagesStream1();
                            },
                          ):Text('pending',
                              style: TextStyle(
@@ -1252,20 +1259,24 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
                            onTap: (){
                              roomid=seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                  .value.data!.roomid.toString();
-                             roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.roomid.toString();
-                             print(roomid);
-                             chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getanotherseeker!.imgPath.toString();
-                             chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getanotherseeker!.name.toString();
-                             chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getseeker!.imgPath.toString();
-                             chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
-                                 .value.data!.getseeker!.name.toString();
+
+                              
+getMessagesStream1();
+                                 
+                            //  roomid =  seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.roomid.toString();
+                            //  print(roomid);
+                            //  chatimage=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getanotherseeker!.imgPath.toString();
+                            //  chatname=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getanotherseeker!.name.toString();
+                            //  chatimage1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getseeker!.imgPath.toString();
+                            //  chatname1=seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                            //      .value.data!.getseeker!.name.toString();
 
 
-                             // Get.to(MakerChatScreen());
+                       
                            },
                          ):Text('pending',
                              style: TextStyle(
@@ -1299,4 +1310,29 @@ class _MakerSingleRequstPageState extends State<MakerSingleRequstPage> {
         );
       },
     );}
+
+
+
+      getMessagesStream1() async{
+        print("an vb ");
+    var data= await firestore
+        .collection("m"+ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid).get();
+      var roomdetails=data.data()as Map<String,dynamic> ;
+              roomid=roomdetails["roomid"];
+                          userIdsiker=roomdetails["Requestid"];
+                          makeridchat=roomdetails["maker_id"];
+                          seeker1=roomdetails['seeker_id1'];
+                          seeker2=roomdetails['seeker_id2'];
+                          chatname=roomdetails['roomname'];
+                          chatimage1=roomdetails['seeker_inage1'];
+                          chatimage=roomdetails['seeker_inage2'];
+                          makeridchatimage=roomdetails['maker_image'];
+       
+       setState(() {
+         
+       });
+      Get.to(MakerChatScreen());
+
+
+  }
 }
