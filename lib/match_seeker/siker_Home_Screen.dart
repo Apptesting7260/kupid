@@ -68,7 +68,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
   @override
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
   void initState() {
+
     requestHomeController.homeRequest();
+    seekerMyProfileController.SeekerMyProfileDetailsApiHit();
+    recentSeekerMatchesController.isrecentSeekermatchesApi();
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0]);
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0].getseeker?.gender);
         getcurrentuser();

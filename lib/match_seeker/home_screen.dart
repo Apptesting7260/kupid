@@ -196,6 +196,9 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
                                 .copyWith(color: Color(0xff000CAA)),
                           ),
                           onTap: () {
+                            setState(() {
+                              selectedseekerid=null;
+                            });
                             Get.to(SeeAllMaker());
                           },
                         ),
