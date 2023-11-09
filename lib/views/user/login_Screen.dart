@@ -227,7 +227,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
               //         child: Image.asset("assets/icons/apple.png")),
               //   ],
               // ),
-              SizedBox(height: height * .08),
+              // SizedBox(height: height * .08),
               Center(
                 child: GestureDetector(
                   onTap: () {
