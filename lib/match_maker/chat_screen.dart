@@ -237,7 +237,7 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
         break;
       case "img":
         Map<String, dynamic>  messages = {
-          "sentby": makeridchat.toString(),
+          "sentby": "m"+makeridchat.toString(),
           "sendertype":"maker" ,
           "profileimage":makeridchatimage,
           "message": messagecontroller.text,
@@ -245,61 +245,66 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
           "type": "img",
           "time": FieldValue.serverTimestamp(),
         };
+ String textmsg= messagecontroller.text.toString();
+      setState(() {
+        textmsg;
+      });
+      messagecontroller.clear();
+        // DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
+        // DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
+        // DocumentReference roomRef3 = _firestore.collection(makeridchat.toString()).doc(roomid);
 
-        DocumentReference roomRef1 = _firestore.collection(seeker1.toString()).doc(roomid);
-        DocumentReference roomRef2 = _firestore.collection(seeker2.toString()).doc(roomid);
-        DocumentReference roomRef3 = _firestore.collection(makeridchat.toString()).doc(roomid);
 
+        // await roomRef1.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
 
-        await roomRef1.update({
-          'timestamp': FieldValue.serverTimestamp(),
+        //   // Add other room metadata if needed
+        // });
+        // await roomRef2.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
+        //   "lastmsg": "image",
+        //   // Add other room metadata if needed
+        // });
 
-          // Add other room metadata if needed
-        });
-        await roomRef2.update({
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "image",
-          // Add other room metadata if needed
-        });
+        // await roomRef3.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
+        //   "lastmsg": "image",
+        //   // Add other room metadata if needed
+        // });
 
-        await roomRef3.update({
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "image",
-          // Add other room metadata if needed
-        });
+        // messagecontroller.clear();
+        // await _firestore
+        //     .collection("m"+makeridchat.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // print("Enter Some Text");
+        // print(messages);
+        // await _firestore
+        //     .collection("s"+seeker1.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // await _firestore
+        //     .collection("s"+seeker2.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
 
-        messagecontroller.clear();
-        await _firestore
-            .collection("m"+makeridchat.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        print("Enter Some Text");
-        print(messages);
-        await _firestore
-            .collection("s"+seeker1.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        await _firestore
-            .collection("s"+seeker2.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
+        // print(messages);
 
-        print(messages);
-
-        setState(() {
-          messagetype = "text";
-          print(messagetype);
-        });
-        // Add your logic for handling image messages here
+        // setState(() {
+        //   messagetype = "text";
+        //   print(messagetype);
+        // });
+        // // Add your logic for handling image messages here
+ ChatFunctioninstance.Makersender(textmsg,makeridchat.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker1.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),messages);
         break;
       case "audio":
         Map<String, dynamic>  messages = {
-          "sentby": ViewMakerProfileDetailsControllerinstance
-              .ViewProfileDetail.value.ProfileDetail!.id
-              .toString(),
+          "sentby": "m"+makeridchat.toString(),
           "sendertype":"maker" ,
           "profileimage":ViewMakerProfileDetailsControllerinstance
               .ViewProfileDetail.value.ProfileDetail!.imgPath,
@@ -309,52 +314,59 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
           "type": "audio",
           "time": FieldValue.serverTimestamp(),
         };
+ String textmsg= messagecontroller.text.toString();
+      setState(() {
+        textmsg;
+      });
+      messagecontroller.clear();
+        // DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
+        // DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
+        // DocumentReference roomRef3 = _firestore.collection("m"+ViewMakerProfileDetailsControllerinstance
+        //     .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
 
-        DocumentReference roomRef1 = _firestore.collection("s"+seeker1.toString()).doc(roomid);
-        DocumentReference roomRef2 = _firestore.collection("s"+seeker2.toString()).doc(roomid);
-        DocumentReference roomRef3 = _firestore.collection("m"+ViewMakerProfileDetailsControllerinstance
-            .ViewProfileDetail.value.ProfileDetail!.id.toString()).doc(roomid);
 
+        // await roomRef1.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
+        //   "lastmsg": "audio",
 
-        await roomRef1.update({
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "audio",
+        //   // Add other room metadata if needed
+        // });
+        // await roomRef2.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
+        //   "lastmsg": "audio",
+        //   // Add other room metadata if needed
+        // });
 
-          // Add other room metadata if needed
-        });
-        await roomRef2.update({
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "audio",
-          // Add other room metadata if needed
-        });
+        // await roomRef3.update({
+        //   'timestamp': FieldValue.serverTimestamp(),
+        //   "lastmsg": "audio",
+        //   // Add other room metadata if needed
+        // });
 
-        await roomRef3.update({
-          'timestamp': FieldValue.serverTimestamp(),
-          "lastmsg": "audio",
-          // Add other room metadata if needed
-        });
+        // messagecontroller.clear();
+        // await _firestore
+        //     .collection(ViewMakerProfileDetailsControllerinstance
+        //     .ViewProfileDetail.value.ProfileDetail!.id.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // print("Enter Some Text");
+        // print(messages);
+        // await _firestore
+        //     .collection(seeker1.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
+        // await _firestore
+        //     .collection(seeker2.toString())
+        //     .doc(roomid)
+        //     .collection("massages")
+        //     .add(messages);
 
-        messagecontroller.clear();
-        await _firestore
-            .collection(ViewMakerProfileDetailsControllerinstance
-            .ViewProfileDetail.value.ProfileDetail!.id.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        print("Enter Some Text");
-        print(messages);
-        await _firestore
-            .collection(seeker1.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-        await _firestore
-            .collection(seeker2.toString())
-            .doc(roomid)
-            .collection("massages")
-            .add(messages);
-
-        print(messages);
+        // print(messages);
+        ChatFunctioninstance.Makersender(textmsg,makeridchat.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker1.toString(),roomid.toString(),messages);
+ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),messages);
 
         setState(() {
           messagetype = "text";
