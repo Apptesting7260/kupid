@@ -155,45 +155,52 @@ class _HomePageState extends State<HomePage> {
             'No request found' &&
             makerRequestController.makerHomePageValue.value.message ==
                 'No request found') {
-          return Column(
-            children: [
-              Align(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                      onTap: () {
-                        Get.to(Chose_Role_Type());
-                      },
-                      child: Image.asset('assets/images/match.png'))),
-              SizedBox(
-                height: Get.height * 0.05,
-              ),
-              Center(
-                child: Image.asset('assets/images/homeempty.png'),
-              ),
-              SizedBox(
-                height: Get.height * 0.04,
-              ),
-              Text(
-                "Outgoing Request",
-                style: Get.theme.textTheme.bodySmall,
-              ),
-              SizedBox(
-                height: Get.height * 0.01,
-              ),
-              Text(
-                "Find your perfect match",
-                style: Get.theme.textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColors.black),
-              ),
-              SizedBox(
-                height: Get.height * 0.04,
-              ),
-              MyButton(
-                  title: 'Find Match',
-                  onTap: () {
-                    Get.to(MatchScreen());
-                  })
-            ],
+          return RefreshIndicator(
+            onRefresh: () async{
+              makerRequestController.makerListApi();
+              recentMakerMatchesController.isrecentMakerMatchApi();
+              ViewMakerProfileDetailsControllerinstance.ViewMakerProfileDetailsApiHit();
+            },
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                        onTap: () {
+                          Get.to(Chose_Role_Type());
+                        },
+                        child: Image.asset('assets/images/match.png'))),
+                SizedBox(
+                  height: Get.height * 0.05,
+                ),
+                Center(
+                  child: Image.asset('assets/images/homeempty.png'),
+                ),
+                SizedBox(
+                  height: Get.height * 0.04,
+                ),
+                Text(
+                  "Outgoing Request",
+                  style: Get.theme.textTheme.bodySmall,
+                ),
+                SizedBox(
+                  height: Get.height * 0.01,
+                ),
+                Text(
+                  "Find your perfect match",
+                  style: Get.theme.textTheme.labelMedium!.copyWith(
+                      fontWeight: FontWeight.w600, color: AppColors.black),
+                ),
+                SizedBox(
+                  height: Get.height * 0.04,
+                ),
+                MyButton(
+                    title: 'Find Match',
+                    onTap: () {
+                      Get.to(MatchScreen());
+                    })
+              ],
+            ),
           );
         } else {
           return Column(

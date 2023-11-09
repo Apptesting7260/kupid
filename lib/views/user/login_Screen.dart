@@ -56,7 +56,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                 style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(
-                height: height * .01,
+                height: height * .05,
               ),
               Text(
                 "Welcome Back!",
@@ -65,7 +65,16 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                     .bodyMedium!
                     .copyWith(color: Colors.grey),
               ),
-              SizedBox(height: height * .04),
+              Container(
+                height: Get.height * 0.2,
+                width: Get.width * 0.5,
+                child: Image.asset(
+                  'assets/images/appicon.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+
+              SizedBox(height: height * .02),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
@@ -218,7 +227,7 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
               //         child: Image.asset("assets/icons/apple.png")),
               //   ],
               // ),
-              SizedBox(height: height * .18),
+              SizedBox(height: height * .08),
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -228,14 +237,14 @@ final UserLoginControllerinstance=Get.put(UserLoginController());
                     text: const TextSpan(
                         text: "Don\'t have an account yet?",
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.normal,
                             color: Colors.grey),
                         children: [
                           TextSpan(
                               text: " Sign Up",
                               style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                   color: Color(0xffFE0091))),
                         ]),

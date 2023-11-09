@@ -1002,101 +1002,108 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         // mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                            width: Get.width * 0.7,
-                            child: TextFormField(
-                              maxLength: 15,
-                              textAlignVertical: TextAlignVertical.center,
-      
-                              controller: SignUpControllerInstanse
-                                      .credentialsController.value.text
-                                      .contains("@")
-                                  ? UserEmailAndphone
-                                      .emailAndPhoneVerifyController.value
-                                  : SignUpControllerInstanse
-                                      .credentialsController.value,
-                              // SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false
-                              enabled: SignUpControllerInstanse
-                                      .credentialsController.value.text
-                                      .contains("@")
-                                  ? true
-                                  : false,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  counter: Offstage(),
-                                  prefixIcon: CountryListPick(
-                                    theme: CountryTheme(
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Container(
+                              width: Get.width * 0.7,
+
+                              child: TextFormField(
+                                maxLength: 15,
+                                textAlignVertical: TextAlignVertical.center,
+
+                                controller: SignUpControllerInstanse
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? UserEmailAndphone
+                                        .emailAndPhoneVerifyController.value
+                                    : SignUpControllerInstanse
+                                        .credentialsController.value,
+                                // SignUpControllerInstanse.credentialsController.value.text.contains("@")?true:false
+                                enabled: SignUpControllerInstanse
+                                        .credentialsController.value.text
+                                        .contains("@")
+                                    ? true
+                                    : false,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+
+                                    counter: Offstage(),
+                                    prefixIcon: CountryListPick(
+                                      theme: CountryTheme(
+                                        initialSelection: '+91',
+                                        isShowFlag: true,
+                                        isShowTitle: false,
+                                        isShowCode: true,
+                                        isDownIcon: true,
+                                        showEnglishName: true,
+
+                                        labelColor: Colors.blueAccent,
+                                      ),
                                       initialSelection: '+91',
-                                      isShowFlag: true,
-                                      isShowTitle: false,
-                                      isShowCode: true,
-                                      isDownIcon: true,
-                                      showEnglishName: true,
-                                      labelColor: Colors.blueAccent,
+                                      onChanged: (code) {},
                                     ),
-                                    initialSelection: '+91',
-                                    onChanged: (code) {},
-                                  ),
-                                  hintText: "Mobile number",
-      
-                                  // contentPadding: EdgeInsets.all(20),
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                          color: AppColors.subtitletextcolor),
-                                  border: InputBorder.none
-                                  //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                                  // focusedBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide: BorderSide(color: Colors.pinkAccent),
-                                  // ),
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide: BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // errorBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.red),
-                                  // ),
-                                  // disabledBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // focusedErrorBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.pink),
-                                  // ),
-                                  // border: OutlineInputBorder(
-                                  //     borderRadius: BorderRadius.circular(30),
-                                  //     borderSide: BorderSide(
-                                  //       color: Color(0xffBABABA),
-                                  //     )),
-      
-                                  ),
-      
-                              onFieldSubmitted: (value) {},
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  setState(() {
-                                    phoneContainerBorder = true;
-                                  });
-                                  return null;
-                                } else if (!RegExp(
-                                        r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
-                                    .hasMatch(value)) {
-                                  setState(() {
-                                    phoneContainerBorder = true;
-                                  });
-                                  setState(() {
-                                    phoneContainerBorder = false;
-                                  });
-                                  return null;
-                                }
-                              },
+                                    hintText: "Mobile number",
+
+
+                                    // contentPadding: EdgeInsets.all(20),
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                            color: AppColors.subtitletextcolor),
+                                    border: InputBorder.none
+                                    //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                                    // focusedBorder: OutlineInputBorder(
+                                    //   borderRadius: BorderRadius.circular(30),
+                                    //   borderSide: BorderSide(color: Colors.pinkAccent),
+                                    // ),
+                                    // enabledBorder: OutlineInputBorder(
+                                    //   borderRadius: BorderRadius.circular(30),
+                                    //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                    // ),
+                                    // errorBorder: OutlineInputBorder(
+                                    //   borderRadius:
+                                    //       BorderRadius.all(Radius.circular(35.0)),
+                                    //   borderSide: BorderSide(color: Colors.red),
+                                    // ),
+                                    // disabledBorder: OutlineInputBorder(
+                                    //   borderRadius:
+                                    //       BorderRadius.all(Radius.circular(35.0)),
+                                    //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                    // ),
+                                    // focusedErrorBorder: OutlineInputBorder(
+                                    //   borderRadius:
+                                    //       BorderRadius.all(Radius.circular(35.0)),
+                                    //   borderSide: BorderSide(color: Colors.pink),
+                                    // ),
+                                    // border: OutlineInputBorder(
+                                    //     borderRadius: BorderRadius.circular(30),
+                                    //     borderSide: BorderSide(
+                                    //       color: Color(0xffBABABA),
+                                    //     )),
+
+                                    ),
+
+                                onFieldSubmitted: (value) {},
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    setState(() {
+                                      phoneContainerBorder = true;
+                                    });
+                                    return null;
+                                  } else if (!RegExp(
+                                          r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                      .hasMatch(value)) {
+                                    setState(() {
+                                      phoneContainerBorder = true;
+                                    });
+                                    setState(() {
+                                      phoneContainerBorder = false;
+                                    });
+                                    return null;
+                                  }
+                                },
+                              ),
                             ),
                           ),
                           if (SignUpControllerInstanse

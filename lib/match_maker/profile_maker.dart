@@ -118,7 +118,9 @@ late VideoPlayerController _controller;
                     SizedBox(height: height * 0.01,),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                        child: Container(
+                          width: Get.width*.8,
+                            child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777))))),
                     SizedBox(height: height * 0.01,),
                     Align(
                         alignment: Alignment.center,
@@ -259,6 +261,7 @@ late VideoPlayerController _controller;
                               color: Color(0xffF3F3F3),
                               child: Column(
                                 children: [
+                                  SizedBox(height: Get.height*0.01,),
                                   CircleAvatar(
                                     backgroundColor:Color(0xff0000001A),
                                     radius: 17,

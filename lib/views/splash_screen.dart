@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../match_maker/match_maker_profile_update.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -39,7 +41,7 @@ usercheck()async{
    
         }
       }else{
-         Timer(Duration(seconds: 3), () {Get.off(SignUp()); });
+         Timer(Duration(seconds: 3), () {Get.off(LoginScreen()); });
       }
 }
   @override
