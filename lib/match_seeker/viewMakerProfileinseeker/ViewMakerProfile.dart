@@ -5,6 +5,7 @@ import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
+import 'package:cupid_match/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -76,7 +77,7 @@ class _ViewMakerProfileInSeekerState extends State<ViewMakerProfileInSeeker> {
             ],
           ),
           endDrawer: Drawer(
-            child: MakerDrawer()
+            child: MyDrawer()
           ),
           body: Obx(() {
             switch (ViewMakerProfileDetailsControllerinstance.rxRequestStatus.value) {

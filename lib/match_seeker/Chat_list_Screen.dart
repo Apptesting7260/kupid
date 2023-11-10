@@ -57,7 +57,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 getusers();
     // TODO: implement initState
     super.initState();
- 
+
   }
   @override
   Widget build(BuildContext context) {
@@ -99,6 +99,7 @@ getusers();
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
+
                                         Container(
                                           height: height * .33,
                                           width: width * .29,
@@ -122,11 +123,13 @@ getusers();
                                                 ),
                                               ),
                                               Container(
+
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   border:
                                                   Border.all(color: Colors.white, width: 2),
                                                 ),
+
                                                 child: CircleAvatar(
                                                   radius: 30.0,
                                                   backgroundImage: CachedNetworkImageProvider(
@@ -219,7 +222,7 @@ getusers();
                             // seeker1=data['seeker_id1'];
                             // seeker2=data['seeker_id2'];
                             chatname=data['roomname'];
-                            chatimage1=data['seeker_inage1'];
+                            chatimage1=data['seeker_inage2'];
 
                       
                         

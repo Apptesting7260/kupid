@@ -201,7 +201,32 @@ class _MakerProfileDetailsState extends State<MakerProfileDetails> {
         sourcePath: pickedImage.path,
         aspectRatio: const CropAspectRatio(
             ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
-        compressQuality: 70, // Adjust compression quality as needed
+        compressQuality: 50, // Adjust compression quality as needed
+
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
       );
 
       setState(() {

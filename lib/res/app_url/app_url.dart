@@ -67,4 +67,5 @@ class AppUrl {
   static const String createNewMatchesApi  = '$baseUrl/maker/random-request-profiles-scroll';
   static const String RequestAcceptApi  = '$baseUrl/seeker/seeker-accept-incoming-request';
   static const String SeekerToMakerRequest  = '$baseUrl/seeker/request-seeker-to-maker';
+  static const String MakerGetDetails  = '$baseUrl/maker/maker-view-my-profile';
 }

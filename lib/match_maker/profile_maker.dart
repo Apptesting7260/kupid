@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupid_match/controllers/controller/ViewMakerProfileDetailsController/ViewMakerProfileDetailscontroller.dart';
 import 'package:cupid_match/controllers/controller/ViewProfileDetailsController/ViewProfileDetailsController.dart';
 import 'package:cupid_match/data/response/status.dart';
@@ -5,9 +6,13 @@ import 'package:cupid_match/res/components/general_exception.dart';
 import 'package:cupid_match/res/components/internet_exceptions_widget.dart';
 import 'package:cupid_match/utils/app_colors.dart';
 import 'package:cupid_match/widgets/MakerDrawer.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
+
+import '../controllers/MakerGetMyProfileDetails/MakerGetProfileDetailsController.dart';
+import '../models/ViewMakerProfileDetailsModel/ViewMakerProfileDetailsModel.dart';
 
 class ViewProfileDetailsMaker extends StatefulWidget {
   const ViewProfileDetailsMaker({Key? key}) : super(key: key);
@@ -18,7 +23,7 @@ class ViewProfileDetailsMaker extends StatefulWidget {
 
 class _ViewProfileDetailsMakerState extends State<ViewProfileDetailsMaker> {
 
-  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerMyProfileDetailsController());
   var ListItem = [
     {"Name": "Matches Made","Age": "26","Image": "assets/maker/img_2.png"},
     {"Name": "Matches Sucessfull","Age": "26","Image": "assets/maker/img_3.png"},
@@ -114,17 +119,17 @@ late VideoPlayerController _controller;
                     SizedBox( height: height *0.09,),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
+                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.name.toString(),style: Theme.of(context).textTheme.displayMedium,)),
                     SizedBox(height: height * 0.01,),
                     Align(
                         alignment: Alignment.center,
                         child: Container(
-                          width: Get.width*.8,
-                            child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777))))),
+                          width: Get.width,
+                            child: Center(child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.location.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))))),
                     SizedBox(height: height * 0.01,),
                     Align(
                         alignment: Alignment.center,
-                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
+                        child: Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.gender.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xff777777)))),
                     SizedBox(height: height * 0.1,),
 
                     Padding(
@@ -136,7 +141,7 @@ late VideoPlayerController _controller;
                     ),
                     Padding(padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                       child:  Text(
-                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.email.toString(),
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.email.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                       ),
                     ),
@@ -151,7 +156,7 @@ late VideoPlayerController _controller;
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.02),
                       child: Text(
-                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.phone.toString(),
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.phone.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                       ),
                     ),
@@ -273,7 +278,7 @@ late VideoPlayerController _controller;
                                   ),
                                   SizedBox(height: height * 0.01,),
                                   Text(ListItem[index]['Name'] ??"Name",style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Color(0xff777777),fontSize: 4),),
-                                  Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.matchMade.toString(),style: Theme.of(context).textTheme.titleLarge,),
+                                  Text(ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.status.toString(),style: Theme.of(context).textTheme.titleLarge,),
                                 ],
                               ),
                             );
@@ -290,7 +295,7 @@ late VideoPlayerController _controller;
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                       child: Text(
-                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.aboutMaker.toString(),
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.aboutMaker.toString(),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.subtitletextcolor),
                       ),
                     ),
@@ -305,7 +310,7 @@ late VideoPlayerController _controller;
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height * 0.01),
                       child: Text(
-                      ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.expectation.toString(),
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.expectation.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.subtitletextcolor,
                         ),
@@ -322,7 +327,7 @@ late VideoPlayerController _controller;
                     Padding(
                       padding:  EdgeInsets.symmetric(horizontal: width  *0.04,vertical: height  *0.01),
                       child: Text(
-                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.headingOfMaker.toString(),
+                        ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.headingOfMaker.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.subtitletextcolor),
                       ),
                     ),
@@ -330,19 +335,31 @@ late VideoPlayerController _controller;
                   ],
                 ),
                 Positioned(
-                  left: 135,
+                  left: 150,
                   top:  height * 0.03,
                   child: Container(
                     height: height * 0.14,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    child: CircleAvatar(
-                      radius: 50,
+                    child: GestureDetector(
                       child: CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString(),),
+                        radius: 50,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: NetworkImage( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!.imgPath.toString(),),
+                        ),
                       ),
+                      onTap: () {
+                        showImageViewer(
+                            context,
+                            CachedNetworkImageProvider( ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value!.requests!
+                                .imgPath
+                                .toString())
+                            ,
+                            swipeDismissible: true,
+                            doubleTapZoomable: true);
+                      },
                     ),
                   ),
                 ),

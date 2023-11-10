@@ -37,7 +37,6 @@ class _IncomingRequestsState extends State<IncomingRequests> {
   void initState() {
     IncomingRequestControllerins.seekerIncomingGoingRequest();
     // print(IncomingRequestControllerins.IncomingRequestvalue.value.requests!.byMaker![0].getmaker);
-    // TODO: implement initState
     super.initState();
   }
 
@@ -45,7 +44,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async{
-        IncomingRequestControllerins.seekerIncomingGoingRequest();
+        IncomingRequestControllerins.refreshApi();
       },
       child: SafeArea(
         child: Scaffold(
@@ -571,8 +570,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                    style: TextStyle(
                                                                        color: Colors
                                                                            .black,
-                                                                       fontSize:
-                                                                       9,
+                                                                       fontSize: 12,
                                                                        fontWeight:
                                                                        FontWeight
                                                                            .w600),
@@ -793,6 +791,7 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                 .toString(),
                                                             overflow: TextOverflow.ellipsis,
                                                             style: TextStyle(
+
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight

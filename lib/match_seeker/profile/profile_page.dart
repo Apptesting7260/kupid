@@ -321,6 +321,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   SizedBox(height: height * .02),
                                   ListView.builder(
                                     shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
                                     itemCount:  seekerMyProfileDetailsController
                                                   .SeekerMyProfileDetail
                                                   .value.ProfileDetail!
@@ -465,6 +466,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Container(
                                       child: GridView.builder(
                                         shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 4,

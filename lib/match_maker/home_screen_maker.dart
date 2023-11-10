@@ -25,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
 import '../GlobalVariable/GlobalVariable.dart';
+import '../controllers/MakerGetMyProfileDetails/MakerGetProfileDetailsController.dart';
 import '../controllers/MakerHomePageController/MakerHomePageController.dart';
 import '../controllers/controller/IncomingMakerRequestController/incoming_maker_request_ controller.dart';
 import '../controllers/controller/MakerRecentMatchesController/maker_recent_matches_controller.dart';
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   //
   MakerHomePageRequestController makerRequestController =
       Get.put(MakerHomePageRequestController());
-  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+  final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerMyProfileDetailsController());
 
 
   @override

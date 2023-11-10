@@ -661,8 +661,12 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
+
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+         toolbarHeight: Get.height*0.1,
+
+
         actions: [
           Container(
             child: Image.asset("assets/icons/menuu.png"),
@@ -679,13 +683,15 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
           ),
         ),
         title: Container(
+
           child: Row(
             children: [
-              SizedBox(width: width * .02),
+
+              SizedBox(width: width * .02,height: Get.height*0.1,),
               CircleAvatar(
                 radius: 30.0,
-                backgroundImage: NetworkImage(
-                    chatimage.toString()),
+                backgroundImage: CachedNetworkImageProvider(
+                    chatimage1.toString()),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(width: width * .03),
@@ -695,7 +701,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                 children: [
                   Container(
                     width: Get.width*0.3
-                    
+
               ,
                     child: Text(
                      chatname.toString(),
@@ -806,11 +812,14 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                               .toString() ==
                                           "text")
                                         Container(
-                            
+
+
                                           child: Text(
                                             breakMessage(message),
                                             style: TextStyle(color: Colors.black),
+                                            softWrap: true,
                                           ),
+
                                         ),
                                       if (snapshot.data!.docs[index]['type']
                                               .toString() ==
@@ -1225,13 +1234,32 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
 
 
   String breakMessage(String message) {
-    List<String> words = message.split(' ');
-    List<String> lines = [];
-    for (int i = 0; i < words.length; i += 9) {
-      lines.add(words.skip(i).take(9).join(' '));
+
+
+    var words = message.length; // Count of characters in the string
+    var lines = ""; // Variable to store the characters in separate lines
+
+    for (int i = 0; i < words; i++) {
+      // Concatenating characters to create separate lines
+      if (lines.length == 10) {
+        lines += '\n';
+        print(lines);// Add a line break for each non-space character
+      }
+
+        lines += message[i];
+        print(lines);
+
     }
-    return lines.join('\n');
+    // List<String> words = message.split(' ');
+    // var wordLenght=words.where((word) => word.isNotEmpty).length;
+    // List<String> lines = [];
+    // for (int i = 0; i < wordLenght; i += 5) {
+    //   lines.add(words.skip(i).take(9).join(' '));
+    // }
+    return lines;
   }
+
+
 
 
 

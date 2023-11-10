@@ -18,6 +18,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../GlobalVariable/nullFunction.dart';
+import '../controllers/MakerGetMyProfileDetails/MakerGetProfileDetailsController.dart';
 import '../views/splash_screen.dart';
 
 class MakerDrawer extends StatefulWidget {
@@ -28,7 +29,7 @@ class MakerDrawer extends StatefulWidget {
 }
 
 class _MakerDrawerState extends State<MakerDrawer> {
-final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerProfileDetailsController());
+final ViewMakerProfileDetailsControllerinstance=Get.put(ViewMakerMyProfileDetailsController());
 
   @override
   void initState() {
@@ -77,14 +78,14 @@ final box = GetStorage();
                       leading: CircleAvatar(
                         radius: 30.0,
                         backgroundImage: NetworkImage(
-                          ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.imgPath.toString()),
+                          ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.requests!.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
 
                       title: Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
-                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.ProfileDetail!.name.toString(),
+                       ViewMakerProfileDetailsControllerinstance.ViewProfileDetail.value.requests!.name.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .titleSmall

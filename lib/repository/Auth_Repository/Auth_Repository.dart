@@ -40,6 +40,7 @@ import '../../models/ForgotPasswordModel/ForgotPasswordModel.dart';
 import '../../models/ForgotPasswordResetModel/ForgotPasswordResetModel.dart';
 import '../../models/IncomingMakerRequestModel/incoming_maker_request_model.dart';
 import '../../models/MakerHomePage/MakerHomePageModel.dart';
+import '../../models/MakerMyProfileDetailModel/GetMyPrpfileDetailsModel.dart';
 import '../../models/MakerProfileModel/MakerProfileModel.dart';
 import '../../models/MakerRecentMatchesModel/maker_recent_matches_model.dart';
 import '../../models/MakerSinglepageRequestModel/MakerSingleRequestModel.dart';
@@ -241,6 +242,13 @@ class AuthRepository {
     // print(response);
     print(response);
     return IncomingSeekerRequestModel.fromJson(response);
+  }//***************** IncomingRequestApi  *********************
+  Future<MakerMyprofileDetailsModel> getMakerProfileDetails() async {
+    print("IncomingRequestApdsgfdhsgfdsjhdsjfhdsji");
+    dynamic response = await _apiService.getApi2(AppUrl.MakerGetDetails);
+    // print(response);
+    print(response);
+    return MakerMyprofileDetailsModel.fromJson(response);
   }
 
 ////////***************RequestDetails***************************** */

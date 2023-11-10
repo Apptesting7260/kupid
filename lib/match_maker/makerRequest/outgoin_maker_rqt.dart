@@ -802,30 +802,30 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return RefreshIndicator(
-      onRefresh: ()async {
-        outgoingMakerRequestController.isOutgoingMakerRequestApi();
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 27,
-                  color: Color(0xff5A5A5A),
-                )),
-            title: Text(
-              "Outgoing Requests",
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+    return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                size: 27,
+                color: Color(0xff5A5A5A),
+              )),
+          title: Text(
+            "Outgoing Requests",
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
           ),
-          body: SingleChildScrollView(
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async{
+            outgoingMakerRequestController.isOutgoingMakerRequestApi();
+          },
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
@@ -1404,7 +1404,7 @@ class _OutgoingMakerRequestState extends State<OutgoingMakerRequest> {
                 }),
               ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
