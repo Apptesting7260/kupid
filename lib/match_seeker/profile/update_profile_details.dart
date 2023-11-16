@@ -774,7 +774,7 @@ class _SikerProfileDetailsState extends State<SikerProfileDetails> {
         
                                    if(UserEmailAndphone
                                         .emailAndPhoneVerifyController.value.text.isNotEmpty){
-         UserEmailAndphone
+                                                    UserEmailAndphone
                                           .PhoneAndEmailVerifiyed();
                                                  showAlert();
                                         }  

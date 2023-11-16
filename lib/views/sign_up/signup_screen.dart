@@ -19,7 +19,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
 @override
   void initState() {
-  _checkStoragePermission();
+  // _checkStoragePermission();
     
     // TODO: implement initState
     super.initState();
@@ -126,33 +126,33 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-_checkStoragePermission() async {
-  PermissionStatus status;
-  if (Platform.isAndroid) {
-    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    final AndroidDeviceInfo info = await deviceInfoPlugin.androidInfo;
-    if ((info.version.sdkInt) >= 33) {
-      status = await Permission.manageExternalStorage.request();
-    } else {
-      status = await Permission.storage.request();
-    }
-  } else {
-    status = await Permission.storage.request();
-  }
-
-  switch (status) {
-    case PermissionStatus.denied:
-      return false;
-    case PermissionStatus.granted:
-      return true;
-    case PermissionStatus.restricted:
-      return false;
-    case PermissionStatus.limited:
-      return true;
-    case PermissionStatus.permanentlyDenied:
-      return false;
-    case PermissionStatus.provisional:
-      // TODO: Handle this case.
-  }
-}
+// _checkStoragePermission() async {
+//   PermissionStatus status;
+//   if (Platform.isAndroid) {
+//     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+//     final AndroidDeviceInfo info = await deviceInfoPlugin.androidInfo;
+//     if ((info.version.sdkInt) >= 33) {
+//       status = await Permission.manageExternalStorage.request();
+//     } else {
+//       status = await Permission.storage.request();
+//     }
+//   } else {
+//     status = await Permission.storage.request();
+//   }
+//
+//   switch (status) {
+//     case PermissionStatus.denied:
+//       return false;
+//     case PermissionStatus.granted:
+//       return true;
+//     case PermissionStatus.restricted:
+//       return false;
+//     case PermissionStatus.limited:
+//       return true;
+//     case PermissionStatus.permanentlyDenied:
+//       return false;
+//     case PermissionStatus.provisional:
+//       // TODO: Handle this case.
+//   }
+// }
 }

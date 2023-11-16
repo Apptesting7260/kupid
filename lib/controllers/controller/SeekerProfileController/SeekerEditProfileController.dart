@@ -10,10 +10,12 @@ import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/views/user/otp.dart';
 import 'package:cupid_match/views/user/reset_password.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../GlobalVariable/GlobalVariable.dart';
+import '../../../data/response/status.dart';
 import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../match_seeker/photos.dart';
@@ -26,10 +28,17 @@ var response;
 
 class SeekerEditProfileController extends GetxController {
   final SignUpControllerinstance = Get.put(SignUpController());
+  final rxRequestStatus = Status.COMPLETED.obs;
 
   final _api = AuthRepository();
   SeekerMyProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(SeekerMyProfileDetailsController());
-
+  final phone_verify = 0.obs;
+  final email_verify = 0.obs;
+  RxBool verified = false.obs;
+  RxBool optsent = false.obs;
+  RxBool ciculerEdicator = false.obs;
+  RxBool phone_verified = false.obs;
+  RxBool resendOtp = false.obs;
   RxBool loading = false.obs;
   final NameController = TextEditingController().obs;
   final EmailController = TextEditingController().obs;
@@ -45,6 +54,7 @@ class SeekerEditProfileController extends GetxController {
   final ThirdanswerController = TextEditingController().obs;
   final CorrectanswerController = TextEditingController().obs;
   final SalaryController = TextEditingController().obs;
+  final otpController = TextEditingController().obs;
   // RxString selectLocalGender="".obs;
   // ViewSikerProfileDetailsControllerinstance.ViewProfileDetail
 
@@ -174,5 +184,144 @@ class SeekerEditProfileController extends GetxController {
       print(response);
       print('Error occurred while uploading file: $e');
     }
+  }
+
+
+
+  Future<void> PhoneAndEmailVerifiyed() async {
+    rxRequestStatus(Status.LOADING);
+
+    Map data = {};
+    if (EmailController.value.text.isNotEmpty) {
+      data = {
+        'email': EmailController.value.text,
+        'update_type': "email",
+        "type": ProfileType.toString(),
+        'phone': SignUpControllerinstance.credentialsController.value.text,
+      };
+    } else {
+      data = {
+        'phone': PhoneController.value.text,
+        'update_type': "phone",
+        "type": ProfileType.toString(),
+        'email': SignUpControllerinstance.credentialsController.value.text,
+      };
+    }
+    final prefs = await SharedPreferences.getInstance();
+
+    // _api.UserPhoneAndNumberVerfyApi(data).then((value) => null)
+    print(data);
+
+    _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
+      resendOtp.value=true;
+
+
+      optsent.value = true;
+      rxRequestStatus(Status.COMPLETED);
+
+      // ViewProfileDetails(value);
+      print("======================================================$value");
+      print(value.otp);
+
+
+      //
+      // Get.snackbar(
+      //   "Message",
+      //   "Otp Sent",
+      //   backgroundColor: Color(0xffFE008F),);
+
+    }).onError((error, stackTrace) {
+      rxRequestStatus(Status.COMPLETED);
+      print("${error.toString()}===============+++=");
+      rxRequestStatus(Status.ERROR);
+    });
+  }
+
+
+
+
+
+
+  Future<void> PhoneAndEmaiOtpVerifyed(BuildContext context) async {
+    // rxRequestStatus(Status.LOADING);
+    loading.value=true;
+    ciculerEdicator.value=true;
+    Map data = {};
+    if (EmailController.value.text.isNotEmpty) {
+      data = {
+        'email': EmailController.value.text,
+        'otp': otpController.value.text,
+        'email_otp_verified_status': "1",
+        'update_type': "email_otp_verification",
+        "type": ProfileType.toString()
+      };
+    } else {
+      data = {
+        'update_type': "phone_otp_verification",
+        'phone': PhoneController.value.text,
+        'otp': otpController.value.text,
+        'phone_otp_verification_status': "1",
+        "type": ProfileType.toString()
+      };
+    }
+    print("==========$data");
+
+    final prefs = await SharedPreferences.getInstance();
+    loading.value = true;
+    print(otpController.value.text);
+
+    // _api.UserPhoneAndNumberVerfyApi(data).then((value) => null)
+
+    otpController.value.clear();
+    _api.UserPhoneAndNumberVerfyApi(data).then((value) async {
+      // rxRequestStatus(Status.COMPLETED);
+
+      ciculerEdicator.value=false;
+
+      // ViewProfileDetails(value);
+      verified.value = true;
+      loading.value=false;
+      print("======================================================$value");
+      print(value.msg);
+
+      print(
+          "hit request  maker side hyfr jfjd api 5678900bbuhc 8u0u00-09-9-9-09-9-9-09-9jkcniuicjzijnnzijxn");
+      loading.value = false;
+      print("==========$data");
+
+      Get.back();
+      // Get.snackbar(
+      //     "Message",
+      //     "Varify Successfully",
+      //     backgroundColor: Color(0xffFE008F),);
+      print("fjksdfn");
+    }).onError((error, stackTrace) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(child: Text(error.toString())),
+          action: SnackBarAction(
+            label: '',
+            onPressed: () {
+              // Handle the action when the button in the SnackBar is pressed.
+            },
+          ),
+        ),
+      );
+
+
+      print("==========$data");
+      otpController.value.clear();
+      loading.value = false;
+      print("${error.toString()}===============+++=");
+      //      rxRequestStatus(Status.COMPLETED);
+      // rxRequestStatus(Status.ERROR);
+      ciculerEdicator.value=false;
+
+      // Get.snackbar(
+      //   "Message",
+      //   error.toString(),
+      //   backgroundColor: Color(0xffFE008F),
+      // );
+    });
   }
 }

@@ -29,12 +29,13 @@ class SignUpController extends GetxController {
     };
     print(data);
     _api.SignUpApi(data).then((value){
-      loading.value = false ;
+
 print(value);
 
       // Utils.snackBar( "Message",value.msg.toString());
 if(value.msg=="User Already Exist"){
 showAlertDialog(value.msg.toString(),context);
+loading.value = false ;
 }
    Timer(Duration(seconds: 2),(){
    if(value.msg!="User Already Exist") {
@@ -46,6 +47,7 @@ Get.to(() => PinFields(
        formKey: Key(" "),
 
      ));
+    loading.value = false ;
    } 
    }) ;
     }).onError((error, stackTrace){

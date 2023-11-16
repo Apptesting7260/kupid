@@ -1,6 +1,7 @@
 import 'package:cupid_match/views/sign_up/choose_profile.dart';
 import 'package:cupid_match/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/controller/CreatePasswordController/CreatePasswordController.dart';
@@ -51,6 +52,9 @@ class _CreatePasswordState extends State<CreatePassword> {
                         .copyWith(color: Colors.grey)),
                 SizedBox(height: height * .06),
                 TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s')), // Deny spaces
+                  ],
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !_passwordVisible,
                   keyboardType: TextInputType.emailAddress,
@@ -122,6 +126,9 @@ class _CreatePasswordState extends State<CreatePassword> {
                   height: height * .02,
                 ),
                 TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s')), // Deny spaces
+                  ],
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: !_passwordVisiblee,
                   keyboardType: TextInputType.emailAddress,
