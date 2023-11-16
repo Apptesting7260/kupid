@@ -17,6 +17,7 @@ import '../../../GlobalVariable/GlobalVariable.dart';
 import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../match_seeker/photos.dart';
+import '../../SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../SetRoleController/SetRoleController.dart';
 import '../ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 
@@ -27,7 +28,7 @@ class SeekerEditProfileController extends GetxController {
   final SignUpControllerinstance = Get.put(SignUpController());
 
   final _api = AuthRepository();
-  ViewSikerProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(ViewSikerProfileDetailsController());
+  SeekerMyProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(SeekerMyProfileDetailsController());
 
   RxBool loading = false.obs;
   final NameController = TextEditingController().obs;
@@ -35,7 +36,7 @@ class SeekerEditProfileController extends GetxController {
   final PhoneController = TextEditingController().obs;
   final TypeController = TextEditingController().obs;
   final OccupationController = TextEditingController().obs;
-  final AddressController = TextEditingController().obs;
+  final locationcntroller = TextEditingController().obs;
   final HeightController = TextEditingController().obs;
   final InchesController = TextEditingController().obs;
   final QuestionController = TextEditingController().obs;
@@ -44,7 +45,26 @@ class SeekerEditProfileController extends GetxController {
   final ThirdanswerController = TextEditingController().obs;
   final CorrectanswerController = TextEditingController().obs;
   final SalaryController = TextEditingController().obs;
+  // RxString selectLocalGender="".obs;
   // ViewSikerProfileDetailsControllerinstance.ViewProfileDetail
+
+   setDataInControoler() {
+    // ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetailsApiHit();
+    NameController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.name.toString();
+    EmailController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.email.toString();
+    PhoneController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.phone.toString();
+    Ocupasion=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.occupation.toString();
+    HeightController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!. height.toString();
+    SalaryController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.salary.toString();
+    locationcntroller.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.address.toString();
+    SikerReligon=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.religion.toString();
+    datestring=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.dob.toString();
+    selectGender=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.gender.toString();
+    // QuestionController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.gender.toString();
+    print("hhhbhbjhjjjjjjhjbjhbj  seeker data update controller  ");
+    print(ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.name.toString());
+
+  }
   Future<void> SeekerProfileApiHit() async {
     final sp = await SharedPreferences.getInstance();
     UserEmailAndPhoneVerifyController
@@ -144,7 +164,7 @@ class SeekerEditProfileController extends GetxController {
 
         CorrectanswerController.value.clear();
         QuestionController.value.clear();
-        AddressController.value.clear();
+        locationcntroller.value.clear();
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
         loading.value = false;

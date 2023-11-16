@@ -29,6 +29,7 @@ class _ChooseProfileState extends State<ChooseProfile> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        toolbarHeight: Get.height*0.12,
         title: Text(
           "Choose your profile",
           style: Theme.of(context).textTheme.titleLarge,

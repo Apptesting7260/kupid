@@ -700,6 +700,7 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
+            toolbarHeight: Get.height*0.1,
             actions: [
               Container(
                 child: Image.asset("assets/icons/menuu.png"),
@@ -718,7 +719,7 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
             title: Container(
               child: Row(
                 children: [
-                  SizedBox(width: width * .04),
+                  SizedBox(width: width * .01,height: Get.height*0.1,),
                   Container(width: width * .15,child: Stack(
                     children: [
                       chatimage1 !=
@@ -760,14 +761,19 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
                       ),
                     ],
                   ),),
-                  SizedBox(width: width * .01),
+                  SizedBox(width: width * .02),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "$chatname",
-                        style: Theme.of(context).textTheme.titleSmall,
+                      Container(
+                  width: width * .3,
+                        child: Text(
+                          "$chatname",
+                          style: Theme.of(context).textTheme.titleSmall,
+                          softWrap: true,
+                          maxLines: 2,
+                        ),
                       ),
                       SizedBox(
                         height: height * .01,
@@ -1318,12 +1324,34 @@ ChatFunctioninstance.Seekersender(textmsg,seeker2.toString(),roomid.toString(),m
 
 
   String breakMessage(String message) {
-    List<String> words = message.split(' ');
-    List<String> lines = [];
-    for (int i = 0; i < words.length; i += 9) {
-      lines.add(words.skip(i).take(9).join(' '));
+
+
+
+
+    var words = message.length; // Count of characters in the string
+    var lines = "";
+    var linesBreak="";// Variable to store the characters in separate lines
+
+    for (int i = 0; i < words; i++) {
+      // Concatenating characters to create separate lines
+      if (linesBreak.length == 30) {
+        linesBreak="";
+        lines += '\n';
+        print(lines);// Add a line break for each non-space character
+      }
+
+      lines += message[i];
+      linesBreak += message[i];
+      print(lines);
+
     }
-    return lines.join('\n');
+    // List<String> words = message.split(' ');
+    // List<String> lines = [];
+    // for (int i = 0; i < words.length; i += 9) {
+    //   lines.add(words.skip(i).take(9).join(' '));
+    // }
+    // return lines.join('\n');
+    return lines;
   }
 
 

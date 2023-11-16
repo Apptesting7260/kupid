@@ -42,7 +42,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
     return formatter.format(dateTime);
   }
 
- getusers() {
+ getusers(){
       var name;
  name=firestore
         .collection("s"+seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString())
@@ -72,187 +72,194 @@ getusers();
         ),
         centerTitle: true,
       ),
-      body:StreamBuilder(
-          stream: getMessagesStream(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.active) {
-              
-              return snapshot.data!.docs.isEmpty == false
-                  ?
-                   ListView.builder(
-                      itemCount: snapshot.data?.docs.length,
-                      itemBuilder: (context, index) {
-                        
-                        var data = snapshot.data?.docs[index];
-                        // .snapshots();
+      body:RefreshIndicator(
+        onRefresh: ()async {
+          getusers();
+        },
+        child: StreamBuilder(
+            stream: getMessagesStream(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
 
-                        return                        InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Container(
-                                height: height *0.1,
-                                color: Colors.amber[50],
-                                width: Get.width,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
+                return snapshot.data!.docs.isEmpty == false
+                    ?
+                     ListView.builder(
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
 
-                                        Container(
-                                          height: height * .33,
-                                          width: width * .29,
-                                          child: Stack(
-                                            children: [
-                                              Positioned(
-                                                right: 30,
-                                                child: CircleAvatar(
-                                                  radius: 30.0,
-                                                  backgroundImage: CachedNetworkImageProvider(
-                                                      // seekerChatListController
-                                                      //     .seekerChatListValue
-                                                      //     .value
-                                                      //     .chat![
-                                                      // index]
-                                                      //     .seekerwithImg!
-                                                      //     .toString()), 
-                                                  data!['seeker_inage1']
+                          var data = snapshot.data?.docs[index];
+                          // .snapshots();
+
+                          return                        InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Container(
+
+                                  height: height *0.1,
+
+                                  color: Colors.amber[50],
+                                  width: Get.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+
+                                          Container(
+                                            height: height * .33,
+                                            width: width * .29,
+                                            child: Stack(
+                                              children: [
+                                                Positioned(
+                                                  right: 30,
+                                                  child: CircleAvatar(
+                                                    radius: 30.0,
+                                                    backgroundImage: CachedNetworkImageProvider(
+                                                        // seekerChatListController
+                                                        //     .seekerChatListValue
+                                                        //     .value
+                                                        //     .chat![
+                                                        // index]
+                                                        //     .seekerwithImg!
+                                                        //     .toString()),
+                                                    data!['seeker_inage1']
+                                                    ),
+                                                    backgroundColor: Colors.transparent,
                                                   ),
-                                                  backgroundColor: Colors.transparent,
                                                 ),
+                                                Container(
+
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border:
+                                                    Border.all(color: Colors.white, width: 2),
+                                                  ),
+
+                                                  child: CircleAvatar(
+                                                    radius: 30.0,
+                                                    backgroundImage: CachedNetworkImageProvider(
+                                                        // seekerChatListController
+                                                        //     .seekerChatListValue
+                                                        //     .value
+                                                        //     .chat![
+                                                        // index]
+                                                        //     .seekerfromImg!
+                                                        //     .toString()
+
+                                                         data['seeker_inage2']     ),
+                                                    backgroundColor: Colors.transparent,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Column(
+                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: height * .01,
                                               ),
-                                              Container(
+                                              Text(
+                                      //  "data",
+                                                data['roomname'],
+                                                // (seekerChatListController
+                                                //     .seekerChatListValue
+                                                //     .value
+                                                //     .chat![index]
+                                                //     .seekerfromName!
+                                                //     .toString())+ " & "
+                                                //     +
+                                                //     (seekerChatListController
+                                                //         .seekerChatListValue
+                                                //         .value
+                                                //         .chat![index]
+                                                //         .seekerwithName!
+                                                //         .toString()),
+                                                style: TextStyle(overflow: TextOverflow.ellipsis,color: Colors.black ,fontWeight: FontWeight.bold),
+                                              ),
 
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border:
-                                                  Border.all(color: Colors.white, width: 2),
-                                                ),
+                                              SizedBox(
+                                                height: height * .01,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width:Get.width*0.3,
+                                                    child: Text(
+                                                      data['lastmsg'],
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(color: Colors.grey),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                   SizedBox(width:Get.width*0.09,),
+                                                    if (data['timestamp'] != null)  Text(
+                  formatTimestamp(data['timestamp']), // Format timestamp as needed
+                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                ),
+                                        //           Text(
+                                        //  "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toString()))}"
 
-                                                child: CircleAvatar(
-                                                  radius: 30.0,
-                                                  backgroundImage: CachedNetworkImageProvider(
-                                                      // seekerChatListController
-                                                      //     .seekerChatListValue
-                                                      //     .value
-                                                      //     .chat![
-                                                      // index]
-                                                      //     .seekerfromImg!
-                                                      //     .toString()
-                                                        
-                                                       data['seeker_inage2']     ),
-                                                  backgroundColor: Colors.transparent,
-                                                ),
+                                        //    ,
+                                        //     style: Theme.of(context)
+                                        //         .textTheme
+                                        //         .bodySmall!
+                                        //         .copyWith(color: Colors.grey),
+                                        //   )
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Column(
-                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: height * .01,
-                                            ),
-                                            Text(
-                                    //  "data",
-                                              data['roomname'],
-                                              // (seekerChatListController
-                                              //     .seekerChatListValue
-                                              //     .value
-                                              //     .chat![index]
-                                              //     .seekerfromName!
-                                              //     .toString())+ " & "
-                                              //     +
-                                              //     (seekerChatListController
-                                              //         .seekerChatListValue
-                                              //         .value
-                                              //         .chat![index]
-                                              //         .seekerwithName!
-                                              //         .toString()),
-                                              style: TextStyle(overflow: TextOverflow.ellipsis,color: Colors.black ,fontWeight: FontWeight.bold),
-                                            ),
-                                          
-                                            SizedBox(
-                                              height: height * .01,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width:Get.width*0.3,
-                                                  child: Text(
-                                                    data['lastmsg'],
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall!
-                                                        .copyWith(color: Colors.grey),
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                 SizedBox(width:Get.width*0.09,),
-                                                  if (data['timestamp'] != null)  Text(
-                formatTimestamp(data['timestamp']), // Format timestamp as needed
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-                                      //           Text(
-                                      //  "${DateFormat('h:mm a').format(DateTime.parse(data['timestamp'].toString()))}"
-                                     
-                                      //    ,
-                                      //     style: Theme.of(context)
-                                      //         .textTheme
-                                      //         .bodySmall!
-                                      //         .copyWith(color: Colors.grey),
-                                      //   )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      
-                                        
-                                      ],
-                                    ),
+
+
+                                        ],
+                                      ),
+                                ),
                               ),
                             ),
-                          ),
-                          onTap: (){
-                             roomid=data["roomid"];
-                             myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
-                            requestid=data["Requestid"];
-                            // seeker1=data['seeker_id1'];
-                            // seeker2=data['seeker_id2'];
-                            chatname=data['roomname'];
-                            chatimage1=data['seeker_inage2'];
+                            onTap: (){
+                               roomid=data["roomid"];
+                               myid=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString();
+                              requestid=data["Requestid"];
+                              // seeker1=data['seeker_id1'];
+                              // seeker2=data['seeker_id2'];
+                              chatname=data['roomname'];
+                              chatimage1=data['seeker_inage2'];
 
-                      
-                        
-                            exist();
-                           if(makeride==true){
-                              Makeridchat=data['maker_id'];
-                              chatimage=data['maker_image'];
-                           }
-                            anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
-                            setState(() {
-                              roomid;
-                              userIdsiker;
-                              userIdsiker;
-                              // seeker1;
-                              // seeker2;
-                              anotherchatuser;
-                              chatname;
-                              Makeridchat;
-                            });
-                            print(roomid);
-                            if(roomid!="null"){
-                              Get.to(ChatPage());
-                            }
-                          },
-                        );
-             } ):Container(child: Center(child: Text("No Chat List Available",style: TextStyle(color: Colors.black),)),);
-          }else{
+
+
+                              exist();
+                             if(makeride==true){
+                                Makeridchat=data['maker_id'];
+                                chatimage=data['maker_image'];
+                             }
+                              anotherchatuser=seekerMyProfileController.SeekerMyProfileDetail.value.ProfileDetail!.id.toString()==data["seeker_id1"]?data["seeker_id2"]:data["seeker_id1"];
+                              setState(() {
+                                roomid;
+                                userIdsiker;
+                                userIdsiker;
+                                // seeker1;
+                                // seeker2;
+                                anotherchatuser;
+                                chatname;
+                                Makeridchat;
+                              });
+                              print(roomid);
+                              if(roomid!="null"){
+                                Get.to(ChatPage());
+                              }
+                            },
+                          );
+               } ):Container(child: Center(child: Text("No Chat List Available",style: TextStyle(color: Colors.black),)),);
+            }else{
 return Container( child: Center(child: Text("No Chat List Available",style: TextStyle(color: Colors.black),)),);
-          }
-  })
+            }
+  }),
+      )
   );}
                   
               

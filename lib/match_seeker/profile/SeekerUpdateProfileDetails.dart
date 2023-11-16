@@ -23,14 +23,19 @@ import 'package:intl/intl.dart';
 import 'package:image/image.dart' as imgLib;
 import 'package:new_pinput/new_pinput.dart';
 import 'package:video_player/video_player.dart';
+import '../../controllers/SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
 import '../../controllers/UserNumberAndNuberverfyController.dart';
 import '../../controllers/controller/GetAllOcupationsController/GetAllOcupations.dart';
 import '../../controllers/controller/MakerProfileController/MakerProfileController.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerEditProfileController.dart';
 import '../../controllers/controller/SeekerProfileController/SeekerProfileController.dart';
 import '../../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import '../../controllers/sikerProfileController/EditViewsikeerDetailsController.dart';
+import '../../data/response/status.dart';
 import '../../match_maker/match_maker_profile_update.dart';
 import '../../models/GoogleLocationModel/GoogleLocationModel.dart';
+import '../../res/components/general_exception.dart';
+import '../../res/components/internet_exceptions_widget.dart';
 
 class SikerUpdateProfileDetails extends StatefulWidget {
   const SikerUpdateProfileDetails({Key? key}) : super(key: key);
@@ -59,10 +64,12 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final locationcntroller = TextEditingController();
+
 
   final SeekerProfileControllerInstanse = Get.put(SeekerEditProfileController());
-  ViewSikerProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(ViewSikerProfileDetailsController());
+  SeekerMyProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(SeekerMyProfileDetailsController());
+  SeekerEditViewDeatailsController ViewSikerProfileDetailsControllerinstances = Get.put(SeekerEditViewDeatailsController());
+
 
   final GetAllOcupationsControllerInstanse =
   Get.put(GetAllOcupationsController());
@@ -240,7 +247,9 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
   bool phoneContainerBorder = false;
   @override
   void initState() {
-    ViewSikerProfileDetailsControllerinstance.ViewSikerProfileDetailsApiHit();
+    SeekerProfileControllerInstanse.setDataInControoler();
+    ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetailsApiHit();
+    ViewSikerProfileDetailsControllerinstances.ViewSikerProfileDetailsApiHit();
     GetAllOcupationsControllerInstanse.GetAllOcupationsListApiHit();
     UserEmailAndphone.verified.value = false;
     super.initState();
@@ -281,1595 +290,1687 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
           ),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ListView(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  // Center(
-                  //   child: SizedBox(
-                  //     height: height * .4,
-                  //     width: width * .3,
-                  //     child: CircleAvatar(
-                  //       radius: 30.0,
-                  //        backgroundImage: NetworkImage(
-                  //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
-                  //       backgroundColor: Colors.transparent,
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // Positioned(
-                  //     top: 50,
-                  //     left: 55,
-                  //     right: 0,
-                  //     child: GestureDetector(
-                  //         onTap: () {
-                  //           showOptionsDialog(context);
-                  //         },
-                  //         child: Image.asset("assets/icons/cameraa.png")))
+        body: Obx(() {
+          switch (ViewSikerProfileDetailsControllerinstance.rxRequestStatus.value) {
+            case Status.LOADING:
+              return const Center(child: CircularProgressIndicator());
+            case Status.ERROR:
+              if (ViewSikerProfileDetailsControllerinstance.error.value ==
+                  'No internet') {
+                return InterNetExceptionWidget(
+                  onPress: () {},
+                );
+              } else {
+                return GeneralExceptionWidget(onPress: () {});
+              }
+            case Status.COMPLETED:
+              return Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: ListView(
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        // Center(
+                        //   child: SizedBox(
+                        //     height: height * .4,
+                        //     width: width * .3,
+                        //     child: CircleAvatar(
+                        //       radius: 30.0,
+                        //        backgroundImage: NetworkImage(
+                        //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2av8pAdOHJdgpwkYC5go5OE07n8-tZzTgwg&usqp=CAU"),
+                        //       backgroundColor: Colors.transparent,
+                        //     ),
+                        //   ),
+                        // ),
+                        //
+                        // Positioned(
+                        //     top: 50,
+                        //     left: 55,
+                        //     right: 0,
+                        //     child: GestureDetector(
+                        //         onTap: () {
+                        //           showOptionsDialog(context);
+                        //         },
+                        //         child: Image.asset("assets/icons/cameraa.png")))
 
-                  Center(
-                    child: SizedBox(
-                      height: height * .14,
-                      width: width * .30,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        fit: StackFit.expand,
-                        children: [
-                          CircleAvatar(
-                            child: ClipOval(
-                                child: imgFile == null
-                                    ? Image.network(
-                                  'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
-                                  height: 200,
-                                  width: 200,
-                                  fit: BoxFit.cover,
-                                )
-                                    : Image.file(
-                                  imgFile!,
-                                  height: height,
-                                  width: width,
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          Positioned(
-                              top: 60,
-                              left: 65,
-                              right: 0,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    showOptionsDialog(context);
-                                  },
-                                  child:
-                                  Image.asset("assets/icons/cameraa.png")))
-                          // Positioned(
-                          //   bottom: 0,
-                          //   right: -8,
-                          //   child:
-                          //   Container(
-                          //     height: height*0.06,
-                          //     width: width*.12,
-                          //     decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //             color: AppColors.white),
-                          //         borderRadius: BorderRadius.circular(50),
-                          //         color: Color(0xff777777)
-                          //     ),
-                          //     child: IconButton(
-                          //       onPressed: (){
-                          //         showOptionsDialog(context);
-                          //       },
-                          //       icon: Icon(
-                          //         Icons.camera_alt,
-                          //         color: Colors.white,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              //*************************  video uploaded comment **********
-
-
-              // SeekerProfileControllerInstanse.NameController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].name ,
-              // SeekerProfileControllerInstanse.SalaryController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].salary,
-              //
-              // SeekerProfileControllerInstanse.HeightController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].height,
-              SizedBox(
-                height: height * .05,
-              ),
-              //
-              // Center(
-              //   child: Container(
-              //     height: height * .075,
-              //     width: width * .7,
-              //     decoration: BoxDecoration(
-              //         color: Color(0xffF3F3F3),
-              //         borderRadius: BorderRadius.circular(35)),
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(12.0),
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //         videoFile == null ?  Text(
-              //             "Uplod Video",
-              //             style: Theme.of(context)
-              //                 .textTheme
-              //                 .bodyMedium!
-              //                 .copyWith(color: Colors.grey),
-              //           ) : Row(
-              //             children: [
-              //               Text(
-              //                 "Video Uploaded",
-              //                 style: Theme.of(context)
-              //                     .textTheme
-              //                     .bodyMedium!
-              //                     .copyWith(color: Colors.grey),
-              //                 ),
-              //               Icon(Icons.check_circle,size: 15,color:Colors.green,)
-              //             ],
-              //           ),
-              //         videoFile == null ?  InkWell(
-              //             child: Container(
-              //               height: height * .1,
-              //               width: width * .1,
-              //               decoration: BoxDecoration(
-              //                 shape: BoxShape.circle,
-              //                 color: Colors.grey.shade300,
-              //               ),
-              //               child: Image.asset("assets/icons/vedio.png",color: Colors.pink,),
-              //               alignment: Alignment.center,
-              //             ),
-              //             onTap: () {
-              //               pickVideo();
-              //             },
-              //           ):InkWell(
-              //           child: Container(
-              //             height: height * .1,
-              //             width: width * .1,
-              //             decoration: BoxDecoration(
-              //               shape: BoxShape.circle,
-              //               color: Colors.grey.shade300,
-              //             ),
-              //             child: Icon(Icons.cancel,color:Colors.red,),
-              //             alignment: Alignment.center,
-              //           ),
-              //           onTap: () {
-              //
-              //             setState(() {
-              //               videoFile=null;
-              //             });
-              //           },
-              //         ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: height * .04),
-                      Text(
-                        "Name",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: SeekerProfileControllerInstanse
-                            .NameController.value,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Enter your name';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffFE0091))),
-                            hintStyle: TextStyle(
-                                fontSize: 16, color: Color(0xffBABABA)),
-                            contentPadding: EdgeInsets.all(18),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffBABABA))),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffBABABA))),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(35.0)),
-                              borderSide: BorderSide(color: Color(0xffBABABA)),
-                            ),
-                            hintText: "Enter name",
-                            filled: true,
-                            fillColor: Colors.white),
-                      ),
-                      SizedBox(height: height * .03),
-
-                      Text(
-                        "Phone Number",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      // TextFormField(
-                      //   keyboardType: TextInputType.number,
-                      //   controller: SeekerProfileControllerInstanse.PhoneController.value,
-                      //   validator: (value) {
-                      //     if (value!.isEmpty) {
-                      //       return "Please Enter Phone Number";
-                      //     } else {
-                      //       return null;
-                      //     }
-                      //   },
-                      //   decoration: InputDecoration(
-                      //       focusedBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffFE0091))),
-                      //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
-                      //       contentPadding: EdgeInsets.all(18),
-                      //       enabledBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffBABABA))),
-                      //       errorBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffBABABA))),
-                      //       focusedErrorBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //         borderSide: BorderSide(color: Color(0xffBABABA)),
-                      //       ),
-                      //       suffix: Text(
-                      //         "verify",
-                      //         style: Theme.of(context)
-                      //             .textTheme
-                      //             .bodySmall!
-                      //             .copyWith(color: Color(0xffFE0091)),
-                      //       ),
-                      //       hintText: "Phone Number",
-                      //       filled: true,
-                      //       fillColor: Colors.white),
-                      // ),
-                      Container(
-                        width: Get.width,
-                        height: Get.height * 0.07,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                                color: phoneContainerBorder == false
-                                    ? Colors.grey
-                                    : Colors.pinkAccent)
-                          // border: Border.all(color: Colors.grey)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                          children: [
-                            Container(
-                              width: Get.width * 0.7,
-                              child: TextFormField(
-                                maxLength: 15,
-                                controller: SignUpControllerinstance
-                                    .credentialsController.value.text
-                                    .contains("@")
-                                    ? UserEmailAndphone
-                                    .emailAndPhoneVerifyController.value
-                                    : SignUpControllerinstance
-                                    .credentialsController.value,
-                                enabled: true,
-                                keyboardType: TextInputType.number,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  counter: Offstage(),
-                                  prefixIcon: CountryListPick(
-                                    theme: CountryTheme(
-                                      initialSelection: '+91',
-                                      isShowFlag: true,
-                                      isShowTitle: false,
-                                      isShowCode: true,
-                                      isDownIcon: true,
-                                      showEnglishName: true,
-                                      labelColor: Colors.blueAccent,
-                                    ),
-                                    initialSelection: '+91',
-                                    onChanged: (code) {},
-                                  ),
-                                  hintText: "Mobile number",
-
-                                  // contentPadding: EdgeInsets.all(20),
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      color: AppColors.subtitletextcolor),
-                                  //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                                  // focusedBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide:
-                                  //       BorderSide(color: Colors.pinkAccent),
-                                  // ),
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide:
-                                  //       BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // errorBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.red),
-                                  // ),
-                                  // disabledBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide:
-                                  //       BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // focusedErrorBorder: OutlineInputBorder(
-                                  //   borderRadius:
-                                  //       BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.pink),
-                                  // ),
-                                  // border: OutlineInputBorder(
-                                  //     borderRadius: BorderRadius.circular(30),
-                                  //     borderSide: BorderSide(
-                                  //       color: Color(0xffBABABA),
-                                  //     )),
+                        Center(
+                          child: SizedBox(
+                            height: height * .14,
+                            width: width * .30,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              fit: StackFit.expand,
+                              children: [
+                                CircleAvatar(
+                                  child: ClipOval(
+                                      child: imgFile == null
+                                          ? Image.network(
+                                        'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
+                                        height: 200,
+                                        width: 200,
+                                        fit: BoxFit.cover,
+                                      )
+                                          : Image.file(
+                                        imgFile!,
+                                        height: height,
+                                        width: width,
+                                        fit: BoxFit.cover,
+                                      )),
                                 ),
-                                onFieldSubmitted: (value) {},
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    setState(() {
-                                      phoneContainerBorder = true;
-                                    });
-                                    return null;
-                                  } else if (!RegExp(
-                                      r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
-                                      .hasMatch(value)) {
-                                    setState(() {
-                                      phoneContainerBorder = true;
-                                    });
-                                    return null;
-                                  }
-                                },
-                              ),
-                            ),
-
-                              InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: UserEmailAndphone.verified.value ==
-                                      false
-                                      ? InkWell(
-                                    child: Text(
-                                      "Verify",
-                                      style: TextStyle(
-                                          color: Colors.pinkAccent,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    onTap: () {
-                                      UserEmailAndphone
-                                          .PhoneAndEmailVerifiyed();
-                                      if (UserEmailAndphone
-                                          .optsent.value ==
-                                          true) {
-                                        showAlert();
-                                      }
-                                    },
-                                  )
-                                      : Text(
-                                    "Verifyed",
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                      if(phoneContainerBorder)Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Phone Number cannot be empty!",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(height: height * .03),
-                      Text(
-                        "Email Id",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      Container(
-                        width: Get.width,
-                        height: Get.height * 0.07,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                                color: containerBoeder == false
-                                    ? Colors.grey
-                                    : Colors.pinkAccent)
-                          // border: Border.all(color: Colors.grey)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Container(
-                            //    width: Get.width*0.7,
-                            //   child: TextFormField(),),
-                            Container(
-                              width: Get.width * 0.7,
-                              child: TextFormField(
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: SignUpControllerinstance
-                                    .credentialsController.value.text
-                                    .contains("@")
-                                    ? SignUpControllerinstance
-                                    .credentialsController.value
-                                    : UserEmailAndphone
-                                    .emailAndPhoneVerifyController.value,
-                                enabled: true,
-                                decoration: InputDecoration(
-                                  hintText: "example@gmail.com",
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(20),
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      color: AppColors.subtitletextcolor),
-                                  //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
-                                  // focusedBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide: BorderSide(color: Colors.pinkAccent),
-                                  // ),
-                                  // enabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30),
-                                  //   borderSide: BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // errorBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.red),
-                                  // ),
-                                  // disabledBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Color(0xffBABABA)),
-                                  // ),
-                                  // focusedErrorBorder: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                                  //   borderSide: BorderSide(color: Colors.pink),
-                                  // ),
-                                  // border: OutlineInputBorder(
-                                  //     borderRadius: BorderRadius.circular(30),
-                                  //     borderSide: BorderSide(
-                                  //       color: Color(0xffBABABA),
-                                  //     )),
-                                ),
-                                onFieldSubmitted: (value) {},
-                                validator: (value) {
-                                  if (value!.isEmpty ||
-                                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                          .hasMatch(value)) {
-                                    setState(() {
-                                      containerBoeder = true;
-                                    });
-                                    return null;
-                                  }
-                                  setState(() {
-                                    containerBoeder = false;
-                                  });
-                                  return null;
-                                },
-                              ),
-                            ),
-
-
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: InkWell(
-                                    child: UserEmailAndphone.verified.value ==
-                                        false
-                                        ? InkWell(
+                                Positioned(
+                                    top: 60,
+                                    left: 65,
+                                    right: 0,
+                                    child: GestureDetector(
                                         onTap: () {
-                                          UserEmailAndphone
-                                              .PhoneAndEmailVerifiyed();
-                                          Timer(Duration(seconds: 3), () {
-                                            setState(() {
-                                              UserEmailAndphone.optsent;
-                                            });
-                                            if (UserEmailAndphone
-                                                .optsent.value ==
-                                                true) {
-                                              showAlert();
-                                            }
-                                          });
+                                          showOptionsDialog(context);
                                         },
+                                        child:
+                                        Image.asset(
+                                            "assets/icons/cameraa.png")))
+                                // Positioned(
+                                //   bottom: 0,
+                                //   right: -8,
+                                //   child:
+                                //   Container(
+                                //     height: height*0.06,
+                                //     width: width*.12,
+                                //     decoration: BoxDecoration(
+                                //         border: Border.all(
+                                //             color: AppColors.white),
+                                //         borderRadius: BorderRadius.circular(50),
+                                //         color: Color(0xff777777)
+                                //     ),
+                                //     child: IconButton(
+                                //       onPressed: (){
+                                //         showOptionsDialog(context);
+                                //       },
+                                //       icon: Icon(
+                                //         Icons.camera_alt,
+                                //         color: Colors.white,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    //*************************  video uploaded comment **********
+
+
+                    // SeekerProfileControllerInstanse.NameController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].name ,
+                    // SeekerProfileControllerInstanse.SalaryController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].salary,
+                    //
+                    // SeekerProfileControllerInstanse.HeightController.value.text= ViewSikerProfileDetailsControllerinstance.ViewProfileDetail.value.profileDetails![0].height,
+                    SizedBox(
+                      height: height * .05,
+                    ),
+                    //
+                    // Center(
+                    //   child: Container(
+                    //     height: height * .075,
+                    //     width: width * .7,
+                    //     decoration: BoxDecoration(
+                    //         color: Color(0xffF3F3F3),
+                    //         borderRadius: BorderRadius.circular(35)),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(12.0),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //         videoFile == null ?  Text(
+                    //             "Uplod Video",
+                    //             style: Theme.of(context)
+                    //                 .textTheme
+                    //                 .bodyMedium!
+                    //                 .copyWith(color: Colors.grey),
+                    //           ) : Row(
+                    //             children: [
+                    //               Text(
+                    //                 "Video Uploaded",
+                    //                 style: Theme.of(context)
+                    //                     .textTheme
+                    //                     .bodyMedium!
+                    //                     .copyWith(color: Colors.grey),
+                    //                 ),
+                    //               Icon(Icons.check_circle,size: 15,color:Colors.green,)
+                    //             ],
+                    //           ),
+                    //         videoFile == null ?  InkWell(
+                    //             child: Container(
+                    //               height: height * .1,
+                    //               width: width * .1,
+                    //               decoration: BoxDecoration(
+                    //                 shape: BoxShape.circle,
+                    //                 color: Colors.grey.shade300,
+                    //               ),
+                    //               child: Image.asset("assets/icons/vedio.png",color: Colors.pink,),
+                    //               alignment: Alignment.center,
+                    //             ),
+                    //             onTap: () {
+                    //               pickVideo();
+                    //             },
+                    //           ):InkWell(
+                    //           child: Container(
+                    //             height: height * .1,
+                    //             width: width * .1,
+                    //             decoration: BoxDecoration(
+                    //               shape: BoxShape.circle,
+                    //               color: Colors.grey.shade300,
+                    //             ),
+                    //             child: Icon(Icons.cancel,color:Colors.red,),
+                    //             alignment: Alignment.center,
+                    //           ),
+                    //           onTap: () {
+                    //
+                    //             setState(() {
+                    //               videoFile=null;
+                    //             });
+                    //           },
+                    //         ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: height * .04),
+                            Text(
+                              "Name",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              controller: SeekerProfileControllerInstanse
+                                  .NameController.value,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Enter your name';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffFE0091))),
+                                  hintStyle: TextStyle(
+                                      fontSize: 16, color: Color(0xffBABABA)),
+                                  contentPadding: EdgeInsets.all(18),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBABABA))),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBABABA))),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(35.0)),
+                                    borderSide: BorderSide(
+                                        color: Color(0xffBABABA)),
+                                  ),
+                                  hintText: "Enter name",
+                                  filled: true,
+                                  fillColor: Colors.white),
+                            ),
+                            SizedBox(height: height * .03),
+
+                            Text(
+                              "Phone Number",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            // TextFormField(
+                            //   keyboardType: TextInputType.number,
+                            //   controller: SeekerProfileControllerInstanse.PhoneController.value,
+                            //   validator: (value) {
+                            //     if (value!.isEmpty) {
+                            //       return "Please Enter Phone Number";
+                            //     } else {
+                            //       return null;
+                            //     }
+                            //   },
+                            //   decoration: InputDecoration(
+                            //       focusedBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffFE0091))),
+                            //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+                            //       contentPadding: EdgeInsets.all(18),
+                            //       enabledBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+                            //       errorBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+                            //       focusedErrorBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //         borderSide: BorderSide(color: Color(0xffBABABA)),
+                            //       ),
+                            //       suffix: Text(
+                            //         "verify",
+                            //         style: Theme.of(context)
+                            //             .textTheme
+                            //             .bodySmall!
+                            //             .copyWith(color: Color(0xffFE0091)),
+                            //       ),
+                            //       hintText: "Phone Number",
+                            //       filled: true,
+                            //       fillColor: Colors.white),
+                            // ),
+                            Container(
+                              width: Get.width,
+                              height: Get.height * 0.07,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                      color: phoneContainerBorder == false
+                                          ? Colors.grey
+                                          : Colors.pinkAccent)
+                                // border: Border.all(color: Colors.grey)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+
+                                children: [
+                                  Container(
+                                    width: Get.width * 0.7,
+                                    child: TextFormField(
+                                      maxLength: 15,
+                                      controller:SeekerProfileControllerInstanse
+                                          .PhoneController.value ,
+                                      enabled: true,
+                                      keyboardType: TextInputType.number,
+                                      textAlignVertical: TextAlignVertical
+                                          .center,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        counter: Offstage(),
+                                        prefixIcon: CountryListPick(
+                                          theme: CountryTheme(
+                                            initialSelection: '+91',
+                                            isShowFlag: true,
+                                            isShowTitle: false,
+                                            isShowCode: true,
+                                            isDownIcon: true,
+                                            showEnglishName: true,
+                                            labelColor: Colors.blueAccent,
+                                          ),
+                                          initialSelection: '+91',
+                                          onChanged: (code) {},
+                                        ),
+                                        hintText: "Mobile number",
+
+                                        // contentPadding: EdgeInsets.all(20),
+                                        hintStyle: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                            color: AppColors.subtitletextcolor),
+                                        //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                                        // focusedBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.circular(30),
+                                        //   borderSide:
+                                        //       BorderSide(color: Colors.pinkAccent),
+                                        // ),
+                                        // enabledBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.circular(30),
+                                        //   borderSide:
+                                        //       BorderSide(color: Color(0xffBABABA)),
+                                        // ),
+                                        // errorBorder: OutlineInputBorder(
+                                        //   borderRadius:
+                                        //       BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide: BorderSide(color: Colors.red),
+                                        // ),
+                                        // disabledBorder: OutlineInputBorder(
+                                        //   borderRadius:
+                                        //       BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide:
+                                        //       BorderSide(color: Color(0xffBABABA)),
+                                        // ),
+                                        // focusedErrorBorder: OutlineInputBorder(
+                                        //   borderRadius:
+                                        //       BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide: BorderSide(color: Colors.pink),
+                                        // ),
+                                        // border: OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(30),
+                                        //     borderSide: BorderSide(
+                                        //       color: Color(0xffBABABA),
+                                        //     )),
+                                      ),
+                                      onFieldSubmitted: (value) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          setState(() {
+                                            phoneContainerBorder = true;
+                                          });
+                                          return null;
+                                        } else if (!RegExp(
+                                            r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$')
+                                            .hasMatch(value)) {
+                                          setState(() {
+                                            phoneContainerBorder = true;
+                                          });
+                                          return null;
+                                        }
+                                      },
+                                    ),
+                                  ),
+
+                                  InkWell(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 15),
+                                      child: UserEmailAndphone.verified.value ==
+                                          false
+                                          ? InkWell(
                                         child: Text(
                                           "Verify",
                                           style: TextStyle(
                                               color: Colors.pinkAccent,
                                               fontWeight: FontWeight.bold),
-                                        ))
-                                        : Padding(
-                                      padding:
-                                      const EdgeInsets.only(right: 10),
-                                      child: Text(
-                                        "Verifyed",
+                                        ),
+                                        onTap: () {
+                                          UserEmailAndphone
+                                              .PhoneAndEmailVerifiyed();
+                                          if (UserEmailAndphone
+                                              .optsent.value ==
+                                              true) {
+                                            showAlert();
+                                          }
+                                        },
+                                      )
+                                          : Text(
+                                        "Verified",
                                         style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                    )
-                                  //                       onTap: (){
-                                  //  UserEmailAndphone. PhoneAndEmailVerifiyed();
-                                  //                         if(UserEmailAndphone.otpsent.value==true){
-                                  //        showAlert();
-                                  //                         }
-
-                                  //                       },
-                                ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                          ],
-                        ),
-                      ),
-                      if (containerBoeder == true)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Email cannot be empty!",
-                              style: TextStyle(color: Colors.red),
                             ),
-                          ],
-                        ),
-                      SizedBox(height: height * .01),
-                      Text(
-                        "Occupation",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
+                            if(phoneContainerBorder)Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Phone Number cannot be empty!",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
 
-                      if (GetAllOcupationsControllerInstanse
-                          .Ocupations.isNotEmpty)
-                        Focus(
-                          focusNode: _dropdownFocus3,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton2<String>(
-                              isExpanded: true,
-                              hint: Text(
-                                "Select Occupation",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                              items: GetAllOcupationsControllerInstanse
-                                  .Ocupations.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              value: dropdownvalue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  dropdownvalue = value!;
-                                  Ocupasion = dropdownvalue;
-                                  print(Ocupasion);
-                                });
-                              },
-                              buttonStyleData: ButtonStyleData(
-                                height: Get.height * 0.07,
-                                padding:
-                                const EdgeInsets.only(left: 14, right: 14),
-                                decoration: BoxDecoration(
+                            SizedBox(height: height * .03),
+                            Text(
+                              "Email Id",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            Container(
+                              width: Get.width,
+                              height: Get.height * 0.07,
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   border: Border.all(
-                                    color: _isDropdownOpen3 == false
-                                        ? Colors.grey
-                                        : Colors.pink,
+                                      color: containerBoeder == false
+                                          ? Colors.grey
+                                          : Colors.pinkAccent)
+                                // border: Border.all(color: Colors.grey)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  // Container(
+                                  //    width: Get.width*0.7,
+                                  //   child: TextFormField(),),
+                                  Container(
+                                    width: Get.width * 0.7,
+                                    child: TextFormField(
+                                      textAlignVertical: TextAlignVertical
+                                          .center,
+                                      controller: SeekerProfileControllerInstanse
+                                          .EmailController.value,
+                                      enabled: true,
+                                      decoration: InputDecoration(
+                                        hintText: "example@gmail.com",
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.all(20),
+                                        hintStyle: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                            color: AppColors.subtitletextcolor),
+                                        //suffix: Text('Verify',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Color(0xffFE0091),fontWeight: FontWeight.w400,fontSize: 12),),
+                                        // focusedBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.circular(30),
+                                        //   borderSide: BorderSide(color: Colors.pinkAccent),
+                                        // ),
+                                        // enabledBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.circular(30),
+                                        //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                        // ),
+                                        // errorBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide: BorderSide(color: Colors.red),
+                                        // ),
+                                        // disabledBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide: BorderSide(color: Color(0xffBABABA)),
+                                        // ),
+                                        // focusedErrorBorder: OutlineInputBorder(
+                                        //   borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                        //   borderSide: BorderSide(color: Colors.pink),
+                                        // ),
+                                        // border: OutlineInputBorder(
+                                        //     borderRadius: BorderRadius.circular(30),
+                                        //     borderSide: BorderSide(
+                                        //       color: Color(0xffBABABA),
+                                        //     )),
+                                      ),
+                                      onFieldSubmitted: (value) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            !RegExp(
+                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                .hasMatch(value)) {
+                                          setState(() {
+                                            containerBoeder = true;
+                                          });
+                                          return null;
+                                        }
+                                        setState(() {
+                                          containerBoeder = false;
+                                        });
+                                        return null;
+                                      },
+                                    ),
                                   ),
-                                  color: Colors.white,
-                                ),
-                              ),
-                              iconStyleData: dropdownvalue == null
-                                  ? IconStyleData(
-                                icon: Icon(Icons.keyboard_arrow_down),
-                                // Change to up arrow icon
-                                iconSize: 30,
-                                iconEnabledColor: Colors.black,
-                              )
-                                  : IconStyleData(
-                                icon: InkWell(
-                                  child: Icon(Icons.close),
-                                  onTap: () {
-                                    setState(() {
-                                      dropdownvalue = null;
-                                    });
-                                  },
-                                ), // Change to down arrow icon
-                                iconSize: 25,
-                                //iconEnabledColor: Colors.black,
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                width: Get.width * 0.89,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
-                                ),
-                                offset: const Offset(10, 0),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness:
-                                  MaterialStateProperty.all<double>(6),
-                                  thumbVisibility:
-                                  MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 40,
-                                padding: EdgeInsets.only(left: 14, right: 14),
+
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: InkWell(
+                                        child: UserEmailAndphone.verified
+                                            .value ==
+                                            false
+                                            ? InkWell(
+                                            onTap: () {
+                                              UserEmailAndphone
+                                                  .PhoneAndEmailVerifiyed();
+                                              Timer(Duration(seconds: 3), () {
+                                                setState(() {
+                                                  UserEmailAndphone.optsent;
+                                                });
+                                                if (UserEmailAndphone
+                                                    .optsent.value ==
+                                                    true) {
+                                                  showAlert();
+                                                }
+                                              });
+                                            },
+                                            child: Text(
+                                              "Verify",
+                                              style: TextStyle(
+                                                  color: Colors.pinkAccent,
+                                                  fontWeight: FontWeight.bold),
+                                            ))
+                                            : Padding(
+                                          padding:
+                                          const EdgeInsets.only(right: 10),
+                                          child: Text(
+                                            "Verifyed",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        )
+                                      //                       onTap: (){
+                                      //  UserEmailAndphone. PhoneAndEmailVerifiyed();
+                                      //                         if(UserEmailAndphone.otpsent.value==true){
+                                      //        showAlert();
+                                      //                         }
+
+                                      //                       },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ),
-
-                      // ***************************   Occupation Pjdfgjdsfds ***************************
-
-                      SizedBox(height: height * .03),
-                      Text(
-                        "Salary",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      TextFormField(
-                        maxLength: 2,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Salary";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: SeekerProfileControllerInstanse
-                            .SalaryController.value,
-                        decoration: InputDecoration(
-                            suffixText: "LPA",
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffFE0091))),
-                            hintStyle: TextStyle(
-                                fontSize: 16, color: Color(0xffBABABA)),
-                            contentPadding: EdgeInsets.all(18),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffBABABA))),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffBABABA))),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(35.0)),
-                              borderSide: BorderSide(color: Color(0xffBABABA)),
+                            if (containerBoeder == true)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Email cannot be empty!",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            SizedBox(height: height * .01),
+                            Text(
+                              "Occupation",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
                             ),
-                            hintText: "Salary",
-                            filled: true,
-                            fillColor: Colors.white),
-                      ),
+                            SizedBox(height: height * .01),
 
-                      SizedBox(height: height * .03),
-                      Text(
-                        "Location",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      // TextFormField(
-                      //   keyboardType: TextInputType.emailAddress,
-                      //   controller: SeekerProfileControllerInstanse.AddressController.value,
-                      //   validator: (value) {
-                      //     if (value!.isEmpty) {
-                      //       return "Please Enter Address";
-                      //     } else {
-                      //       return null;
-                      //     }
-                      //   },
-                      //   decoration: InputDecoration(
-                      //       focusedBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffFE0091))),
-                      //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
-                      //       contentPadding: EdgeInsets.all(18),
-                      //       enabledBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffBABABA))),
-                      //       errorBorder: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //           borderSide: BorderSide(color: Color(0xffBABABA))),
-                      //       focusedErrorBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                      //         borderSide: BorderSide(color: Color(0xffBABABA)),
-                      //       ),
-                      //       hintText: "Address",
-                      //       filled: true,
-                      //       fillColor: Colors.white),
-                      // ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: locationcntroller,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter your address';
-                          }
-                        },
-                        onChanged: (value) {
-                          print(value);
-                          setState(() {
-                            if (locationcntroller.text.isEmpty) {
-                              Sikeraddress = value;
-                              // searchPlace.clear();
-                            }
-                          });
-                          searchAutocomplete(value);
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          hintText: "Please Enter your address",
-                          hintStyle: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(color: AppColors.subtitletextcolor),
-                          //border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.pinkAccent),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Color(0xffBABABA)),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.red),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xffBABABA)),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.pink),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: locationcntroller.text.isNotEmpty,
-                        child: Container(
-                          width: double.infinity,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: searchPlace.length,
-                              itemBuilder: (context, index) => ListTile(
-                                onTap: () {
-                                  setState(() {
-                                    locationcntroller.text =
-                                        searchPlace[index].description ??
-                                            "";
-                                    _getLatLang();
-                                    SelectedLocation =
-                                        locationcntroller.text;
-                                    // print(SelectedLocation);
-                                    Sikeraddress = SelectedLocation;
-                                    print("$Sikeraddress=============");
-                                    setState(() {
-                                      searchPlace.clear();
-                                    });
-                                  });
-                                },
-                                horizontalTitleGap: 0,
-                                title: Text(
-                                  searchPlace[index].description ?? "",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                            if (GetAllOcupationsControllerInstanse
+                                .Ocupations.isNotEmpty)
+                              Focus(
+                                focusNode: _dropdownFocus3,
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2<String>(
+                                    isExpanded: true,
+                                    hint: Text(
+                                      "Select Occupation",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    items: GetAllOcupationsControllerInstanse
+                                        .Ocupations.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    value: dropdownvalue,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        dropdownvalue = value!;
+                                        Ocupasion = dropdownvalue;
+                                        print(Ocupasion);
+                                      });
+                                    },
+                                    buttonStyleData: ButtonStyleData(
+                                      height: Get.height * 0.07,
+                                      padding:
+                                      const EdgeInsets.only(
+                                          left: 14, right: 14),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: _isDropdownOpen3 == false
+                                              ? Colors.grey
+                                              : Colors.pink,
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    iconStyleData: dropdownvalue == null
+                                        ? IconStyleData(
+                                      icon: Icon(Icons.keyboard_arrow_down),
+                                      // Change to up arrow icon
+                                      iconSize: 30,
+                                      iconEnabledColor: Colors.black,
+                                    )
+                                        : IconStyleData(
+                                      icon: InkWell(
+                                        child: Icon(Icons.close),
+                                        onTap: () {
+                                          setState(() {
+                                            dropdownvalue = null;
+                                          });
+                                        },
+                                      ), // Change to down arrow icon
+                                      iconSize: 25,
+                                      //iconEnabledColor: Colors.black,
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                      width: Get.width * 0.89,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.white,
+                                      ),
+                                      offset: const Offset(10, 0),
+                                      scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(40),
+                                        thickness:
+                                        MaterialStateProperty.all<double>(6),
+                                        thumbVisibility:
+                                        MaterialStateProperty.all<bool>(true),
+                                      ),
+                                    ),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
+                                      padding: EdgeInsets.only(
+                                          left: 14, right: 14),
+                                    ),
+                                  ),
                                 ),
-                              )),
-                        ),
-                      ),
-                      SizedBox(height: height * .03),
+                              ),
 
-                      Text(
-                        "Gender",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      // ****************  select gender dropdown ***********************
-                      Focus(
-                        focusNode: _dropdownFocus1,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                            isExpanded: true,
-                            hint: Text("Select Gender"),
-                            items: genderItems.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            value: selectLocalGender,
-                            onChanged: (String? value) {
-                              setState(() {
+                            // ***************************   Occupation Pjdfgjdsfds ***************************
+
+                            SizedBox(height: height * .03),
+                            Text(
+                              "Salary",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            TextFormField(
+                              maxLength: 2,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please Enter Salary";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: SeekerProfileControllerInstanse
+                                  .SalaryController.value,
+                              decoration: InputDecoration(
+                                  suffixText: "LPA",
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffFE0091))),
+                                  hintStyle: TextStyle(
+                                      fontSize: 16, color: Color(0xffBABABA)),
+                                  contentPadding: EdgeInsets.all(18),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBABABA))),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBABABA))),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(35.0)),
+                                    borderSide: BorderSide(
+                                        color: Color(0xffBABABA)),
+                                  ),
+                                  hintText: "Salary",
+                                  filled: true,
+                                  fillColor: Colors.white),
+                            ),
+
+                            SizedBox(height: height * .03),
+                            Text(
+                              "Location",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            // TextFormField(
+                            //   keyboardType: TextInputType.emailAddress,
+                            //   controller: SeekerProfileControllerInstanse.AddressController.value,
+                            //   validator: (value) {
+                            //     if (value!.isEmpty) {
+                            //       return "Please Enter Address";
+                            //     } else {
+                            //       return null;
+                            //     }
+                            //   },
+                            //   decoration: InputDecoration(
+                            //       focusedBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffFE0091))),
+                            //       hintStyle: TextStyle(fontSize: 16, color: Color(0xffBABABA)),
+                            //       contentPadding: EdgeInsets.all(18),
+                            //       enabledBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+                            //       errorBorder: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //           borderSide: BorderSide(color: Color(0xffBABABA))),
+                            //       focusedErrorBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                            //         borderSide: BorderSide(color: Color(0xffBABABA)),
+                            //       ),
+                            //       hintText: "Address",
+                            //       filled: true,
+                            //       fillColor: Colors.white),
+                            // ),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              controller:  SeekerProfileControllerInstanse
+                                  .locationcntroller.value,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter your address';
+                                }
+                              },
+                              onChanged: (value) {
                                 print(value);
-                                selectLocalGender = value;
-                                selectGender = value;
-                                print(selectGender);
-                              });
-                            },
-                            buttonStyleData: ButtonStyleData(
-                              height: Get.height * 0.07,
-                              padding:
-                              const EdgeInsets.only(left: 14, right: 14),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  color: _isDropdownOpen1 == false
-                                      ? Colors.grey
-                                      : Colors.pink,
-                                ),
-                                color: Colors.white,
-                              ),
-                            ),
-                            iconStyleData: selectLocalGender == null
-                                ? IconStyleData(
-                              icon: Icon(Icons.keyboard_arrow_down),
-                              // Change to up arrow icon
-                              iconSize: 30,
-                              iconEnabledColor: Colors.black,
-                            )
-                                : IconStyleData(
-                              icon: InkWell(
-                                child: Icon(Icons.close),
-                                onTap: () {
-                                  setState(() {
-                                    selectLocalGender = null;
-                                  });
-                                },
-                              ), // Change to down arrow icon
-                              iconSize: 25,
-                              //iconEnabledColor: Colors.black,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              width: Get.width * 0.89,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: Colors.white,
-                              ),
-                              offset: const Offset(10, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius: const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility:
-                                MaterialStateProperty.all<bool>(true),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 14, right: 14),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: height * .03),
-
-                      // ****************  select Religion dropdown ***********************
-                      Text(
-                        "Religion",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-
-                      Focus(
-                        focusNode: _dropdownFocus2,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                            isExpanded: true,
-                            hint: Text("Select Religion"),
-                            items: religionItems.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            value: selectReligion,
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectReligion = value;
-                                SikerReligon = value;
-                              });
-                            },
-                            buttonStyleData: ButtonStyleData(
-                              height: Get.height * 0.07,
-                              padding:
-                              const EdgeInsets.only(left: 14, right: 14),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                    color: _isDropdownOpen2 == false
-                                        ? Colors.grey
-                                        : Colors
-                                        .pink // Set border color based on selected state
-                                ),
-                                color: Colors.white,
-                              ),
-                            ),
-                            iconStyleData: selectReligion == null
-                                ? IconStyleData(
-                              icon: Icon(Icons.keyboard_arrow_down),
-                              iconSize: 30,
-                              iconEnabledColor: Colors.black,
-                            )
-                                : IconStyleData(
-                              icon: InkWell(
-                                child: Icon(Icons.close),
-                                onTap: () {
-                                  setState(() {
-                                    selectReligion = null;
-                                  });
-                                },
-                              ),
-                              iconSize: 25,
-                              iconEnabledColor: Colors.black,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              width: Get.width * 0.89,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: Colors.white,
-                              ),
-                              offset: const Offset(10, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius: const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility:
-                                MaterialStateProperty.all<bool>(true),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 14, right: 14),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: height * .03),
-
-                      Text(
-                        "Height",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: width * .45,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: SeekerProfileControllerInstanse
-                                  .HeightController.value,
-                              maxLength: 1,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please Enter Hieght";
-                                } else {
-                                  return null;
-                                }
+                                setState(() {
+                                  if (SeekerProfileControllerInstanse
+                                      .locationcntroller.value.text.isEmpty) {
+                                    Sikeraddress = value;
+                                    // searchPlace.clear();
+                                  }
+                                });
+                                searchAutocomplete(value);
                               },
                               decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffFE0091))),
-                                  hintStyle: TextStyle(
-                                      fontSize: 16, color: Color(0xffBABABA)),
-                                  contentPadding: EdgeInsets.all(18),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
-                                    borderSide:
-                                    BorderSide(color: Color(0xffBABABA)),
-                                  ),
-                                  hintText: "Feet",
-                                  filled: true,
-                                  fillColor: Colors.white),
-                            ),
-                          ),
-                          Container(
-                            width: width * .45,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: SeekerProfileControllerInstanse
-                                  .InchesController.value,
-                              maxLength: 1,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please Enter Height";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffFE0091))),
-                                  hintStyle: TextStyle(
-                                      fontSize: 16, color: Color(0xffBABABA)),
-                                  contentPadding: EdgeInsets.all(18),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide:
-                                      BorderSide(color: Color(0xffBABABA))),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(35.0)),
-                                    borderSide:
-                                    BorderSide(color: Color(0xffBABABA)),
-                                  ),
-                                  hintText: "Inches",
-                                  filled: true,
-                                  fillColor: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: height * .03),
-
-                      //no changes **********************************
-                      Container(
-                        height: height * .08,
-                        width: width,
-                        decoration: BoxDecoration(
-                          color: Color(0xffF3F3F3),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding:
-                              EdgeInsets.symmetric(horizontal: width * .05),
-                              child: startdate == null
-                                  ? Text(
-                                "Choose birthday date",
-                                style: Theme.of(context)
+                                contentPadding: EdgeInsets.all(20),
+                                hintText: "Please Enter your address",
+                                hintStyle: Theme
+                                    .of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                    color: Colors.pink,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w800),
-                              )
-                                  : Text(
-                                DateFormat('dd-MM-yyyy').format(
-                                    DateTime.parse(startdate.toString())),
-                                style: TextStyle(color: Colors.black),
+                                    color: AppColors.subtitletextcolor),
+                                //border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(
+                                      color: Colors.pinkAccent),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(
+                                      color: Color(0xffBABABA)),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide: BorderSide(color: Colors.red),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide: BorderSide(
+                                      color: Color(0xffBABABA)),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide: BorderSide(color: Colors.pink),
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding:
-                              EdgeInsets.symmetric(horizontal: width * .05),
-                              child: GestureDetector(
-                                  onTap: () async {
-                                    DateTime minimumDate = DateTime.now()
-                                        .subtract(Duration(days: 365 * 18));
-                                    startdate = await showDatePicker(
-                                      context: context,
-                                      initialDate: minimumDate,
-                                      firstDate: DateTime(1900),
-                                      lastDate: minimumDate,
+                            Visibility(
+                              visible: SeekerProfileControllerInstanse
+                                  .locationcntroller.value.text.isNotEmpty,
+                              child: Container(
+                                width: double.infinity,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: searchPlace.length,
+                                    itemBuilder: (context, index) =>
+                                        ListTile(
+                                          onTap: () {
+                                            setState(() {
+                                              SeekerProfileControllerInstanse
+                                                  .locationcntroller.value.text =
+                                                  searchPlace[index]
+                                                      .description ??
+                                                      "";
+                                              _getLatLang();
+                                              SelectedLocation =
+                                                  SeekerProfileControllerInstanse
+                                                      .locationcntroller.value.text;
+                                              // print(SelectedLocation);
+                                              Sikeraddress = SelectedLocation;
+                                              print(
+                                                  "$Sikeraddress=============");
+                                              setState(() {
+                                                searchPlace.clear();
+                                              });
+                                            });
+                                          },
+                                          horizontalTitleGap: 0,
+                                          title: Text(
+                                            searchPlace[index].description ??
+                                                "",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        )),
+                              ),
+                            ),
+                            SizedBox(height: height * .03),
+
+                            Text(
+                              "Gender",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            // ****************  select gender dropdown ***********************
+                            Focus(
+                              focusNode: _dropdownFocus1,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  isExpanded: true,
+                                  hint: Text("Select Gender"),
+                                  items: genderItems.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
                                     );
-                                    print(startdate);
-                                    datestring = DateFormat('dd-MM-yyyy')
-                                        .format(DateTime.parse(
-                                        startdate.toString()));
-                                    print(datestring);
-
+                                  }).toList(),
+                                  value: selectLocalGender,
+                                  onChanged: (String? value) {
                                     setState(() {
-                                      datestring;
+                                      print(value);
+                                      selectLocalGender = value;
+                                      selectGender = value;
+                                      print(selectGender);
                                     });
                                   },
-                                  child: Image.asset(
-                                    'assets/icons/Calendar.png',
-                                    height: 30,
-                                    color: Colors.pink,
-                                  )),
+                                  buttonStyleData: ButtonStyleData(
+                                    height: Get.height * 0.07,
+                                    padding:
+                                    const EdgeInsets.only(left: 14, right: 14),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                        color: _isDropdownOpen1 == false
+                                            ? Colors.grey
+                                            : Colors.pink,
+                                      ),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  iconStyleData: selectLocalGender == null
+                                      ? IconStyleData(
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    // Change to up arrow icon
+                                    iconSize: 30,
+                                    iconEnabledColor: Colors.black,
+                                  )
+                                      : IconStyleData(
+                                    icon: InkWell(
+                                      child: Icon(Icons.close),
+                                      onTap: () {
+                                        setState(() {
+                                          selectLocalGender = null;
+                                        });
+                                      },
+                                    ), // Change to down arrow icon
+                                    iconSize: 25,
+                                    //iconEnabledColor: Colors.black,
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                    width: Get.width * 0.89,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: Colors.white,
+                                    ),
+                                    offset: const Offset(10, 0),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(40),
+                                      thickness: MaterialStateProperty.all<
+                                          double>(
+                                          6),
+                                      thumbVisibility:
+                                      MaterialStateProperty.all<bool>(true),
+                                    ),
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 40,
+                                    padding: EdgeInsets.only(
+                                        left: 14, right: 14),
+                                  ),
+                                ),
+                              ),
                             ),
+                            SizedBox(height: height * .03),
+
+                            // ****************  select Religion dropdown ***********************
+                            Text(
+                              "Religion",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+
+                            Focus(
+                              focusNode: _dropdownFocus2,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2<String>(
+                                  isExpanded: true,
+                                  hint: Text("Select Religion"),
+                                  items: religionItems.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  value: selectReligion,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      selectReligion = value;
+                                      SikerReligon = value;
+                                    });
+                                  },
+                                  buttonStyleData: ButtonStyleData(
+                                    height: Get.height * 0.07,
+                                    padding:
+                                    const EdgeInsets.only(left: 14, right: 14),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                          color: _isDropdownOpen2 == false
+                                              ? Colors.grey
+                                              : Colors
+                                              .pink // Set border color based on selected state
+                                      ),
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  iconStyleData: selectReligion == null
+                                      ? IconStyleData(
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    iconSize: 30,
+                                    iconEnabledColor: Colors.black,
+                                  )
+                                      : IconStyleData(
+                                    icon: InkWell(
+                                      child: Icon(Icons.close),
+                                      onTap: () {
+                                        setState(() {
+                                          selectReligion = null;
+                                        });
+                                      },
+                                    ),
+                                    iconSize: 25,
+                                    iconEnabledColor: Colors.black,
+                                  ),
+                                  dropdownStyleData: DropdownStyleData(
+                                    width: Get.width * 0.89,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: Colors.white,
+                                    ),
+                                    offset: const Offset(10, 0),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(40),
+                                      thickness: MaterialStateProperty.all<
+                                          double>(
+                                          6),
+                                      thumbVisibility:
+                                      MaterialStateProperty.all<bool>(true),
+                                    ),
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 40,
+                                    padding: EdgeInsets.only(
+                                        left: 14, right: 14),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: height * .03),
+
+                            Text(
+                              "Height",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: width * .45,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    controller: SeekerProfileControllerInstanse
+                                        .HeightController.value,
+                                    maxLength: 1,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please Enter Hieght";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffFE0091))),
+                                        hintStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xffBABABA)),
+                                        contentPadding: EdgeInsets.all(18),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffBABABA))),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffBABABA))),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.all(
+                                              Radius.circular(35.0)),
+                                          borderSide:
+                                          BorderSide(color: Color(0xffBABABA)),
+                                        ),
+                                        hintText: "Feet",
+                                        filled: true,
+                                        fillColor: Colors.white),
+                                  ),
+                                ),
+                                Container(
+                                  width: width * .45,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    controller: SeekerProfileControllerInstanse
+                                        .InchesController.value,
+                                    maxLength: 1,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please Enter Height";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffFE0091))),
+                                        hintStyle: TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xffBABABA)),
+                                        contentPadding: EdgeInsets.all(18),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffBABABA))),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(35.0)),
+                                            borderSide:
+                                            BorderSide(
+                                                color: Color(0xffBABABA))),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.all(
+                                              Radius.circular(35.0)),
+                                          borderSide:
+                                          BorderSide(color: Color(0xffBABABA)),
+                                        ),
+                                        hintText: "Inches",
+                                        filled: true,
+                                        fillColor: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: height * .03),
+
+                            //no changes **********************************
+                            Container(
+                              height: height * .08,
+                              width: width,
+                              decoration: BoxDecoration(
+                                color: Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(
+                                        horizontal: width * .05),
+                                    child: startdate == null
+                                        ? Text(
+                                      "Choose birthday date",
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                          color: Colors.pink,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w800),
+                                    )
+                                        : Text(
+                                      DateFormat('dd-MM-yyyy').format(
+                                          DateTime.parse(startdate.toString())),
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(
+                                        horizontal: width * .05),
+                                    child: GestureDetector(
+                                        onTap: () async {
+                                          DateTime minimumDate = DateTime.now()
+                                              .subtract(
+                                              Duration(days: 365 * 18));
+                                          startdate = await showDatePicker(
+                                            context: context,
+                                            initialDate: minimumDate,
+                                            firstDate: DateTime(1900),
+                                            lastDate: minimumDate,
+                                          );
+                                          print(startdate);
+                                          datestring = DateFormat('dd-MM-yyyy')
+                                              .format(DateTime.parse(
+                                              startdate.toString()));
+                                          print(datestring);
+
+                                          setState(() {
+                                            datestring;
+                                          });
+                                        },
+                                        child: Image.asset(
+                                          'assets/icons/Calendar.png',
+                                          height: 30,
+                                          color: Colors.pink,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: height * .03),
+
+                            Text(
+                              "Add Question",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            ),
+                            SizedBox(height: height * .01),
+                            Container(
+                              width: width * .9,
+                              child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: SeekerProfileControllerInstanse
+                                    .QuestionController.value,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please add question";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(35.0)),
+                                        borderSide:
+                                        BorderSide(color: Color(0xffFE0091))),
+                                    hintStyle: TextStyle(
+                                        fontSize: 16, color: Color(0xffBABABA)),
+                                    contentPadding: EdgeInsets.all(18),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(35.0)),
+                                        borderSide:
+                                        BorderSide(color: Color(0xffBABABA))),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(35.0)),
+                                        borderSide:
+                                        BorderSide(color: Color(0xffBABABA))),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBABABA)),
+                                    ),
+                                    hintText: "Enter your questions",
+                                    filled: true,
+                                    fillColor: Colors.white),
+                              ),
+                            ),
+                            SizedBox(height: height * .03),
+                            Text(
+                              "Answer ",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.black),
+                            ),
+                            Text(
+                              "Give The Three Option And Choose The Currect Option",
+                              style: TextStyle(fontSize: 12, color: Colors
+                                  .black),
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 10),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(height: height * .03),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _chooseAnswer1,
+                                      onChanged: (value) {
+                                        if (_chooseAnswer2 == false &&
+                                            _chooseAnswer3 == false) {
+                                          choose =
+                                              SeekerProfileControllerInstanse
+                                                  .FirstanswerController.value
+                                                  .text;
+                                          setState(() {
+                                            print(choose);
+                                            _chooseAnswer1 = !_chooseAnswer1;
+                                            // click = !click;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    Flexible(
+                                      child: TextFormField(
+                                        controller: SeekerProfileControllerInstanse
+                                            .FirstanswerController.value,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                            hintText: "Enter your Answer",
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            contentPadding: EdgeInsets.all(10),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC))),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffFE0091))),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC)))),
+                                        onFieldSubmitted: (value) {},
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'enter value';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: height * .03),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _chooseAnswer2,
+                                      onChanged: (value) {
+                                        if (_chooseAnswer1 == false &&
+                                            _chooseAnswer3 == false) {
+                                          choose =
+                                              SeekerProfileControllerInstanse
+                                                  .SecondanswerController.value
+                                                  .text;
+                                          setState(() {
+                                            print(choose);
+                                            _chooseAnswer2 = !_chooseAnswer2;
+                                            // click = !click;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    Flexible(
+                                      child: TextFormField(
+                                        controller: SeekerProfileControllerInstanse
+                                            .SecondanswerController.value,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                            hintText: "Enter your Answer",
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            contentPadding: EdgeInsets.all(10),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC))),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffFE0091))),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC)))),
+                                        onFieldSubmitted: (value) {},
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'enter value';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: height * .03),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      value: _chooseAnswer3,
+                                      onChanged: (value) {
+                                        // choose = SeekerProfileControllerInstanse.ThirdanswerController.value.text;
+                                        if (_chooseAnswer1 == false &&
+                                            _chooseAnswer2 == false) {
+                                          choose =
+                                              SeekerProfileControllerInstanse
+                                                  .ThirdanswerController.value
+                                                  .text;
+                                          setState(() {
+                                            print(choose);
+                                            _chooseAnswer3 = !_chooseAnswer3;
+                                            // click = !click;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    Flexible(
+                                      child: TextFormField(
+                                        controller: SeekerProfileControllerInstanse
+                                            .ThirdanswerController.value,
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                            hintText: "Enter your Answer",
+                                            alignLabelWithHint: true,
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            contentPadding: EdgeInsets.all(10),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC))),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffFE0091))),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(30),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xffDCDCDC)))),
+                                        onFieldSubmitted: (value) {},
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'enter value';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // Row(
+                            //   children: [
+                            //     Flexible(
+                            //       child: TextFormField(
+                            //         controller: SeekerProfileControllerInstanse.FirstanswerController.value,
+                            //         decoration: InputDecoration(
+                            //             hintText: "Enter",
+                            //             fillColor: Colors.white,
+                            //             filled: true,
+                            //             contentPadding: EdgeInsets.all(10),
+                            //             enabledBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            //             focusedBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffFE0091))),
+                            //             border: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
+                            //         onFieldSubmitted: (value) {},
+                            //         validator: (value) {
+                            //           if (value!.isEmpty) {
+                            //             return 'enter value';
+                            //           }
+                            //           return null;
+                            //         },
+                            //       ),
+                            //     ),
+                            //     SizedBox(width: 10),
+                            //     Flexible(
+                            //       child: TextFormField(
+                            //         controller: SeekerProfileControllerInstanse.SecondanswerController.value,
+                            //         decoration: InputDecoration(
+                            //             hintText: "Enter",
+                            //             fillColor: Colors.white,
+                            //             filled: true,
+                            //             contentPadding: EdgeInsets.all(10),
+                            //             enabledBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            //             focusedBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffFE0091))),
+                            //             border: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
+                            //         onFieldSubmitted: (value) {},
+                            //         validator: (value) {
+                            //           if (value!.isEmpty) {
+                            //             return 'enter value';
+                            //           }
+                            //           return null;
+                            //         },
+                            //       ),
+                            //     ),
+                            //     SizedBox(width: 10),
+                            //     Flexible(
+                            //       child: TextFormField(
+                            //         controller: SeekerProfileControllerInstanse.ThirdanswerController.value,
+                            //         decoration: InputDecoration(
+                            //             hintText: "Enter",
+                            //             fillColor: Colors.white,
+                            //             filled: true,
+                            //             contentPadding: EdgeInsets.all(10),
+                            //             enabledBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
+                            //             focusedBorder: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffFE0091))),
+                            //             border: OutlineInputBorder(
+                            //                 borderRadius: BorderRadius.circular(30),
+                            //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
+                            //         onFieldSubmitted: (value) {},
+                            //         validator: (value) {
+                            //           if (value!.isEmpty) {
+                            //             return 'enter value';
+                            //           }
+                            //           return null;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            SizedBox(height: 5),
                           ],
-                        ),
-                      ),
+                        )),
 
-                      SizedBox(height: height * .03),
-
-                      Text(
-                        "Add Question",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      SizedBox(height: height * .01),
-                      Container(
-                        width: width * .9,
-                        child: TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: SeekerProfileControllerInstanse
-                              .QuestionController.value,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please add question";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                                  borderSide:
-                                  BorderSide(color: Color(0xffFE0091))),
-                              hintStyle: TextStyle(
-                                  fontSize: 16, color: Color(0xffBABABA)),
-                              contentPadding: EdgeInsets.all(18),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                                  borderSide:
-                                  BorderSide(color: Color(0xffBABABA))),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(35.0)),
-                                  borderSide:
-                                  BorderSide(color: Color(0xffBABABA))),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(35.0)),
-                                borderSide:
-                                BorderSide(color: Color(0xffBABABA)),
-                              ),
-                              hintText: "Enter your questions",
-                              filled: true,
-                              fillColor: Colors.white),
-                        ),
-                      ),
-                      SizedBox(height: height * .03),
-                      Text(
-                        "Answer ",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.black),
-                      ),
-                      Text(
-                        "Give The Three Option And Choose The Currect Option",
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                        maxLines: 2,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 10),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(height: height * .03),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _chooseAnswer1,
-                                onChanged: (value) {
-                                  if (_chooseAnswer2 == false &&
-                                      _chooseAnswer3 == false) {
-                                    choose = SeekerProfileControllerInstanse
-                                        .FirstanswerController.value.text;
-                                    setState(() {
-                                      print(choose);
-                                      _chooseAnswer1 = !_chooseAnswer1;
-                                      // click = !click;
-                                    });
-                                  }
-                                },
-                              ),
-                              Flexible(
-                                child: TextFormField(
-                                  controller: SeekerProfileControllerInstanse
-                                      .FirstanswerController.value,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      hintText: "Enter your Answer",
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      contentPadding: EdgeInsets.all(10),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC))),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffFE0091))),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC)))),
-                                  onFieldSubmitted: (value) {},
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'enter value';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: height * .03),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _chooseAnswer2,
-                                onChanged: (value) {
-                                  if (_chooseAnswer1 == false &&
-                                      _chooseAnswer3 == false) {
-                                    choose = SeekerProfileControllerInstanse
-                                        .SecondanswerController.value.text;
-                                    setState(() {
-                                      print(choose);
-                                      _chooseAnswer2 = !_chooseAnswer2;
-                                      // click = !click;
-                                    });
-                                  }
-                                },
-                              ),
-                              Flexible(
-                                child: TextFormField(
-                                  controller: SeekerProfileControllerInstanse
-                                      .SecondanswerController.value,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      hintText: "Enter your Answer",
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      contentPadding: EdgeInsets.all(10),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC))),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffFE0091))),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC)))),
-                                  onFieldSubmitted: (value) {},
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'enter value';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: height * .03),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _chooseAnswer3,
-                                onChanged: (value) {
-                                  // choose = SeekerProfileControllerInstanse.ThirdanswerController.value.text;
-                                  if (_chooseAnswer1 == false &&
-                                      _chooseAnswer2 == false) {
-                                    choose = SeekerProfileControllerInstanse
-                                        .ThirdanswerController.value.text;
-                                    setState(() {
-                                      print(choose);
-                                      _chooseAnswer3 = !_chooseAnswer3;
-                                      // click = !click;
-                                    });
-                                  }
-                                },
-                              ),
-                              Flexible(
-                                child: TextFormField(
-                                  controller: SeekerProfileControllerInstanse
-                                      .ThirdanswerController.value,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      hintText: "Enter your Answer",
-                                      alignLabelWithHint: true,
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      contentPadding: EdgeInsets.all(10),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC))),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffFE0091))),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Color(0xffDCDCDC)))),
-                                  onFieldSubmitted: (value) {},
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'enter value';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      // Row(
-                      //   children: [
-                      //     Flexible(
-                      //       child: TextFormField(
-                      //         controller: SeekerProfileControllerInstanse.FirstanswerController.value,
-                      //         decoration: InputDecoration(
-                      //             hintText: "Enter",
-                      //             fillColor: Colors.white,
-                      //             filled: true,
-                      //             contentPadding: EdgeInsets.all(10),
-                      //             enabledBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
-                      //             focusedBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffFE0091))),
-                      //             border: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
-                      //         onFieldSubmitted: (value) {},
-                      //         validator: (value) {
-                      //           if (value!.isEmpty) {
-                      //             return 'enter value';
-                      //           }
-                      //           return null;
-                      //         },
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 10),
-                      //     Flexible(
-                      //       child: TextFormField(
-                      //         controller: SeekerProfileControllerInstanse.SecondanswerController.value,
-                      //         decoration: InputDecoration(
-                      //             hintText: "Enter",
-                      //             fillColor: Colors.white,
-                      //             filled: true,
-                      //             contentPadding: EdgeInsets.all(10),
-                      //             enabledBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
-                      //             focusedBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffFE0091))),
-                      //             border: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
-                      //         onFieldSubmitted: (value) {},
-                      //         validator: (value) {
-                      //           if (value!.isEmpty) {
-                      //             return 'enter value';
-                      //           }
-                      //           return null;
-                      //         },
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 10),
-                      //     Flexible(
-                      //       child: TextFormField(
-                      //         controller: SeekerProfileControllerInstanse.ThirdanswerController.value,
-                      //         decoration: InputDecoration(
-                      //             hintText: "Enter",
-                      //             fillColor: Colors.white,
-                      //             filled: true,
-                      //             contentPadding: EdgeInsets.all(10),
-                      //             enabledBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC))),
-                      //             focusedBorder: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffFE0091))),
-                      //             border: OutlineInputBorder(
-                      //                 borderRadius: BorderRadius.circular(30),
-                      //                 borderSide: BorderSide(color: Color(0xffDCDCDC)))),
-                      //         onFieldSubmitted: (value) {},
-                      //         validator: (value) {
-                      //           if (value!.isEmpty) {
-                      //             return 'enter value';
-                      //           }
-                      //           return null;
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      SizedBox(height: 5),
-                    ],
-                  )),
-
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 40, left: 40),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       SizedBox(
-              //         height: 20,
-              //         width: 20,
-              //         child: ElevatedButton(
-              //           onPressed: () {
-              //             choose = SeekerProfileControllerInstanse.FirstanswerController.value.text;
-              //             setState(() {
-              //
-              //               print(choose);
-              //             });
-              //           },
-              //           child: null,
-              //           style: ElevatedButton.styleFrom(
-              //               backgroundColor:
-              //                   choose == SeekerProfileControllerInstanse.FirstanswerController.value.text ? Color(0xffFE0091) : Colors.white,
-              //               shape: RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.circular(25),
-              //                   side: BorderSide(
-              //                       color: Color(0xffBABABA), width: 2))),
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 20,
-              //         width: 20,
-              //         child: ElevatedButton(
-              //           onPressed: () {
-              //             choose = SeekerProfileControllerInstanse.SecondanswerController.value.text;
-              //             setState(() {
-              //               // click = !click;
-              //               print(choose);
-              //             });
-              //           },
-              //           child: null,
-              //           style: ElevatedButton.styleFrom(
-              //               backgroundColor:
-              //                   choose == SeekerProfileControllerInstanse.SecondanswerController.value.text ? Color(0xffFE0091) : Colors.white,
-              //               shape: RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.circular(25),
-              //                   side: BorderSide(
-              //                       color: Color(0xffBABABA), width: 2))),
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 20,
-              //         width: 20,
-              //         child: ElevatedButton(
-              //           onPressed: () {
-              //             choose = SeekerProfileControllerInstanse.ThirdanswerController.value.text;
-              //             setState(() {
-              //               print(choose);
-              //               // click = !click;
-              //             });
-              //           },
-              //           child: null,
-              //           style: ElevatedButton.styleFrom(
-              //               backgroundColor:
-              //                   choose == SeekerProfileControllerInstanse.ThirdanswerController.value.text ? Color(0xffFE0091) : Colors.white,
-              //               shape: RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.circular(25),
-              //                   side: BorderSide(
-              //                       color: Color(0xffBABABA), width: 2))),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Container(
-              //   height: height * .11,
-              //   width: width * 1,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(15),
-              //       border: Border.all(color: Colors.grey)),
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text(
-              //           "How old do you think i am?",
-              //           style: Theme.of(context).textTheme.subtitle1,
-              //         ),
-              //         SizedBox(height: height * .02),
-              //         Text(
-              //           "I am 20 years old.",
-              //           style: Theme.of(context)
-              //               .textTheme
-              //               .subtitle1!
-              //               .copyWith(color: Colors.grey),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              SizedBox(height: height * .03),
-              Obx(() => Center(
-                  child: MyButton(
-                    loading: SeekerProfileControllerInstanse.loading.value,
-                    title: 'Confirm',
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        validation();
-                      }
-                      // Get.to(() => PhotosScreen());
-                    },
-                  ))),
-              SizedBox(height: Get.height * 0.05)
-            ],
-          ),
-        ));
+                    // Padding(
+                    //   padding: const EdgeInsets.only(right: 40, left: 40),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       SizedBox(
+                    //         height: 20,
+                    //         width: 20,
+                    //         child: ElevatedButton(
+                    //           onPressed: () {
+                    //             choose = SeekerProfileControllerInstanse.FirstanswerController.value.text;
+                    //             setState(() {
+                    //
+                    //               print(choose);
+                    //             });
+                    //           },
+                    //           child: null,
+                    //           style: ElevatedButton.styleFrom(
+                    //               backgroundColor:
+                    //                   choose == SeekerProfileControllerInstanse.FirstanswerController.value.text ? Color(0xffFE0091) : Colors.white,
+                    //               shape: RoundedRectangleBorder(
+                    //                   borderRadius: BorderRadius.circular(25),
+                    //                   side: BorderSide(
+                    //                       color: Color(0xffBABABA), width: 2))),
+                    //         ),
+                    //       ),
+                    //       SizedBox(
+                    //         height: 20,
+                    //         width: 20,
+                    //         child: ElevatedButton(
+                    //           onPressed: () {
+                    //             choose = SeekerProfileControllerInstanse.SecondanswerController.value.text;
+                    //             setState(() {
+                    //               // click = !click;
+                    //               print(choose);
+                    //             });
+                    //           },
+                    //           child: null,
+                    //           style: ElevatedButton.styleFrom(
+                    //               backgroundColor:
+                    //                   choose == SeekerProfileControllerInstanse.SecondanswerController.value.text ? Color(0xffFE0091) : Colors.white,
+                    //               shape: RoundedRectangleBorder(
+                    //                   borderRadius: BorderRadius.circular(25),
+                    //                   side: BorderSide(
+                    //                       color: Color(0xffBABABA), width: 2))),
+                    //         ),
+                    //       ),
+                    //       SizedBox(
+                    //         height: 20,
+                    //         width: 20,
+                    //         child: ElevatedButton(
+                    //           onPressed: () {
+                    //             choose = SeekerProfileControllerInstanse.ThirdanswerController.value.text;
+                    //             setState(() {
+                    //               print(choose);
+                    //               // click = !click;
+                    //             });
+                    //           },
+                    //           child: null,
+                    //           style: ElevatedButton.styleFrom(
+                    //               backgroundColor:
+                    //                   choose == SeekerProfileControllerInstanse.ThirdanswerController.value.text ? Color(0xffFE0091) : Colors.white,
+                    //               shape: RoundedRectangleBorder(
+                    //                   borderRadius: BorderRadius.circular(25),
+                    //                   side: BorderSide(
+                    //                       color: Color(0xffBABABA), width: 2))),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Container(
+                    //   height: height * .11,
+                    //   width: width * 1,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(15),
+                    //       border: Border.all(color: Colors.grey)),
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Text(
+                    //           "How old do you think i am?",
+                    //           style: Theme.of(context).textTheme.subtitle1,
+                    //         ),
+                    //         SizedBox(height: height * .02),
+                    //         Text(
+                    //           "I am 20 years old.",
+                    //           style: Theme.of(context)
+                    //               .textTheme
+                    //               .subtitle1!
+                    //               .copyWith(color: Colors.grey),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(height: height * .03),
+                    Obx(() =>
+                        Center(
+                            child: MyButton(
+                              loading: SeekerProfileControllerInstanse.loading
+                                  .value,
+                              title: 'Confirm',
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  validation();
+                                }
+                                // Get.to(() => PhotosScreen());
+                              },
+                            ))),
+                    SizedBox(height: Get.height * 0.05)
+                  ],
+                ),
+              );
+          }}));
   }
 
   validation() {
@@ -2002,7 +2103,8 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
   }
 
   Future<void> _getLatLang() async {
-    final query = locationcntroller.text;
+    final query = SeekerProfileControllerInstanse
+        .locationcntroller.value .text;
     locations = await locationFromAddress(query);
 
     setState(() {

@@ -65,7 +65,7 @@ class _Maker_TabViewState extends State<Maker_TabView> {
  
 
 
-                 HomePage(),
+                HomePage(),
                 MakerLikes(),
                 ChatScreenMaker(),
                 ViewProfileDetailsMaker(),

@@ -667,6 +667,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
          toolbarHeight: Get.height*0.1,
 
 
+
         actions: [
           Container(
             child: Image.asset("assets/icons/menuu.png"),
@@ -687,14 +688,14 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
           child: Row(
             children: [
 
-              SizedBox(width: width * .02,height: Get.height*0.1,),
+              SizedBox(width: width * .01,height: Get.height*0.1,),
               CircleAvatar(
                 radius: 30.0,
                 backgroundImage: CachedNetworkImageProvider(
                     chatimage1.toString()),
                 backgroundColor: Colors.transparent,
               ),
-              SizedBox(width: width * .03),
+              SizedBox(width: width * .02),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -817,6 +818,7 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
                                           child: Text(
                                             breakMessage(message),
                                             style: TextStyle(color: Colors.black),
+                                            textAlign: TextAlign.start,
                                             softWrap: true,
                                           ),
 
@@ -1237,16 +1239,19 @@ Future<void> pickVideoAndUploadToFirebase(BuildContext context) async {
 
 
     var words = message.length; // Count of characters in the string
-    var lines = ""; // Variable to store the characters in separate lines
+    var lines = "";
+    var linesBreak="";// Variable to store the characters in separate lines
 
     for (int i = 0; i < words; i++) {
       // Concatenating characters to create separate lines
-      if (lines.length == 10) {
+      if (linesBreak.length == 30) {
+        linesBreak="";
         lines += '\n';
         print(lines);// Add a line break for each non-space character
       }
 
         lines += message[i];
+      linesBreak += message[i];
         print(lines);
 
     }

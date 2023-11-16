@@ -52,6 +52,7 @@ import '../../models/SeekerHomePageRequestModel/SeekerHomePageRequest.dart';
 import '../../models/SeekerProfileModel/SeekerProfileModel.dart';
 import '../../models/SeekerRequestModel.dart';
 import '../../models/SetRoleModel/SetRoleModel.dart';
+import '../../models/ViewProfileDetailsModel/EditProfileDetailsModel.dart';
 
 class AuthRepository {
   int? abcd;
@@ -218,6 +219,13 @@ class AuthRepository {
         await _apiService.postApi2(data, AppUrl.viewuserprofileUrl);
     print(response);
     return ViewSikerDetailsToMatchModel.fromJson(response);
+  }
+  Future<EditViewprofileDetailsModel> ViewSikerEditeDetails() async {
+    print("hited");
+    dynamic response =
+    await _apiService.getApi2(AppUrl.EditeProfileUrl);
+    print(response);
+    return EditViewprofileDetailsModel.fromJson(response);
   }
 
   Future<AllMakerModel> ListAllMakerApi() async {

@@ -1190,6 +1190,7 @@ SizedBox(height:Get.height*0.05,),
                                       request.name.toString(),
                                       style:
                                           Theme.of(context).textTheme.titleSmall,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                   SizedBox(height: height * .01),

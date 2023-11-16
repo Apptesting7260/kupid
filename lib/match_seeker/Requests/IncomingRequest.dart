@@ -557,24 +557,27 @@ class _IncomingRequestsState extends State<IncomingRequests> {
                                                                MainAxisAlignment
                                                                    .center,
                                                                children: [
-                                                                 Text(
-                                                                   IncomingRequestControllerins
-                                                                       .IncomingRequestvalue
-                                                                       .value
-                                                                       .requests!
-                                                                       .byMaker![
-                                                                   index]
-                                                                       .getmaker!
-                                                                       .name
-                                                                       .toString(),
-                                                                   style: TextStyle(
-                                                                       color: Colors
-                                                                           .black,
-                                                                       fontSize: 12,
-                                                                       fontWeight:
-                                                                       FontWeight
-                                                                           .w600),
-                                                                   overflow: TextOverflow.ellipsis,
+                                                                 Container(
+                                                                   width: Get.width * 0.15,
+                                                                   child: Text(
+                                                                     IncomingRequestControllerins
+                                                                         .IncomingRequestvalue
+                                                                         .value
+                                                                         .requests!
+                                                                         .byMaker![
+                                                                     index]
+                                                                         .getmaker!
+                                                                         .name
+                                                                         .toString(),
+                                                                     style: TextStyle(
+                                                                         color: Colors
+                                                                             .black,
+                                                                         fontSize: 12,
+                                                                         fontWeight:
+                                                                         FontWeight
+                                                                             .w600),
+                                                                     overflow: TextOverflow.ellipsis,
+                                                                   ),
                                                                  ),
                                                                  Padding(
                                                                    padding:
