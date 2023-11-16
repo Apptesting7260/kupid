@@ -20,7 +20,7 @@ class ListAllMakerController extends GetxController {
 
 
   void ListAllMakerApi(){
-   setRxRequestStatus(Status.LOADING);
+   // setRxRequestStatus(Status.LOADING);
 
     _api.ListAllMakerApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
@@ -33,18 +33,18 @@ class ListAllMakerController extends GetxController {
 
     });
   }
-
-  void refreshApi(){
-
-      setRxRequestStatus(Status.LOADING);
-
-    _api.ListAllMakerApi().then((value){
-      setRxRequestStatus(Status.COMPLETED);
-      getAllmakerList(value);
-    }).onError((error, stackTrace){
-      setError(error.toString());
-      setRxRequestStatus(Status.ERROR);
-
-    });
-  }
+  //
+  // void refreshApi(){
+  //
+  //     setRxRequestStatus(Status.LOADING);
+  //
+  //   _api.ListAllMakerApi().then((value){
+  //     setRxRequestStatus(Status.COMPLETED);
+  //     getAllmakerList(value);
+  //   }).onError((error, stackTrace){
+  //     setError(error.toString());
+  //     setRxRequestStatus(Status.ERROR);
+  //
+  //   });
+  // }
 }
