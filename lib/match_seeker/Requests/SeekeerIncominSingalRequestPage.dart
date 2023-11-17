@@ -35,6 +35,7 @@ final SeekerMyProfileDetailsController seekerMyProfileController = Get.put(Seeke
 class _SeekerIncomingRequestSinglePageState extends State<SeekerIncomingRequestSinglePage> {
 final RequestAcceptControllerinstance=Get.put(RequestAcceptController());
 bool isLoding=false;
+bool isRejLoding=false;
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   void initState() {
@@ -950,6 +951,7 @@ onRefresh: ()async {
                     SizedBox(
                       height: Get.height * 0.03,
                     ),
+
                     (seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.roomid!=null) ?
                     Row(
 
@@ -1097,7 +1099,81 @@ requestid=seekerOutgoingRequestSinglePageController
                           width: Get.width * 0.03,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+
+                            final myid = seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.getseeker!.id.toString() == myId
+                                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getseeker!.id!
+                                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getanotherseeker!.id!;
+
+                            var otherid = seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
+                                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getanotherseeker!.id!
+                                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getseeker!.id;
+                            userIdsiker==seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+                            otherid = seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.getseeker!.id.toString() != myId
+                                ? seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getanotherseeker!.id!
+                                : seekerOutgoingRequestSinglePageController.ViewProfileDetail
+                                .value.data!.getseeker!.id;
+                            userIdsiker==seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+
+                            requestid=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+                            match_from_id=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchFrom.toString();
+                            match_with_id=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.matchWith.toString();
+                            requestid=seekerOutgoingRequestSinglePageController
+                                .ViewProfileDetail.value.data!.id.toString();
+                            Requeststatus="rejected"
+                            ;                print(myid);
+                            print(otherid);
+
+                            setState(() {
+
+                              isRejLoding=true;
+                              Requestmatchtype=seekerOutgoingRequestSinglePageController
+                                  .ViewProfileDetail.value.data!.matchType.toString();
+                            });
+
+                            RequestAcceptControllerinstance.RequestAcceptApiHit();
+
+                            setState(() {
+
+                              isRejLoding=true;
+                            });
+                            if(isRejLoding==true){
+                              _showProgressDialog(context);
+                            }
+
+                            Timer(Duration(seconds: 4), () {
+                              setState(() {
+                                isRejLoding = false;
+
+                              });
+                            });
+
+
+
+                            Timer(Duration(seconds: 4), () {
+                              setState(() {
+                                if(seekerOutgoingRequestSinglePageController.rxRequestStatus.value==Status.COMPLETED){
+                                  seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
+                                  isRejLoding = false;
+                                  Get.back();
+                                }
+
+                              });
+                            });
+                          },
                           child: Container(
                             height: Get.height * 0.038,
                             width: Get.width * 0.2,
@@ -1123,18 +1199,26 @@ requestid=seekerOutgoingRequestSinglePageController
 
           GestureDetector(
           onTap: () {
-
+            print("fdsfdsgdgdg"+seekerOutgoingRequestSinglePageController
+                .ViewProfileDetail.value.data!.matchFromStatus);
+            print("object");
           },
           child: Container(
-          height: Get.height * 0.038,
-          width: Get.width * 0.2,
+          height: Get.height * 0.05,
+          width: Get.width * 0.3,
           decoration: BoxDecoration(
           color: Color.fromRGBO(254, 0, 145, 1),
           borderRadius: BorderRadius.circular(60)),
           child: Center(
-          child: Text('pending',
+          child:seekerOutgoingRequestSinglePageController
+              .ViewProfileDetail.value.data!.matchWithStatus||seekerOutgoingRequestSinglePageController
+              .ViewProfileDetail.value.data!.matchFromStatus=="rejected"?Text('Rejected',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)): Text('pending',
           style: TextStyle(
-          fontSize: 8,
+          fontSize: 15,
           fontWeight: FontWeight.w700,
           color: Colors.white)),
           ),
