@@ -980,144 +980,144 @@ class _SlotMachineState extends State<SlotMachine> {
                 ),
                 //******************** for timer of next polling
 
-                Visibility(
-                    visible: isTimerVisible,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Next Spin",
-                          style: Get.theme.textTheme.headlineSmall!.copyWith(
-                            color: Color(0xff000CAA),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-
-                            //&************ for hours
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inHours.toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Hour",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: Get.width * 0.025),
-
-                            //&************ for minutes
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Minute",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(width: Get.width * 0.025),
-                            //&************ for second
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Second",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                // Visibility(
+                //     visible: isTimerVisible,
+                //     child: Column(
+                //       children: [
+                //         Text(
+                //           "Next Spin",
+                //           style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //             color: Color(0xff000CAA),
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //         SizedBox(height: height * 0.02),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //
+                //             //&************ for hours
+                //             Container(
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inHours.toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Hour",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             Padding(
+                //               padding: const EdgeInsets.only(left:10,bottom: 25),
+                //               child: Text(
+                //                 ":",
+                //                 style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                   color: Color(0xff000CAA),
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ),
+                //             ),
+                //             SizedBox(width: Get.width * 0.025),
+                //
+                //             //&************ for minutes
+                //             Container(
+                //               child: Column(
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Minute",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             Padding(
+                //               padding: const EdgeInsets.only(left:10,bottom: 25),
+                //               child: Text(
+                //                 ":",
+                //                 style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                   color: Color(0xff000CAA),
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ),
+                //             ),
+                //
+                //             SizedBox(width: Get.width * 0.025),
+                //             //&************ for second
+                //             Container(
+                //               child: Column(
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Second",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //
+                //
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
 SizedBox(height:Get.height*0.05,),
                 Visibility(
                   visible: isNotVisible,

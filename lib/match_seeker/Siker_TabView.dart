@@ -20,10 +20,10 @@ import 'package:get/get.dart';
 import 'bottom_navigation.dart';
 
 class Siker_Tab_View extends StatefulWidget {
-  final int index;
+
 
   const Siker_Tab_View({Key? key, required this.index}) : super(key: key);
-
+  final int index;
   @override
   _Siker_Tab_ViewState createState() => _Siker_Tab_ViewState();
 }
