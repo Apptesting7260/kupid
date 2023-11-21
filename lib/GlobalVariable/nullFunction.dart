@@ -32,6 +32,11 @@ class GlobalVarribalNull{
    otpVerification=null;
      galleryImageFiles = [];
     interests=[];
+   selectSmoke=null;
+    selectDrink=null;
+   selectchildren=null;
+   selectEducation=null;
+   selectHopping=null;
     selectGender=null;
     isVisible = true;
    isNotVisible = false;

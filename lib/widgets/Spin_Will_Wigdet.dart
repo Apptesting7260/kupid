@@ -924,6 +924,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../controllers/controller/liver_Pooled_Request_Controller/Liver_Pooled_Request_controller.dart';
+import '../match_seeker/Requests/outgoingRequest.dart';
+import '../match_seeker/lever/StaticLiverPool.dart';
 List spinedprofilelist=[];
 class SpinWillWidget extends StatefulWidget {
   const SpinWillWidget({super.key});
@@ -935,8 +939,9 @@ class SpinWillWidget extends StatefulWidget {
 class _SpinWillWidgetState extends State<SpinWillWidget> {
   final MagicProfileControllerinstance = Get.put(MagicProfileController());
 
-final spinRequestController=Get.put(SpinRequestController());
-  
+  final spinRequestController = Get.put(SpinRequestController());
+  final SpeendReqestControllerinstance = Get.put(SpeendReqestController());
+
 
   List<int> items = [
     100,
@@ -961,16 +966,23 @@ final spinRequestController=Get.put(SpinRequestController());
   late Timer countdownTimer;
   Duration remainingTime = Duration(hours: 2);
   final SeekerToSeekerRequestControllerinstance =
-      Get.put(SeekerToSeekerRequestController());
+  Get.put(SeekerToSeekerRequestController());
 
   @override
   void initState() {
     print("object");
     MagicProfileControllerinstance.MagicProfileApiHit();
+    SpeendReqestControllerinstance.SpeendRequestApihit();
+    setState(() {
+      isNotVisible = false;
+      isSpinTimerVisible=false;
 
+
+    });
     // TODO: implement initState
     super.initState();
     selectedRadioTile = 0;
+
   }
 
   void startCountdownTimer() {
@@ -979,8 +991,8 @@ final spinRequestController=Get.put(SpinRequestController());
         if (remainingTime.inSeconds > 0) {
           remainingTime = remainingTime - Duration(seconds: 1);
         } else {
-          isVisible =!isVisible;
-          isNotVisible =!isNotVisible;
+          isVisible = !isVisible;
+          isNotVisible = !isNotVisible;
           shouldShowSpinButton = true; // Show the button when time is up
           isSpinTimerVisible = false;
           // Hide the timer
@@ -989,9 +1001,12 @@ final spinRequestController=Get.put(SpinRequestController());
       });
     });
   }
+
   Future<void> saveLastSpinTime() async {
     final prefs = await SharedPreferences.getInstance();
-    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final currentTime = DateTime
+        .now()
+        .millisecondsSinceEpoch;
     await prefs.setInt('last_spin_time', currentTime);
   }
 
@@ -1000,62 +1015,63 @@ final spinRequestController=Get.put(SpinRequestController());
       selectedRadioTile = value;
     });
   }
+
   bool isRequestMade = false;
 
   void handleSpinButtonClick() {
-   if(MagicProfileControllerinstance
-       .MagicProfileList
-       .value
-       .requests!.length>4){
-     if (!isSpinTimerVisible) {
-       setState(() {
-         MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
-         selected.add(Fortune.randomInt(0, items.length));
-         isVisible = !isVisible;
-         isNotVisible = !isNotVisible;
-         isspinedwill=true;
-       });
+    if(MagicProfileControllerinstance
+        .MagicProfileList
+        .value
+        .requests!.length>4){
+      if (!isSpinTimerVisible) {
+        setState(() {
+          MagicProfileControllerinstance.MagicProfileList.value.requests!.shuffle();
+          selected.add(Fortune.randomInt(0, items.length));
+          isVisible = !isVisible;
+          isNotVisible = !isNotVisible;
+          isspinedwill=true;
+        });
 
-       setState(() {
-         shouldShowSpinButton = false;
-         isSpinTimerVisible = true;
-         remainingTime = Duration(hours: 2);
-       });
-       spinedprofilelist=[];
-       for(int i =0; i<=3;i++){
+        setState(() {
+          shouldShowSpinButton = false;
+          isSpinTimerVisible = true;
+          remainingTime = Duration(hours: 2);
+        });
+        spinedprofilelist=[];
+        for(int i =0; i<=3;i++){
 
-         print(  MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
-         spinedprofilelist.add({
-           "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
-           "is_requested":"false"
-         });
-         print(spinedprofilelist);
-         print(spinedprofilelist.length);
+          print(  MagicProfileControllerinstance.MagicProfileList.value.requests![i].name);
+          spinedprofilelist.add({
+            "seeker_id":MagicProfileControllerinstance.MagicProfileList.value.requests![i].id.toString(),
+            "is_requested":"false"
+          });
+          print(spinedprofilelist);
+          print(spinedprofilelist.length);
 
-         if(spinedprofilelist.length==4){
-           print("spined===================");
-           spinRequestController.apihit();
-           //  LiverPoolControllerinstance.apihit();
-         }
+          if(spinedprofilelist.length==4){
+            print("spined===================");
+            spinRequestController.apihit();
+            //  LiverPoolControllerinstance.apihit();
+          }
 
-       }
+        }
 
-       // Save the current time as the last spin time
-       saveLastSpinTime();
+        // Save the current time as the last spin time
+        saveLastSpinTime();
 
-       // Start the countdown timer
-       startCountdownTimer();
-     }
-   }
-   else {
-     Fluttertoast.showToast(
-       msg: "Dont Have Enough Seekers",
-       toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
-       gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
-       backgroundColor: Colors.black54,
-       textColor: Colors.white,
-     );
-   }
+        // Start the countdown timer
+        startCountdownTimer();
+      }
+    }
+    else {
+      Fluttertoast.showToast(
+        msg: "Dont Have Enough Seekers",
+        toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+        gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+      );
+    }
   }
 
   @override
@@ -1067,8 +1083,14 @@ final spinRequestController=Get.put(SpinRequestController());
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Obx(() {
       switch (MagicProfileControllerinstance.rxRequestStatus.value) {
         case Status.LOADING:
@@ -1091,13 +1113,19 @@ final spinRequestController=Get.put(SpinRequestController());
                 Center(
                   child: (isVisible = !isNotVisible)
                       ? Text(
-                          "Find Your Matches",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        )
+                    "Find Your Matches",
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge,
+                  )
                       : Text(
-                          "Select Your Perfect Match",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                    "Select Your Perfect Match",
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge,
+                  ),
                 ),
                 SizedBox(
                   height: height * .03,
@@ -1166,10 +1194,10 @@ final spinRequestController=Get.put(SpinRequestController());
                                       width: Get.width * 0.10,
                                     ),
                                     InkWell(
-                                      child:  Transform.rotate(
-                                              angle: 90 *
-                                                  3.1415926535897932 /
-                                                  180,
+                                      child: Transform.rotate(
+                                        angle: 90 *
+                                            3.1415926535897932 /
+                                            180,
                                         child: Container(
                                           height: Get.height * 0.07,
                                           width: Get.width * 0.15,
@@ -1182,11 +1210,11 @@ final spinRequestController=Get.put(SpinRequestController());
                                                   isNotVisible == false
                                                       ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
                                                       : MagicProfileControllerinstance
-                                                          .MagicProfileList
-                                                          .value
-                                                          .requests![i]
-                                                          .imgPath
-                                                          .toString()),
+                                                      .MagicProfileList
+                                                      .value
+                                                      .requests![i]
+                                                      .imgPath
+                                                      .toString()),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -1209,10 +1237,11 @@ final spinRequestController=Get.put(SpinRequestController());
                         )),
                   ),
                 ),
-               // for timer when user completed our 24 hours successfully
+                // for timer when user completed our 24 hours successfully
                 SizedBox(
                   height: height * .03,
                 ),
+                // if(isSpinTimerVisible == false)
                 if(isSpinTimerVisible == false)Visibility(
                   visible: shouldShowSpinButton, // Only show the button if shouldShowSpinButton is true
                   child: MyButton(
@@ -1220,151 +1249,164 @@ final spinRequestController=Get.put(SpinRequestController());
                     title: 'Spin Now',
                   ),
                 ),
+                if(isSpinTimerVisible == true)Visibility(
+                  visible: !shouldShowSpinButton, // Only show the button if shouldShowSpinButton is true
+                  child: MyButton(
+                    onTap: (){
+                      setState(() {
+                        isNotVisible = false;
+                        isSpinTimerVisible=false;
+                        shouldShowSpinButton=true;
+                      });
+                    },
+                    title: 'Spin Again',
+                  ),
+                ),
                 SizedBox(
                   height: height * .01,
                 ),
 
 
-                 /// Add some spacing
-                if(isSpinTimerVisible == true)
-                  Visibility(
-                    visible: isSpinTimerVisible,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Next Spin",
-                          style: Get.theme.textTheme.headlineSmall!.copyWith(
-                            color: Color(0xff000CAA),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-
-                            //&************ for hours
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inHours.toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Hour",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: Get.width * 0.025),
-
-                            //&************ for minutes
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Minute",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(width: Get.width * 0.025),
-                            //&************ for second
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Second",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                /// Add some spacing
+                // if(isSpinTimerVisible == true)
+                // Visibility(
+                //   visible: isSpinTimerVisible,
+                //   child: Column(
+                //     children: [
+                //       Text(
+                //         "Next Spin",
+                //         style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //           color: Color(0xff000CAA),
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //       SizedBox(height: height * 0.02),
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //
+                //           //&************ for hours
+                //           Container(
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   padding: EdgeInsets.all(15),
+                //                   decoration: BoxDecoration(
+                //                     color: Colors.blue[50],
+                //                     borderRadius: BorderRadius.circular(15),
+                //                   ),
+                //                   child: Text(
+                //                     "${remainingTime.inHours.toString().padLeft(2, '0')}",
+                //                     style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                       color: Color(0xff000CAA),
+                //                       fontWeight: FontWeight.bold,
+                //                     ),
+                //                   ),
+                //
+                //                 ),
+                //                 SizedBox(height: Get.height * 0.0105),
+                //                 Text(
+                //                   "Hour",
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .bodySmall!
+                //                       .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.only(left:10,bottom: 25),
+                //             child: Text(
+                //               ":",
+                //               style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                 color: Color(0xff000CAA),
+                //                 fontWeight: FontWeight.bold,
+                //               ),
+                //             ),
+                //           ),
+                //           SizedBox(width: Get.width * 0.025),
+                //
+                //           //&************ for minutes
+                //           Container(
+                //             child: Column(
+                //               children: [
+                //                 Container(
+                //                   padding: EdgeInsets.all(15),
+                //                   decoration: BoxDecoration(
+                //                     color: Colors.blue[50],
+                //                     borderRadius: BorderRadius.circular(15),
+                //                   ),
+                //                   child: Text(
+                //                     "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
+                //                     style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                       color: Color(0xff000CAA),
+                //                       fontWeight: FontWeight.bold,
+                //                     ),
+                //                   ),
+                //
+                //                 ),
+                //                 SizedBox(height: Get.height * 0.0105),
+                //                 Text(
+                //                   "Minute",
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .bodySmall!
+                //                       .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.only(left:10,bottom: 25),
+                //             child: Text(
+                //               ":",
+                //               style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                 color: Color(0xff000CAA),
+                //                 fontWeight: FontWeight.bold,
+                //               ),
+                //             ),
+                //           ),
+                //
+                //           SizedBox(width: Get.width * 0.025),
+                //           //&************ for second
+                //           Container(
+                //             child: Column(
+                //               children: [
+                //                 Container(
+                //                   padding: EdgeInsets.all(15),
+                //                   decoration: BoxDecoration(
+                //                     color: Colors.blue[50],
+                //                     borderRadius: BorderRadius.circular(15),
+                //                   ),
+                //                   child: Text(
+                //                     "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
+                //                     style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                       color: Color(0xff000CAA),
+                //                       fontWeight: FontWeight.bold,
+                //                     ),
+                //                   ),
+                //
+                //                 ),
+                //                 SizedBox(height: Get.height * 0.0105),
+                //                 Text(
+                //                   "Second",
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .bodySmall!
+                //                       .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //
+                //
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 SizedBox(
                   height: height * .02,
@@ -1378,7 +1420,10 @@ final spinRequestController=Get.put(SpinRequestController());
                       children: [
                         Text(
                           "Request to be matched",
-                          style: Theme.of(context).textTheme.titleSmall,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleSmall,
                         ),
                         // Text(
                         //   "See all",
@@ -1435,7 +1480,7 @@ final spinRequestController=Get.put(SpinRequestController());
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: width * .2,
@@ -1446,7 +1491,8 @@ final spinRequestController=Get.put(SpinRequestController());
                                               .requests![index]
                                               .name
                                               .toString(),
-                                          style: Theme.of(context)
+                                          style: Theme
+                                              .of(context)
                                               .textTheme
                                               .titleSmall,
                                           overflow: TextOverflow.ellipsis,
@@ -1457,7 +1503,8 @@ final spinRequestController=Get.put(SpinRequestController());
                                       ),
                                       Text(
                                         "Match Seeker",
-                                        style: Theme.of(context)
+                                        style: Theme
+                                            .of(context)
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(color: Colors.grey),
@@ -1465,22 +1512,27 @@ final spinRequestController=Get.put(SpinRequestController());
                                     ],
                                   ),
                                   SizedBox(width: width * .12),
-                                  GestureDetector(
+                                  if(SpeendReqestControllerinstance.seekerprofilerequested.value==false)  GestureDetector(
                                     onTap: () {
                                       // showdilog();
-                                      selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
+                                      selectedseekerid =
+                                          SpeendReqestControllerinstance
+                                              .staticLiverPullvalue
+                                              .value
+                                              .data![0]
+                                              .spinLeverpoolRequestedData!
+                                              .spinRequestData![index]
+                                              .seekerData!.id;
                                       print(selectedseekerid);
 
-                                      if(selectedseekerid == index){
-                                        if(selectedseekerid!=null){
+
+                                        if (selectedseekerid != null) {
                                           showdilog(index, selectedseekerid!);
                                         }
-                                      }
-                                      else if(selectedseekerid != index){
+
+                                      else if (selectedseekerid != null) {
                                         print("dhfsdh");
                                       }
-
-
 
 
                                       // String selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id.toString();
@@ -1496,10 +1548,55 @@ final spinRequestController=Get.put(SpinRequestController());
                                       child: Center(
                                         child: Text(
                                           "Request",
-                                          style: Theme.of(context)
+                                          style: Theme
+                                              .of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if(SpeendReqestControllerinstance.seekerprofilerequested.value==true&&  SpeendReqestControllerinstance
+                                      .staticLiverPullvalue
+                                      .value
+                                      .data![0].spinLeverpoolRequestedData!.spinRequestData![index].isRequested==true)
+                                  GestureDetector(
+                                    onTap: () {
+
+                                      Fluttertoast.showToast(
+                                        msg: "You Have Already Requested",
+                                        toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
+                                        gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
+                                        backgroundColor: Colors.black54,
+                                        textColor: Colors.white,
+                                      );
+
+//                                       if( dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true"){
+// // selectedseekerid =
+// //                                           dataofStaticPull.id!.toInt();
+// //                                       if (selectedseekerid != null) {
+// //                                         showdilog(index, selectedseekerid!);
+// //                                       }
+// //                                       }else{
+// //                                         print("Blocked");
+//                                       }
+
+                                    },
+                                    child: Container(
+                                      height: height * .04,
+                                      width: width * .3,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffFE0091),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Requested",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(color: Colors.white,fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
@@ -1511,93 +1608,93 @@ final spinRequestController=Get.put(SpinRequestController());
                       ),
                     )
 
-                    //  Container(
+                  //  Container(
 
-                    //   child: ListView.builder(
-                    //     physics: NeverScrollableScrollPhysics(),
-                    //     itemCount:  4,
-                    //     // itemExtent: 80,
-                    //     shrinkWrap: true,
-                    //     itemBuilder: (context, index) {
+                  //   child: ListView.builder(
+                  //     physics: NeverScrollableScrollPhysics(),
+                  //     itemCount:  4,
+                  //     // itemExtent: 80,
+                  //     shrinkWrap: true,
+                  //     itemBuilder: (context, index) {
 
-                    //       return  Padding(
-                    //         padding: const EdgeInsets.symmetric(vertical: 10),
-                    //         child:  Row(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //         children: [
-                    //             Container(
-                    //   height: Get.height * 0.1,
-                    //   width: Get.width * 0.2,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.all(Radius.circular(100)),
-                    //     color: Colors.green,
-                    //     image: DecorationImage(
-                    //       image: CachedNetworkImageProvider(
-                    //         MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()
-                    //       ),
-                    //       fit: BoxFit.fill,
-                    //     ),
-                    //   ),
-                    // ),
-                    //             SizedBox(
-                    //               width: width * .03,
-                    //             ),
-                    //             Column(
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text(
-                    //                    MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
-                    //                   style: Theme.of(context).textTheme.titleSmall,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   height: height * .01,
-                    //                 ),
-                    //                 Text(
-                    //                   "Match Seeker",
-                    //                   style: Theme.of(context)
-                    //                       .textTheme
-                    //                       .bodySmall!
-                    //                       .copyWith(color: Colors.grey),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //             SizedBox(width: width * .12),
-                    //             GestureDetector(
-                    //               onTap: () {
+                  //       return  Padding(
+                  //         padding: const EdgeInsets.symmetric(vertical: 10),
+                  //         child:  Row(
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //         children: [
+                  //             Container(
+                  //   height: Get.height * 0.1,
+                  //   width: Get.width * 0.2,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.all(Radius.circular(100)),
+                  //     color: Colors.green,
+                  //     image: DecorationImage(
+                  //       image: CachedNetworkImageProvider(
+                  //         MagicProfileControllerinstance.MagicProfileList.value.requests![index].imgPath.toString()
+                  //       ),
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //   ),
+                  // ),
+                  //             SizedBox(
+                  //               width: width * .03,
+                  //             ),
+                  //             Column(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 Text(
+                  //                    MagicProfileControllerinstance.MagicProfileList.value.requests![index].name.toString(),
+                  //                   style: Theme.of(context).textTheme.titleSmall,
+                  //                 ),
+                  //                 SizedBox(
+                  //                   height: height * .01,
+                  //                 ),
+                  //                 Text(
+                  //                   "Match Seeker",
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .bodySmall!
+                  //                       .copyWith(color: Colors.grey),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //             SizedBox(width: width * .12),
+                  //             GestureDetector(
+                  //               onTap: () {
 
-                    //  selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
-                    // print(selectedseekerid);
+                  //  selectedseekerid= MagicProfileControllerinstance.MagicProfileList.value.requests![index].id!.toInt();
+                  // print(selectedseekerid);
 
-                    // if(selectedseekerid!=null){
-                    //   showdilog(index, selectedseekerid!);
-                    // }
-                    //               },
-                    //               child: Container(
-                    //                 height: height * .04,
-                    //                 width: width * .3,
-                    //                 decoration: BoxDecoration(
-                    //                   color: Color(0xffFE0091),
-                    //                   borderRadius: BorderRadius.circular(15),
-                    //                 ),
-                    //                 child: Center(
-                    //                   child: Text(
-                    //                     "Request",
-                    //                     style: Theme.of(context)
-                    //                         .textTheme
-                    //                         .bodySmall!
-                    //                         .copyWith(color: Colors.white),
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             )
-                    //           ],
-                    //         )
-                    //       );
-                    //     },
-                    //   ),
+                  // if(selectedseekerid!=null){
+                  //   showdilog(index, selectedseekerid!);
+                  // }
+                  //               },
+                  //               child: Container(
+                  //                 height: height * .04,
+                  //                 width: width * .3,
+                  //                 decoration: BoxDecoration(
+                  //                   color: Color(0xffFE0091),
+                  //                   borderRadius: BorderRadius.circular(15),
+                  //                 ),
+                  //                 child: Center(
+                  //                   child: Text(
+                  //                     "Request",
+                  //                     style: Theme.of(context)
+                  //                         .textTheme
+                  //                         .bodySmall!
+                  //                         .copyWith(color: Colors.white),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             )
+                  //           ],
+                  //         )
+                  //       );
+                  //     },
+                  //   ),
 
-                    ),
+                ),
               ],
             ),
           );
@@ -1606,8 +1703,14 @@ final spinRequestController=Get.put(SpinRequestController());
   }
 
   showdilog(int index, int id) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -1637,8 +1740,14 @@ final spinRequestController=Get.put(SpinRequestController());
                         color: Colors.green,
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                              MagicProfileControllerinstance.MagicProfileList
-                                  .value.requests![index].imgPath
+                              SpeendReqestControllerinstance
+                                  .staticLiverPullvalue.value.data![0]
+                                  .spinLeverpoolRequestedData!
+                                  .spinRequestData![index].seekerData!
+
+
+                                  .imgPath
+
                                   .toString()),
                           fit: BoxFit.fill,
                         ),
@@ -1653,120 +1762,195 @@ final spinRequestController=Get.put(SpinRequestController());
                 ],
               ),
               Text(
-                MagicProfileControllerinstance
-                    .MagicProfileList.value.requests![index].questions!.question
+                SpeendReqestControllerinstance
+                    .staticLiverPullvalue
+                    .value
+                    .data![0].spinLeverpoolRequestedData!
+                    .spinRequestData![index].seekerData!.questions!.question
                     .toString(),
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall,
               ),
               SizedBox(
                 height: height * .01,
               ),
               Obx(
-                () => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    () =>
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Select an Answer",
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Select an Answer",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                )),
+                          ],
+                        ),
+                        RadioListTile<String>(
+                          title: Text(SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .firstAnswer
+
+                              .toString()),
+                          value: SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .firstAnswer
+                              .toString(),
+                          groupValue: SpeendReqestControllerinstance
+                              .selectedAnswer.value
+                              .toString(),
+                          onChanged: (value) {
+                            SpeendReqestControllerinstance.selectedAnswer
+                                .value =
+                            value!;
+
+                            SpeendReqestControllerinstance.selectedAnswer.value
+                                .toString();
+                            print(SpeendReqestControllerinstance
+                                .selectedAnswer.value
+                                .toString());
+                          },
+                        ),
+                        RadioListTile<String>(
+                          title: Text(SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .secondAnswer
+                              .toString()),
+                          value: SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .secondAnswer
+                              .toString(),
+                          groupValue: SpeendReqestControllerinstance
+                              .selectedAnswer.value
+                              .toString(),
+                          onChanged: (value) {
+                            SpeendReqestControllerinstance.selectedAnswer
+                                .value =
+                            value!;
+
+                            SpeendReqestControllerinstance.selectedAnswer.value
+                                .toString();
+                            print(SpeendReqestControllerinstance
+                                .selectedAnswer.value
+                                .toString());
+                          },
+                        ),
+                        RadioListTile<String>(
+                          title: Text(SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .thirdAnswer
+                              .toString()),
+                          value: SpeendReqestControllerinstance
+                              .staticLiverPullvalue
+                              .value
+                              .data![0].spinLeverpoolRequestedData!
+                              .spinRequestData![index].seekerData!.questions!
+                              .thirdAnswer
+                              .toString(),
+                          groupValue: SpeendReqestControllerinstance
+                              .selectedAnswer.value
+                              .toString(),
+                          onChanged: (value) {
+                            SpeendReqestControllerinstance.selectedAnswer
+                                .value =
+                            value!;
+
+                            SpeendReqestControllerinstance.selectedAnswer.value
+                                .toString();
+                            print(SpeendReqestControllerinstance
+                                .selectedAnswer.value
+                                .toString());
+                          },
+                        ),
                       ],
                     ),
-                    RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
-                          .questions!
-                          .firstAnswer
-                          .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.firstAnswer
-                          .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
-                          .toString(),
-                      onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
-
-                        MagicProfileControllerinstance.selectedAnswer.value
-                            .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
-                            .toString());
-                      },
-                    ),
-                    RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
-                          .questions!
-                          .secondAnswer
-                          .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.secondAnswer
-                          .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
-                          .toString(),
-                      onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
-
-                        MagicProfileControllerinstance.selectedAnswer.value
-                            .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
-                            .toString());
-                      },
-                    ),
-                    RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
-                          .questions!
-                          .thirdAnswer
-                          .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.thirdAnswer
-                          .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
-                          .toString(),
-                      onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
-
-                        MagicProfileControllerinstance.selectedAnswer.value
-                            .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
-                            .toString());
-                      },
-                    ),
-                  ],
-                ),
               ),
               GestureDetector(
                 onTap: () {
-                  Get.back();
-                  if (MagicProfileControllerinstance.MagicProfileList.value
-                          .requests![index].questions!.correctAnswer ==
-                      MagicProfileControllerinstance.selectedAnswer.value
-                          .toString()) {
-                    showdiog2(index);
+                  setState(() {
+                    isboxloading = true;
+                  });
+
+                  spinedprofilelist[index]['is_requested'] = "true";
+                  spinRequestController.apihit();
+
+                  if (isboxloading == true) {
+                    _showProgressDialog(context);
                   }
-                  if (MagicProfileControllerinstance.MagicProfileList.value
-                          .requests![index].questions!.correctAnswer !=
-                      MagicProfileControllerinstance.selectedAnswer.value
-                          .toString()) {
-                    showdiologwronganswer(index);
-                  }
+
+                  Timer(Duration(seconds: 2), () {
+                    setState(() {
+                      isboxloading = false;
+                      Get.back();
+                      if (SpeendReqestControllerinstance
+                          .staticLiverPullvalue
+                          .value
+                          .data![0].spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer ==
+                          SpeendReqestControllerinstance.selectedAnswer.value
+                              .toString()) {
+                        match_withid = SpeendReqestControllerinstance
+                            .staticLiverPullvalue
+                            .value
+                            .data![0].spinLeverpoolRequestedData!
+                            .spinRequestData![index].seekerData!.id
+                            .toString();
+                        print(match_withid);
+                        SeekerToSeekerRequestControllerinstance
+                            .SikerTOSikerRequestApiHit(); // T
+                        showdiog2(index);
+                      }
+                      if (SpeendReqestControllerinstance
+                          .staticLiverPullvalue
+                          .value
+                          .data![0].spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer !=
+                          SpeendReqestControllerinstance.selectedAnswer.value
+                              .toString()) {
+                        showdiologwronganswer(index);
+                      }
+                    });
+                  });
+                  // Get.back();
+                  // if ( SpeendReqestControllerinstance
+                  //                                       .staticLiverPullvalue
+                  //                                       .value
+                  //                                       .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer ==
+                  //     SpeendReqestControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiog2(index);
+                  // }
+                  // if (SpeendReqestControllerinstance.staticLiverPullvalue.value
+                  //         .data![index].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.questions!.correctAnswer !=
+                  //     SpeendReqestControllerinstance.selectedAnswer.value
+                  //         .toString()) {
+                  //   showdiologwronganswer(index);
+                  // }
                 },
                 child: Container(
                   height: height * .04,
@@ -1778,7 +1962,8 @@ final spinRequestController=Get.put(SpinRequestController());
                   child: Center(
                     child: Text(
                       "Submit",
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodySmall!
                           .copyWith(color: Colors.white),
@@ -1787,7 +1972,10 @@ final spinRequestController=Get.put(SpinRequestController());
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
               ),
             ],
           ),
@@ -1797,8 +1985,14 @@ final spinRequestController=Get.put(SpinRequestController());
   }
 
   showdiog2(int index) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -1809,14 +2003,14 @@ final spinRequestController=Get.put(SpinRequestController());
           insetPadding: EdgeInsets.all(0),
           title: Column(
             children: [
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Image.asset("assets/icons/cancel.png"),
-                  )),
+              // Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: GestureDetector(
+              //       onTap: () {
+              //         Get.back();
+              //       },
+              //       child: Image.asset("assets/icons/cancel.png"),
+              //     )),
               Stack(
                 children: <Widget>[
                   Center(
@@ -1826,8 +2020,11 @@ final spinRequestController=Get.put(SpinRequestController());
                       child: CircleAvatar(
                         radius: 30.0,
                         backgroundImage: NetworkImage(
-                            MagicProfileControllerinstance
-                                .MagicProfileList.value.requests![index].imgPath
+                            SpeendReqestControllerinstance
+                                .staticLiverPullvalue
+                                .value
+                                .data![0].spinLeverpoolRequestedData!
+                                .spinRequestData![index].seekerData!.imgPath
                                 .toString()),
                         backgroundColor: Colors.transparent,
                       ),
@@ -1842,14 +2039,18 @@ final spinRequestController=Get.put(SpinRequestController());
               ),
               Text(
                 "Profile Unlocked",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall,
               ),
               SizedBox(
                 height: height * .01,
               ),
               Text(
                 "Your answer is correct.",
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .bodySmall!
                     .copyWith(color: Colors.grey),
@@ -1859,12 +2060,15 @@ final spinRequestController=Get.put(SpinRequestController());
               ),
               GestureDetector(
                 onTap: () {
-                  match_withid = MagicProfileControllerinstance
-                      .MagicProfileList.value.requests![index].id
-                      .toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit(); // Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
+                  Get.off(OutGoingRequest());
+                  // match_withid =  SpeendReqestControllerinstance
+                  //                                       .staticLiverPullvalue
+                  //                                       .value
+                  //                                       .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id
+                  //     .toString();
+                  // print(match_withid);
+                  // SeekerToSeekerRequestControllerinstance
+                  //     .SikerTOSikerRequestApiHit(); // Timer(Duration(microseconds: 2), () { Get.to(ChatPage()); });
                 },
                 child: Container(
                   height: height * .04,
@@ -1875,8 +2079,9 @@ final spinRequestController=Get.put(SpinRequestController());
                   ),
                   child: Center(
                     child: Text(
-                      "Message",
-                      style: Theme.of(context)
+                      "View",
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodySmall!
                           .copyWith(color: Colors.white),
@@ -1885,7 +2090,10 @@ final spinRequestController=Get.put(SpinRequestController());
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
               ),
             ],
           ),
@@ -1895,8 +2103,14 @@ final spinRequestController=Get.put(SpinRequestController());
   }
 
   showdiologwronganswer(int index) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -1924,8 +2138,11 @@ final spinRequestController=Get.put(SpinRequestController());
                       child: CircleAvatar(
                         radius: 30.0,
                         backgroundImage: NetworkImage(
-                            MagicProfileControllerinstance
-                                .MagicProfileList.value.requests![index].imgPath
+                            SpeendReqestControllerinstance
+                                .staticLiverPullvalue
+                                .value
+                                .data![0].spinLeverpoolRequestedData!
+                                .spinRequestData![index].seekerData!.imgPath
                                 .toString()),
                         backgroundColor: Colors.transparent,
                       ),
@@ -1940,14 +2157,18 @@ final spinRequestController=Get.put(SpinRequestController());
               ),
               Text(
                 "Profile locked",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleSmall,
               ),
               SizedBox(
                 height: height * .01,
               ),
               Text(
                 "Better Luck Next Time!",
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .bodySmall!
                     .copyWith(color: Colors.grey),
@@ -1969,7 +2190,8 @@ final spinRequestController=Get.put(SpinRequestController());
                   child: Center(
                     child: Text(
                       "Back",
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .bodySmall!
                           .copyWith(color: Colors.white),
@@ -1978,7 +2200,10 @@ final spinRequestController=Get.put(SpinRequestController());
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
               ),
               InkWell(
                 child: Container(
@@ -1990,23 +2215,28 @@ final spinRequestController=Get.put(SpinRequestController());
                       border: Border.all(color: Color(0xffFE0091))),
                   child: Center(
                     child: Text("Request To Maker",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: Color(0xffFE0091),
-                            )),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(
+                          color: Color(0xffFE0091),
+                        )),
                   ),
                 ),
                 onTap: () {
-                  Get.back();
-
-                  userIdsiker = MagicProfileControllerinstance
-                      .MagicProfileList.value.requests![index].id
+                  userIdsiker = SpeendReqestControllerinstance
+                      .staticLiverPullvalue
+                      .value
+                      .data![0].spinLeverpoolRequestedData!
+                      .spinRequestData![index].seekerData!.id
                       .toString();
 
                   setState(() {
                     userIdsiker;
                   });
                   Timer(Duration(microseconds: 2), () {
-                    Get.to(SeeAllMaker());
+                    Get.off(SeeAllMaker());
                   });
                 },
               ),
@@ -2016,6 +2246,25 @@ final spinRequestController=Get.put(SpinRequestController());
       },
     );
   }
+
+  void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
 }
-
-

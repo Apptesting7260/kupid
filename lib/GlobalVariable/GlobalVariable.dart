@@ -20,6 +20,7 @@ String? datestring;
 String verification_method="nationality_identity_card";
 String?nationality;
 File? ImagetoUpload;
+
 String?Subcriptiontype;
   bool isSpinTimerVisible = false;
 String?choose;
@@ -29,6 +30,12 @@ String ?otpVerification;
   List<File> galleryImageFiles = [];
 List <String>  interests=[];
   String? selectGender;
+  String? selectchildren;
+  String? selectEducation;
+  String? selectHopping;
+
+  String? selectSmoke;
+  String? selectDrink;
     bool isVisible = true;
   bool isNotVisible = false;
 int rolevalue=1;

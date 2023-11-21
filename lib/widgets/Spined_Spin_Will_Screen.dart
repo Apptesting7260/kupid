@@ -546,11 +546,13 @@ SpeendReqestControllerinstance.startTimer();
   //                             )
     if(SpeendReqestControllerinstance.seekerprofilerequested.value==false)               GestureDetector(
                                     onTap: () {
+                                      print("request jnjxff");
                                       selectedseekerid =
                                            SpeendReqestControllerinstance
                                                         .staticLiverPullvalue
                                                         .value
                                                         .data![0].spinLeverpoolRequestedData!.spinRequestData![index].seekerData!.id;
+                                      print(selectedseekerid);
                                       if (selectedseekerid != null) {
                                         showdilog(index, selectedseekerid!);
                                       }

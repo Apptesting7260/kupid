@@ -219,7 +219,7 @@
 //     address = json['address'];
 //     height = json['height'];
 //     dob = json['dob'];
-//     gender = null;
+//     gender = json['occupation_name'];
 //     religion = json['religion'];
 //     currentStep = json['current_step'];
 //     imgPath = json['img_path'];
@@ -417,6 +417,7 @@ class SpinLeverpoolRequestedData {
      this.id,
      this.seekerId,
      this.showExpireTime,
+     this.leverpoolRequestCount,
      this.hoursRemaining,
      this.spinRequestData,
      this.spinLiverRequestedStatus,
@@ -424,6 +425,7 @@ class SpinLeverpoolRequestedData {
    var id;
    var seekerId;
    var showExpireTime;
+var leverpoolRequestCount;
    var hoursRemaining;
    List<SpinRequestData> ?spinRequestData;
    var spinLiverRequestedStatus;
@@ -432,6 +434,9 @@ class SpinLeverpoolRequestedData {
     id = json['id'];
     seekerId = json['seeker_id'];
     showExpireTime = json['show_expire_Time'];
+    leverpoolRequestCount = json['leverpool_request_count'];
+
+
     hoursRemaining = json['hours_remaining'];
     spinRequestData = List.from(json['spin_request_data']).map((e)=>SpinRequestData.fromJson(e)).toList();
     spinLiverRequestedStatus = json['spin_liver_requested_status'];
@@ -442,6 +447,7 @@ class SpinLeverpoolRequestedData {
     _data['id'] = id;
     _data['seeker_id'] = seekerId;
     _data['show_expire_Time'] = showExpireTime;
+_data['leverpool_request_count'] = leverpoolRequestCount;
     _data['hours_remaining'] = hoursRemaining;
     _data['spin_request_data'] = spinRequestData!.map((e)=>e.toJson()).toList();
     _data['spin_liver_requested_status'] = spinLiverRequestedStatus;

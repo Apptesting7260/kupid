@@ -107,7 +107,12 @@ class SeekerProfileController extends GetxController {
       request.fields['gender'] = selectGender.toString();
       request.fields['type'] = "${2}";
       request.fields['salary'] = SalaryController.value.text;
-      request.fields['religion'] = SikerReligon.toString();
+      request.fields['like_to_have_children'] = selectchildren.toString();
+      request.fields['do_you_drink'] = selectDrink.toString();
+      request.fields['do_you_smoke'] = selectSmoke.toString();
+      request.fields['education'] =  selectEducation.toString();
+      request.fields['hoping_to_find'] = selectHopping.toString();
+
 
       request.headers['Authorization'] =
           "Bearer ${sp.getString("BarearToken")}";

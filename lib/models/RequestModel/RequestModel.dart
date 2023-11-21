@@ -36,7 +36,7 @@ class Data {
  var id;
  var makerId;
  var matchFrom;
-String? matchWith;
+var matchWith;
  var matchType;
   var matchWithStatus;
   var matchFromStatus;
@@ -187,7 +187,7 @@ class Getseeker {
 class Details {
  var id;
  var seekerId;
-  bool? profileGallery;
+  var profileGallery;
   var inInterested;
   var interest;
   var bioTitle;

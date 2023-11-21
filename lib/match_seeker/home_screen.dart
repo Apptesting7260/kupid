@@ -101,19 +101,19 @@ class _DomatchscreenSikerState extends State<DomatchscreenSiker> {
 
                  
 
-                  if (selectedrole == 1 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==false
+                  if (selectedrole == 1 && seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==false
                       )
                     SpinWillWidget(),
 
-                    if (selectedrole == 1 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==true
+                    if (selectedrole == 1 && seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.spin==true
                       )
                   Spined_Spin_Wheel_Widget(),
                       //  SpinWillWidget(),
 
-                   if (selectedrole == 2 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==false
+                   if (selectedrole == 2 && seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==false
                       )
                    SlotMachine(),
-                    if (selectedrole == 2 &&seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==true
+                    if (selectedrole == 2 && seekerMyProfileDetailsController.SeekerMyProfileDetail.value.SpinLeverRequestedDat!.leverpool==true
                       )
                   LiverPooledWidget(),
                   //  SlotMachine(),

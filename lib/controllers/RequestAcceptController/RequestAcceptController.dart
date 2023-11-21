@@ -62,7 +62,9 @@ class RequestAcceptController extends GetxController {
       RequestAccepts(value);
       print(value);
       print("abcd");
-      seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
+
+        seekerOutgoingRequestSinglePageController.ViewRequestDetailsApiHit();
+
         //  print("fjksdfn");
     }).onError((error, stackTrace){
       setRxRequestStatus(Status.COMPLETED);

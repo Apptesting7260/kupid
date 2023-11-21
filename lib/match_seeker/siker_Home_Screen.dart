@@ -42,6 +42,7 @@ import '../controllers/SeekerMyProfileDetailsController/SeekerMyProfileControlle
 import '../controllers/SeekerRequestController/SeekerHomePageRequestController.dart';
 import '../controllers/controller/RecentSeekerMatchesController/recent_seeker_matches_controller.dart';
 import '../controllers/controller/ViewSikerDetailsController/ViewSikerDetaolsController.dart';
+import '../controllers/sikerProfileController/EditViewsikeerDetailsController.dart';
 import 'RecentMatch/SingleRecentMatch.dart';
 import 'Requests/SeekeerIncominSingalRequestPage.dart';
 import 'Requests/SeekerRequestPage.dart';
@@ -62,8 +63,10 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
       Get.put(RecentSeekerMatchesController());
   final SeekerMyProfileDetailsController seekerMyProfileController =
   Get.put(SeekerMyProfileDetailsController());
+  SeekerEditViewDeatailsController ViewSikerProfileDetailsControllerinstances = Get.put(SeekerEditViewDeatailsController());
 
-  
+
+
   String? Getcurrentuser;
   @override
   HomeRequestController requestHomeController=Get.put(HomeRequestController());
@@ -72,6 +75,7 @@ class _SikerHomeScreenState extends State<SikerHomeScreen> {
     requestHomeController.homeRequest();
     seekerMyProfileController.SeekerMyProfileDetailsApiHit();
     recentSeekerMatchesController.isrecentSeekermatchesApi();
+    ViewSikerProfileDetailsControllerinstances.ViewSikerProfileDetailsApiHit();
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0]);
     // print(requestHomeController.seekerHomeRequestValue.value.requests!.incoming![0].getseeker?.gender);
         getcurrentuser();

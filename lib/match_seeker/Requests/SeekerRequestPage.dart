@@ -787,15 +787,19 @@ if(seekerOutgoingRequestSinglePageController.ViewProfileDetail
                                     children: [
                                       for (var i = 0; myUserUrl.details!
                                           .interestName!.length > i; i++)
-                                        Text(
-                                          myUserUrl.details!.interestName![i]
-                                              .title.toString() + " ",
-                                          style: TextStyle(
+                                        Container(
+                                          width: Get.width * 0.07,
+                                          child: Text(
+                                            myUserUrl.details!.interestName![i]
+                                                .title.toString() + " ",
+                                            style: TextStyle(
 
-                                              fontSize: 6,
-                                              color: Colors.black,
-                                              fontWeight:
-                                              FontWeight.w400),
+                                                fontSize: 6,
+                                                color: Colors.black,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
 
                                     ],) : Container(),
@@ -1012,7 +1016,7 @@ getMessagesStream1();
                                 color: Color.fromRGBO(254, 0, 145, 1),
                                 borderRadius: BorderRadius.circular(60)),
                             child: Center(
-                              child: Text('Requested',
+                              child: Text(seekerOutgoingRequestSinglePageController.ViewProfileDetail.value.data!.matchWithStatus=="rejected"?"Rejected":'Requested',
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,

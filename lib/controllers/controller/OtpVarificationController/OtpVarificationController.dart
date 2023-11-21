@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cupid_match/controllers/controller/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:cupid_match/repository/Auth_Repository/Auth_Repository.dart';
 import 'package:cupid_match/utils/utils.dart';
@@ -21,6 +23,15 @@ ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPassword
 
   RxBool loading = false.obs;
   RxBool  verify = false.obs;
+// RxInt time=30.obs;
+// late Timer _timer;
+// void startTimer() {
+//   const oneSecond = Duration(seconds: 1);
+//   _timer = Timer.periodic(oneSecond, (timer) {
+//
+//     if(time>=1){
+//       time--;
+//     }
 
 
   void OtpVerificationapiiHit(BuildContext context){

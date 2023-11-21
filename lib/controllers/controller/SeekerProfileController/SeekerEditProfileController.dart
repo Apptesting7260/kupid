@@ -19,7 +19,9 @@ import '../../../data/response/status.dart';
 import '../../../match_maker/match_maker_profile_update.dart';
 import '../../../match_maker/verify_identity.dart';
 import '../../../match_seeker/photos.dart';
+import '../../../models/ViewProfileDetailsModel/EditProfileDetailsModel.dart';
 import '../../SeekerMyProfileDetailsController/SeekerMyProfileController.dart';
+import '../../sikerProfileController/EditViewsikeerDetailsController.dart';
 import '../SetRoleController/SetRoleController.dart';
 import '../ViewSikerDetailsController/ViewSikerDetaolsController.dart';
 
@@ -32,6 +34,8 @@ class SeekerEditProfileController extends GetxController {
 
   final _api = AuthRepository();
   SeekerMyProfileDetailsController ViewSikerProfileDetailsControllerinstance = Get.put(SeekerMyProfileDetailsController());
+  SeekerEditViewDeatailsController ViewSikerProfileDetailsControllerinstances = Get.put(SeekerEditViewDeatailsController());
+
   final phone_verify = 0.obs;
   final email_verify = 0.obs;
   RxBool verified = false.obs;
@@ -55,24 +59,40 @@ class SeekerEditProfileController extends GetxController {
   final CorrectanswerController = TextEditingController().obs;
   final SalaryController = TextEditingController().obs;
   final otpController = TextEditingController().obs;
+  RxString imageUrl="".obs;
   // RxString selectLocalGender="".obs;
   // ViewSikerProfileDetailsControllerinstance.ViewProfileDetail
 
    setDataInControoler() {
     // ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetailsApiHit();
-    NameController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.name.toString();
-    EmailController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.email.toString();
-    PhoneController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.phone.toString();
-    Ocupasion=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.occupation.toString();
-    HeightController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!. height.toString();
-    SalaryController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.salary.toString();
-    locationcntroller.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.address.toString();
-    SikerReligon=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.religion.toString();
-    datestring=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.dob.toString();
-    selectGender=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.gender.toString();
-    // QuestionController.value.text=ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.gender.toString();
+     String numberString =ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!. height.toString();
+
+     // Convert the number to a string
+
+
+     // Split the string into two parts based on the decimal point
+     List<String> parts = numberString.split('.');
+
+     NameController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.name.toString();
+    EmailController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.email.toString();
+    PhoneController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.phone.toString();
+    Ocupasion=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.occupation.toString();
+    HeightController.value.text= parts[0].toString();
+    InchesController.value.text= parts.length > 1 ? parts[1].toString() : '';
+    SalaryController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.salary.toString();
+    locationcntroller.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.address.toString();
+    SikerReligon=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.religion.toString();
+    datestring=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.dob.toString();
+    selectGender=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.gender.toString();
+    QuestionController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.question.toString();
+    FirstanswerController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.firstAnswer.toString();
+    SecondanswerController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.secondAnswer.toString();
+    ThirdanswerController.value.text=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.thirdAnswer.toString();
+    choose=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.correctAnswer.toString();
+        datestring=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.dob.toString();
+     imageUrl.value=ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.imgPath.toString();
     print("hhhbhbjhjjjjjjhjbjhbj  seeker data update controller  ");
-    print(ViewSikerProfileDetailsControllerinstance.SeekerMyProfileDetail.value.ProfileDetail!.name.toString());
+    print(ViewSikerProfileDetailsControllerinstances.ViewProfileDetail.value.UerDatas!.name.toString());
 
   }
   Future<void> SeekerProfileApiHit() async {
@@ -90,6 +110,7 @@ class SeekerEditProfileController extends GetxController {
 
       // Add the file to the request
       if (ImagetoUpload == null) {
+
       } else {
         print("object");
         var fileStream = http.ByteStream(ImagetoUpload!.openRead());

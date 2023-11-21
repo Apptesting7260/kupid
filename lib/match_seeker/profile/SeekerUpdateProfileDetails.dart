@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:cupid_match/controllers/controller/SignUpController/SignUpController.dart';
 import 'package:cupid_match/utils/utils.dart';
@@ -18,6 +19,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:image/image.dart' as imgLib;
@@ -129,59 +131,176 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
   }
 
   final imgPicker = ImagePicker();
-
   Future<void> showOptionsDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              "Choose",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            //Image Picker
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Center(
+            child: Column(
               children: [
-                GestureDetector(
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.pink,
-                  ),
-                  onTap: () {
-                    openCamera(ImageSource.camera);
-                    Navigator.of(context).pop();
-                  },
+
+                Text(
+                  'Upload Photo',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 18,color:Colors.black),
                 ),
-                GestureDetector(
-                  child: Icon(
-                    Icons.photo_library,
-                    color: Colors.pink,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    openCamera(ImageSource.gallery);
-                  },
+                SizedBox(height: Get.height*0.01,),
+                Text(
+                  'Please choose image',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12,color: Colors.black),
                 ),
               ],
             ),
-          );
-        });
-  }
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // GestureDetector(
+                  //   child: const Icon(
+                  //     Icons.camera_alt_outlined,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onTap: () {
+                  //     _pickImage(ImageSource.camera);
+                  //   },
+                  // ),
+                  MyButton(
+                    width: Get.width*.27,
+                    height: Get.height*.05,
+                    title: "Camera", onTap: () {
+                    openCamera(ImageSource.camera);
+                  },)
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // GestureDetector(
+                  //   child: const Icon(
+                  //     Icons.photo_library,
+                  //     color: Colors.white,
+                  //   ),
+                  //   onTap: () {
+                  //     _pickImage(ImageSource.gallery);
+                  //   },
+                  // ),
+                  MyButton(
+                    width: Get.width*.25,
+                    height: Get.height*.05,
+                    title: "Gallery", onTap: () {
+                    openCamera(ImageSource.gallery);
+                  },)
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
 
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Center(
+    //             child: Text(
+    //           "Choose",
+    //           style: Theme.of(context).textTheme.titleLarge,
+    //         )),
+    //         //Image Picker
+    //         content: Row(
+    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //           children: [
+    //             GestureDetector(
+    //               child: Cont
+    //               onTap: () {
+    //                 openCamera(ImageSource.camera);
+    //                 Navigator.of(context).pop();
+    //               },
+    //             ),
+
+    //             GestureDetector(
+    //               child: Icon(
+    //                 Icons.photo_library,
+    //                 color: Colors.pinkAccent,
+    //               ),
+    //               onTap: () {
+    //                 openCamera(ImageSource.gallery);
+    //                 Navigator.of(context).pop();
+    //               },
+    //             ),
+    //             // GestureDetector(
+    //             //   child: Text("Gallery",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),),
+    //             //   onTap: () {
+    //             //     openCamera(ImageSource.gallery);
+    //             //   },
+    //             // ),
+    //           ],
+    //         ),
+    //       );
+
+  }
   File? compressedFile;
+  final imageCropper = ImageCropper();
 
   Future<void> openCamera(ImageSource source) async {
-    var imgCamera = await imgPicker.pickImage(source: source);
+    var pickedImage = await imgPicker.pickImage(source: source);
 
-    if (imgCamera != null) {
+    if (pickedImage != null) {
+      final croppedImage = await imageCropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatio: const CropAspectRatio(
+            ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
+        compressQuality: 50,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+            const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],// Adjust compression quality as needed
+      );
+
       setState(() {
-        imgFile = File(imgCamera.path);
+        imgFile = File(croppedImage!.path);
+        ImagetoUpload = File(croppedImage!.path);
+        print(imgFile);
+        Get.back();
       });
 
+      // if (imgCamera != null) {
+      //   setState(() {
+      //     imgFile = File(imgCamera.path);
+      //     Get.back();
+      //   });
+
+
       // Run compression in a background isolate
-      await compressImageInBackground(imgFile!);
+      // await compressImageInBackground(imgFile!);
     }
+
   }
 
   Future<void> compressImageInBackground(File imageFile) async {
@@ -259,13 +378,27 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
     _dropdownFocus1.addListener(_onDropdownFocusChange1);
     _dropdownFocus2.addListener(_onDropdownFocusChange2);
     _dropdownFocus3.addListener(_onDropdownFocusChange3);
+    startdate=DateFormat("dd-MM-yyyy").parse(datestring!);;
 
-    startdate = null;
+
     selectGender = null;
     datestring = null;
     imgFile = null;
 
+if(choose==SeekerProfileControllerInstanse
+    .FirstanswerController.value
+    .text){
+  _chooseAnswer1=true;
+}
+else if(choose==SeekerProfileControllerInstanse
+    .SecondanswerController.value
+    .text){
+  _chooseAnswer2=true;
 
+}else{
+  _chooseAnswer3=true;
+
+}
 
 
   }
@@ -273,7 +406,8 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
 
   @override
   Widget build(BuildContext context) {
-
+print( SeekerProfileControllerInstanse.imageUrl.value.toString());
+print("===============================================================================================");
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -291,11 +425,11 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
           centerTitle: true,
         ),
         body: Obx(() {
-          switch (ViewSikerProfileDetailsControllerinstance.rxRequestStatus.value) {
+          switch (ViewSikerProfileDetailsControllerinstances.rxRequestStatus.value) {
             case Status.LOADING:
               return const Center(child: CircularProgressIndicator());
             case Status.ERROR:
-              if (ViewSikerProfileDetailsControllerinstance.error.value ==
+              if (ViewSikerProfileDetailsControllerinstances.error.value ==
                   'No internet') {
                 return InterNetExceptionWidget(
                   onPress: () {},
@@ -341,22 +475,30 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                               clipBehavior: Clip.none,
                               fit: StackFit.expand,
                               children: [
-                                CircleAvatar(
-                                  child: ClipOval(
-                                      child: imgFile == null
-                                          ? Image.network(
-                                        'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
-                                        height: 200,
-                                        width: 200,
-                                        fit: BoxFit.cover,
-                                      )
-                                          : Image.file(
-                                        imgFile!,
-                                        height: height,
-                                        width: width,
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
+                                imgFile==null? CircleAvatar(
+                                backgroundImage:  SeekerProfileControllerInstanse.imageUrl.value ==
+                                    null||  SeekerProfileControllerInstanse.imageUrl.value==""
+                                    ? CachedNetworkImageProvider(
+                                  'https://cdn-icons-png.flaticon.com/512/847/847969.png?w=740&t=st=1691391117~exp=1691391717~hmac=c402e52cf04c8941cd7bc1fae55a6ed27830a0e3f82a34da252300f7b68ce614',
+
+                                )
+                                    :CachedNetworkImageProvider(
+                                    SeekerProfileControllerInstanse.imageUrl.value.toString(), )
+                                ):CircleAvatar(
+
+
+           child:ClipOval(
+             child:  Image.file(
+               imgFile!,
+               height: height,
+               width: width,
+               fit: BoxFit.cover,
+
+             ),
+           )
+                                 ,
+           // Adjust the radius as needed
+          ),
                                 Positioned(
                                     top: 60,
                                     left: 65,
@@ -367,7 +509,7 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                                         },
                                         child:
                                         Image.asset(
-                                            "assets/icons/cameraa.png")))
+                                            "assets/icons/edit.png")))
                                 // Positioned(
                                 //   bottom: 0,
                                 //   right: -8,
@@ -1424,7 +1566,7 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                                     keyboardType: TextInputType.number,
                                     controller: SeekerProfileControllerInstanse
                                         .InchesController.value,
-                                    maxLength: 1,
+                                    maxLength: 2,
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "Please Enter Height";
@@ -1628,6 +1770,7 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                                           setState(() {
                                             print(choose);
                                             _chooseAnswer1 = !_chooseAnswer1;
+                                            print(_chooseAnswer1);
                                             // click = !click;
                                           });
                                         }
@@ -1683,7 +1826,9 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                                                   .text;
                                           setState(() {
                                             print(choose);
+
                                             _chooseAnswer2 = !_chooseAnswer2;
+                                            print(_chooseAnswer2);
                                             // click = !click;
                                           });
                                         }
@@ -1741,6 +1886,7 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
                                           setState(() {
                                             print(choose);
                                             _chooseAnswer3 = !_chooseAnswer3;
+                                            print(_chooseAnswer3);
                                             // click = !click;
                                           });
                                         }
@@ -2020,7 +2166,8 @@ class _SikerUpdateProfileDetailsState extends State<SikerUpdateProfileDetails> {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    } else if (imgFile == null) {
+    } else if (imgFile == null||   SeekerProfileControllerInstanse.imageUrl.value==null||
+        SeekerProfileControllerInstanse.imageUrl.value=="") {
       Fluttertoast.showToast(
           msg: "Pless Select profile picture",
           toastLength: Toast.LENGTH_SHORT,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cupid_match/controllers/controller/OtpVarificationController/OtpVarificationController.dart';
 import 'package:cupid_match/views/sign_up/create_password.dart';
 import 'package:cupid_match/widgets/my_button.dart';
@@ -33,6 +35,7 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
     OtpVarificationControllerinstace.OtpController.value.clear();
     // TODO: implement initState
     super.initState();
+    startTimer();
   }
   // BoxDecoration get _pinPutDecoration {
   //   return BoxDecoration(
@@ -40,6 +43,29 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
   //     borderRadius: BorderRadius.circular(15.0),
   //   );
   // }
+var time=30;
+var count="00";
+late Timer _timer;
+void startTimer() {
+  const oneSecond = Duration(seconds: 1);
+  _timer = Timer.periodic(oneSecond, (timer) {
+
+  if(time>=1){
+    setState(() {
+      time--;
+     if( time.toString().length==2){
+       count=time.toString();
+     }
+     else{
+       count="0$time";
+     }
+
+    });
+  }
+
+
+  });
+}
   @override
   Widget build(BuildContext context) {
     final BoxDecoration _pinPutDecoration = BoxDecoration(
@@ -75,7 +101,7 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: Text("Otp Screen"),
+          child: Text("Verification Screen"),
         ),
         centerTitle: true,
       ),
@@ -86,7 +112,13 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
           child: ListView(
             children: [
               SizedBox(
-                height: height * .15,
+                height: height * .1,
+              ),
+             Center(
+               child:Text(count.toString(),style: TextStyle(color: Color(0xffFE0091),fontWeight: FontWeight.bold,fontSize: 25),) ,
+             ),
+              SizedBox(
+                height: height * .05,
               ),
               Center(
                 child: Text(
@@ -196,6 +228,9 @@ final ResendOtpControllerInstanse=Get.put(ResendOtpController());
                   ),
                 ),
                 onTap: (){
+                  setState(() {
+                    startTimer();
+                  });
                   ResendOtpControllerInstanse.ResendOtpapiiHit();
                 },
               ),)

@@ -17,8 +17,8 @@ import 'package:get/get.dart';
 
 import '../Requests/outgoingRequest.dart';
 
+bool isboxloading = false;
 
-bool isboxloading=false;
 class LiverPooledWidget extends StatefulWidget {
   @override
   _LiverPooledWidgetState createState() => _LiverPooledWidgetState();
@@ -28,12 +28,8 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
   final staticLiverpullController = Get.put(StaticLiverPullController());
   final liverPoolController = Get.put(LiverPoolController());
 
-
-
-
-  
-
   bool pulled = false;
+
   //********************* for timer functions here ok ! *********
   bool shouldShowSpinButton = true;
 
@@ -53,12 +49,11 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
   @override
   void initState() {
     // TODO: implement initState
-        staticLiverpullController.staticLiverPullmethodapihit();
-        print(("objectpulled"));
+    staticLiverpullController.staticLiverPullmethodapihit();
+    print(("objectpulled"));
 
     // staticLiverpullController.startTimer();
     super.initState();
-   
   }
 
   @override
@@ -72,133 +67,153 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Obx(() {
-            switch (staticLiverpullController.rxRequestStatus.value) {
-              case Status.LOADING:
-                return const Center(child: CircularProgressIndicator());
-              case Status.ERROR:
-                if (staticLiverpullController.error.value == 'No internet') {
-                  return InterNetExceptionWidget(
-                    onPress: () {},
-                  );
-                } else {
-                  return SingleChildScrollView();
-                }
+      switch (staticLiverpullController.rxRequestStatus.value) {
+        case Status.LOADING:
+          return const Center(child: CircularProgressIndicator());
+        case Status.ERROR:
+          if (staticLiverpullController.error.value == 'No internet') {
+            return InterNetExceptionWidget(
+              onPress: () {},
+            );
+          } else {
+            return SingleChildScrollView();
+          }
 
-              case Status.COMPLETED:
-                return Container(
-                  child: Column(
+        case Status.COMPLETED:
+          return Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: Get.height * .06,
+                ),
+                Stack(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: Get.height * .06,
-                      ),
-                      Stack(children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _buildReel(0),
-                            _buildReel(1),
-                            _buildReel(2),
-                          ],
-                        ),
-                        Positioned(
-                            top: pulled == false
-                                ? Get.height * 0.04
-                                : Get.height * 0.08,
-                            right: -Get.width * 0.01,
-                            child: pulled == false
-                                ? GestureDetector(
-                                    child: Container(
-                                      height: Get.height * 0.08,
-                                      width: Get.width * 0.1,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/liverup.PNG"))),
-                                    ),
-                                    onTap: () {
-                                      Fluttertoast.showToast(
-  msg: "You Have Already Pooled",
-  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
-  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
-  backgroundColor: Colors.black54,
-  textColor: Colors.white,
-);
-       
-                                      // if (pulled == false) {
-                                      //   _startSpinning();
-                                      // }
-                                      // if (pulled == true)
-                                      //   Timer(Duration(seconds: 2), () {
-                                      //     _stopSpinning();
-                                      //   });
-                                    },
-                                  )
-                                : Container(
-                                    height: Get.height * 0.08,
-                                    width: Get.width * 0.1,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/liverdown.PNG"))),
-                                  ))
-                      ]),
-                      SizedBox(
-                        height: Get.height * .03,
-                      ),
-                      //******************** for timer of next polling
+                      _buildReel(0),
+                      _buildReel(1),
+                      _buildReel(2),
+                    ],
+                  ),
+                  Positioned(
+                      top: pulled == false
+                          ? Get.height * 0.04
+                          : Get.height * 0.08,
+                      right: -Get.width * 0.01,
+                      child: pulled == false
+                          ? GestureDetector(
+                              child: Container(
+                                height: Get.height * 0.08,
+                                width: Get.width * 0.1,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/liverup.PNG"))),
+                              ),
+                              onTap: () {
+                                Fluttertoast.showToast(
+                                  msg: "You Have Already Pooled",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  // You can use Toast.LENGTH_LONG for a longer duration.
+                                  gravity: ToastGravity.BOTTOM,
+                                  // You can change the position to TOP, CENTER, or BOTTOM.
+                                  backgroundColor: Colors.black54,
+                                  textColor: Colors.white,
+                                );
 
-                      Column(
-                        children: [
-                          Text(
-                            "Next Pull",
+                                // if (pulled == false) {
+                                //   _startSpinning();
+                                // }
+                                // if (pulled == true)
+                                //   Timer(Duration(seconds: 2), () {
+                                //     _stopSpinning();
+                                //   });
+                              },
+                            )
+                          : Container(
+                              height: Get.height * 0.08,
+                              width: Get.width * 0.1,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/liverdown.PNG"))),
+                            ))
+                ]),
+                SizedBox(
+                  height: Get.height * .03,
+                ),
+                //******************** for timer of next polling
+
+                Column(
+                  children: [
+                    Text(
+                      "Next Pull",
+                      style: Get.theme.textTheme.headlineSmall!.copyWith(
+                        color: Color(0xff000CAA),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: height * 0.02),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //&************ for hours
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[50],
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Text(
+                                  "${staticLiverpullController.hours.toString()}",
+                                  style: Get.theme.textTheme.headlineSmall!
+                                      .copyWith(
+                                    color: Color(0xff000CAA),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: Get.height * 0.0105),
+                              Text(
+                                "Hour",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, bottom: 25),
+                          child: Text(
+                            ":",
                             style: Get.theme.textTheme.headlineSmall!.copyWith(
                               color: Color(0xff000CAA),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: height * 0.02),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        ),
+                        SizedBox(width: Get.width * 0.025),
+
+                        //&************ for minutes
+                        Container(
+                          child: Column(
                             children: [
-                              //&************ for hours
                               Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[50],
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Text(
-                                        "${staticLiverpullController.hours.toString()}",
-                                        style: Get
-                                            .theme.textTheme.headlineSmall!
-                                            .copyWith(
-                                          color: Color(0xff000CAA),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: Get.height * 0.0105),
-                                    Text(
-                                      "Hour",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                    ),
-                                  ],
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[50],
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, bottom: 25),
                                 child: Text(
-                                  ":",
+                                  "${staticLiverpullController.minutes.toString()}",
                                   style: Get.theme.textTheme.headlineSmall!
                                       .copyWith(
                                     color: Color(0xff000CAA),
@@ -206,225 +221,206 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: Get.width * 0.025),
-
-                              //&************ for minutes
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[50],
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Text(
-                                        "${staticLiverpullController.minutes .toString()}",
-                                        style: Get
-                                            .theme.textTheme.headlineSmall!
-                                            .copyWith(
-                                          color: Color(0xff000CAA),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: Get.height * 0.0105),
-                                    Text(
-                                      "Minute",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, bottom: 25),
-                                child: Text(
-                                  ":",
-                                  style: Get.theme.textTheme.headlineSmall!
-                                      .copyWith(
-                                    color: Color(0xff000CAA),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(width: Get.width * 0.025),
-                              //&************ for second
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[50],
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Text(
-                                        "${staticLiverpullController.seconds .toString()}",
-                                        style: Get
-                                            .theme.textTheme.headlineSmall!
-                                            .copyWith(
-                                          color: Color(0xff000CAA),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: Get.height * 0.0105),
-                                    Text(
-                                      "Second",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                    ),
-                                  ],
-                                ),
+                              SizedBox(height: Get.height * 0.0105),
+                              Text(
+                                "Minute",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-
-                      //******************** for timer of next polling
-
-                      SizedBox(
-                        height: Get.height * 0.05,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Request to be matched",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            // Text(
-                            //   "See all",
-                            //   style: Theme.of(context)
-                            //       .textTheme
-                            //       .labelLarge!
-                            //       .copyWith(color: Color(0xff000CAA)),
-                            // ),
-                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: height * .02,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: 3, // Use the shuffled item count
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            print("The lenght of this static data from API");
-                            print(staticLiverpullController
-                                .staticLiverPullvalue.value.data!.length);
-                            final dataofStaticPull = staticLiverpullController
-                                .staticLiverPullvalue.value.data![0];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(
-                                    radius:30,
-                                    backgroundImage: CachedNetworkImageProvider(
-                                        dataofStaticPull
-                                            .spinLeverpoolRequestedData!
-                                            .spinRequestData![index]
-                                            .seekerData!
-                                            .imgPath
-                                            .toString()),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, bottom: 25),
+                          child: Text(
+                            ":",
+                            style: Get.theme.textTheme.headlineSmall!.copyWith(
+                              color: Color(0xff000CAA),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(width: Get.width * 0.025),
+                        //&************ for second
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[50],
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Text(
+                                  "${staticLiverpullController.seconds.toString()}",
+                                  style: Get.theme.textTheme.headlineSmall!
+                                      .copyWith(
+                                    color: Color(0xff000CAA),
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  SizedBox(width: width * .03),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
+                                ),
+                              ),
+                              SizedBox(height: Get.height * 0.0105),
+                              Text(
+                                "Second",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
+                //******************** for timer of next polling
 
-                                        child: Text(
-                                          dataofStaticPull
-                                              .spinLeverpoolRequestedData!
-                                              .spinRequestData![index]
-                                              .seekerData!
-                                              .name
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                          softWrap: true,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        width: Get.width*0.3,
-                                      ),
-                                      SizedBox(height: height * .01),
-                                      Text(
-                                        "Match Seeker",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(color: Colors.grey),
-                                      ),
-                                    ],
+                SizedBox(
+                  height: Get.height * 0.05,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Request to be matched",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      // Text(
+                      //   "See all",
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .labelLarge!
+                      //       .copyWith(color: Color(0xff000CAA)),
+                      // ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * .02,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 3, // Use the shuffled item count
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      print("The lenght of this static data from API");
+                      print(staticLiverpullController
+                          .staticLiverPullvalue.value.data!.length);
+                      final dataofStaticPull = staticLiverpullController
+                          .staticLiverPullvalue.value.data![0];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: CachedNetworkImageProvider(
+                                  dataofStaticPull
+                                      .spinLeverpoolRequestedData!
+                                      .spinRequestData![index]
+                                      .seekerData!
+                                      .imgPath
+                                      .toString()),
+                            ),
+                            SizedBox(width: width * .03),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    dataofStaticPull
+                                        .spinLeverpoolRequestedData!
+                                        .spinRequestData![index]
+                                        .seekerData!
+                                        .name
+                                        .toString(),
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  SizedBox(width: width * .12),
-                                  //***************** this is request b
-                  if(staticLiverpullController.seekerprofilerequested.value==false)               GestureDetector(
-                                    onTap: () {
-                                      selectedseekerid =
-                                         dataofStaticPull
-                                              .spinLeverpoolRequestedData!
-                                              .spinRequestData![index]
-                                              .seekerData!.id;
+                                  width: Get.width * 0.3,
+                                ),
+                                SizedBox(height: height * .01),
+                                Text(
+                                  "Match Seeker",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: width * .12),
+                            //***************** this is request b
+                            if (staticLiverpullController
+                                    .seekerprofilerequested.value ==
+                                false)
+                              GestureDetector(
+                                onTap: () {
+                                  selectedseekerid = dataofStaticPull
+                                      .spinLeverpoolRequestedData!
+                                      .spinRequestData![index]
+                                      .seekerData!
+                                      .id;
 
-                                          print(selectedseekerid);
-                                      if (selectedseekerid != null) {
-                                        showdilog(index, selectedseekerid!);
-                                      }
-                                    },
-                                    child: Container(
-                                      height: height * .04,
-                                      width: width * .3,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffFE0091),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                            "Request",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      ),
+                                  print(selectedseekerid);
+                                  if (selectedseekerid != null) {
+                                    showdilog(index, selectedseekerid!);
+                                  }
+                                },
+                                child: Container(
+                                  height: height * .04,
+                                  width: width * .3,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffFE0091),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Request",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(color: Colors.white),
                                     ),
                                   ),
+                                ),
+                              ),
 
-                                       if(staticLiverpullController.seekerprofilerequested.value==true&&dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true")               GestureDetector(
-                                    onTap: () {
-                                    
-Fluttertoast.showToast(
-  msg: "You Have Already Requested",
-  toastLength: Toast.LENGTH_SHORT, // You can use Toast.LENGTH_LONG for a longer duration.
-  gravity: ToastGravity.BOTTOM, // You can change the position to TOP, CENTER, or BOTTOM.
-  backgroundColor: Colors.black54,
-  textColor: Colors.white,
-);
+                            if (staticLiverpullController
+                                        .seekerprofilerequested.value ==
+                                    true &&
+                                dataofStaticPull.spinLeverpoolRequestedData!
+                                        .spinRequestData![index].isRequested ==
+                                    "true")
+                              GestureDetector(
+                                onTap: () {
+                                  Fluttertoast.showToast(
+                                    msg: "You Have Already Requested",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    // You can use Toast.LENGTH_LONG for a longer duration.
+                                    gravity: ToastGravity.BOTTOM,
+                                    // You can change the position to TOP, CENTER, or BOTTOM.
+                                    backgroundColor: Colors.black54,
+                                    textColor: Colors.white,
+                                  );
 
 //                                       if( dataofStaticPull.spinLeverpoolRequestedData!.spinRequestData![index].isRequested=="true"){
 // // selectedseekerid =
@@ -435,42 +431,38 @@ Fluttertoast.showToast(
 // //                                       }else{
 // //                                         print("Blocked");
 //                                       }
-                                      
-                                    },
-                                    child: Container(
-                                      height: height * .04,
-                                      width: width * .3,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffFE0091),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                    "Requested",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(color: Colors.white,fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
+                                },
+                                child: Container(
+                                  height: height * .04,
+                                  width: width * .3,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffFE0091),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Requested",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
                                     ),
-                                  )
-                                ],
-                              ),
-                            );
-                          },
+                                  ),
+                                ),
+                              )
+                          ],
                         ),
-                      ),
-
-
-
-
-                    ],
+                      );
+                    },
                   ),
-                );
-            }
-          });
-      
+                ),
+              ],
+            ),
+          );
+      }
+    });
   }
 
   Widget _buildReel(int index) {
@@ -485,46 +477,54 @@ Fluttertoast.showToast(
         decoration: BoxDecoration(
           border: Border.all(width: 2, color: Color(0xffDC9F3C)),
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          gradient: LinearGradient(
-            colors: [Color(0xffFE0091), Color(0xff000CAA)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(
+              dataofStaticPull.spinLeverpoolRequestedData!
+                  .spinRequestData![index].seekerData!.imgPath
+                  .toString(),
+            ),
+            fit: BoxFit.cover,
           ),
+          // gradient: LinearGradient(
+          //   colors: [Color(0xffFE0091), Color(0xff000CAA)],
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          // ),
         ),
-        child: Column(
-          children: [
-            Container(
-              width: Get.width * 0.22,
-              height: Get.height * 0.17,
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                color: Color(0xffDC9F3C),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                    dataofStaticPull.spinLeverpoolRequestedData!
-                        .spinRequestData![index].seekerData!.imgPath
-                        .toString(),
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: Get.width*0.2,
-                child: Text(
-                  dataofStaticPull.spinLeverpoolRequestedData!
-                      .spinRequestData![index].seekerData!.name
-                      .toString(),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // child: Column(
+        //   children: [
+        //     Container(
+        //       width: Get.width * 0.22,
+        //       height: Get.height * 0.17,
+        //       margin: EdgeInsets.all(10),
+        //       decoration: BoxDecoration(
+        //         border: Border.all(color: Colors.white),
+        //         color: Color(0xffDC9F3C),
+        //         image: DecorationImage(
+        //           image: CachedNetworkImageProvider(
+        //             dataofStaticPull.spinLeverpoolRequestedData!
+        //                 .spinRequestData![index].seekerData!.imgPath
+        //                 .toString(),
+        //           ),
+        //           fit: BoxFit.cover,
+        //         ),
+        //       ),
+        //     ),
+        //     Padding(
+        //       padding: const EdgeInsets.only(bottom: 10),
+        //       child: Container(
+        //         width: Get.width * 0.2,
+        //         child: Text(
+        //           dataofStaticPull.spinLeverpoolRequestedData!
+        //               .spinRequestData![index].seekerData!.name
+        //               .toString(),
+        //           textAlign: TextAlign.center,
+        //           overflow: TextOverflow.ellipsis,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
@@ -573,7 +573,9 @@ Fluttertoast.showToast(
           ),
         );
       },
-    );}
+    );
+  }
+
   showdilog(int index, int id) {
     final dataofStaticPull =
         staticLiverpullController.staticLiverPullvalue.value.data![0];
@@ -673,9 +675,7 @@ Fluttertoast.showToast(
                         print(staticLiverpullController.selectedAnswer.value
                             .toString());
 
-
-    print(Liverpooldprofiles);
-                  
+                        print(Liverpooldprofiles);
                       },
                     ),
                     RadioListTile<String>(
@@ -735,51 +735,48 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
-
-                        setState(() {
-                    isboxloading=true;
+                  setState(() {
+                    isboxloading = true;
                   });
-                 
-                         Liverpooldprofiles[index]['is_requested'] = "true";
+
+                  Liverpooldprofiles[index]['is_requested'] = "true";
                   liverPoolController.apihit();
 
-                  if(isboxloading==true){
-
+                  if (isboxloading == true) {
                     _showProgressDialog(context);
                   }
 
                   Timer(Duration(seconds: 2), () {
-                          setState(() {
-                    isboxloading=false;
-                           Get.back();
-                         if (dataofStaticPull
-                          .spinLeverpoolRequestedData!
-                          .spinRequestData![index]
-                          .seekerData!
-                          .questions!
-                          .correctAnswer ==
-                      staticLiverpullController.selectedAnswer.value
-                          .toString()) {
-                                   match_withid =  Liverpooldprofiles[index]['seeker_id']
-                      .toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit();
-                    showdiog2(index);
-                  }
-                  if (dataofStaticPull
-                          .spinLeverpoolRequestedData!
-                          .spinRequestData![index]
-                          .seekerData!
-                          .questions!
-                          .correctAnswer !=
-                      staticLiverpullController.selectedAnswer.value
-                          .toString()) {
-                    showdiologwronganswer(index);
-                  }
-
+                    setState(() {
+                      isboxloading = false;
+                      Get.back();
+                      if (dataofStaticPull
+                              .spinLeverpoolRequestedData!
+                              .spinRequestData![index]
+                              .seekerData!
+                              .questions!
+                              .correctAnswer ==
+                          staticLiverpullController.selectedAnswer.value
+                              .toString()) {
+                        match_withid =
+                            Liverpooldprofiles[index]['seeker_id'].toString();
+                        print(match_withid);
+                        SeekerToSeekerRequestControllerinstance
+                            .SikerTOSikerRequestApiHit();
+                        showdiog2(index);
+                      }
+                      if (dataofStaticPull
+                              .spinLeverpoolRequestedData!
+                              .spinRequestData![index]
+                              .seekerData!
+                              .questions!
+                              .correctAnswer !=
+                          staticLiverpullController.selectedAnswer.value
+                              .toString()) {
+                        showdiologwronganswer(index);
+                      }
+                    });
                   });
-                   });
                   // Get.back();
                   // if (dataofStaticPull
                   //         .spinLeverpoolRequestedData!
@@ -808,8 +805,6 @@ Fluttertoast.showToast(
                   //         .seekerData!.id.toString();
                   //         print(id);
 
-
-
 //   if (index != -1) {
 //     // Update the is_requested value at the found index
 //     Liverpooldprofiles[index1]["is_requested"] = "true";
@@ -823,9 +818,7 @@ Fluttertoast.showToast(
 //     // print("Seeker with ID $targetSeekerId not found in the list.");
 //   }
 
-
-                Get.back();
-
+                  Get.back();
                 },
                 child: Container(
                   height: height * .04,
@@ -886,8 +879,8 @@ Fluttertoast.showToast(
                       width: width * .3,
                       child: CircleAvatar(
                         radius: 40.0,
-                        backgroundImage:
-                            CachedNetworkImageProvider(dataofStaticPull.imgPath.toString()),
+                        backgroundImage: CachedNetworkImageProvider(
+                            dataofStaticPull.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
@@ -896,10 +889,11 @@ Fluttertoast.showToast(
                       top: 80,
                       left: 55,
                       right: 0,
-                      child: Container(child: Image.asset("assets/icons/unlocked 1.png")))
+                      child: Container(
+                          child: Image.asset("assets/icons/unlocked 1.png")))
                 ],
               ),
-                SizedBox(
+              SizedBox(
                 height: height * .02,
               ),
               Text(
@@ -987,8 +981,8 @@ Fluttertoast.showToast(
                       width: width * .3,
                       child: CircleAvatar(
                         radius: 40.0,
-                        backgroundImage:
-                            CachedNetworkImageProvider(dataofStaticPull.imgPath.toString()),
+                        backgroundImage: CachedNetworkImageProvider(
+                            dataofStaticPull.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
@@ -1058,10 +1052,7 @@ Fluttertoast.showToast(
                   ),
                 ),
                 onTap: () {
-               
-
-                    Get.off(SeeAllMaker());
-
+                  Get.off(SeeAllMaker());
                 },
               ),
             ],

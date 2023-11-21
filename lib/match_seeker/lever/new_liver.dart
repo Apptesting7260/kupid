@@ -791,6 +791,8 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+
+import '../Requests/outgoingRequest.dart';
 List Liverpooldprofiles=[];
 class SlotMachine extends StatefulWidget {
   @override
@@ -980,144 +982,144 @@ class _SlotMachineState extends State<SlotMachine> {
                 ),
                 //******************** for timer of next polling
 
-                Visibility(
-                    visible: isTimerVisible,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Next Spin",
-                          style: Get.theme.textTheme.headlineSmall!.copyWith(
-                            color: Color(0xff000CAA),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-
-                            //&************ for hours
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inHours.toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Hour",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: Get.width * 0.025),
-
-                            //&************ for minutes
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Minute",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:10,bottom: 25),
-                              child: Text(
-                                ":",
-                                style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                  color: Color(0xff000CAA),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(width: Get.width * 0.025),
-                            //&************ for second
-                            Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                      color: Colors.blue[50],
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
-                                      style: Get.theme.textTheme.headlineSmall!.copyWith(
-                                        color: Color(0xff000CAA),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-
-                                  ),
-                                  SizedBox(height: Get.height * 0.0105),
-                                  Text(
-                                    "Second",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                // Visibility(
+                //     visible: isTimerVisible,
+                //     child: Column(
+                //       children: [
+                //         Text(
+                //           "Next Spin",
+                //           style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //             color: Color(0xff000CAA),
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //         SizedBox(height: height * 0.02),
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //
+                //             //&************ for hours
+                //             Container(
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inHours.toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Hour",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             Padding(
+                //               padding: const EdgeInsets.only(left:10,bottom: 25),
+                //               child: Text(
+                //                 ":",
+                //                 style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                   color: Color(0xff000CAA),
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ),
+                //             ),
+                //             SizedBox(width: Get.width * 0.025),
+                //
+                //             //&************ for minutes
+                //             Container(
+                //               child: Column(
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Minute",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             Padding(
+                //               padding: const EdgeInsets.only(left:10,bottom: 25),
+                //               child: Text(
+                //                 ":",
+                //                 style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                   color: Color(0xff000CAA),
+                //                   fontWeight: FontWeight.bold,
+                //                 ),
+                //               ),
+                //             ),
+                //
+                //             SizedBox(width: Get.width * 0.025),
+                //             //&************ for second
+                //             Container(
+                //               child: Column(
+                //                 children: [
+                //                   Container(
+                //                     padding: EdgeInsets.all(15),
+                //                     decoration: BoxDecoration(
+                //                       color: Colors.blue[50],
+                //                       borderRadius: BorderRadius.circular(15),
+                //                     ),
+                //                     child: Text(
+                //                       "${remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0')}",
+                //                       style: Get.theme.textTheme.headlineSmall!.copyWith(
+                //                         color: Color(0xff000CAA),
+                //                         fontWeight: FontWeight.bold,
+                //                       ),
+                //                     ),
+                //
+                //                   ),
+                //                   SizedBox(height: Get.height * 0.0105),
+                //                   Text(
+                //                     "Second",
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodySmall!
+                //                         .copyWith(fontWeight: FontWeight.bold, fontSize: 15),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //
+                //
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
 SizedBox(height:Get.height*0.05,),
                 Visibility(
                   visible: isNotVisible,
@@ -1158,7 +1160,7 @@ SizedBox(height:Get.height*0.05,),
                             _currentIndices[index]; // Get shuffled index
                         final request = MagicProfileControllerinstance
                             .MagicProfileList.value.requests![shuffledIndex];
-                      
+
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -1185,7 +1187,7 @@ SizedBox(height:Get.height*0.05,),
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width: Get.width*0.3,
+                                    width: Get.width*0.2,
                                     child: Text(
                                       request.name.toString(),
                                       style:
@@ -1207,7 +1209,12 @@ SizedBox(height:Get.height*0.05,),
                               SizedBox(width: width * .12),
                           if(staticLiverpullController.seekerprofilerequested.value==false)      GestureDetector(
                                 onTap: () {
-                                  selectedseekerid = request.id!.toInt();
+                                  // selectedseekerid = request.id!.toInt();
+                                  selectedseekerid = staticLiverpullController
+                                      .staticLiverPullvalue.value.data![0].spinLeverpoolRequestedData!
+                                      .spinRequestData![index]
+                                      .seekerData!
+                                      .id;
                                   if (selectedseekerid != null) {
                                     showdilog(index, selectedseekerid!);
                                   }
@@ -1296,50 +1303,60 @@ Fluttertoast.showToast(
         decoration: BoxDecoration(
           border: Border.all(width: 2, color: Color(0xffDC9F3C)),
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          gradient: LinearGradient(
-            colors: [Color(0xffFE0091), Color(0xff000CAA)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(
+              isNotVisible == false
+                  ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
+                  : MagicProfileControllerinstance.MagicProfileList.value
+                  .requests![_currentIndices[index]].imgPath
+                  .toString(),
+            ),
+            fit: BoxFit.cover,
           ),
+          // gradient: LinearGradient(
+          //   colors: [Color(0xffFE0091), Color(0xff000CAA)],
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          // ),
         ),
-        child: Column(
-          children: [
-            Container(
-              width: Get.width * 0.22,
-              height: Get.height * 0.17,
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                color: Color(0xffDC9F3C),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                    isNotVisible == false
-                        ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
-                        : MagicProfileControllerinstance.MagicProfileList.value
-                            .requests![_currentIndices[index]].imgPath
-                            .toString(),
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                width: Get.width*0.2,
-                child: Text(
-                  isNotVisible == false
-                      ? ""
-                      : MagicProfileControllerinstance.MagicProfileList.value
-                          .requests![_currentIndices[index]].name
-                          .toString(),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // child: Column(
+        //   children: [
+        //     Container(
+        //       width: Get.width * 0.22,
+        //       height: Get.height * 0.17,
+        //       margin: EdgeInsets.all(10),
+        //       decoration: BoxDecoration(
+        //         border: Border.all(color: Colors.white),
+        //         color: Color(0xffDC9F3C),
+        //         image: DecorationImage(
+        //           image: CachedNetworkImageProvider(
+        //             isNotVisible == false
+        //                 ? "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
+        //                 : MagicProfileControllerinstance.MagicProfileList.value
+        //                     .requests![_currentIndices[index]].imgPath
+        //                     .toString(),
+        //           ),
+        //           fit: BoxFit.cover,
+        //         ),
+        //       ),
+        //     ),
+        //     // Padding(
+        //     //   padding: const EdgeInsets.only(bottom: 10),
+        //     //   child: Container(
+        //     //     width: Get.width*0.2,
+        //     //     child: Text(
+        //     //       isNotVisible == false
+        //     //           ? ""
+        //     //           : MagicProfileControllerinstance.MagicProfileList.value
+        //     //               .requests![_currentIndices[index]].name
+        //     //               .toString(),
+        //     //       textAlign: TextAlign.center,
+        //     //       overflow: TextOverflow.ellipsis,
+        //     //     ),
+        //     //   ),
+        //     // ),
+        //   ],
+        // ),
       ),
     );
   }
@@ -1405,7 +1422,29 @@ Fluttertoast.showToast(
     // Add your logic here to determine the outcome
   }
 
+  void _showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16.0),
+              Text("Loading..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   showdilog(int index, int id) {
+    final dataofStaticPull =
+    staticLiverpullController.staticLiverPullvalue.value.data![0];
+
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     showDialog(
@@ -1436,10 +1475,12 @@ Fluttertoast.showToast(
                         borderRadius: BorderRadius.all(Radius.circular(100)),
                         color: Colors.green,
                         image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                              MagicProfileControllerinstance.MagicProfileList
-                                  .value.requests![index].imgPath
-                                  .toString()),
+                          image: CachedNetworkImageProvider(dataofStaticPull
+                              .spinLeverpoolRequestedData!
+                              .spinRequestData![index]
+                              .seekerData!
+                              .imgPath
+                              .toString()),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -1453,8 +1494,8 @@ Fluttertoast.showToast(
                 ],
               ),
               Text(
-                MagicProfileControllerinstance
-                    .MagicProfileList.value.requests![index].questions!.question
+                dataofStaticPull.spinLeverpoolRequestedData!
+                    .spinRequestData![index].seekerData!.questions!.question
                     .toString(),
                 style: Theme.of(context).textTheme.titleSmall,
               ),
@@ -1462,7 +1503,7 @@ Fluttertoast.showToast(
                 height: height * .01,
               ),
               Obx(
-                () => Column(
+                    () => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
@@ -1475,77 +1516,82 @@ Fluttertoast.showToast(
                       ],
                     ),
                     RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
+                      title: Text(dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
                           .questions!
                           .firstAnswer
                           .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.firstAnswer
+                      value: dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .firstAnswer
                           .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
+                      groupValue: staticLiverpullController.selectedAnswer.value
                           .toString(),
                       onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
+                        staticLiverpullController.selectedAnswer.value = value!;
 
-                        MagicProfileControllerinstance.selectedAnswer.value
+                        staticLiverpullController.selectedAnswer.value
                             .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
+                        print(staticLiverpullController.selectedAnswer.value
                             .toString());
+
+                        print(Liverpooldprofiles);
                       },
                     ),
                     RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
+                      title: Text(dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
                           .questions!
                           .secondAnswer
                           .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.secondAnswer
+                      value: dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .secondAnswer
                           .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
+                      groupValue: staticLiverpullController.selectedAnswer.value
                           .toString(),
                       onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
+                        staticLiverpullController.selectedAnswer.value = value!;
 
-                        MagicProfileControllerinstance.selectedAnswer.value
+                        staticLiverpullController.selectedAnswer.value
                             .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
+                        print(staticLiverpullController.selectedAnswer.value
                             .toString());
                       },
                     ),
                     RadioListTile<String>(
-                      title: Text(MagicProfileControllerinstance
-                          .MagicProfileList
-                          .value
-                          .requests![index]
+                      title: Text(dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
                           .questions!
                           .thirdAnswer
                           .toString()),
-                      value: MagicProfileControllerinstance.MagicProfileList
-                          .value.requests![index].questions!.thirdAnswer
+                      value: dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .thirdAnswer
                           .toString(),
-                      groupValue: MagicProfileControllerinstance
-                          .selectedAnswer.value
+                      groupValue: staticLiverpullController.selectedAnswer.value
                           .toString(),
                       onChanged: (value) {
-                        MagicProfileControllerinstance.selectedAnswer.value =
-                            value!;
+                        staticLiverpullController.selectedAnswer.value = value!;
 
-                        MagicProfileControllerinstance.selectedAnswer.value
+                        staticLiverpullController.selectedAnswer.value
                             .toString();
-                        print(MagicProfileControllerinstance
-                            .selectedAnswer.value
+                        print(staticLiverpullController.selectedAnswer.value
                             .toString());
                       },
                     ),
@@ -1554,56 +1600,90 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
-                        setState(() {
-                    isboxloading=true;
+                  setState(() {
+                    isboxloading = true;
                   });
-                  Get.back();
-                         Liverpooldprofiles[index]['is_requested'] = "true";
+
+                  Liverpooldprofiles[index]['is_requested'] = "true";
                   liverPoolController.apihit();
 
-                  if(isboxloading==true){
+                  if (isboxloading == true) {
                     _showProgressDialog(context);
                   }
-                  // if (MagicProfileControllerinstance.MagicProfileList.value
-                  //         .requests![index].questions!.correctAnswer ==
-                  //     MagicProfileControllerinstance.selectedAnswer.value
+
+                  Timer(Duration(seconds: 2), () {
+                    setState(() {
+                      isboxloading = false;
+                      Get.back();
+                      if (dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer ==
+                          staticLiverpullController.selectedAnswer.value
+                              .toString()) {
+                        match_withid =
+                            Liverpooldprofiles[index]['seeker_id'].toString();
+                        print(match_withid);
+                        SeekerToSeekerRequestControllerinstance
+                            .SikerTOSikerRequestApiHit();
+                        showdiog2(index);
+                      }
+                      if (dataofStaticPull
+                          .spinLeverpoolRequestedData!
+                          .spinRequestData![index]
+                          .seekerData!
+                          .questions!
+                          .correctAnswer !=
+                          staticLiverpullController.selectedAnswer.value
+                              .toString()) {
+                        showdiologwronganswer(index);
+                      }
+                    });
+                  });
+                  // Get.back();
+                  // if (dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!
+                  //         .questions!
+                  //         .correctAnswer ==
+                  //     staticLiverpullController.selectedAnswer.value
                   //         .toString()) {
                   //   showdiog2(index);
                   // }
-                  // if (MagicProfileControllerinstance.MagicProfileList.value
-                  //         .requests![index].questions!.correctAnswer !=
-                  //     MagicProfileControllerinstance.selectedAnswer.value
+                  // if (dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!
+                  //         .questions!
+                  //         .correctAnswer !=
+                  //     staticLiverpullController.selectedAnswer.value
                   //         .toString()) {
                   //   showdiologwronganswer(index);
-
-                  
                   // }
-                  Timer(Duration(seconds: 2), () {
-                          setState(() {
-                    isboxloading=false;
-                             Get.back();
-                          if (MagicProfileControllerinstance.MagicProfileList.value
-                          .requests![index].questions!.correctAnswer ==
-                      MagicProfileControllerinstance.selectedAnswer.value
-                          .toString()) {
 
-                          match_withid =  Liverpooldprofiles[index]['id']
-                      .toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit(); // T
-                    showdiog2(index);
-                  }
-                  if (MagicProfileControllerinstance.MagicProfileList.value
-                          .requests![index].questions!.correctAnswer !=
-                      MagicProfileControllerinstance.selectedAnswer.value
-                          .toString()) {
-                    showdiologwronganswer(index);}
-         
+                  // String id=dataofStaticPull
+                  //         .spinLeverpoolRequestedData!
+                  //         .spinRequestData![index]
+                  //         .seekerData!.id.toString();
+                  //         print(id);
 
-                  });
-                   });
+//   if (index != -1) {
+//     // Update the is_requested value at the found index
+//     Liverpooldprofiles[index1]["is_requested"] = "true";
+//     setState(() {
+//       Liverpooldprofiles;
+//     });
+//       print(Liverpooldprofiles);
 
+// liverPoolController.apihit();
+//   } else {
+//     // print("Seeker with ID $targetSeekerId not found in the list.");
+//   }
+
+                  Get.back();
                 },
                 child: Container(
                   height: height * .04,
@@ -1634,6 +1714,8 @@ Fluttertoast.showToast(
   }
 
   showdiog2(int index) {
+    final dataofStaticPull =
+    staticLiverpullController.staticLiverPullvalue.value.data![0];
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     showDialog(
@@ -1643,17 +1725,17 @@ Fluttertoast.showToast(
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          insetPadding: EdgeInsets.all(0),
-          title:Column(
+          // insetPadding: EdgeInsets.all(0),
+          title: Column(
             children: [
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Image.asset("assets/icons/cancel.png"),
-                  )),
+              // Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: GestureDetector(
+              //       onTap: () {
+              //         Get.back();
+              //       },
+              //       child: Image.asset("assets/icons/cancel.png"),
+              //     )),
               Stack(
                 children: <Widget>[
                   Center(
@@ -1661,11 +1743,9 @@ Fluttertoast.showToast(
                       // height: height * .3,
                       width: width * .3,
                       child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            MagicProfileControllerinstance
-                                .MagicProfileList.value.requests![index].imgPath
-                                .toString()),
+                        radius: 40.0,
+                        backgroundImage: CachedNetworkImageProvider(
+                            dataofStaticPull.imgPath.toString()),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
@@ -1674,15 +1754,19 @@ Fluttertoast.showToast(
                       top: 80,
                       left: 55,
                       right: 0,
-                      child: Image.asset("assets/icons/unlocked 1.png"))
+                      child: Container(
+                          child: Image.asset("assets/icons/unlocked 1.png")))
                 ],
+              ),
+              SizedBox(
+                height: height * .02,
               ),
               Text(
                 "Profile Unlocked",
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               SizedBox(
-                height: height * .01,
+                height: height * .02,
               ),
               Text(
                 "Your answer is correct.",
@@ -1696,12 +1780,11 @@ Fluttertoast.showToast(
               ),
               GestureDetector(
                 onTap: () {
-                  match_withid = MagicProfileControllerinstance
-                      .MagicProfileList.value.requests![index].id
-                      .toString();
-                  print(match_withid);
-                  SeekerToSeekerRequestControllerinstance
-                      .SikerTOSikerRequestApiHit();
+                  // match_withid = dataofStaticPull.id.toString();
+                  // print(match_withid);
+                  // SeekerToSeekerRequestControllerinstance
+                  //     .SikerTOSikerRequestApiHit();
+                  Get.off(OutGoingRequest());
                 },
                 child: Container(
                   height: height * .04,
@@ -1712,7 +1795,7 @@ Fluttertoast.showToast(
                   ),
                   child: Center(
                     child: Text(
-                      "Message",
+                      "View",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -1730,24 +1813,11 @@ Fluttertoast.showToast(
       },
     );
   }
-  void _showProgressDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16.0),
-              Text("Loading..."),
-            ],
-          ),
-        );
-      },
-    );}
+
   showdiologwronganswer(int index) {
+    // Get.back();
+    final dataofStaticPull =
+    staticLiverpullController.staticLiverPullvalue.value.data![0];
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     showDialog(
@@ -1758,7 +1828,7 @@ Fluttertoast.showToast(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
           insetPadding: EdgeInsets.all(0),
-          title:Column(
+          title: Column(
             children: [
               Align(
                   alignment: Alignment.bottomRight,
@@ -1772,54 +1842,16 @@ Fluttertoast.showToast(
                 children: <Widget>[
                   Center(
                     child: Container(
-                      // height: Get.height * 0.14,
-                      width: Get.width * 0.3,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                        color: Colors.green,
-                        image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                              MagicProfileControllerinstance.MagicProfileList
-                                  .value.requests![index].imgPath
-                                  .toString()),
-                          fit: BoxFit.fill,
-                        ),
+                      // height: height * .3,
+                      width: width * .3,
+                      child: CircleAvatar(
+                        radius: 40.0,
+                        backgroundImage: CachedNetworkImageProvider(
+                            dataofStaticPull.imgPath.toString()),
+                        backgroundColor: Colors.transparent,
                       ),
                     ),
                   ),
-  //                 Center(
-  //                   child: Container(
-  //                     height: height * .3,
-  //                     width: width * .3,
-  //                     child: CircleAvatar(
-  //                       radius: 30.0,
-
-  //                       child: CachedNetworkImage(
-  //   imageUrl:             MagicProfileControllerinstance
-  //                               .MagicProfileList.value.requests![index].imgPath
-  //                               .toString(), // Replace with your image URL
-  //   imageBuilder: (context, imageProvider) => Container(
-  //     decoration: BoxDecoration(
-  //       shape: BoxShape.circle,
-  //       image: DecorationImage(
-  //         image: imageProvider,
-  //         fit: BoxFit.cover,
-  //       ),
-  //     ),
-  //   ),
-  //   placeholder: (context, url) => CircularProgressIndicator(), // Placeholder widget while loading
-  //   errorWidget: (context, url, error) => Icon(Icons.error), // Widget to display in case of an error
-  // ),
-  //                       // backgroundImage: CachedNetworkImageProvider(
-                          
-  //                           // MagicProfileControllerinstance
-  //                           //     .MagicProfileList.value.requests![index].imgPath
-  //                           //     .toString(),),
-  //                       backgroundColor: Colors.transparent,
-                        
-  //                     ),
-  //                   ),
-  //                 ),
                   Positioned(
                       top: 80,
                       left: 50,
@@ -1880,15 +1912,12 @@ Fluttertoast.showToast(
                   child: Center(
                     child: Text("Request To Maker",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: Color(0xffFE0091),
-                            )),
+                          color: Color(0xffFE0091),
+                        )),
                   ),
                 ),
                 onTap: () {
-                  Get.back();
-                  Timer(Duration(microseconds: 2), () {
-                    Get.to(SeeAllMaker());
-                  });
+                  Get.off(SeeAllMaker());
                 },
               ),
             ],
