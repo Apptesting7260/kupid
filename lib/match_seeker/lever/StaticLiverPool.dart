@@ -491,6 +491,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
           //   end: Alignment.bottomRight,
           // ),
         ),
+<<<<<<< HEAD
         // child: Column(
         //   children: [
         //     Container(
@@ -525,6 +526,42 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
         //     ),
         //   ],
         // ),
+=======
+        child: Column(
+          children: [
+            Container(
+              width: Get.width * 0.22,
+              height: Get.height * 0.17,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+                color: Color(0xffDC9F3C),
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                    dataofStaticPull.spinLeverpoolRequestedData!
+                        .spinRequestData![index].seekerData!.imgPath
+                        .toString(),
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: Get.width * 0.2,
+                child: Text(
+                  dataofStaticPull.spinLeverpoolRequestedData!
+                      .spinRequestData![index].seekerData!.name
+                      .toString(),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ),
+>>>>>>> origin/main
       ),
     );
   }

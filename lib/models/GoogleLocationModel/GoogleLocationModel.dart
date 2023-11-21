@@ -23,7 +23,6 @@ class SearchPlaceModel {
     return data;
   }
 }
-
 class Predictions {
   String? description;
 
