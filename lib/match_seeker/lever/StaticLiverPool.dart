@@ -491,7 +491,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
           //   end: Alignment.bottomRight,
           // ),
         ),
-<<<<<<< HEAD
+
         // child: Column(
         //   children: [
         //     Container(
@@ -526,7 +526,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
         //     ),
         //   ],
         // ),
-=======
+
         child: Column(
           children: [
             Container(
@@ -561,7 +561,7 @@ class _LiverPooledWidgetState extends State<LiverPooledWidget> {
             ),
           ],
         ),
->>>>>>> origin/main
+
       ),
     );
   }
